@@ -1,0 +1,475 @@
+// 
+// # vlsir "Spice-Class" Simulation Schema 
+// 
+// Interface schema to "spice-class" simulators, which simulate `vlsir.circuit`s at the analog/ transistor-level. 
+// 
+// The simulator interface is defined through an RPC service `Spice`. 
+// Implementations need not necessarily be provided as remotely-callable RPCs; 
+// the `Spice` interface is provided to define a simulator API. 
+// 
+// Each `Spice`-service implementation requires two primary interfaces: 
+// * The *input interface* consists of circuit-definitions and simulator control information. 
+//   * This includes concepts analogous to most Spice *netlist* content, 
+//     including device instances, analyses, "measure", and "include" statements. 
+// * The *data interface* consists of the data-shape for each analysis. 
+//   * Spice-class programs generally include a variety of circuit analyses, 
+//     capturing e.g. steady-state (DC), transient, or small-signal (AC) responses. 
+//     Each produces result data of different types and shapes. 
+// 
+// Fully-formed Spice-class simulators essentially have a third interface  
+// (or much more elaborate version of the first), for defining device-models and process technologies. 
+// These features are typically provided as elaborate netlist "programming" constructs, 
+// including function-definitions, conditional parameter-values, and the like. 
+// This "device-model interface" is *not* a facet of `vlsir.spice`. 
+// 
+// The schema defined here instead focuses on the two *circuit-designer*-visible interfaces: 
+// simulation input and data output. 
+// 
+
+syntax = "proto3";
+package vlsir.spice;
+
+// Google-Defined Extra Types
+import "google/protobuf/wrappers.proto";
+// Local Imports
+import "circuit.proto";
+
+
+// ############################################################################
+// # `Spice` Simulator API
+// ############################################################################
+
+// # The SPICE Service
+//
+// Defines a single method `Sim` which accepts simulator input via a `SimInput` message, 
+// performs the requested set of circuit-analyses, and returns results via a `SimResult`. 
+// 
+service Spice {
+  rpc Sim(SimInput) returns (SimResult);
+}
+
+// # Simulation Input 
+// 
+// Consists of: 
+// * The design under test (DUT) circuit `ckt`,
+// * Global simulator options, e.g. tolerance requirements, 
+// * A list of circuit-analyses to be completed, 
+// * An optional list of control-elements 
+// 
+message SimInput {
+  // The DUT circuit under test 
+  Circuit ckt = 1;
+  // Global simulator options 
+  SimOptions opts = 2;
+  // List of circuit analyses
+  repeated Analysis an = 3;
+  // Control elements. 
+  // `SimInput` level controls are applied to *all* analyses. 
+  repeated Control ctrls = 4;
+}
+// # Simulation Result 
+// A list of results per analysis 
+message SimResult {
+  repeated AnalysisResult an = 1;
+}
+// # Simulator Options 
+// Global, cross-analysis settings. 
+message SimOptions {
+  google.protobuf.DoubleValue temp = 1;
+  google.protobuf.DoubleValue tnom = 2;
+  google.protobuf.DoubleValue gmin = 3;
+  google.protobuf.DoubleValue iabstol = 4;
+  google.protobuf.DoubleValue reltol = 5;
+}
+
+// # Circuit 
+// 
+// The top-level "testbench" circuit. 
+// Essentially identical to `vlsir.circuit.Module`, 
+// except for the lack of externally-facing `ports` and `parameters`. 
+//
+message Circuit {
+  // Module Name 
+  string name = 1;
+  // Reserved: Module.ports
+  reserved 2; 
+  // Internal Signals
+  repeated vlsir.circuit.Signal signals = 3;
+  // Module Instances
+  repeated vlsir.circuit.Instance instances = 4;
+  // Reserved: Module.default_parameters
+  reserved 5;
+}
+
+// ############################################################################
+// # Analysis & Results Unions
+// ############################################################################
+
+// # Analysis Union 
+// 
+// Enumerated analysis-input types. 
+// Primary component of a `Sim`. 
+// 
+message Analysis {
+  oneof an {
+    OpInput op = 1;
+    DcInput dc = 2;
+    TranInput tran = 3;
+    AcInput ac = 4;
+    SweepInput sweep = 10;
+    MonteInput monte = 11;
+    CustomAnalysisInput custom = 20;
+  }
+}
+// # Analysis Results Union 
+// 
+// Union of result-types for each `Analysis`. 
+message AnalysisResult {
+  oneof an {
+    OpResult op = 1;
+    DcResult dc = 2;
+    TranResult tran = 3;
+    AcResult ac = 4;
+    SweepResult sweep = 10;
+    MonteResult monte = 11;
+    CustomAnalysisResult custom = 20;
+  }
+}
+
+
+// ############################################################################
+// # Analyses & Result Types
+// ############################################################################
+
+// ############################################################################
+// # Operating Point
+// ############################################################################
+
+// # Operating Point Inputs
+message OpInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Control Elements 
+  repeated Control ctrl = 5;
+}
+// Operating Point Results 
+message OpResult {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  reserved 2;
+  // Signal names and quantities
+  Signals signals = 3;
+  reserved 4;
+  // Data values, in `signals` order 
+  repeated double data = 5;
+}
+
+// ############################################################################
+// # DC Sweeps
+// ############################################################################
+
+// # Dc Sweep Inputs 
+message DcInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Sweep Variable Name
+  string indep_name = 2; 
+  // Sweep Data 
+  Sweep sweep = 3;
+  // Control Elements 
+  repeated Control ctrl = 5;
+}
+// # Dc Sweep Result 
+// 
+// Provides result data for a `Dc` analysis. 
+message DcResult {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Independent Variable Name
+  string indep_name = 2;
+  // Ordered signal names and quantities
+  Signals signals = 3;
+  // Number of data-points in each signal-vector. 
+  int64 num_points = 4;
+  // Primary Data Field 
+  repeated double data = 5;
+  // Scalar measurement values 
+  map <string, double> measurements = 10;
+}
+
+// ############################################################################
+// # Transient
+// ############################################################################
+
+// # Transient Analysis Inputs 
+message TranInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Stop Time 
+  double tstop = 2; 
+  // Time-step requirement or recommendation 
+  double tstep = 3; 
+  // Initial Conditions. Mapping in the form of {signal-name: value}
+  map <string, double> ic = 4; 
+  // Control Elements 
+  repeated Control ctrl = 5;
+}
+// # Transient Analysis Results 
+message TranResult {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  reserved 2;
+  // Ordered signal names and quantities
+  Signals signals = 3;
+  // Number of data-points in the time-vector and each signal-vector. 
+  int64 num_points = 4;
+  // Primary Data Field 
+  repeated double data = 5;
+  // Scalar measurement values 
+  map <string, double> measurements = 10;
+}
+
+// ############################################################################
+// # AC Small-Signal Analysis
+// ############################################################################
+
+// # Complex Number  
+message ComplexNum {
+  double re = 1;
+  double im = 2;
+} 
+
+// # AC Analysis Inputs 
+message AcInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Start (min) frequency in Hz 
+  double fstart = 2; 
+  // Stop (max) frequency in Hz 
+  double fstop = 3; 
+  // Number of points. Total, not "per decade". 
+  uint64 npts = 4;
+  // Control Elements 
+  repeated Control ctrl = 5; 
+}
+// # AC Analysis Results 
+// 
+// AC analysis produces a set of complex-valued results, 
+// along with a single real-valued independent variable, which is always frequency. 
+// 
+message AcResult {
+    // (Optional) Analysis Name
+    string analysis_name = 1;
+    // Frequency Vector
+    repeated double freq = 2; 
+    // Ordered signal names and quantities
+    Signals signals = 3;
+    // Number of data-points in each signal-vector. 
+    int64 num_points = 4;
+    // Primary Data Field. Of length `len(signals) * num_points`. 
+    repeated ComplexNum data = 5;
+    // Scalar measurement values 
+    map <string, double> measurements = 10; 
+}
+
+// ############################################################################
+// # Compound Analysis Sweeps
+// ############################################################################
+
+// # Sweep 
+// 
+// The "for loop" of Spice analyses. 
+// Defines a scalar variable `var` to be swept, and a set of inner child-analyses
+// to be performed for each value of `var`. 
+// `Sweeps` themselves are `Analyses`, and therefore can be arbitrarily nested. 
+// 
+message SweepInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Sweep-variable name 
+  string variable = 2;
+  // Sweep-values
+  Sweep sweep = 3;
+  // Child Analyses
+  repeated Analysis an = 4;
+  // Control Elements
+  repeated Control ctrls = 5;
+}
+// # Sweep Results 
+message SweepResult {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Sweep-variable name 
+  string variable = 2;
+  // Sweep-values
+  Sweep sweep = 3;
+  // Child Analysis Results
+  // FIXME: should these just be a flattened list, or organized by sweep-value
+  repeated AnalysisResult an = 4;
+}
+
+// ############################################################################
+// # Monte Carlo
+// ############################################################################
+
+// # Monte Carlo Simulation Input
+// 
+// Define a set of child analyses to be simulated across `npts` randomly-generated circuit variations. 
+// 
+// 
+message MonteInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Number of points
+  int64 npts = 2;
+  // Random-number seed
+  int64 seed = 3;
+  // Child Analyses
+  repeated Analysis an = 4;
+  // Control Elements
+  repeated Control ctrls = 5;
+}
+// # Sweep Results 
+message MonteResult {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // Sweep-variable name 
+  string variable = 2;
+  // Sweep-values
+  Sweep sweep = 3;
+  // Child Analysis Results
+  // FIXME: should these just be a flattened list, or organized by iteration
+  repeated AnalysisResult an = 4;
+}
+
+// ############################################################################
+// # Custom Analyses
+// ############################################################################
+
+// # Custom Analysis Input
+// 
+// String-defined, non-first-class analysis statement. 
+// Primarily for simulator-specific specialty analyses.
+// Note the paired `Result` type is empty, 
+// as the schema has no means to comprehend externally-defined 
+// analysis data-shapes
+// 
+message CustomAnalysisInput {
+  // (Optional) Analysis Name
+  string analysis_name = 1;
+  // String-literal analysis command
+  string cmd = 2;
+  // Control Elements
+  repeated Control ctrls = 5;
+}
+// # Custom Analysis Result 
+// 
+// Does not return any data. Defined solely for filling slots in lists of analysis-results. 
+message CustomAnalysisResult { } 
+
+
+// ############################################################################
+// # Variable Sweeps
+// ############################################################################
+
+// # Sweep Union
+message Sweep {
+  oneof tp {
+    LinearSweep linear = 1;
+    LogSweep log = 2;
+    PointSweep points = 3;
+  }
+}
+// # Linear Sweep 
+message LinearSweep {
+  double start = 1;
+  double stop = 2;
+  double step = 3;
+}
+// # Log Sweep 
+message LogSweep {
+  double start = 1;
+  double stop = 2;
+  double npts = 3;
+}
+// # Enumerated (List of Points) Sweep 
+message PointSweep {
+  repeated double points = 1;
+  double stop = 2;
+  double npts = 3;
+}
+
+// ############################################################################
+// # Simulator Controls
+// ############################################################################
+
+/// # Control Elements Union 
+message Control {
+  oneof ctrl {
+    Save save = 1;
+    Include include = 2;
+    string literal = 3;
+  }
+}
+// # Signal-Saving Controls
+message Save {
+  // Enumerated Modes
+  enum SaveMode {
+    NONE = 0;
+    ALL = 1;
+  }  
+  oneof save {
+    SaveMode mode = 1;
+    string signal = 2;
+  }
+}
+// # Include External Content
+message Include {
+  // File-system path 
+  // FIXME: add more methods of specifying this 
+  string path = 1;
+}
+// # Library "Section" Include
+// 
+// Commonly used for "PVT corner" inclusion, in which a single includable file 
+// often defines several named "sections", e.g. "TT", "FF", "SS", 
+// only one of which at a time may be included in a simulation. 
+message LibInclude {
+  // File-system path 
+  // FIXME: add more methods of specifying this 
+  string path = 1;
+  // Section name
+  string section = 2;
+}
+// # Scalar Measurement 
+message Meas {
+  // Measurement Name
+  string name = 1;
+  // Expression to be evaluated
+  string expr = 2;
+}
+
+
+// ############################################################################
+// # Signal Declarations
+// ############################################################################
+
+// # Signal Declaration 
+// 
+// Declares a `Signal` name and type for output data. 
+message Signal {
+  // Signal Name
+  string name = 1;
+
+  // Physical Quantity
+  enum Quantity {
+    VOLTAGE = 0;
+    CURRENT = 1;
+    NONE = 3;
+  }  
+}
+// # Signal Declarations List 
+message Signals {
+  repeated Signal signals = 1;
+}
+
