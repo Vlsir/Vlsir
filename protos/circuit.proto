@@ -16,16 +16,22 @@ message Package {
 }
 
 // # Parameter-Value Enumeration 
-// 
 // Supports the common param-types supported in legacy HDLs such as Verilog and SPICE. 
-// 
-message Parameter {
+message ParameterValue {
   oneof value {
     int64 integer = 2;  // Int 
     double double = 3;  // Float 
     string string = 4;  // String-valued parameter 
     string literal = 5; // Literal expressions, e.g. "my_param1 * 5 + sin(your_param3)"
   }
+}
+// # Parameter Declaration 
+// Named parameter with an optional default value
+message Parameter {
+  // Parameter name
+  string name = 1;
+  // Default value
+  ParameterValue default = 2;
 }
 
 // # Port 
@@ -85,7 +91,7 @@ message Instance {
   // vlsir.utils.Reference to Module instantiated
   vlsir.utils.Reference module = 2;
   // Parameter Values 
-  map<string, Parameter> parameters = 3;
+  map<string, ParameterValue> parameters = 3;
   // Map internal to external signals by name.
   map<string, Connection> connections = 4;
 }
@@ -100,8 +106,8 @@ message Module {
   repeated Signal signals = 3;
   // Module Instances
   repeated Instance instances = 4;
-  // Parameters and Default Values 
-  map<string, Parameter> default_parameters = 5;
+  // Parameters
+  repeated Parameter parameters = 5;
 }
 
 // # Externally Defined Module 
@@ -109,10 +115,12 @@ message Module {
 message ExternalModule {
   // Qualified External Module Name 
   vlsir.utils.QualifiedName name = 1;
-  // Port Definitions 
-  repeated Port ports = 2;
   // Description
-  string desc = 3;
+  string desc = 2;
+  // Port Definitions 
+  repeated Port ports = 3;
+  // Parameters
+  repeated Parameter parameters = 5;
 }
 
 // # Interface 

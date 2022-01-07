@@ -1,3 +1,6 @@
 
 # Ignore all compiled language interfaces 
-compiled/**
+packages/python/**/*pb2*py
+packages/cpp/**/*pb.cc
+packages/cpp/**/*pb.h
+packages/js/**/*.js
