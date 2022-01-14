@@ -1,9 +1,13 @@
+"""
+# Vlsir Bindings Unit Tests 
+"""
+
+# Import the package under test 
 import vlsir
-import hdl21
 
 
 def test_version():
-    assert vlsir.__version__ == "0.1.0"
+    assert vlsir.__version__ == "0.2.0"
 
 
 def test_sim():
@@ -38,5 +42,4 @@ def test_sim():
         )
     )
     inp.top = "top"
-    vlsir.xyce.sim(inp)
 

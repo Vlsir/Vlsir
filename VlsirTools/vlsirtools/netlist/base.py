@@ -8,14 +8,14 @@ from typing import Optional, Tuple, List, Mapping, Union, IO
 from enum import Enum
 from dataclasses import field
 from enum import Enum
-
-# PyPi
-from pydantic.dataclasses import dataclass
+from dataclasses import dataclass
 
 # Local Imports
 import vlsir
-# from ..proto.to_proto import ProtoExporter
-# from ..proto.from_proto import ProtoImporter
+
+# FIXME: these two dependencies should be removed!
+from hdl21.proto.to_proto import ProtoExporter
+from hdl21.proto.from_proto import ProtoImporter
 
 # Internal type shorthand
 ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
