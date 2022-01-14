@@ -16,8 +16,8 @@ goog.provide('proto.vlsir.spice.SimInput');
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
 goog.require('jspb.Message');
+goog.require('proto.vlsir.circuit.Package');
 goog.require('proto.vlsir.spice.Analysis');
-goog.require('proto.vlsir.spice.Circuit');
 goog.require('proto.vlsir.spice.Control');
 goog.require('proto.vlsir.spice.SimOptions');
 
@@ -48,7 +48,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.vlsir.spice.SimInput.repeatedFields_ = [3,4];
+proto.vlsir.spice.SimInput.repeatedFields_ = [11,12];
 
 
 
@@ -81,7 +81,8 @@ proto.vlsir.spice.SimInput.prototype.toObject = function(opt_includeInstance) {
  */
 proto.vlsir.spice.SimInput.toObject = function(includeInstance, msg) {
   var f, obj = {
-    ckt: (f = msg.getCkt()) && proto.vlsir.spice.Circuit.toObject(includeInstance, f),
+    pkg: (f = msg.getPkg()) && proto.vlsir.circuit.Package.toObject(includeInstance, f),
+    top: jspb.Message.getFieldWithDefault(msg, 2, ""),
     opts: (f = msg.getOpts()) && proto.vlsir.spice.SimOptions.toObject(includeInstance, f),
     anList: jspb.Message.toObjectList(msg.getAnList(),
     proto.vlsir.spice.Analysis.toObject, includeInstance),
@@ -124,21 +125,25 @@ proto.vlsir.spice.SimInput.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.vlsir.spice.Circuit;
-      reader.readMessage(value,proto.vlsir.spice.Circuit.deserializeBinaryFromReader);
-      msg.setCkt(value);
+      var value = new proto.vlsir.circuit.Package;
+      reader.readMessage(value,proto.vlsir.circuit.Package.deserializeBinaryFromReader);
+      msg.setPkg(value);
       break;
     case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTop(value);
+      break;
+    case 10:
       var value = new proto.vlsir.spice.SimOptions;
       reader.readMessage(value,proto.vlsir.spice.SimOptions.deserializeBinaryFromReader);
       msg.setOpts(value);
       break;
-    case 3:
+    case 11:
       var value = new proto.vlsir.spice.Analysis;
       reader.readMessage(value,proto.vlsir.spice.Analysis.deserializeBinaryFromReader);
       msg.addAn(value);
       break;
-    case 4:
+    case 12:
       var value = new proto.vlsir.spice.Control;
       reader.readMessage(value,proto.vlsir.spice.Control.deserializeBinaryFromReader);
       msg.addCtrls(value);
@@ -172,18 +177,25 @@ proto.vlsir.spice.SimInput.prototype.serializeBinary = function() {
  */
 proto.vlsir.spice.SimInput.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCkt();
+  f = message.getPkg();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.vlsir.spice.Circuit.serializeBinaryToWriter
+      proto.vlsir.circuit.Package.serializeBinaryToWriter
+    );
+  }
+  f = message.getTop();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
     );
   }
   f = message.getOpts();
   if (f != null) {
     writer.writeMessage(
-      2,
+      10,
       f,
       proto.vlsir.spice.SimOptions.serializeBinaryToWriter
     );
@@ -191,7 +203,7 @@ proto.vlsir.spice.SimInput.serializeBinaryToWriter = function(message, writer) {
   f = message.getAnList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      3,
+      11,
       f,
       proto.vlsir.spice.Analysis.serializeBinaryToWriter
     );
@@ -199,7 +211,7 @@ proto.vlsir.spice.SimInput.serializeBinaryToWriter = function(message, writer) {
   f = message.getCtrlsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      4,
+      12,
       f,
       proto.vlsir.spice.Control.serializeBinaryToWriter
     );
@@ -208,20 +220,20 @@ proto.vlsir.spice.SimInput.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional Circuit ckt = 1;
- * @return {?proto.vlsir.spice.Circuit}
+ * optional vlsir.circuit.Package pkg = 1;
+ * @return {?proto.vlsir.circuit.Package}
  */
-proto.vlsir.spice.SimInput.prototype.getCkt = function() {
-  return /** @type{?proto.vlsir.spice.Circuit} */ (
-    jspb.Message.getWrapperField(this, proto.vlsir.spice.Circuit, 1));
+proto.vlsir.spice.SimInput.prototype.getPkg = function() {
+  return /** @type{?proto.vlsir.circuit.Package} */ (
+    jspb.Message.getWrapperField(this, proto.vlsir.circuit.Package, 1));
 };
 
 
 /**
- * @param {?proto.vlsir.spice.Circuit|undefined} value
+ * @param {?proto.vlsir.circuit.Package|undefined} value
  * @return {!proto.vlsir.spice.SimInput} returns this
 */
-proto.vlsir.spice.SimInput.prototype.setCkt = function(value) {
+proto.vlsir.spice.SimInput.prototype.setPkg = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
@@ -230,8 +242,8 @@ proto.vlsir.spice.SimInput.prototype.setCkt = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.vlsir.spice.SimInput} returns this
  */
-proto.vlsir.spice.SimInput.prototype.clearCkt = function() {
-  return this.setCkt(undefined);
+proto.vlsir.spice.SimInput.prototype.clearPkg = function() {
+  return this.setPkg(undefined);
 };
 
 
@@ -239,18 +251,36 @@ proto.vlsir.spice.SimInput.prototype.clearCkt = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.vlsir.spice.SimInput.prototype.hasCkt = function() {
+proto.vlsir.spice.SimInput.prototype.hasPkg = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional SimOptions opts = 2;
+ * optional string top = 2;
+ * @return {string}
+ */
+proto.vlsir.spice.SimInput.prototype.getTop = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.vlsir.spice.SimInput} returns this
+ */
+proto.vlsir.spice.SimInput.prototype.setTop = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional SimOptions opts = 10;
  * @return {?proto.vlsir.spice.SimOptions}
  */
 proto.vlsir.spice.SimInput.prototype.getOpts = function() {
   return /** @type{?proto.vlsir.spice.SimOptions} */ (
-    jspb.Message.getWrapperField(this, proto.vlsir.spice.SimOptions, 2));
+    jspb.Message.getWrapperField(this, proto.vlsir.spice.SimOptions, 10));
 };
 
 
@@ -259,7 +289,7 @@ proto.vlsir.spice.SimInput.prototype.getOpts = function() {
  * @return {!proto.vlsir.spice.SimInput} returns this
 */
 proto.vlsir.spice.SimInput.prototype.setOpts = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 10, value);
 };
 
 
@@ -277,17 +307,17 @@ proto.vlsir.spice.SimInput.prototype.clearOpts = function() {
  * @return {boolean}
  */
 proto.vlsir.spice.SimInput.prototype.hasOpts = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
 /**
- * repeated Analysis an = 3;
+ * repeated Analysis an = 11;
  * @return {!Array<!proto.vlsir.spice.Analysis>}
  */
 proto.vlsir.spice.SimInput.prototype.getAnList = function() {
   return /** @type{!Array<!proto.vlsir.spice.Analysis>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.spice.Analysis, 3));
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.spice.Analysis, 11));
 };
 
 
@@ -296,7 +326,7 @@ proto.vlsir.spice.SimInput.prototype.getAnList = function() {
  * @return {!proto.vlsir.spice.SimInput} returns this
 */
 proto.vlsir.spice.SimInput.prototype.setAnList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 3, value);
+  return jspb.Message.setRepeatedWrapperField(this, 11, value);
 };
 
 
@@ -306,7 +336,7 @@ proto.vlsir.spice.SimInput.prototype.setAnList = function(value) {
  * @return {!proto.vlsir.spice.Analysis}
  */
 proto.vlsir.spice.SimInput.prototype.addAn = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.vlsir.spice.Analysis, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.vlsir.spice.Analysis, opt_index);
 };
 
 
@@ -320,12 +350,12 @@ proto.vlsir.spice.SimInput.prototype.clearAnList = function() {
 
 
 /**
- * repeated Control ctrls = 4;
+ * repeated Control ctrls = 12;
  * @return {!Array<!proto.vlsir.spice.Control>}
  */
 proto.vlsir.spice.SimInput.prototype.getCtrlsList = function() {
   return /** @type{!Array<!proto.vlsir.spice.Control>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.spice.Control, 4));
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.spice.Control, 12));
 };
 
 
@@ -334,7 +364,7 @@ proto.vlsir.spice.SimInput.prototype.getCtrlsList = function() {
  * @return {!proto.vlsir.spice.SimInput} returns this
 */
 proto.vlsir.spice.SimInput.prototype.setCtrlsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 4, value);
+  return jspb.Message.setRepeatedWrapperField(this, 12, value);
 };
 
 
@@ -344,7 +374,7 @@ proto.vlsir.spice.SimInput.prototype.setCtrlsList = function(value) {
  * @return {!proto.vlsir.spice.Control}
  */
 proto.vlsir.spice.SimInput.prototype.addCtrls = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.vlsir.spice.Control, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 12, opt_value, proto.vlsir.spice.Control, opt_index);
 };
 
 

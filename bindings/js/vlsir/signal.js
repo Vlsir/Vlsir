@@ -71,7 +71,8 @@ proto.vlsir.spice.Signal.prototype.toObject = function(opt_includeInstance) {
  */
 proto.vlsir.spice.Signal.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, "")
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    quantity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -112,6 +113,10 @@ proto.vlsir.spice.Signal.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
+    case 2:
+      var value = /** @type {!proto.vlsir.spice.Signal.Quantity} */ (reader.readEnum());
+      msg.setQuantity(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -148,6 +153,13 @@ proto.vlsir.spice.Signal.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getQuantity();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -175,6 +187,24 @@ proto.vlsir.spice.Signal.prototype.getName = function() {
  */
 proto.vlsir.spice.Signal.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional Quantity quantity = 2;
+ * @return {!proto.vlsir.spice.Signal.Quantity}
+ */
+proto.vlsir.spice.Signal.prototype.getQuantity = function() {
+  return /** @type {!proto.vlsir.spice.Signal.Quantity} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {!proto.vlsir.spice.Signal.Quantity} value
+ * @return {!proto.vlsir.spice.Signal} returns this
+ */
+proto.vlsir.spice.Signal.prototype.setQuantity = function(value) {
+  return jspb.Message.setProto3EnumField(this, 2, value);
 };
 
 

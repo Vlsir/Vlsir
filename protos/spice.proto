@@ -57,15 +57,20 @@ service Spice {
 // * An optional list of control-elements 
 // 
 message SimInput {
-  // The DUT circuit under test 
-  Circuit ckt = 1;
+  // # Circuit Input 
+  // The DUT circuit-package under test 
+  vlsir.circuit.Package pkg = 1;
+  // Top-level module (name)
+  string top = 2;
+
+  // # Simulation Configuration Input 
   // Global simulator options 
-  SimOptions opts = 2;
+  SimOptions opts = 10;
   // List of circuit analyses
-  repeated Analysis an = 3;
+  repeated Analysis an = 11;
   // Control elements. 
   // `SimInput` level controls are applied to *all* analyses. 
-  repeated Control ctrls = 4;
+  repeated Control ctrls = 12;
 }
 // # Simulation Result 
 // A list of results per analysis 
@@ -88,18 +93,18 @@ message SimOptions {
 // Essentially identical to `vlsir.circuit.Module`, 
 // except for the lack of externally-facing `ports` and `parameters`. 
 //
-message Circuit {
-  // Module Name 
-  string name = 1;
-  // Reserved: Module.ports
-  reserved 2; 
-  // Internal Signals
-  repeated vlsir.circuit.Signal signals = 3;
-  // Module Instances
-  repeated vlsir.circuit.Instance instances = 4;
-  // Reserved: Module.default_parameters
-  reserved 5;
-}
+// message Circuit {
+//   // Module Name 
+//   string name = 1;
+//   // Reserved: Module.ports
+//   reserved 2; 
+//   // Internal Signals
+//   repeated vlsir.circuit.Signal signals = 3;
+//   // Module Instances
+//   repeated vlsir.circuit.Instance instances = 4;
+//   // Reserved: Module.default_parameters
+//   reserved 5;
+// }
 
 // ############################################################################
 // # Analysis & Results Unions
@@ -158,7 +163,7 @@ message OpResult {
   string analysis_name = 1;
   reserved 2;
   // Signal names and quantities
-  Signals signals = 3;
+  repeated string signals = 3; // FIXME: use `Signal` repeated Signal signals = 3;
   reserved 4;
   // Data values, in `signals` order 
   repeated double data = 5;
@@ -188,9 +193,8 @@ message DcResult {
   // Independent Variable Name
   string indep_name = 2;
   // Ordered signal names and quantities
-  Signals signals = 3;
-  // Number of data-points in each signal-vector. 
-  int64 num_points = 4;
+  repeated string signals = 3; // FIXME: use `Signal` repeated Signal signals = 3;
+  reserved 4;
   // Primary Data Field 
   repeated double data = 5;
   // Scalar measurement values 
@@ -220,9 +224,8 @@ message TranResult {
   string analysis_name = 1;
   reserved 2;
   // Ordered signal names and quantities
-  Signals signals = 3;
-  // Number of data-points in the time-vector and each signal-vector. 
-  int64 num_points = 4;
+  repeated string signals = 3; // FIXME: use `Signal` repeated Signal signals = 3;
+  reserved 4;
   // Primary Data Field 
   repeated double data = 5;
   // Scalar measurement values 
@@ -263,9 +266,8 @@ message AcResult {
     // Frequency Vector
     repeated double freq = 2; 
     // Ordered signal names and quantities
-    Signals signals = 3;
-    // Number of data-points in each signal-vector. 
-    int64 num_points = 4;
+    repeated string signals = 3; // FIXME: use `Signal` repeated Signal signals = 3;
+    reserved 4;
     // Primary Data Field. Of length `len(signals) * num_points`. 
     repeated ComplexNum data = 5;
     // Scalar measurement values 
@@ -406,9 +408,11 @@ message PointSweep {
 /// # Control Elements Union 
 message Control {
   oneof ctrl {
-    Save save = 1;
-    Include include = 2;
-    string literal = 3;
+    Include include = 1;
+    LibInclude lib = 2;
+    Save save = 5;
+    Meas meas = 6;
+    string literal = 10;
   }
 }
 // # Signal-Saving Controls
@@ -466,10 +470,6 @@ message Signal {
     VOLTAGE = 0;
     CURRENT = 1;
     NONE = 3;
-  }  
+  } 
+  Quantity quantity = 2;
 }
-// # Signal Declarations List 
-message Signals {
-  repeated Signal signals = 1;
-}
-

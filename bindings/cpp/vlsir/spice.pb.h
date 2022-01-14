@@ -52,7 +52,7 @@ struct TableStruct_spice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[36]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[34]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -76,9 +76,6 @@ extern AnalysisDefaultTypeInternal _Analysis_default_instance_;
 class AnalysisResult;
 struct AnalysisResultDefaultTypeInternal;
 extern AnalysisResultDefaultTypeInternal _AnalysisResult_default_instance_;
-class Circuit;
-struct CircuitDefaultTypeInternal;
-extern CircuitDefaultTypeInternal _Circuit_default_instance_;
 class ComplexNum;
 struct ComplexNumDefaultTypeInternal;
 extern ComplexNumDefaultTypeInternal _ComplexNum_default_instance_;
@@ -136,9 +133,6 @@ extern SaveDefaultTypeInternal _Save_default_instance_;
 class Signal;
 struct SignalDefaultTypeInternal;
 extern SignalDefaultTypeInternal _Signal_default_instance_;
-class Signals;
-struct SignalsDefaultTypeInternal;
-extern SignalsDefaultTypeInternal _Signals_default_instance_;
 class SimInput;
 struct SimInputDefaultTypeInternal;
 extern SimInputDefaultTypeInternal _SimInput_default_instance_;
@@ -177,7 +171,6 @@ template<> ::vlsir::spice::AcResult* Arena::CreateMaybeMessage<::vlsir::spice::A
 template<> ::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse* Arena::CreateMaybeMessage<::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse>(Arena*);
 template<> ::vlsir::spice::Analysis* Arena::CreateMaybeMessage<::vlsir::spice::Analysis>(Arena*);
 template<> ::vlsir::spice::AnalysisResult* Arena::CreateMaybeMessage<::vlsir::spice::AnalysisResult>(Arena*);
-template<> ::vlsir::spice::Circuit* Arena::CreateMaybeMessage<::vlsir::spice::Circuit>(Arena*);
 template<> ::vlsir::spice::ComplexNum* Arena::CreateMaybeMessage<::vlsir::spice::ComplexNum>(Arena*);
 template<> ::vlsir::spice::Control* Arena::CreateMaybeMessage<::vlsir::spice::Control>(Arena*);
 template<> ::vlsir::spice::CustomAnalysisInput* Arena::CreateMaybeMessage<::vlsir::spice::CustomAnalysisInput>(Arena*);
@@ -197,7 +190,6 @@ template<> ::vlsir::spice::OpResult* Arena::CreateMaybeMessage<::vlsir::spice::O
 template<> ::vlsir::spice::PointSweep* Arena::CreateMaybeMessage<::vlsir::spice::PointSweep>(Arena*);
 template<> ::vlsir::spice::Save* Arena::CreateMaybeMessage<::vlsir::spice::Save>(Arena*);
 template<> ::vlsir::spice::Signal* Arena::CreateMaybeMessage<::vlsir::spice::Signal>(Arena*);
-template<> ::vlsir::spice::Signals* Arena::CreateMaybeMessage<::vlsir::spice::Signals>(Arena*);
 template<> ::vlsir::spice::SimInput* Arena::CreateMaybeMessage<::vlsir::spice::SimInput>(Arena*);
 template<> ::vlsir::spice::SimOptions* Arena::CreateMaybeMessage<::vlsir::spice::SimOptions>(Arena*);
 template<> ::vlsir::spice::SimResult* Arena::CreateMaybeMessage<::vlsir::spice::SimResult>(Arena*);
@@ -380,12 +372,13 @@ class SimInput final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAnFieldNumber = 3,
-    kCtrlsFieldNumber = 4,
-    kCktFieldNumber = 1,
-    kOptsFieldNumber = 2,
+    kAnFieldNumber = 11,
+    kCtrlsFieldNumber = 12,
+    kTopFieldNumber = 2,
+    kPkgFieldNumber = 1,
+    kOptsFieldNumber = 10,
   };
-  // repeated .vlsir.spice.Analysis an = 3;
+  // repeated .vlsir.spice.Analysis an = 11;
   int an_size() const;
   private:
   int _internal_an_size() const;
@@ -403,7 +396,7 @@ class SimInput final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Analysis >&
       an() const;
 
-  // repeated .vlsir.spice.Control ctrls = 4;
+  // repeated .vlsir.spice.Control ctrls = 12;
   int ctrls_size() const;
   private:
   int _internal_ctrls_size() const;
@@ -421,25 +414,39 @@ class SimInput final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
       ctrls() const;
 
-  // .vlsir.spice.Circuit ckt = 1;
-  bool has_ckt() const;
+  // string top = 2;
+  void clear_top();
+  const std::string& top() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_top(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_top();
+  PROTOBUF_MUST_USE_RESULT std::string* release_top();
+  void set_allocated_top(std::string* top);
   private:
-  bool _internal_has_ckt() const;
+  const std::string& _internal_top() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_top(const std::string& value);
+  std::string* _internal_mutable_top();
   public:
-  void clear_ckt();
-  const ::vlsir::spice::Circuit& ckt() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Circuit* release_ckt();
-  ::vlsir::spice::Circuit* mutable_ckt();
-  void set_allocated_ckt(::vlsir::spice::Circuit* ckt);
-  private:
-  const ::vlsir::spice::Circuit& _internal_ckt() const;
-  ::vlsir::spice::Circuit* _internal_mutable_ckt();
-  public:
-  void unsafe_arena_set_allocated_ckt(
-      ::vlsir::spice::Circuit* ckt);
-  ::vlsir::spice::Circuit* unsafe_arena_release_ckt();
 
-  // .vlsir.spice.SimOptions opts = 2;
+  // .vlsir.circuit.Package pkg = 1;
+  bool has_pkg() const;
+  private:
+  bool _internal_has_pkg() const;
+  public:
+  void clear_pkg();
+  const ::vlsir::circuit::Package& pkg() const;
+  PROTOBUF_MUST_USE_RESULT ::vlsir::circuit::Package* release_pkg();
+  ::vlsir::circuit::Package* mutable_pkg();
+  void set_allocated_pkg(::vlsir::circuit::Package* pkg);
+  private:
+  const ::vlsir::circuit::Package& _internal_pkg() const;
+  ::vlsir::circuit::Package* _internal_mutable_pkg();
+  public:
+  void unsafe_arena_set_allocated_pkg(
+      ::vlsir::circuit::Package* pkg);
+  ::vlsir::circuit::Package* unsafe_arena_release_pkg();
+
+  // .vlsir.spice.SimOptions opts = 10;
   bool has_opts() const;
   private:
   bool _internal_has_opts() const;
@@ -466,7 +473,8 @@ class SimInput final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Analysis > an_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
-  ::vlsir::spice::Circuit* ckt_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr top_;
+  ::vlsir::circuit::Package* pkg_;
   ::vlsir::spice::SimOptions* opts_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
@@ -849,190 +857,6 @@ class SimOptions final :
 };
 // -------------------------------------------------------------------
 
-class Circuit final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.spice.Circuit) */ {
- public:
-  inline Circuit() : Circuit(nullptr) {}
-  ~Circuit() override;
-  explicit constexpr Circuit(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  Circuit(const Circuit& from);
-  Circuit(Circuit&& from) noexcept
-    : Circuit() {
-    *this = ::std::move(from);
-  }
-
-  inline Circuit& operator=(const Circuit& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Circuit& operator=(Circuit&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Circuit& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Circuit* internal_default_instance() {
-    return reinterpret_cast<const Circuit*>(
-               &_Circuit_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  friend void swap(Circuit& a, Circuit& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Circuit* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Circuit* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Circuit* New() const final {
-    return new Circuit();
-  }
-
-  Circuit* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Circuit>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Circuit& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const Circuit& from);
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Circuit* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vlsir.spice.Circuit";
-  }
-  protected:
-  explicit Circuit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kSignalsFieldNumber = 3,
-    kInstancesFieldNumber = 4,
-    kNameFieldNumber = 1,
-  };
-  // repeated .vlsir.circuit.Signal signals = 3;
-  int signals_size() const;
-  private:
-  int _internal_signals_size() const;
-  public:
-  void clear_signals();
-  ::vlsir::circuit::Signal* mutable_signals(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >*
-      mutable_signals();
-  private:
-  const ::vlsir::circuit::Signal& _internal_signals(int index) const;
-  ::vlsir::circuit::Signal* _internal_add_signals();
-  public:
-  const ::vlsir::circuit::Signal& signals(int index) const;
-  ::vlsir::circuit::Signal* add_signals();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >&
-      signals() const;
-
-  // repeated .vlsir.circuit.Instance instances = 4;
-  int instances_size() const;
-  private:
-  int _internal_instances_size() const;
-  public:
-  void clear_instances();
-  ::vlsir::circuit::Instance* mutable_instances(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance >*
-      mutable_instances();
-  private:
-  const ::vlsir::circuit::Instance& _internal_instances(int index) const;
-  ::vlsir::circuit::Instance* _internal_add_instances();
-  public:
-  const ::vlsir::circuit::Instance& instances(int index) const;
-  ::vlsir::circuit::Instance* add_instances();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance >&
-      instances() const;
-
-  // string name = 1;
-  void clear_name();
-  const std::string& name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_name();
-  PROTOBUF_MUST_USE_RESULT std::string* release_name();
-  void set_allocated_name(std::string* name);
-  private:
-  const std::string& _internal_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
-  std::string* _internal_mutable_name();
-  public:
-
-  // @@protoc_insertion_point(class_scope:vlsir.spice.Circuit)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal > signals_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance > instances_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_spice_2eproto;
-};
-// -------------------------------------------------------------------
-
 class Analysis final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.spice.Analysis) */ {
  public:
@@ -1088,7 +912,7 @@ class Analysis final :
                &_Analysis_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(Analysis& a, Analysis& b) {
     a.Swap(&b);
@@ -1385,7 +1209,7 @@ class AnalysisResult final :
                &_AnalysisResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(AnalysisResult& a, AnalysisResult& b) {
     a.Swap(&b);
@@ -1671,7 +1495,7 @@ class OpInput final :
                &_OpInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(OpInput& a, OpInput& b) {
     a.Swap(&b);
@@ -1835,7 +1659,7 @@ class OpResult final :
                &_OpResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(OpResult& a, OpResult& b) {
     a.Swap(&b);
@@ -1906,10 +1730,34 @@ class OpResult final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kSignalsFieldNumber = 3,
     kDataFieldNumber = 5,
     kAnalysisNameFieldNumber = 1,
-    kSignalsFieldNumber = 3,
   };
+  // repeated string signals = 3;
+  int signals_size() const;
+  private:
+  int _internal_signals_size() const;
+  public:
+  void clear_signals();
+  const std::string& signals(int index) const;
+  std::string* mutable_signals(int index);
+  void set_signals(int index, const std::string& value);
+  void set_signals(int index, std::string&& value);
+  void set_signals(int index, const char* value);
+  void set_signals(int index, const char* value, size_t size);
+  std::string* add_signals();
+  void add_signals(const std::string& value);
+  void add_signals(std::string&& value);
+  void add_signals(const char* value);
+  void add_signals(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& signals() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_signals();
+  private:
+  const std::string& _internal_signals(int index) const;
+  std::string* _internal_add_signals();
+  public:
+
   // repeated double data = 5;
   int data_size() const;
   private:
@@ -1946,24 +1794,6 @@ class OpResult final :
   std::string* _internal_mutable_analysis_name();
   public:
 
-  // .vlsir.spice.Signals signals = 3;
-  bool has_signals() const;
-  private:
-  bool _internal_has_signals() const;
-  public:
-  void clear_signals();
-  const ::vlsir::spice::Signals& signals() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Signals* release_signals();
-  ::vlsir::spice::Signals* mutable_signals();
-  void set_allocated_signals(::vlsir::spice::Signals* signals);
-  private:
-  const ::vlsir::spice::Signals& _internal_signals() const;
-  ::vlsir::spice::Signals* _internal_mutable_signals();
-  public:
-  void unsafe_arena_set_allocated_signals(
-      ::vlsir::spice::Signals* signals);
-  ::vlsir::spice::Signals* unsafe_arena_release_signals();
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.OpResult)
  private:
   class _Internal;
@@ -1971,9 +1801,9 @@ class OpResult final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > data_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
-  ::vlsir::spice::Signals* signals_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -2023,7 +1853,7 @@ class DcInput final :
                &_DcInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(DcInput& a, DcInput& b) {
     a.Swap(&b);
@@ -2248,7 +2078,7 @@ class DcResult final :
                &_DcResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    9;
 
   friend void swap(DcResult& a, DcResult& b) {
     a.Swap(&b);
@@ -2320,13 +2150,36 @@ class DcResult final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kSignalsFieldNumber = 3,
     kDataFieldNumber = 5,
     kMeasurementsFieldNumber = 10,
     kAnalysisNameFieldNumber = 1,
     kIndepNameFieldNumber = 2,
-    kSignalsFieldNumber = 3,
-    kNumPointsFieldNumber = 4,
   };
+  // repeated string signals = 3;
+  int signals_size() const;
+  private:
+  int _internal_signals_size() const;
+  public:
+  void clear_signals();
+  const std::string& signals(int index) const;
+  std::string* mutable_signals(int index);
+  void set_signals(int index, const std::string& value);
+  void set_signals(int index, std::string&& value);
+  void set_signals(int index, const char* value);
+  void set_signals(int index, const char* value, size_t size);
+  std::string* add_signals();
+  void add_signals(const std::string& value);
+  void add_signals(std::string&& value);
+  void add_signals(const char* value);
+  void add_signals(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& signals() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_signals();
+  private:
+  const std::string& _internal_signals(int index) const;
+  std::string* _internal_add_signals();
+  public:
+
   // repeated double data = 5;
   int data_size() const;
   private:
@@ -2394,33 +2247,6 @@ class DcResult final :
   std::string* _internal_mutable_indep_name();
   public:
 
-  // .vlsir.spice.Signals signals = 3;
-  bool has_signals() const;
-  private:
-  bool _internal_has_signals() const;
-  public:
-  void clear_signals();
-  const ::vlsir::spice::Signals& signals() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Signals* release_signals();
-  ::vlsir::spice::Signals* mutable_signals();
-  void set_allocated_signals(::vlsir::spice::Signals* signals);
-  private:
-  const ::vlsir::spice::Signals& _internal_signals() const;
-  ::vlsir::spice::Signals* _internal_mutable_signals();
-  public:
-  void unsafe_arena_set_allocated_signals(
-      ::vlsir::spice::Signals* signals);
-  ::vlsir::spice::Signals* unsafe_arena_release_signals();
-
-  // int64 num_points = 4;
-  void clear_num_points();
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points() const;
-  void set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_num_points() const;
-  void _internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.DcResult)
  private:
   class _Internal;
@@ -2428,6 +2254,7 @@ class DcResult final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > data_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       DcResult_MeasurementsEntry_DoNotUse,
@@ -2436,8 +2263,6 @@ class DcResult final :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_DOUBLE> measurements_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr indep_name_;
-  ::vlsir::spice::Signals* signals_;
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -2512,7 +2337,7 @@ class TranInput final :
                &_TranInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    11;
 
   friend void swap(TranInput& a, TranInput& b) {
     a.Swap(&b);
@@ -2747,7 +2572,7 @@ class TranResult final :
                &_TranResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
   friend void swap(TranResult& a, TranResult& b) {
     a.Swap(&b);
@@ -2819,12 +2644,35 @@ class TranResult final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kSignalsFieldNumber = 3,
     kDataFieldNumber = 5,
     kMeasurementsFieldNumber = 10,
     kAnalysisNameFieldNumber = 1,
-    kSignalsFieldNumber = 3,
-    kNumPointsFieldNumber = 4,
   };
+  // repeated string signals = 3;
+  int signals_size() const;
+  private:
+  int _internal_signals_size() const;
+  public:
+  void clear_signals();
+  const std::string& signals(int index) const;
+  std::string* mutable_signals(int index);
+  void set_signals(int index, const std::string& value);
+  void set_signals(int index, std::string&& value);
+  void set_signals(int index, const char* value);
+  void set_signals(int index, const char* value, size_t size);
+  std::string* add_signals();
+  void add_signals(const std::string& value);
+  void add_signals(std::string&& value);
+  void add_signals(const char* value);
+  void add_signals(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& signals() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_signals();
+  private:
+  const std::string& _internal_signals(int index) const;
+  std::string* _internal_add_signals();
+  public:
+
   // repeated double data = 5;
   int data_size() const;
   private:
@@ -2878,33 +2726,6 @@ class TranResult final :
   std::string* _internal_mutable_analysis_name();
   public:
 
-  // .vlsir.spice.Signals signals = 3;
-  bool has_signals() const;
-  private:
-  bool _internal_has_signals() const;
-  public:
-  void clear_signals();
-  const ::vlsir::spice::Signals& signals() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Signals* release_signals();
-  ::vlsir::spice::Signals* mutable_signals();
-  void set_allocated_signals(::vlsir::spice::Signals* signals);
-  private:
-  const ::vlsir::spice::Signals& _internal_signals() const;
-  ::vlsir::spice::Signals* _internal_mutable_signals();
-  public:
-  void unsafe_arena_set_allocated_signals(
-      ::vlsir::spice::Signals* signals);
-  ::vlsir::spice::Signals* unsafe_arena_release_signals();
-
-  // int64 num_points = 4;
-  void clear_num_points();
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points() const;
-  void set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_num_points() const;
-  void _internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.TranResult)
  private:
   class _Internal;
@@ -2912,6 +2733,7 @@ class TranResult final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > data_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       TranResult_MeasurementsEntry_DoNotUse,
@@ -2919,8 +2741,6 @@ class TranResult final :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_DOUBLE> measurements_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
-  ::vlsir::spice::Signals* signals_;
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -2970,7 +2790,7 @@ class ComplexNum final :
                &_ComplexNum_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    14;
 
   friend void swap(ComplexNum& a, ComplexNum& b) {
     a.Swap(&b);
@@ -3120,7 +2940,7 @@ class AcInput final :
                &_AcInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    15;
 
   friend void swap(AcInput& a, AcInput& b) {
     a.Swap(&b);
@@ -3342,7 +3162,7 @@ class AcResult final :
                &_AcResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    17;
 
   friend void swap(AcResult& a, AcResult& b) {
     a.Swap(&b);
@@ -3415,11 +3235,10 @@ class AcResult final :
 
   enum : int {
     kFreqFieldNumber = 2,
+    kSignalsFieldNumber = 3,
     kDataFieldNumber = 5,
     kMeasurementsFieldNumber = 10,
     kAnalysisNameFieldNumber = 1,
-    kSignalsFieldNumber = 3,
-    kNumPointsFieldNumber = 4,
   };
   // repeated double freq = 2;
   int freq_size() const;
@@ -3442,6 +3261,30 @@ class AcResult final :
       freq() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
       mutable_freq();
+
+  // repeated string signals = 3;
+  int signals_size() const;
+  private:
+  int _internal_signals_size() const;
+  public:
+  void clear_signals();
+  const std::string& signals(int index) const;
+  std::string* mutable_signals(int index);
+  void set_signals(int index, const std::string& value);
+  void set_signals(int index, std::string&& value);
+  void set_signals(int index, const char* value);
+  void set_signals(int index, const char* value, size_t size);
+  std::string* add_signals();
+  void add_signals(const std::string& value);
+  void add_signals(std::string&& value);
+  void add_signals(const char* value);
+  void add_signals(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& signals() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_signals();
+  private:
+  const std::string& _internal_signals(int index) const;
+  std::string* _internal_add_signals();
+  public:
 
   // repeated .vlsir.spice.ComplexNum data = 5;
   int data_size() const;
@@ -3492,33 +3335,6 @@ class AcResult final :
   std::string* _internal_mutable_analysis_name();
   public:
 
-  // .vlsir.spice.Signals signals = 3;
-  bool has_signals() const;
-  private:
-  bool _internal_has_signals() const;
-  public:
-  void clear_signals();
-  const ::vlsir::spice::Signals& signals() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Signals* release_signals();
-  ::vlsir::spice::Signals* mutable_signals();
-  void set_allocated_signals(::vlsir::spice::Signals* signals);
-  private:
-  const ::vlsir::spice::Signals& _internal_signals() const;
-  ::vlsir::spice::Signals* _internal_mutable_signals();
-  public:
-  void unsafe_arena_set_allocated_signals(
-      ::vlsir::spice::Signals* signals);
-  ::vlsir::spice::Signals* unsafe_arena_release_signals();
-
-  // int64 num_points = 4;
-  void clear_num_points();
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points() const;
-  void set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_num_points() const;
-  void _internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.AcResult)
  private:
   class _Internal;
@@ -3527,6 +3343,7 @@ class AcResult final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > freq_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::ComplexNum > data_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       AcResult_MeasurementsEntry_DoNotUse,
@@ -3534,8 +3351,6 @@ class AcResult final :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_DOUBLE> measurements_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
-  ::vlsir::spice::Signals* signals_;
-  ::PROTOBUF_NAMESPACE_ID::int64 num_points_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -3585,7 +3400,7 @@ class SweepInput final :
                &_SweepInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    18;
 
   friend void swap(SweepInput& a, SweepInput& b) {
     a.Swap(&b);
@@ -3805,7 +3620,7 @@ class SweepResult final :
                &_SweepResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    19;
 
   friend void swap(SweepResult& a, SweepResult& b) {
     a.Swap(&b);
@@ -4005,7 +3820,7 @@ class MonteInput final :
                &_MonteInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    20;
 
   friend void swap(MonteInput& a, MonteInput& b) {
     a.Swap(&b);
@@ -4211,7 +4026,7 @@ class MonteResult final :
                &_MonteResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    21;
 
   friend void swap(MonteResult& a, MonteResult& b) {
     a.Swap(&b);
@@ -4411,7 +4226,7 @@ class CustomAnalysisInput final :
                &_CustomAnalysisInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    22;
 
   friend void swap(CustomAnalysisInput& a, CustomAnalysisInput& b) {
     a.Swap(&b);
@@ -4591,7 +4406,7 @@ class CustomAnalysisResult final :
                &_CustomAnalysisResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    23;
 
   friend void swap(CustomAnalysisResult& a, CustomAnalysisResult& b) {
     a.Swap(&b);
@@ -4724,7 +4539,7 @@ class Sweep final :
                &_Sweep_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    24;
 
   friend void swap(Sweep& a, Sweep& b) {
     a.Swap(&b);
@@ -4926,7 +4741,7 @@ class LinearSweep final :
                &_LinearSweep_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    25;
 
   friend void swap(LinearSweep& a, LinearSweep& b) {
     a.Swap(&b);
@@ -5087,7 +4902,7 @@ class LogSweep final :
                &_LogSweep_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    26;
 
   friend void swap(LogSweep& a, LogSweep& b) {
     a.Swap(&b);
@@ -5248,7 +5063,7 @@ class PointSweep final :
                &_PointSweep_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    27;
 
   friend void swap(PointSweep& a, PointSweep& b) {
     a.Swap(&b);
@@ -5418,9 +5233,11 @@ class Control final :
     return *internal_default_instance();
   }
   enum CtrlCase {
-    kSave = 1,
-    kInclude = 2,
-    kLiteral = 3,
+    kInclude = 1,
+    kLib = 2,
+    kSave = 5,
+    kMeas = 6,
+    kLiteral = 10,
     CTRL_NOT_SET = 0,
   };
 
@@ -5429,7 +5246,7 @@ class Control final :
                &_Control_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    28;
 
   friend void swap(Control& a, Control& b) {
     a.Swap(&b);
@@ -5500,29 +5317,13 @@ class Control final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSaveFieldNumber = 1,
-    kIncludeFieldNumber = 2,
-    kLiteralFieldNumber = 3,
+    kIncludeFieldNumber = 1,
+    kLibFieldNumber = 2,
+    kSaveFieldNumber = 5,
+    kMeasFieldNumber = 6,
+    kLiteralFieldNumber = 10,
   };
-  // .vlsir.spice.Save save = 1;
-  bool has_save() const;
-  private:
-  bool _internal_has_save() const;
-  public:
-  void clear_save();
-  const ::vlsir::spice::Save& save() const;
-  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Save* release_save();
-  ::vlsir::spice::Save* mutable_save();
-  void set_allocated_save(::vlsir::spice::Save* save);
-  private:
-  const ::vlsir::spice::Save& _internal_save() const;
-  ::vlsir::spice::Save* _internal_mutable_save();
-  public:
-  void unsafe_arena_set_allocated_save(
-      ::vlsir::spice::Save* save);
-  ::vlsir::spice::Save* unsafe_arena_release_save();
-
-  // .vlsir.spice.Include include = 2;
+  // .vlsir.spice.Include include = 1;
   bool has_include() const;
   private:
   bool _internal_has_include() const;
@@ -5540,7 +5341,61 @@ class Control final :
       ::vlsir::spice::Include* include);
   ::vlsir::spice::Include* unsafe_arena_release_include();
 
-  // string literal = 3;
+  // .vlsir.spice.LibInclude lib = 2;
+  bool has_lib() const;
+  private:
+  bool _internal_has_lib() const;
+  public:
+  void clear_lib();
+  const ::vlsir::spice::LibInclude& lib() const;
+  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::LibInclude* release_lib();
+  ::vlsir::spice::LibInclude* mutable_lib();
+  void set_allocated_lib(::vlsir::spice::LibInclude* lib);
+  private:
+  const ::vlsir::spice::LibInclude& _internal_lib() const;
+  ::vlsir::spice::LibInclude* _internal_mutable_lib();
+  public:
+  void unsafe_arena_set_allocated_lib(
+      ::vlsir::spice::LibInclude* lib);
+  ::vlsir::spice::LibInclude* unsafe_arena_release_lib();
+
+  // .vlsir.spice.Save save = 5;
+  bool has_save() const;
+  private:
+  bool _internal_has_save() const;
+  public:
+  void clear_save();
+  const ::vlsir::spice::Save& save() const;
+  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Save* release_save();
+  ::vlsir::spice::Save* mutable_save();
+  void set_allocated_save(::vlsir::spice::Save* save);
+  private:
+  const ::vlsir::spice::Save& _internal_save() const;
+  ::vlsir::spice::Save* _internal_mutable_save();
+  public:
+  void unsafe_arena_set_allocated_save(
+      ::vlsir::spice::Save* save);
+  ::vlsir::spice::Save* unsafe_arena_release_save();
+
+  // .vlsir.spice.Meas meas = 6;
+  bool has_meas() const;
+  private:
+  bool _internal_has_meas() const;
+  public:
+  void clear_meas();
+  const ::vlsir::spice::Meas& meas() const;
+  PROTOBUF_MUST_USE_RESULT ::vlsir::spice::Meas* release_meas();
+  ::vlsir::spice::Meas* mutable_meas();
+  void set_allocated_meas(::vlsir::spice::Meas* meas);
+  private:
+  const ::vlsir::spice::Meas& _internal_meas() const;
+  ::vlsir::spice::Meas* _internal_mutable_meas();
+  public:
+  void unsafe_arena_set_allocated_meas(
+      ::vlsir::spice::Meas* meas);
+  ::vlsir::spice::Meas* unsafe_arena_release_meas();
+
+  // string literal = 10;
   bool has_literal() const;
   private:
   bool _internal_has_literal() const;
@@ -5563,8 +5418,10 @@ class Control final :
   // @@protoc_insertion_point(class_scope:vlsir.spice.Control)
  private:
   class _Internal;
-  void set_has_save();
   void set_has_include();
+  void set_has_lib();
+  void set_has_save();
+  void set_has_meas();
   void set_has_literal();
 
   inline bool has_ctrl() const;
@@ -5576,8 +5433,10 @@ class Control final :
   union CtrlUnion {
     constexpr CtrlUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::vlsir::spice::Save* save_;
     ::vlsir::spice::Include* include_;
+    ::vlsir::spice::LibInclude* lib_;
+    ::vlsir::spice::Save* save_;
+    ::vlsir::spice::Meas* meas_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
   } ctrl_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -5637,7 +5496,7 @@ class Save final :
                &_Save_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    29;
 
   friend void swap(Save& a, Save& b) {
     a.Swap(&b);
@@ -5843,7 +5702,7 @@ class Include final :
                &_Include_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    30;
 
   friend void swap(Include& a, Include& b) {
     a.Swap(&b);
@@ -5987,7 +5846,7 @@ class LibInclude final :
                &_LibInclude_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    31;
 
   friend void swap(LibInclude& a, LibInclude& b) {
     a.Swap(&b);
@@ -6147,7 +6006,7 @@ class Meas final :
                &_Meas_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    32;
 
   friend void swap(Meas& a, Meas& b) {
     a.Swap(&b);
@@ -6307,7 +6166,7 @@ class Signal final :
                &_Signal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    33;
 
   friend void swap(Signal& a, Signal& b) {
     a.Swap(&b);
@@ -6411,6 +6270,7 @@ class Signal final :
 
   enum : int {
     kNameFieldNumber = 1,
+    kQuantityFieldNumber = 2,
   };
   // string name = 1;
   void clear_name();
@@ -6426,6 +6286,15 @@ class Signal final :
   std::string* _internal_mutable_name();
   public:
 
+  // .vlsir.spice.Signal.Quantity quantity = 2;
+  void clear_quantity();
+  ::vlsir::spice::Signal_Quantity quantity() const;
+  void set_quantity(::vlsir::spice::Signal_Quantity value);
+  private:
+  ::vlsir::spice::Signal_Quantity _internal_quantity() const;
+  void _internal_set_quantity(::vlsir::spice::Signal_Quantity value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vlsir.spice.Signal)
  private:
   class _Internal;
@@ -6434,154 +6303,7 @@ class Signal final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_spice_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Signals final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.spice.Signals) */ {
- public:
-  inline Signals() : Signals(nullptr) {}
-  ~Signals() override;
-  explicit constexpr Signals(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  Signals(const Signals& from);
-  Signals(Signals&& from) noexcept
-    : Signals() {
-    *this = ::std::move(from);
-  }
-
-  inline Signals& operator=(const Signals& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Signals& operator=(Signals&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Signals& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Signals* internal_default_instance() {
-    return reinterpret_cast<const Signals*>(
-               &_Signals_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    35;
-
-  friend void swap(Signals& a, Signals& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Signals* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Signals* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Signals* New() const final {
-    return new Signals();
-  }
-
-  Signals* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Signals>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Signals& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const Signals& from);
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Signals* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vlsir.spice.Signals";
-  }
-  protected:
-  explicit Signals(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kSignalsFieldNumber = 1,
-  };
-  // repeated .vlsir.spice.Signal signals = 1;
-  int signals_size() const;
-  private:
-  int _internal_signals_size() const;
-  public:
-  void clear_signals();
-  ::vlsir::spice::Signal* mutable_signals(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Signal >*
-      mutable_signals();
-  private:
-  const ::vlsir::spice::Signal& _internal_signals(int index) const;
-  ::vlsir::spice::Signal* _internal_add_signals();
-  public:
-  const ::vlsir::spice::Signal& signals(int index) const;
-  ::vlsir::spice::Signal* add_signals();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Signal >&
-      signals() const;
-
-  // @@protoc_insertion_point(class_scope:vlsir.spice.Signals)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Signal > signals_;
+  int quantity_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -6596,45 +6318,39 @@ class Signals final :
 #endif  // __GNUC__
 // SimInput
 
-// .vlsir.spice.Circuit ckt = 1;
-inline bool SimInput::_internal_has_ckt() const {
-  return this != internal_default_instance() && ckt_ != nullptr;
+// .vlsir.circuit.Package pkg = 1;
+inline bool SimInput::_internal_has_pkg() const {
+  return this != internal_default_instance() && pkg_ != nullptr;
 }
-inline bool SimInput::has_ckt() const {
-  return _internal_has_ckt();
+inline bool SimInput::has_pkg() const {
+  return _internal_has_pkg();
 }
-inline void SimInput::clear_ckt() {
-  if (GetArenaForAllocation() == nullptr && ckt_ != nullptr) {
-    delete ckt_;
-  }
-  ckt_ = nullptr;
+inline const ::vlsir::circuit::Package& SimInput::_internal_pkg() const {
+  const ::vlsir::circuit::Package* p = pkg_;
+  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::circuit::Package&>(
+      ::vlsir::circuit::_Package_default_instance_);
 }
-inline const ::vlsir::spice::Circuit& SimInput::_internal_ckt() const {
-  const ::vlsir::spice::Circuit* p = ckt_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::spice::Circuit&>(
-      ::vlsir::spice::_Circuit_default_instance_);
+inline const ::vlsir::circuit::Package& SimInput::pkg() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.SimInput.pkg)
+  return _internal_pkg();
 }
-inline const ::vlsir::spice::Circuit& SimInput::ckt() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.SimInput.ckt)
-  return _internal_ckt();
-}
-inline void SimInput::unsafe_arena_set_allocated_ckt(
-    ::vlsir::spice::Circuit* ckt) {
+inline void SimInput::unsafe_arena_set_allocated_pkg(
+    ::vlsir::circuit::Package* pkg) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ckt_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pkg_);
   }
-  ckt_ = ckt;
-  if (ckt) {
+  pkg_ = pkg;
+  if (pkg) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimInput.ckt)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimInput.pkg)
 }
-inline ::vlsir::spice::Circuit* SimInput::release_ckt() {
+inline ::vlsir::circuit::Package* SimInput::release_pkg() {
   
-  ::vlsir::spice::Circuit* temp = ckt_;
-  ckt_ = nullptr;
+  ::vlsir::circuit::Package* temp = pkg_;
+  pkg_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -6646,47 +6362,95 @@ inline ::vlsir::spice::Circuit* SimInput::release_ckt() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::vlsir::spice::Circuit* SimInput::unsafe_arena_release_ckt() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimInput.ckt)
+inline ::vlsir::circuit::Package* SimInput::unsafe_arena_release_pkg() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.SimInput.pkg)
   
-  ::vlsir::spice::Circuit* temp = ckt_;
-  ckt_ = nullptr;
+  ::vlsir::circuit::Package* temp = pkg_;
+  pkg_ = nullptr;
   return temp;
 }
-inline ::vlsir::spice::Circuit* SimInput::_internal_mutable_ckt() {
+inline ::vlsir::circuit::Package* SimInput::_internal_mutable_pkg() {
   
-  if (ckt_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::Circuit>(GetArenaForAllocation());
-    ckt_ = p;
+  if (pkg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::vlsir::circuit::Package>(GetArenaForAllocation());
+    pkg_ = p;
   }
-  return ckt_;
+  return pkg_;
 }
-inline ::vlsir::spice::Circuit* SimInput::mutable_ckt() {
-  ::vlsir::spice::Circuit* _msg = _internal_mutable_ckt();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimInput.ckt)
+inline ::vlsir::circuit::Package* SimInput::mutable_pkg() {
+  ::vlsir::circuit::Package* _msg = _internal_mutable_pkg();
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimInput.pkg)
   return _msg;
 }
-inline void SimInput::set_allocated_ckt(::vlsir::spice::Circuit* ckt) {
+inline void SimInput::set_allocated_pkg(::vlsir::circuit::Package* pkg) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete ckt_;
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(pkg_);
   }
-  if (ckt) {
+  if (pkg) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Circuit>::GetOwningArena(ckt);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pkg));
     if (message_arena != submessage_arena) {
-      ckt = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, ckt, submessage_arena);
+      pkg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, pkg, submessage_arena);
     }
     
   } else {
     
   }
-  ckt_ = ckt;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimInput.ckt)
+  pkg_ = pkg;
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimInput.pkg)
 }
 
-// .vlsir.spice.SimOptions opts = 2;
+// string top = 2;
+inline void SimInput::clear_top() {
+  top_.ClearToEmpty();
+}
+inline const std::string& SimInput::top() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.SimInput.top)
+  return _internal_top();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SimInput::set_top(ArgT0&& arg0, ArgT... args) {
+ 
+ top_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimInput.top)
+}
+inline std::string* SimInput::mutable_top() {
+  std::string* _s = _internal_mutable_top();
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimInput.top)
+  return _s;
+}
+inline const std::string& SimInput::_internal_top() const {
+  return top_.Get();
+}
+inline void SimInput::_internal_set_top(const std::string& value) {
+  
+  top_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SimInput::_internal_mutable_top() {
+  
+  return top_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SimInput::release_top() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.SimInput.top)
+  return top_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void SimInput::set_allocated_top(std::string* top) {
+  if (top != nullptr) {
+    
+  } else {
+    
+  }
+  top_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), top,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimInput.top)
+}
+
+// .vlsir.spice.SimOptions opts = 10;
 inline bool SimInput::_internal_has_opts() const {
   return this != internal_default_instance() && opts_ != nullptr;
 }
@@ -6776,7 +6540,7 @@ inline void SimInput::set_allocated_opts(::vlsir::spice::SimOptions* opts) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimInput.opts)
 }
 
-// repeated .vlsir.spice.Analysis an = 3;
+// repeated .vlsir.spice.Analysis an = 11;
 inline int SimInput::_internal_an_size() const {
   return an_.size();
 }
@@ -6816,7 +6580,7 @@ SimInput::an() const {
   return an_;
 }
 
-// repeated .vlsir.spice.Control ctrls = 4;
+// repeated .vlsir.spice.Control ctrls = 12;
 inline int SimInput::_internal_ctrls_size() const {
   return ctrls_.size();
 }
@@ -7332,130 +7096,6 @@ inline void SimOptions::set_allocated_reltol(PROTOBUF_NAMESPACE_ID::DoubleValue*
   }
   reltol_ = reltol;
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.reltol)
-}
-
-// -------------------------------------------------------------------
-
-// Circuit
-
-// string name = 1;
-inline void Circuit::clear_name() {
-  name_.ClearToEmpty();
-}
-inline const std::string& Circuit::name() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Circuit.name)
-  return _internal_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Circuit::set_name(ArgT0&& arg0, ArgT... args) {
- 
- name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vlsir.spice.Circuit.name)
-}
-inline std::string* Circuit::mutable_name() {
-  std::string* _s = _internal_mutable_name();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Circuit.name)
-  return _s;
-}
-inline const std::string& Circuit::_internal_name() const {
-  return name_.Get();
-}
-inline void Circuit::_internal_set_name(const std::string& value) {
-  
-  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* Circuit::_internal_mutable_name() {
-  
-  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* Circuit::release_name() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.Circuit.name)
-  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void Circuit::set_allocated_name(std::string* name) {
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
-      GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Circuit.name)
-}
-
-// repeated .vlsir.circuit.Signal signals = 3;
-inline int Circuit::_internal_signals_size() const {
-  return signals_.size();
-}
-inline int Circuit::signals_size() const {
-  return _internal_signals_size();
-}
-inline ::vlsir::circuit::Signal* Circuit::mutable_signals(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Circuit.signals)
-  return signals_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >*
-Circuit::mutable_signals() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.Circuit.signals)
-  return &signals_;
-}
-inline const ::vlsir::circuit::Signal& Circuit::_internal_signals(int index) const {
-  return signals_.Get(index);
-}
-inline const ::vlsir::circuit::Signal& Circuit::signals(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Circuit.signals)
-  return _internal_signals(index);
-}
-inline ::vlsir::circuit::Signal* Circuit::_internal_add_signals() {
-  return signals_.Add();
-}
-inline ::vlsir::circuit::Signal* Circuit::add_signals() {
-  ::vlsir::circuit::Signal* _add = _internal_add_signals();
-  // @@protoc_insertion_point(field_add:vlsir.spice.Circuit.signals)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >&
-Circuit::signals() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.Circuit.signals)
-  return signals_;
-}
-
-// repeated .vlsir.circuit.Instance instances = 4;
-inline int Circuit::_internal_instances_size() const {
-  return instances_.size();
-}
-inline int Circuit::instances_size() const {
-  return _internal_instances_size();
-}
-inline ::vlsir::circuit::Instance* Circuit::mutable_instances(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Circuit.instances)
-  return instances_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance >*
-Circuit::mutable_instances() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.Circuit.instances)
-  return &instances_;
-}
-inline const ::vlsir::circuit::Instance& Circuit::_internal_instances(int index) const {
-  return instances_.Get(index);
-}
-inline const ::vlsir::circuit::Instance& Circuit::instances(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Circuit.instances)
-  return _internal_instances(index);
-}
-inline ::vlsir::circuit::Instance* Circuit::_internal_add_instances() {
-  return instances_.Add();
-}
-inline ::vlsir::circuit::Instance* Circuit::add_instances() {
-  ::vlsir::circuit::Instance* _add = _internal_add_instances();
-  // @@protoc_insertion_point(field_add:vlsir.spice.Circuit.instances)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance >&
-Circuit::instances() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.Circuit.instances)
-  return instances_;
 }
 
 // -------------------------------------------------------------------
@@ -8660,94 +8300,79 @@ inline void OpResult::set_allocated_analysis_name(std::string* analysis_name) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.OpResult.analysis_name)
 }
 
-// .vlsir.spice.Signals signals = 3;
-inline bool OpResult::_internal_has_signals() const {
-  return this != internal_default_instance() && signals_ != nullptr;
+// repeated string signals = 3;
+inline int OpResult::_internal_signals_size() const {
+  return signals_.size();
 }
-inline bool OpResult::has_signals() const {
-  return _internal_has_signals();
+inline int OpResult::signals_size() const {
+  return _internal_signals_size();
 }
 inline void OpResult::clear_signals() {
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
+  signals_.Clear();
 }
-inline const ::vlsir::spice::Signals& OpResult::_internal_signals() const {
-  const ::vlsir::spice::Signals* p = signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::spice::Signals&>(
-      ::vlsir::spice::_Signals_default_instance_);
+inline std::string* OpResult::add_signals() {
+  std::string* _s = _internal_add_signals();
+  // @@protoc_insertion_point(field_add_mutable:vlsir.spice.OpResult.signals)
+  return _s;
 }
-inline const ::vlsir::spice::Signals& OpResult::signals() const {
+inline const std::string& OpResult::_internal_signals(int index) const {
+  return signals_.Get(index);
+}
+inline const std::string& OpResult::signals(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.spice.OpResult.signals)
-  return _internal_signals();
+  return _internal_signals(index);
 }
-inline void OpResult::unsafe_arena_set_allocated_signals(
-    ::vlsir::spice::Signals* signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(signals_);
-  }
-  signals_ = signals;
-  if (signals) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.OpResult.signals)
+inline std::string* OpResult::mutable_signals(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpResult.signals)
+  return signals_.Mutable(index);
 }
-inline ::vlsir::spice::Signals* OpResult::release_signals() {
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+inline void OpResult::set_signals(int index, const std::string& value) {
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.OpResult.signals)
 }
-inline ::vlsir::spice::Signals* OpResult::unsafe_arena_release_signals() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.OpResult.signals)
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-  return temp;
+inline void OpResult::set_signals(int index, std::string&& value) {
+  signals_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vlsir.spice.OpResult.signals)
 }
-inline ::vlsir::spice::Signals* OpResult::_internal_mutable_signals() {
-  
-  if (signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::Signals>(GetArenaForAllocation());
-    signals_ = p;
-  }
+inline void OpResult::set_signals(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.OpResult.signals)
+}
+inline void OpResult::set_signals(int index, const char* value, size_t size) {
+  signals_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.OpResult.signals)
+}
+inline std::string* OpResult::_internal_add_signals() {
+  return signals_.Add();
+}
+inline void OpResult::add_signals(const std::string& value) {
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vlsir.spice.OpResult.signals)
+}
+inline void OpResult::add_signals(std::string&& value) {
+  signals_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vlsir.spice.OpResult.signals)
+}
+inline void OpResult::add_signals(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vlsir.spice.OpResult.signals)
+}
+inline void OpResult::add_signals(const char* value, size_t size) {
+  signals_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vlsir.spice.OpResult.signals)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+OpResult::signals() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.OpResult.signals)
   return signals_;
 }
-inline ::vlsir::spice::Signals* OpResult::mutable_signals() {
-  ::vlsir::spice::Signals* _msg = _internal_mutable_signals();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpResult.signals)
-  return _msg;
-}
-inline void OpResult::set_allocated_signals(::vlsir::spice::Signals* signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete signals_;
-  }
-  if (signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Signals>::GetOwningArena(signals);
-    if (message_arena != submessage_arena) {
-      signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, signals, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  signals_ = signals;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.OpResult.signals)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+OpResult::mutable_signals() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.OpResult.signals)
+  return &signals_;
 }
 
 // repeated double data = 5;
@@ -9121,114 +8746,79 @@ inline void DcResult::set_allocated_indep_name(std::string* indep_name) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.DcResult.indep_name)
 }
 
-// .vlsir.spice.Signals signals = 3;
-inline bool DcResult::_internal_has_signals() const {
-  return this != internal_default_instance() && signals_ != nullptr;
+// repeated string signals = 3;
+inline int DcResult::_internal_signals_size() const {
+  return signals_.size();
 }
-inline bool DcResult::has_signals() const {
-  return _internal_has_signals();
+inline int DcResult::signals_size() const {
+  return _internal_signals_size();
 }
 inline void DcResult::clear_signals() {
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
+  signals_.Clear();
 }
-inline const ::vlsir::spice::Signals& DcResult::_internal_signals() const {
-  const ::vlsir::spice::Signals* p = signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::spice::Signals&>(
-      ::vlsir::spice::_Signals_default_instance_);
+inline std::string* DcResult::add_signals() {
+  std::string* _s = _internal_add_signals();
+  // @@protoc_insertion_point(field_add_mutable:vlsir.spice.DcResult.signals)
+  return _s;
 }
-inline const ::vlsir::spice::Signals& DcResult::signals() const {
+inline const std::string& DcResult::_internal_signals(int index) const {
+  return signals_.Get(index);
+}
+inline const std::string& DcResult::signals(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.spice.DcResult.signals)
-  return _internal_signals();
+  return _internal_signals(index);
 }
-inline void DcResult::unsafe_arena_set_allocated_signals(
-    ::vlsir::spice::Signals* signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(signals_);
-  }
-  signals_ = signals;
-  if (signals) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.DcResult.signals)
+inline std::string* DcResult::mutable_signals(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.DcResult.signals)
+  return signals_.Mutable(index);
 }
-inline ::vlsir::spice::Signals* DcResult::release_signals() {
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+inline void DcResult::set_signals(int index, const std::string& value) {
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.DcResult.signals)
 }
-inline ::vlsir::spice::Signals* DcResult::unsafe_arena_release_signals() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.DcResult.signals)
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-  return temp;
+inline void DcResult::set_signals(int index, std::string&& value) {
+  signals_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vlsir.spice.DcResult.signals)
 }
-inline ::vlsir::spice::Signals* DcResult::_internal_mutable_signals() {
-  
-  if (signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::Signals>(GetArenaForAllocation());
-    signals_ = p;
-  }
+inline void DcResult::set_signals(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.DcResult.signals)
+}
+inline void DcResult::set_signals(int index, const char* value, size_t size) {
+  signals_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.DcResult.signals)
+}
+inline std::string* DcResult::_internal_add_signals() {
+  return signals_.Add();
+}
+inline void DcResult::add_signals(const std::string& value) {
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vlsir.spice.DcResult.signals)
+}
+inline void DcResult::add_signals(std::string&& value) {
+  signals_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vlsir.spice.DcResult.signals)
+}
+inline void DcResult::add_signals(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vlsir.spice.DcResult.signals)
+}
+inline void DcResult::add_signals(const char* value, size_t size) {
+  signals_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vlsir.spice.DcResult.signals)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+DcResult::signals() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.DcResult.signals)
   return signals_;
 }
-inline ::vlsir::spice::Signals* DcResult::mutable_signals() {
-  ::vlsir::spice::Signals* _msg = _internal_mutable_signals();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.DcResult.signals)
-  return _msg;
-}
-inline void DcResult::set_allocated_signals(::vlsir::spice::Signals* signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete signals_;
-  }
-  if (signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Signals>::GetOwningArena(signals);
-    if (message_arena != submessage_arena) {
-      signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, signals, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  signals_ = signals;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.DcResult.signals)
-}
-
-// int64 num_points = 4;
-inline void DcResult::clear_num_points() {
-  num_points_ = int64_t{0};
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 DcResult::_internal_num_points() const {
-  return num_points_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 DcResult::num_points() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.DcResult.num_points)
-  return _internal_num_points();
-}
-inline void DcResult::_internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  
-  num_points_ = value;
-}
-inline void DcResult::set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_num_points(value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.DcResult.num_points)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+DcResult::mutable_signals() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.DcResult.signals)
+  return &signals_;
 }
 
 // repeated double data = 5;
@@ -9520,114 +9110,79 @@ inline void TranResult::set_allocated_analysis_name(std::string* analysis_name) 
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.TranResult.analysis_name)
 }
 
-// .vlsir.spice.Signals signals = 3;
-inline bool TranResult::_internal_has_signals() const {
-  return this != internal_default_instance() && signals_ != nullptr;
+// repeated string signals = 3;
+inline int TranResult::_internal_signals_size() const {
+  return signals_.size();
 }
-inline bool TranResult::has_signals() const {
-  return _internal_has_signals();
+inline int TranResult::signals_size() const {
+  return _internal_signals_size();
 }
 inline void TranResult::clear_signals() {
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
+  signals_.Clear();
 }
-inline const ::vlsir::spice::Signals& TranResult::_internal_signals() const {
-  const ::vlsir::spice::Signals* p = signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::spice::Signals&>(
-      ::vlsir::spice::_Signals_default_instance_);
+inline std::string* TranResult::add_signals() {
+  std::string* _s = _internal_add_signals();
+  // @@protoc_insertion_point(field_add_mutable:vlsir.spice.TranResult.signals)
+  return _s;
 }
-inline const ::vlsir::spice::Signals& TranResult::signals() const {
+inline const std::string& TranResult::_internal_signals(int index) const {
+  return signals_.Get(index);
+}
+inline const std::string& TranResult::signals(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.spice.TranResult.signals)
-  return _internal_signals();
+  return _internal_signals(index);
 }
-inline void TranResult::unsafe_arena_set_allocated_signals(
-    ::vlsir::spice::Signals* signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(signals_);
-  }
-  signals_ = signals;
-  if (signals) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.TranResult.signals)
+inline std::string* TranResult::mutable_signals(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.TranResult.signals)
+  return signals_.Mutable(index);
 }
-inline ::vlsir::spice::Signals* TranResult::release_signals() {
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+inline void TranResult::set_signals(int index, const std::string& value) {
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.TranResult.signals)
 }
-inline ::vlsir::spice::Signals* TranResult::unsafe_arena_release_signals() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.TranResult.signals)
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-  return temp;
+inline void TranResult::set_signals(int index, std::string&& value) {
+  signals_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vlsir.spice.TranResult.signals)
 }
-inline ::vlsir::spice::Signals* TranResult::_internal_mutable_signals() {
-  
-  if (signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::Signals>(GetArenaForAllocation());
-    signals_ = p;
-  }
+inline void TranResult::set_signals(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.TranResult.signals)
+}
+inline void TranResult::set_signals(int index, const char* value, size_t size) {
+  signals_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.TranResult.signals)
+}
+inline std::string* TranResult::_internal_add_signals() {
+  return signals_.Add();
+}
+inline void TranResult::add_signals(const std::string& value) {
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vlsir.spice.TranResult.signals)
+}
+inline void TranResult::add_signals(std::string&& value) {
+  signals_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vlsir.spice.TranResult.signals)
+}
+inline void TranResult::add_signals(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vlsir.spice.TranResult.signals)
+}
+inline void TranResult::add_signals(const char* value, size_t size) {
+  signals_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vlsir.spice.TranResult.signals)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+TranResult::signals() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.TranResult.signals)
   return signals_;
 }
-inline ::vlsir::spice::Signals* TranResult::mutable_signals() {
-  ::vlsir::spice::Signals* _msg = _internal_mutable_signals();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.TranResult.signals)
-  return _msg;
-}
-inline void TranResult::set_allocated_signals(::vlsir::spice::Signals* signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete signals_;
-  }
-  if (signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Signals>::GetOwningArena(signals);
-    if (message_arena != submessage_arena) {
-      signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, signals, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  signals_ = signals;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.TranResult.signals)
-}
-
-// int64 num_points = 4;
-inline void TranResult::clear_num_points() {
-  num_points_ = int64_t{0};
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 TranResult::_internal_num_points() const {
-  return num_points_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 TranResult::num_points() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.TranResult.num_points)
-  return _internal_num_points();
-}
-inline void TranResult::_internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  
-  num_points_ = value;
-}
-inline void TranResult::set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_num_points(value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.TranResult.num_points)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+TranResult::mutable_signals() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.TranResult.signals)
+  return &signals_;
 }
 
 // repeated double data = 5;
@@ -9999,114 +9554,79 @@ AcResult::mutable_freq() {
   return _internal_mutable_freq();
 }
 
-// .vlsir.spice.Signals signals = 3;
-inline bool AcResult::_internal_has_signals() const {
-  return this != internal_default_instance() && signals_ != nullptr;
+// repeated string signals = 3;
+inline int AcResult::_internal_signals_size() const {
+  return signals_.size();
 }
-inline bool AcResult::has_signals() const {
-  return _internal_has_signals();
+inline int AcResult::signals_size() const {
+  return _internal_signals_size();
 }
 inline void AcResult::clear_signals() {
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
+  signals_.Clear();
 }
-inline const ::vlsir::spice::Signals& AcResult::_internal_signals() const {
-  const ::vlsir::spice::Signals* p = signals_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vlsir::spice::Signals&>(
-      ::vlsir::spice::_Signals_default_instance_);
+inline std::string* AcResult::add_signals() {
+  std::string* _s = _internal_add_signals();
+  // @@protoc_insertion_point(field_add_mutable:vlsir.spice.AcResult.signals)
+  return _s;
 }
-inline const ::vlsir::spice::Signals& AcResult::signals() const {
+inline const std::string& AcResult::_internal_signals(int index) const {
+  return signals_.Get(index);
+}
+inline const std::string& AcResult::signals(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.spice.AcResult.signals)
-  return _internal_signals();
+  return _internal_signals(index);
 }
-inline void AcResult::unsafe_arena_set_allocated_signals(
-    ::vlsir::spice::Signals* signals) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(signals_);
-  }
-  signals_ = signals;
-  if (signals) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.AcResult.signals)
+inline std::string* AcResult::mutable_signals(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.AcResult.signals)
+  return signals_.Mutable(index);
 }
-inline ::vlsir::spice::Signals* AcResult::release_signals() {
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+inline void AcResult::set_signals(int index, const std::string& value) {
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.AcResult.signals)
 }
-inline ::vlsir::spice::Signals* AcResult::unsafe_arena_release_signals() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.AcResult.signals)
-  
-  ::vlsir::spice::Signals* temp = signals_;
-  signals_ = nullptr;
-  return temp;
+inline void AcResult::set_signals(int index, std::string&& value) {
+  signals_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vlsir.spice.AcResult.signals)
 }
-inline ::vlsir::spice::Signals* AcResult::_internal_mutable_signals() {
-  
-  if (signals_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::Signals>(GetArenaForAllocation());
-    signals_ = p;
-  }
+inline void AcResult::set_signals(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.AcResult.signals)
+}
+inline void AcResult::set_signals(int index, const char* value, size_t size) {
+  signals_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.AcResult.signals)
+}
+inline std::string* AcResult::_internal_add_signals() {
+  return signals_.Add();
+}
+inline void AcResult::add_signals(const std::string& value) {
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vlsir.spice.AcResult.signals)
+}
+inline void AcResult::add_signals(std::string&& value) {
+  signals_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vlsir.spice.AcResult.signals)
+}
+inline void AcResult::add_signals(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signals_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vlsir.spice.AcResult.signals)
+}
+inline void AcResult::add_signals(const char* value, size_t size) {
+  signals_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vlsir.spice.AcResult.signals)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+AcResult::signals() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.AcResult.signals)
   return signals_;
 }
-inline ::vlsir::spice::Signals* AcResult::mutable_signals() {
-  ::vlsir::spice::Signals* _msg = _internal_mutable_signals();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.AcResult.signals)
-  return _msg;
-}
-inline void AcResult::set_allocated_signals(::vlsir::spice::Signals* signals) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete signals_;
-  }
-  if (signals) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Signals>::GetOwningArena(signals);
-    if (message_arena != submessage_arena) {
-      signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, signals, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  signals_ = signals;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AcResult.signals)
-}
-
-// int64 num_points = 4;
-inline void AcResult::clear_num_points() {
-  num_points_ = int64_t{0};
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 AcResult::_internal_num_points() const {
-  return num_points_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 AcResult::num_points() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.AcResult.num_points)
-  return _internal_num_points();
-}
-inline void AcResult::_internal_set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  
-  num_points_ = value;
-}
-inline void AcResult::set_num_points(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_num_points(value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.AcResult.num_points)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+AcResult::mutable_signals() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.AcResult.signals)
+  return &signals_;
 }
 
 // repeated .vlsir.spice.ComplexNum data = 5;
@@ -11664,81 +11184,7 @@ inline void PointSweep::set_npts(double value) {
 
 // Control
 
-// .vlsir.spice.Save save = 1;
-inline bool Control::_internal_has_save() const {
-  return ctrl_case() == kSave;
-}
-inline bool Control::has_save() const {
-  return _internal_has_save();
-}
-inline void Control::set_has_save() {
-  _oneof_case_[0] = kSave;
-}
-inline void Control::clear_save() {
-  if (_internal_has_save()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete ctrl_.save_;
-    }
-    clear_has_ctrl();
-  }
-}
-inline ::vlsir::spice::Save* Control::release_save() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.Control.save)
-  if (_internal_has_save()) {
-    clear_has_ctrl();
-      ::vlsir::spice::Save* temp = ctrl_.save_;
-    if (GetArenaForAllocation() != nullptr) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-    }
-    ctrl_.save_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline const ::vlsir::spice::Save& Control::_internal_save() const {
-  return _internal_has_save()
-      ? *ctrl_.save_
-      : reinterpret_cast< ::vlsir::spice::Save&>(::vlsir::spice::_Save_default_instance_);
-}
-inline const ::vlsir::spice::Save& Control::save() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Control.save)
-  return _internal_save();
-}
-inline ::vlsir::spice::Save* Control::unsafe_arena_release_save() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Control.save)
-  if (_internal_has_save()) {
-    clear_has_ctrl();
-    ::vlsir::spice::Save* temp = ctrl_.save_;
-    ctrl_.save_ = nullptr;
-    return temp;
-  } else {
-    return nullptr;
-  }
-}
-inline void Control::unsafe_arena_set_allocated_save(::vlsir::spice::Save* save) {
-  clear_ctrl();
-  if (save) {
-    set_has_save();
-    ctrl_.save_ = save;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Control.save)
-}
-inline ::vlsir::spice::Save* Control::_internal_mutable_save() {
-  if (!_internal_has_save()) {
-    clear_ctrl();
-    set_has_save();
-    ctrl_.save_ = CreateMaybeMessage< ::vlsir::spice::Save >(GetArenaForAllocation());
-  }
-  return ctrl_.save_;
-}
-inline ::vlsir::spice::Save* Control::mutable_save() {
-  ::vlsir::spice::Save* _msg = _internal_mutable_save();
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Control.save)
-  return _msg;
-}
-
-// .vlsir.spice.Include include = 2;
+// .vlsir.spice.Include include = 1;
 inline bool Control::_internal_has_include() const {
   return ctrl_case() == kInclude;
 }
@@ -11812,7 +11258,229 @@ inline ::vlsir::spice::Include* Control::mutable_include() {
   return _msg;
 }
 
-// string literal = 3;
+// .vlsir.spice.LibInclude lib = 2;
+inline bool Control::_internal_has_lib() const {
+  return ctrl_case() == kLib;
+}
+inline bool Control::has_lib() const {
+  return _internal_has_lib();
+}
+inline void Control::set_has_lib() {
+  _oneof_case_[0] = kLib;
+}
+inline void Control::clear_lib() {
+  if (_internal_has_lib()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete ctrl_.lib_;
+    }
+    clear_has_ctrl();
+  }
+}
+inline ::vlsir::spice::LibInclude* Control::release_lib() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.Control.lib)
+  if (_internal_has_lib()) {
+    clear_has_ctrl();
+      ::vlsir::spice::LibInclude* temp = ctrl_.lib_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    ctrl_.lib_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vlsir::spice::LibInclude& Control::_internal_lib() const {
+  return _internal_has_lib()
+      ? *ctrl_.lib_
+      : reinterpret_cast< ::vlsir::spice::LibInclude&>(::vlsir::spice::_LibInclude_default_instance_);
+}
+inline const ::vlsir::spice::LibInclude& Control::lib() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.Control.lib)
+  return _internal_lib();
+}
+inline ::vlsir::spice::LibInclude* Control::unsafe_arena_release_lib() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Control.lib)
+  if (_internal_has_lib()) {
+    clear_has_ctrl();
+    ::vlsir::spice::LibInclude* temp = ctrl_.lib_;
+    ctrl_.lib_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Control::unsafe_arena_set_allocated_lib(::vlsir::spice::LibInclude* lib) {
+  clear_ctrl();
+  if (lib) {
+    set_has_lib();
+    ctrl_.lib_ = lib;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Control.lib)
+}
+inline ::vlsir::spice::LibInclude* Control::_internal_mutable_lib() {
+  if (!_internal_has_lib()) {
+    clear_ctrl();
+    set_has_lib();
+    ctrl_.lib_ = CreateMaybeMessage< ::vlsir::spice::LibInclude >(GetArenaForAllocation());
+  }
+  return ctrl_.lib_;
+}
+inline ::vlsir::spice::LibInclude* Control::mutable_lib() {
+  ::vlsir::spice::LibInclude* _msg = _internal_mutable_lib();
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.Control.lib)
+  return _msg;
+}
+
+// .vlsir.spice.Save save = 5;
+inline bool Control::_internal_has_save() const {
+  return ctrl_case() == kSave;
+}
+inline bool Control::has_save() const {
+  return _internal_has_save();
+}
+inline void Control::set_has_save() {
+  _oneof_case_[0] = kSave;
+}
+inline void Control::clear_save() {
+  if (_internal_has_save()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete ctrl_.save_;
+    }
+    clear_has_ctrl();
+  }
+}
+inline ::vlsir::spice::Save* Control::release_save() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.Control.save)
+  if (_internal_has_save()) {
+    clear_has_ctrl();
+      ::vlsir::spice::Save* temp = ctrl_.save_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    ctrl_.save_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vlsir::spice::Save& Control::_internal_save() const {
+  return _internal_has_save()
+      ? *ctrl_.save_
+      : reinterpret_cast< ::vlsir::spice::Save&>(::vlsir::spice::_Save_default_instance_);
+}
+inline const ::vlsir::spice::Save& Control::save() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.Control.save)
+  return _internal_save();
+}
+inline ::vlsir::spice::Save* Control::unsafe_arena_release_save() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Control.save)
+  if (_internal_has_save()) {
+    clear_has_ctrl();
+    ::vlsir::spice::Save* temp = ctrl_.save_;
+    ctrl_.save_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Control::unsafe_arena_set_allocated_save(::vlsir::spice::Save* save) {
+  clear_ctrl();
+  if (save) {
+    set_has_save();
+    ctrl_.save_ = save;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Control.save)
+}
+inline ::vlsir::spice::Save* Control::_internal_mutable_save() {
+  if (!_internal_has_save()) {
+    clear_ctrl();
+    set_has_save();
+    ctrl_.save_ = CreateMaybeMessage< ::vlsir::spice::Save >(GetArenaForAllocation());
+  }
+  return ctrl_.save_;
+}
+inline ::vlsir::spice::Save* Control::mutable_save() {
+  ::vlsir::spice::Save* _msg = _internal_mutable_save();
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.Control.save)
+  return _msg;
+}
+
+// .vlsir.spice.Meas meas = 6;
+inline bool Control::_internal_has_meas() const {
+  return ctrl_case() == kMeas;
+}
+inline bool Control::has_meas() const {
+  return _internal_has_meas();
+}
+inline void Control::set_has_meas() {
+  _oneof_case_[0] = kMeas;
+}
+inline void Control::clear_meas() {
+  if (_internal_has_meas()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete ctrl_.meas_;
+    }
+    clear_has_ctrl();
+  }
+}
+inline ::vlsir::spice::Meas* Control::release_meas() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.Control.meas)
+  if (_internal_has_meas()) {
+    clear_has_ctrl();
+      ::vlsir::spice::Meas* temp = ctrl_.meas_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    ctrl_.meas_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vlsir::spice::Meas& Control::_internal_meas() const {
+  return _internal_has_meas()
+      ? *ctrl_.meas_
+      : reinterpret_cast< ::vlsir::spice::Meas&>(::vlsir::spice::_Meas_default_instance_);
+}
+inline const ::vlsir::spice::Meas& Control::meas() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.Control.meas)
+  return _internal_meas();
+}
+inline ::vlsir::spice::Meas* Control::unsafe_arena_release_meas() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Control.meas)
+  if (_internal_has_meas()) {
+    clear_has_ctrl();
+    ::vlsir::spice::Meas* temp = ctrl_.meas_;
+    ctrl_.meas_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Control::unsafe_arena_set_allocated_meas(::vlsir::spice::Meas* meas) {
+  clear_ctrl();
+  if (meas) {
+    set_has_meas();
+    ctrl_.meas_ = meas;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Control.meas)
+}
+inline ::vlsir::spice::Meas* Control::_internal_mutable_meas() {
+  if (!_internal_has_meas()) {
+    clear_ctrl();
+    set_has_meas();
+    ctrl_.meas_ = CreateMaybeMessage< ::vlsir::spice::Meas >(GetArenaForAllocation());
+  }
+  return ctrl_.meas_;
+}
+inline ::vlsir::spice::Meas* Control::mutable_meas() {
+  ::vlsir::spice::Meas* _msg = _internal_mutable_meas();
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.Control.meas)
+  return _msg;
+}
+
+// string literal = 10;
 inline bool Control::_internal_has_literal() const {
   return ctrl_case() == kLiteral;
 }
@@ -12328,57 +11996,29 @@ inline void Signal::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Signal.name)
 }
 
-// -------------------------------------------------------------------
-
-// Signals
-
-// repeated .vlsir.spice.Signal signals = 1;
-inline int Signals::_internal_signals_size() const {
-  return signals_.size();
+// .vlsir.spice.Signal.Quantity quantity = 2;
+inline void Signal::clear_quantity() {
+  quantity_ = 0;
 }
-inline int Signals::signals_size() const {
-  return _internal_signals_size();
+inline ::vlsir::spice::Signal_Quantity Signal::_internal_quantity() const {
+  return static_cast< ::vlsir::spice::Signal_Quantity >(quantity_);
 }
-inline void Signals::clear_signals() {
-  signals_.Clear();
+inline ::vlsir::spice::Signal_Quantity Signal::quantity() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.Signal.quantity)
+  return _internal_quantity();
 }
-inline ::vlsir::spice::Signal* Signals::mutable_signals(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Signals.signals)
-  return signals_.Mutable(index);
+inline void Signal::_internal_set_quantity(::vlsir::spice::Signal_Quantity value) {
+  
+  quantity_ = value;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Signal >*
-Signals::mutable_signals() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.Signals.signals)
-  return &signals_;
-}
-inline const ::vlsir::spice::Signal& Signals::_internal_signals(int index) const {
-  return signals_.Get(index);
-}
-inline const ::vlsir::spice::Signal& Signals::signals(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Signals.signals)
-  return _internal_signals(index);
-}
-inline ::vlsir::spice::Signal* Signals::_internal_add_signals() {
-  return signals_.Add();
-}
-inline ::vlsir::spice::Signal* Signals::add_signals() {
-  ::vlsir::spice::Signal* _add = _internal_add_signals();
-  // @@protoc_insertion_point(field_add:vlsir.spice.Signals.signals)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Signal >&
-Signals::signals() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.Signals.signals)
-  return signals_;
+inline void Signal::set_quantity(::vlsir::spice::Signal_Quantity value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.Signal.quantity)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

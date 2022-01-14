@@ -22,7 +22,8 @@ constexpr SimInput::SimInput(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : an_()
   , ctrls_()
-  , ckt_(nullptr)
+  , top_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , pkg_(nullptr)
   , opts_(nullptr){}
 struct SimInputDefaultTypeInternal {
   constexpr SimInputDefaultTypeInternal()
@@ -61,20 +62,6 @@ struct SimOptionsDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SimOptionsDefaultTypeInternal _SimOptions_default_instance_;
-constexpr Circuit::Circuit(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : signals_()
-  , instances_()
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct CircuitDefaultTypeInternal {
-  constexpr CircuitDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CircuitDefaultTypeInternal() {}
-  union {
-    Circuit _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CircuitDefaultTypeInternal _Circuit_default_instance_;
 constexpr Analysis::Analysis(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : _oneof_case_{}{}
@@ -114,9 +101,9 @@ struct OpInputDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OpInputDefaultTypeInternal _OpInput_default_instance_;
 constexpr OpResult::OpResult(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , signals_(nullptr){}
+  : signals_()
+  , data_()
+  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct OpResultDefaultTypeInternal {
   constexpr OpResultDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -154,12 +141,11 @@ struct DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _DcResult_MeasurementsEntry_DoNotUse_default_instance_;
 constexpr DcResult::DcResult(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_()
+  : signals_()
+  , data_()
   , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , indep_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , signals_(nullptr)
-  , num_points_(int64_t{0}){}
+  , indep_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct DcResultDefaultTypeInternal {
   constexpr DcResultDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -209,11 +195,10 @@ struct TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _TranResult_MeasurementsEntry_DoNotUse_default_instance_;
 constexpr TranResult::TranResult(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_()
+  : signals_()
+  , data_()
   , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , signals_(nullptr)
-  , num_points_(int64_t{0}){}
+  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct TranResultDefaultTypeInternal {
   constexpr TranResultDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -266,11 +251,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AcResult_MeasurementsEntry_DoNo
 constexpr AcResult::AcResult(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : freq_()
+  , signals_()
   , data_()
   , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , signals_(nullptr)
-  , num_points_(int64_t{0}){}
+  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct AcResultDefaultTypeInternal {
   constexpr AcResultDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -485,7 +469,9 @@ struct MeasDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MeasDefaultTypeInternal _Meas_default_instance_;
 constexpr Signal::Signal(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , quantity_(0)
+{}
 struct SignalDefaultTypeInternal {
   constexpr SignalDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -495,21 +481,9 @@ struct SignalDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SignalDefaultTypeInternal _Signal_default_instance_;
-constexpr Signals::Signals(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : signals_(){}
-struct SignalsDefaultTypeInternal {
-  constexpr SignalsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SignalsDefaultTypeInternal() {}
-  union {
-    Signals _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SignalsDefaultTypeInternal _Signals_default_instance_;
 }  // namespace spice
 }  // namespace vlsir
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[36];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[34];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_spice_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spice_2eproto = nullptr;
 
@@ -519,7 +493,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, ckt_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, pkg_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, top_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, opts_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, an_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimInput, ctrls_),
@@ -539,14 +514,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimOptions, gmin_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimOptions, iabstol_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SimOptions, reltol_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Circuit, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Circuit, name_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Circuit, signals_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Circuit, instances_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Analysis, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -614,7 +581,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, analysis_name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, indep_name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, signals_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, num_points_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, data_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::DcResult, measurements_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranInput_IcEntry_DoNotUse, _has_bits_),
@@ -652,7 +618,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranResult, analysis_name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranResult, signals_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranResult, num_points_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranResult, data_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::TranResult, measurements_),
   ~0u,  // no _has_bits_
@@ -689,7 +654,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, analysis_name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, freq_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, signals_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, num_points_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, data_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, measurements_),
   ~0u,  // no _has_bits_
@@ -784,6 +748,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Control, ctrl_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Save, _internal_metadata_),
@@ -819,57 +785,49 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signal, name_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signals, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signals, signals_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signal, quantity_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::vlsir::spice::SimInput)},
-  { 9, -1, sizeof(::vlsir::spice::SimResult)},
-  { 15, -1, sizeof(::vlsir::spice::SimOptions)},
-  { 25, -1, sizeof(::vlsir::spice::Circuit)},
-  { 33, -1, sizeof(::vlsir::spice::Analysis)},
-  { 46, -1, sizeof(::vlsir::spice::AnalysisResult)},
-  { 59, -1, sizeof(::vlsir::spice::OpInput)},
-  { 66, -1, sizeof(::vlsir::spice::OpResult)},
-  { 74, -1, sizeof(::vlsir::spice::DcInput)},
-  { 83, 90, sizeof(::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse)},
-  { 92, -1, sizeof(::vlsir::spice::DcResult)},
-  { 103, 110, sizeof(::vlsir::spice::TranInput_IcEntry_DoNotUse)},
-  { 112, -1, sizeof(::vlsir::spice::TranInput)},
-  { 122, 129, sizeof(::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse)},
-  { 131, -1, sizeof(::vlsir::spice::TranResult)},
-  { 141, -1, sizeof(::vlsir::spice::ComplexNum)},
-  { 148, -1, sizeof(::vlsir::spice::AcInput)},
-  { 158, 165, sizeof(::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse)},
-  { 167, -1, sizeof(::vlsir::spice::AcResult)},
-  { 178, -1, sizeof(::vlsir::spice::SweepInput)},
-  { 188, -1, sizeof(::vlsir::spice::SweepResult)},
-  { 197, -1, sizeof(::vlsir::spice::MonteInput)},
-  { 207, -1, sizeof(::vlsir::spice::MonteResult)},
-  { 216, -1, sizeof(::vlsir::spice::CustomAnalysisInput)},
-  { 224, -1, sizeof(::vlsir::spice::CustomAnalysisResult)},
-  { 229, -1, sizeof(::vlsir::spice::Sweep)},
-  { 238, -1, sizeof(::vlsir::spice::LinearSweep)},
-  { 246, -1, sizeof(::vlsir::spice::LogSweep)},
-  { 254, -1, sizeof(::vlsir::spice::PointSweep)},
-  { 262, -1, sizeof(::vlsir::spice::Control)},
-  { 271, -1, sizeof(::vlsir::spice::Save)},
-  { 279, -1, sizeof(::vlsir::spice::Include)},
-  { 285, -1, sizeof(::vlsir::spice::LibInclude)},
-  { 292, -1, sizeof(::vlsir::spice::Meas)},
-  { 299, -1, sizeof(::vlsir::spice::Signal)},
-  { 305, -1, sizeof(::vlsir::spice::Signals)},
+  { 10, -1, sizeof(::vlsir::spice::SimResult)},
+  { 16, -1, sizeof(::vlsir::spice::SimOptions)},
+  { 26, -1, sizeof(::vlsir::spice::Analysis)},
+  { 39, -1, sizeof(::vlsir::spice::AnalysisResult)},
+  { 52, -1, sizeof(::vlsir::spice::OpInput)},
+  { 59, -1, sizeof(::vlsir::spice::OpResult)},
+  { 67, -1, sizeof(::vlsir::spice::DcInput)},
+  { 76, 83, sizeof(::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse)},
+  { 85, -1, sizeof(::vlsir::spice::DcResult)},
+  { 95, 102, sizeof(::vlsir::spice::TranInput_IcEntry_DoNotUse)},
+  { 104, -1, sizeof(::vlsir::spice::TranInput)},
+  { 114, 121, sizeof(::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse)},
+  { 123, -1, sizeof(::vlsir::spice::TranResult)},
+  { 132, -1, sizeof(::vlsir::spice::ComplexNum)},
+  { 139, -1, sizeof(::vlsir::spice::AcInput)},
+  { 149, 156, sizeof(::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse)},
+  { 158, -1, sizeof(::vlsir::spice::AcResult)},
+  { 168, -1, sizeof(::vlsir::spice::SweepInput)},
+  { 178, -1, sizeof(::vlsir::spice::SweepResult)},
+  { 187, -1, sizeof(::vlsir::spice::MonteInput)},
+  { 197, -1, sizeof(::vlsir::spice::MonteResult)},
+  { 206, -1, sizeof(::vlsir::spice::CustomAnalysisInput)},
+  { 214, -1, sizeof(::vlsir::spice::CustomAnalysisResult)},
+  { 219, -1, sizeof(::vlsir::spice::Sweep)},
+  { 228, -1, sizeof(::vlsir::spice::LinearSweep)},
+  { 236, -1, sizeof(::vlsir::spice::LogSweep)},
+  { 244, -1, sizeof(::vlsir::spice::PointSweep)},
+  { 252, -1, sizeof(::vlsir::spice::Control)},
+  { 263, -1, sizeof(::vlsir::spice::Save)},
+  { 271, -1, sizeof(::vlsir::spice::Include)},
+  { 277, -1, sizeof(::vlsir::spice::LibInclude)},
+  { 284, -1, sizeof(::vlsir::spice::Meas)},
+  { 291, -1, sizeof(::vlsir::spice::Signal)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_SimInput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_SimResult_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_SimOptions_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Circuit_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Analysis_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_AnalysisResult_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_OpInput_default_instance_),
@@ -901,115 +859,110 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_LibInclude_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Meas_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Signal_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Signals_default_instance_),
 };
 
 const char descriptor_table_protodef_spice_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\013spice.proto\022\013vlsir.spice\032\036google/proto"
-  "buf/wrappers.proto\032\rcircuit.proto\"\234\001\n\010Si"
-  "mInput\022!\n\003ckt\030\001 \001(\0132\024.vlsir.spice.Circui"
-  "t\022%\n\004opts\030\002 \001(\0132\027.vlsir.spice.SimOptions"
-  "\022!\n\002an\030\003 \003(\0132\025.vlsir.spice.Analysis\022#\n\005c"
-  "trls\030\004 \003(\0132\024.vlsir.spice.Control\"4\n\tSimR"
-  "esult\022\'\n\002an\030\001 \003(\0132\033.vlsir.spice.Analysis"
-  "Result\"\355\001\n\nSimOptions\022*\n\004temp\030\001 \001(\0132\034.go"
-  "ogle.protobuf.DoubleValue\022*\n\004tnom\030\002 \001(\0132"
-  "\034.google.protobuf.DoubleValue\022*\n\004gmin\030\003 "
-  "\001(\0132\034.google.protobuf.DoubleValue\022-\n\007iab"
-  "stol\030\004 \001(\0132\034.google.protobuf.DoubleValue"
-  "\022,\n\006reltol\030\005 \001(\0132\034.google.protobuf.Doubl"
-  "eValue\"w\n\007Circuit\022\014\n\004name\030\001 \001(\t\022&\n\007signa"
-  "ls\030\003 \003(\0132\025.vlsir.circuit.Signal\022*\n\tinsta"
-  "nces\030\004 \003(\0132\027.vlsir.circuit.InstanceJ\004\010\002\020"
-  "\003J\004\010\005\020\006\"\254\002\n\010Analysis\022\"\n\002op\030\001 \001(\0132\024.vlsir"
-  ".spice.OpInputH\000\022\"\n\002dc\030\002 \001(\0132\024.vlsir.spi"
-  "ce.DcInputH\000\022&\n\004tran\030\003 \001(\0132\026.vlsir.spice"
-  ".TranInputH\000\022\"\n\002ac\030\004 \001(\0132\024.vlsir.spice.A"
-  "cInputH\000\022(\n\005sweep\030\n \001(\0132\027.vlsir.spice.Sw"
-  "eepInputH\000\022(\n\005monte\030\013 \001(\0132\027.vlsir.spice."
-  "MonteInputH\000\0222\n\006custom\030\024 \001(\0132 .vlsir.spi"
-  "ce.CustomAnalysisInputH\000B\004\n\002an\"\271\002\n\016Analy"
-  "sisResult\022#\n\002op\030\001 \001(\0132\025.vlsir.spice.OpRe"
-  "sultH\000\022#\n\002dc\030\002 \001(\0132\025.vlsir.spice.DcResul"
-  "tH\000\022\'\n\004tran\030\003 \001(\0132\027.vlsir.spice.TranResu"
-  "ltH\000\022#\n\002ac\030\004 \001(\0132\025.vlsir.spice.AcResultH"
-  "\000\022)\n\005sweep\030\n \001(\0132\030.vlsir.spice.SweepResu"
-  "ltH\000\022)\n\005monte\030\013 \001(\0132\030.vlsir.spice.MonteR"
-  "esultH\000\0223\n\006custom\030\024 \001(\0132!.vlsir.spice.Cu"
-  "stomAnalysisResultH\000B\004\n\002an\"D\n\007OpInput\022\025\n"
-  "\ranalysis_name\030\001 \001(\t\022\"\n\004ctrl\030\005 \003(\0132\024.vls"
-  "ir.spice.Control\"b\n\010OpResult\022\025\n\ranalysis"
-  "_name\030\001 \001(\t\022%\n\007signals\030\003 \001(\0132\024.vlsir.spi"
-  "ce.Signals\022\014\n\004data\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"{\n\007"
-  "DcInput\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n\nindep_"
-  "name\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice."
-  "Sweep\022\"\n\004ctrl\030\005 \003(\0132\024.vlsir.spice.Contro"
-  "l\"\362\001\n\010DcResult\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n"
-  "\nindep_name\030\002 \001(\t\022%\n\007signals\030\003 \001(\0132\024.vls"
-  "ir.spice.Signals\022\022\n\nnum_points\030\004 \001(\003\022\014\n\004"
-  "data\030\005 \003(\001\022=\n\014measurements\030\n \003(\0132\'.vlsir"
-  ".spice.DcResult.MeasurementsEntry\0323\n\021Mea"
-  "surementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001"
-  "(\001:\0028\001\"\273\001\n\tTranInput\022\025\n\ranalysis_name\030\001 "
-  "\001(\t\022\r\n\005tstop\030\002 \001(\001\022\r\n\005tstep\030\003 \001(\001\022*\n\002ic\030"
-  "\004 \003(\0132\036.vlsir.spice.TranInput.IcEntry\022\"\n"
-  "\004ctrl\030\005 \003(\0132\024.vlsir.spice.Control\032)\n\007IcE"
-  "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001\"\350\001\n"
-  "\nTranResult\022\025\n\ranalysis_name\030\001 \001(\t\022%\n\007si"
-  "gnals\030\003 \001(\0132\024.vlsir.spice.Signals\022\022\n\nnum"
-  "_points\030\004 \001(\003\022\014\n\004data\030\005 \003(\001\022\?\n\014measureme"
-  "nts\030\n \003(\0132).vlsir.spice.TranResult.Measu"
-  "rementsEntry\0323\n\021MeasurementsEntry\022\013\n\003key"
-  "\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\002\020\003\"$\n\nCompl"
+  "buf/wrappers.proto\032\rcircuit.proto\"\253\001\n\010Si"
+  "mInput\022#\n\003pkg\030\001 \001(\0132\026.vlsir.circuit.Pack"
+  "age\022\013\n\003top\030\002 \001(\t\022%\n\004opts\030\n \001(\0132\027.vlsir.s"
+  "pice.SimOptions\022!\n\002an\030\013 \003(\0132\025.vlsir.spic"
+  "e.Analysis\022#\n\005ctrls\030\014 \003(\0132\024.vlsir.spice."
+  "Control\"4\n\tSimResult\022\'\n\002an\030\001 \003(\0132\033.vlsir"
+  ".spice.AnalysisResult\"\355\001\n\nSimOptions\022*\n\004"
+  "temp\030\001 \001(\0132\034.google.protobuf.DoubleValue"
+  "\022*\n\004tnom\030\002 \001(\0132\034.google.protobuf.DoubleV"
+  "alue\022*\n\004gmin\030\003 \001(\0132\034.google.protobuf.Dou"
+  "bleValue\022-\n\007iabstol\030\004 \001(\0132\034.google.proto"
+  "buf.DoubleValue\022,\n\006reltol\030\005 \001(\0132\034.google"
+  ".protobuf.DoubleValue\"\254\002\n\010Analysis\022\"\n\002op"
+  "\030\001 \001(\0132\024.vlsir.spice.OpInputH\000\022\"\n\002dc\030\002 \001"
+  "(\0132\024.vlsir.spice.DcInputH\000\022&\n\004tran\030\003 \001(\013"
+  "2\026.vlsir.spice.TranInputH\000\022\"\n\002ac\030\004 \001(\0132\024"
+  ".vlsir.spice.AcInputH\000\022(\n\005sweep\030\n \001(\0132\027."
+  "vlsir.spice.SweepInputH\000\022(\n\005monte\030\013 \001(\0132"
+  "\027.vlsir.spice.MonteInputH\000\0222\n\006custom\030\024 \001"
+  "(\0132 .vlsir.spice.CustomAnalysisInputH\000B\004"
+  "\n\002an\"\271\002\n\016AnalysisResult\022#\n\002op\030\001 \001(\0132\025.vl"
+  "sir.spice.OpResultH\000\022#\n\002dc\030\002 \001(\0132\025.vlsir"
+  ".spice.DcResultH\000\022\'\n\004tran\030\003 \001(\0132\027.vlsir."
+  "spice.TranResultH\000\022#\n\002ac\030\004 \001(\0132\025.vlsir.s"
+  "pice.AcResultH\000\022)\n\005sweep\030\n \001(\0132\030.vlsir.s"
+  "pice.SweepResultH\000\022)\n\005monte\030\013 \001(\0132\030.vlsi"
+  "r.spice.MonteResultH\000\0223\n\006custom\030\024 \001(\0132!."
+  "vlsir.spice.CustomAnalysisResultH\000B\004\n\002an"
+  "\"D\n\007OpInput\022\025\n\ranalysis_name\030\001 \001(\t\022\"\n\004ct"
+  "rl\030\005 \003(\0132\024.vlsir.spice.Control\"L\n\010OpResu"
+  "lt\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003"
+  "(\t\022\014\n\004data\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"{\n\007DcInput\022"
+  "\025\n\ranalysis_name\030\001 \001(\t\022\022\n\nindep_name\030\002 \001"
+  "(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice.Sweep\022\"\n"
+  "\004ctrl\030\005 \003(\0132\024.vlsir.spice.Control\"\316\001\n\010Dc"
+  "Result\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n\nindep_n"
+  "ame\030\002 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001"
+  "\022=\n\014measurements\030\n \003(\0132\'.vlsir.spice.DcR"
+  "esult.MeasurementsEntry\0323\n\021MeasurementsE"
+  "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004"
+  "\020\005\"\273\001\n\tTranInput\022\025\n\ranalysis_name\030\001 \001(\t\022"
+  "\r\n\005tstop\030\002 \001(\001\022\r\n\005tstep\030\003 \001(\001\022*\n\002ic\030\004 \003("
+  "\0132\036.vlsir.spice.TranInput.IcEntry\022\"\n\004ctr"
+  "l\030\005 \003(\0132\024.vlsir.spice.Control\032)\n\007IcEntry"
+  "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001\"\304\001\n\nTra"
+  "nResult\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007signal"
+  "s\030\003 \003(\t\022\014\n\004data\030\005 \003(\001\022\?\n\014measurements\030\n "
+  "\003(\0132).vlsir.spice.TranResult.Measurement"
+  "sEntry\0323\n\021MeasurementsEntry\022\013\n\003key\030\001 \001(\t"
+  "\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\002\020\003J\004\010\004\020\005\"$\n\nCompl"
   "exNum\022\n\n\002re\030\001 \001(\001\022\n\n\002im\030\002 \001(\001\"q\n\007AcInput"
   "\022\025\n\ranalysis_name\030\001 \001(\t\022\016\n\006fstart\030\002 \001(\001\022"
   "\r\n\005fstop\030\003 \001(\001\022\014\n\004npts\030\004 \001(\004\022\"\n\004ctrl\030\005 \003"
-  "(\0132\024.vlsir.spice.Control\"\205\002\n\010AcResult\022\025\n"
-  "\ranalysis_name\030\001 \001(\t\022\014\n\004freq\030\002 \003(\001\022%\n\007si"
-  "gnals\030\003 \001(\0132\024.vlsir.spice.Signals\022\022\n\nnum"
-  "_points\030\004 \001(\003\022%\n\004data\030\005 \003(\0132\027.vlsir.spic"
-  "e.ComplexNum\022=\n\014measurements\030\n \003(\0132\'.vls"
-  "ir.spice.AcResult.MeasurementsEntry\0323\n\021M"
-  "easurementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002"
-  " \001(\001:\0028\001\"\240\001\n\nSweepInput\022\025\n\ranalysis_name"
-  "\030\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132"
-  "\022.vlsir.spice.Sweep\022!\n\002an\030\004 \003(\0132\025.vlsir."
-  "spice.Analysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.sp"
-  "ice.Control\"\202\001\n\013SweepResult\022\025\n\ranalysis_"
+  "(\0132\024.vlsir.spice.Control\"\341\001\n\010AcResult\022\025\n"
+  "\ranalysis_name\030\001 \001(\t\022\014\n\004freq\030\002 \003(\001\022\017\n\007si"
+  "gnals\030\003 \003(\t\022%\n\004data\030\005 \003(\0132\027.vlsir.spice."
+  "ComplexNum\022=\n\014measurements\030\n \003(\0132\'.vlsir"
+  ".spice.AcResult.MeasurementsEntry\0323\n\021Mea"
+  "surementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001"
+  "(\001:\0028\001J\004\010\004\020\005\"\240\001\n\nSweepInput\022\025\n\ranalysis_"
   "name\030\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 "
-  "\001(\0132\022.vlsir.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vl"
-  "sir.spice.AnalysisResult\"\207\001\n\nMonteInput\022"
-  "\025\n\ranalysis_name\030\001 \001(\t\022\014\n\004npts\030\002 \001(\003\022\014\n\004"
-  "seed\030\003 \001(\003\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Ana"
-  "lysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Contr"
-  "ol\"\202\001\n\013MonteResult\022\025\n\ranalysis_name\030\001 \001("
-  "\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vls"
-  "ir.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice"
-  ".AnalysisResult\"^\n\023CustomAnalysisInput\022\025"
-  "\n\ranalysis_name\030\001 \001(\t\022\013\n\003cmd\030\002 \001(\t\022#\n\005ct"
-  "rls\030\005 \003(\0132\024.vlsir.spice.Control\"\026\n\024Custo"
-  "mAnalysisResult\"\212\001\n\005Sweep\022*\n\006linear\030\001 \001("
-  "\0132\030.vlsir.spice.LinearSweepH\000\022$\n\003log\030\002 \001"
-  "(\0132\025.vlsir.spice.LogSweepH\000\022)\n\006points\030\003 "
-  "\001(\0132\027.vlsir.spice.PointSweepH\000B\004\n\002tp\"8\n\013"
-  "LinearSweep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002 \001(\001"
-  "\022\014\n\004step\030\003 \001(\001\"5\n\010LogSweep\022\r\n\005start\030\001 \001("
-  "\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPointSw"
-  "eep\022\016\n\006points\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npt"
-  "s\030\003 \001(\001\"p\n\007Control\022!\n\004save\030\001 \001(\0132\021.vlsir"
-  ".spice.SaveH\000\022\'\n\007include\030\002 \001(\0132\024.vlsir.s"
-  "pice.IncludeH\000\022\021\n\007literal\030\003 \001(\tH\000B\006\n\004ctr"
+  "\001(\0132\022.vlsir.spice.Sweep\022!\n\002an\030\004 \003(\0132\025.vl"
+  "sir.spice.Analysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsi"
+  "r.spice.Control\"\202\001\n\013SweepResult\022\025\n\ranaly"
+  "sis_name\030\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005swee"
+  "p\030\003 \001(\0132\022.vlsir.spice.Sweep\022\'\n\002an\030\004 \003(\0132"
+  "\033.vlsir.spice.AnalysisResult\"\207\001\n\nMonteIn"
+  "put\022\025\n\ranalysis_name\030\001 \001(\t\022\014\n\004npts\030\002 \001(\003"
+  "\022\014\n\004seed\030\003 \001(\003\022!\n\002an\030\004 \003(\0132\025.vlsir.spice"
+  ".Analysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.C"
+  "ontrol\"\202\001\n\013MonteResult\022\025\n\ranalysis_name\030"
+  "\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022"
+  ".vlsir.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.s"
+  "pice.AnalysisResult\"^\n\023CustomAnalysisInp"
+  "ut\022\025\n\ranalysis_name\030\001 \001(\t\022\013\n\003cmd\030\002 \001(\t\022#"
+  "\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Control\"\026\n\024C"
+  "ustomAnalysisResult\"\212\001\n\005Sweep\022*\n\006linear\030"
+  "\001 \001(\0132\030.vlsir.spice.LinearSweepH\000\022$\n\003log"
+  "\030\002 \001(\0132\025.vlsir.spice.LogSweepH\000\022)\n\006point"
+  "s\030\003 \001(\0132\027.vlsir.spice.PointSweepH\000B\004\n\002tp"
+  "\"8\n\013LinearSweep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002"
+  " \001(\001\022\014\n\004step\030\003 \001(\001\"5\n\010LogSweep\022\r\n\005start\030"
+  "\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPoi"
+  "ntSweep\022\016\n\006points\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n"
+  "\004npts\030\003 \001(\001\"\273\001\n\007Control\022\'\n\007include\030\001 \001(\013"
+  "2\024.vlsir.spice.IncludeH\000\022&\n\003lib\030\002 \001(\0132\027."
+  "vlsir.spice.LibIncludeH\000\022!\n\004save\030\005 \001(\0132\021"
+  ".vlsir.spice.SaveH\000\022!\n\004meas\030\006 \001(\0132\021.vlsi"
+  "r.spice.MeasH\000\022\021\n\007literal\030\n \001(\tH\000B\006\n\004ctr"
   "l\"k\n\004Save\022*\n\004mode\030\001 \001(\0162\032.vlsir.spice.Sa"
   "ve.SaveModeH\000\022\020\n\006signal\030\002 \001(\tH\000\"\035\n\010SaveM"
   "ode\022\010\n\004NONE\020\000\022\007\n\003ALL\020\001B\006\n\004save\"\027\n\007Includ"
   "e\022\014\n\004path\030\001 \001(\t\"+\n\nLibInclude\022\014\n\004path\030\001 "
   "\001(\t\022\017\n\007section\030\002 \001(\t\"\"\n\004Meas\022\014\n\004name\030\001 \001"
-  "(\t\022\014\n\004expr\030\002 \001(\t\"F\n\006Signal\022\014\n\004name\030\001 \001(\t"
-  "\".\n\010Quantity\022\013\n\007VOLTAGE\020\000\022\013\n\007CURRENT\020\001\022\010"
-  "\n\004NONE\020\003\"/\n\007Signals\022$\n\007signals\030\001 \003(\0132\023.v"
-  "lsir.spice.Signal2=\n\005Spice\0224\n\003Sim\022\025.vlsi"
-  "r.spice.SimInput\032\026.vlsir.spice.SimResult"
-  "b\006proto3"
+  "(\t\022\014\n\004expr\030\002 \001(\t\"v\n\006Signal\022\014\n\004name\030\001 \001(\t"
+  "\022.\n\010quantity\030\002 \001(\0162\034.vlsir.spice.Signal."
+  "Quantity\".\n\010Quantity\022\013\n\007VOLTAGE\020\000\022\013\n\007CUR"
+  "RENT\020\001\022\010\n\004NONE\020\0032=\n\005Spice\0224\n\003Sim\022\025.vlsir"
+  ".spice.SimInput\032\026.vlsir.spice.SimResultb"
+  "\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spice_2eproto_deps[2] = {
   &::descriptor_table_circuit_2eproto,
@@ -1017,8 +970,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spice_2eproto = {
-  false, false, 4168, descriptor_table_protodef_spice_2eproto, "spice.proto", 
-  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_deps, 2, 36,
+  false, false, 4007, descriptor_table_protodef_spice_2eproto, "spice.proto", 
+  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_deps, 2, 34,
   schemas, file_default_instances, TableStruct_spice_2eproto::offsets,
   file_level_metadata_spice_2eproto, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
 };
@@ -1079,17 +1032,23 @@ constexpr int Signal::Quantity_ARRAYSIZE;
 
 class SimInput::_Internal {
  public:
-  static const ::vlsir::spice::Circuit& ckt(const SimInput* msg);
+  static const ::vlsir::circuit::Package& pkg(const SimInput* msg);
   static const ::vlsir::spice::SimOptions& opts(const SimInput* msg);
 };
 
-const ::vlsir::spice::Circuit&
-SimInput::_Internal::ckt(const SimInput* msg) {
-  return *msg->ckt_;
+const ::vlsir::circuit::Package&
+SimInput::_Internal::pkg(const SimInput* msg) {
+  return *msg->pkg_;
 }
 const ::vlsir::spice::SimOptions&
 SimInput::_Internal::opts(const SimInput* msg) {
   return *msg->opts_;
+}
+void SimInput::clear_pkg() {
+  if (GetArenaForAllocation() == nullptr && pkg_ != nullptr) {
+    delete pkg_;
+  }
+  pkg_ = nullptr;
 }
 SimInput::SimInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -1107,10 +1066,15 @@ SimInput::SimInput(const SimInput& from)
       an_(from.an_),
       ctrls_(from.ctrls_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_ckt()) {
-    ckt_ = new ::vlsir::spice::Circuit(*from.ckt_);
+  top_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_top().empty()) {
+    top_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_top(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_pkg()) {
+    pkg_ = new ::vlsir::circuit::Package(*from.pkg_);
   } else {
-    ckt_ = nullptr;
+    pkg_ = nullptr;
   }
   if (from._internal_has_opts()) {
     opts_ = new ::vlsir::spice::SimOptions(*from.opts_);
@@ -1121,10 +1085,11 @@ SimInput::SimInput(const SimInput& from)
 }
 
 inline void SimInput::SharedCtor() {
+top_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&ckt_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&pkg_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&opts_) -
-    reinterpret_cast<char*>(&ckt_)) + sizeof(opts_));
+    reinterpret_cast<char*>(&pkg_)) + sizeof(opts_));
 }
 
 SimInput::~SimInput() {
@@ -1136,7 +1101,8 @@ SimInput::~SimInput() {
 
 inline void SimInput::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete ckt_;
+  top_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete pkg_;
   if (this != internal_default_instance()) delete opts_;
 }
 
@@ -1158,10 +1124,11 @@ void SimInput::Clear() {
 
   an_.Clear();
   ctrls_.Clear();
-  if (GetArenaForAllocation() == nullptr && ckt_ != nullptr) {
-    delete ckt_;
+  top_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && pkg_ != nullptr) {
+    delete pkg_;
   }
-  ckt_ = nullptr;
+  pkg_ = nullptr;
   if (GetArenaForAllocation() == nullptr && opts_ != nullptr) {
     delete opts_;
   }
@@ -1175,42 +1142,51 @@ const char* SimInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .vlsir.spice.Circuit ckt = 1;
+      // .vlsir.circuit.Package pkg = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_ckt(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_pkg(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.SimOptions opts = 2;
+      // string top = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_top();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.SimInput.top"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vlsir.spice.SimOptions opts = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_opts(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .vlsir.spice.Analysis an = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // repeated .vlsir.spice.Analysis an = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_an(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
         } else goto handle_unusual;
         continue;
-      // repeated .vlsir.spice.Control ctrls = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // repeated .vlsir.spice.Control ctrls = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_ctrls(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1242,36 +1218,46 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .vlsir.spice.Circuit ckt = 1;
-  if (this->_internal_has_ckt()) {
+  // .vlsir.circuit.Package pkg = 1;
+  if (this->_internal_has_pkg()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::ckt(this), target, stream);
+        1, _Internal::pkg(this), target, stream);
   }
 
-  // .vlsir.spice.SimOptions opts = 2;
+  // string top = 2;
+  if (!this->_internal_top().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_top().data(), static_cast<int>(this->_internal_top().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.SimInput.top");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_top(), target);
+  }
+
+  // .vlsir.spice.SimOptions opts = 10;
   if (this->_internal_has_opts()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::opts(this), target, stream);
+        10, _Internal::opts(this), target, stream);
   }
 
-  // repeated .vlsir.spice.Analysis an = 3;
+  // repeated .vlsir.spice.Analysis an = 11;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_an_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_an(i), target, stream);
+      InternalWriteMessage(11, this->_internal_an(i), target, stream);
   }
 
-  // repeated .vlsir.spice.Control ctrls = 4;
+  // repeated .vlsir.spice.Control ctrls = 12;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_ctrls_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_ctrls(i), target, stream);
+      InternalWriteMessage(12, this->_internal_ctrls(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1290,28 +1276,35 @@ size_t SimInput::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .vlsir.spice.Analysis an = 3;
+  // repeated .vlsir.spice.Analysis an = 11;
   total_size += 1UL * this->_internal_an_size();
   for (const auto& msg : this->an_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .vlsir.spice.Control ctrls = 4;
+  // repeated .vlsir.spice.Control ctrls = 12;
   total_size += 1UL * this->_internal_ctrls_size();
   for (const auto& msg : this->ctrls_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // .vlsir.spice.Circuit ckt = 1;
-  if (this->_internal_has_ckt()) {
+  // string top = 2;
+  if (!this->_internal_top().empty()) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *ckt_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_top());
   }
 
-  // .vlsir.spice.SimOptions opts = 2;
+  // .vlsir.circuit.Package pkg = 1;
+  if (this->_internal_has_pkg()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *pkg_);
+  }
+
+  // .vlsir.spice.SimOptions opts = 10;
   if (this->_internal_has_opts()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1348,8 +1341,11 @@ void SimInput::MergeFrom(const SimInput& from) {
 
   an_.MergeFrom(from.an_);
   ctrls_.MergeFrom(from.ctrls_);
-  if (from._internal_has_ckt()) {
-    _internal_mutable_ckt()->::vlsir::spice::Circuit::MergeFrom(from._internal_ckt());
+  if (!from._internal_top().empty()) {
+    _internal_set_top(from._internal_top());
+  }
+  if (from._internal_has_pkg()) {
+    _internal_mutable_pkg()->::vlsir::circuit::Package::MergeFrom(from._internal_pkg());
   }
   if (from._internal_has_opts()) {
     _internal_mutable_opts()->::vlsir::spice::SimOptions::MergeFrom(from._internal_opts());
@@ -1373,12 +1369,17 @@ void SimInput::InternalSwap(SimInput* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
   ctrls_.InternalSwap(&other->ctrls_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &top_, GetArenaForAllocation(),
+      &other->top_, other->GetArenaForAllocation()
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SimInput, opts_)
       + sizeof(SimInput::opts_)
-      - PROTOBUF_FIELD_OFFSET(SimInput, ckt_)>(
-          reinterpret_cast<char*>(&ckt_),
-          reinterpret_cast<char*>(&other->ckt_));
+      - PROTOBUF_FIELD_OFFSET(SimInput, pkg_)>(
+          reinterpret_cast<char*>(&pkg_),
+          reinterpret_cast<char*>(&other->pkg_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SimInput::GetMetadata() const {
@@ -1977,276 +1978,6 @@ void SimOptions::InternalSwap(SimOptions* other) {
 
 // ===================================================================
 
-class Circuit::_Internal {
- public:
-};
-
-void Circuit::clear_signals() {
-  signals_.Clear();
-}
-void Circuit::clear_instances() {
-  instances_.Clear();
-}
-Circuit::Circuit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  signals_(arena),
-  instances_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:vlsir.spice.Circuit)
-}
-Circuit::Circuit(const Circuit& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      signals_(from.signals_),
-      instances_(from.instances_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:vlsir.spice.Circuit)
-}
-
-inline void Circuit::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-Circuit::~Circuit() {
-  // @@protoc_insertion_point(destructor:vlsir.spice.Circuit)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void Circuit::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void Circuit::ArenaDtor(void* object) {
-  Circuit* _this = reinterpret_cast< Circuit* >(object);
-  (void)_this;
-}
-void Circuit::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void Circuit::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void Circuit::Clear() {
-// @@protoc_insertion_point(message_clear_start:vlsir.spice.Circuit)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  signals_.Clear();
-  instances_.Clear();
-  name_.ClearToEmpty();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* Circuit::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Circuit.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated .vlsir.circuit.Signal signals = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_signals(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated .vlsir.circuit.Instance instances = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_instances(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* Circuit::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.Circuit)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (!this->_internal_name().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vlsir.spice.Circuit.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // repeated .vlsir.circuit.Signal signals = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_signals_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_signals(i), target, stream);
-  }
-
-  // repeated .vlsir.circuit.Instance instances = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_instances_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_instances(i), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.Circuit)
-  return target;
-}
-
-size_t Circuit::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.Circuit)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated .vlsir.circuit.Signal signals = 3;
-  total_size += 1UL * this->_internal_signals_size();
-  for (const auto& msg : this->signals_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .vlsir.circuit.Instance instances = 4;
-  total_size += 1UL * this->_internal_instances_size();
-  for (const auto& msg : this->instances_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // string name = 1;
-  if (!this->_internal_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Circuit::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Circuit::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Circuit::GetClassData() const { return &_class_data_; }
-
-void Circuit::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Circuit *>(to)->MergeFrom(
-      static_cast<const Circuit &>(from));
-}
-
-
-void Circuit::MergeFrom(const Circuit& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Circuit)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  signals_.MergeFrom(from.signals_);
-  instances_.MergeFrom(from.instances_);
-  if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
-  }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void Circuit::CopyFrom(const Circuit& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.Circuit)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Circuit::IsInitialized() const {
-  return true;
-}
-
-void Circuit::InternalSwap(Circuit* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  signals_.InternalSwap(&other->signals_);
-  instances_.InternalSwap(&other->instances_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, GetArenaForAllocation(),
-      &other->name_, other->GetArenaForAllocation()
-  );
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata Circuit::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[3]);
-}
-
-// ===================================================================
-
 class Analysis::_Internal {
  public:
   static const ::vlsir::spice::OpInput& op(const Analysis* msg);
@@ -2826,7 +2557,7 @@ void Analysis::InternalSwap(Analysis* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Analysis::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[4]);
+      file_level_metadata_spice_2eproto[3]);
 }
 
 // ===================================================================
@@ -3410,7 +3141,7 @@ void AnalysisResult::InternalSwap(AnalysisResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AnalysisResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[5]);
+      file_level_metadata_spice_2eproto[4]);
 }
 
 // ===================================================================
@@ -3642,23 +3373,19 @@ void OpInput::InternalSwap(OpInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OpInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[6]);
+      file_level_metadata_spice_2eproto[5]);
 }
 
 // ===================================================================
 
 class OpResult::_Internal {
  public:
-  static const ::vlsir::spice::Signals& signals(const OpResult* msg);
 };
 
-const ::vlsir::spice::Signals&
-OpResult::_Internal::signals(const OpResult* msg) {
-  return *msg->signals_;
-}
 OpResult::OpResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  signals_(arena),
   data_(arena) {
   SharedCtor();
   if (!is_message_owned) {
@@ -3668,6 +3395,7 @@ OpResult::OpResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 OpResult::OpResult(const OpResult& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
+      signals_(from.signals_),
       data_(from.data_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -3675,17 +3403,11 @@ OpResult::OpResult(const OpResult& from)
     analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_signals()) {
-    signals_ = new ::vlsir::spice::Signals(*from.signals_);
-  } else {
-    signals_ = nullptr;
-  }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.OpResult)
 }
 
 inline void OpResult::SharedCtor() {
 analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-signals_ = nullptr;
 }
 
 OpResult::~OpResult() {
@@ -3698,7 +3420,6 @@ OpResult::~OpResult() {
 inline void OpResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete signals_;
 }
 
 void OpResult::ArenaDtor(void* object) {
@@ -3717,12 +3438,9 @@ void OpResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  signals_.Clear();
   data_.Clear();
   analysis_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3741,11 +3459,18 @@ const char* OpResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.Signals signals = 3;
+      // repeated string signals = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_signals(), ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signals();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.OpResult.signals"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       // repeated double data = 5;
@@ -3797,12 +3522,14 @@ failure:
         1, this->_internal_analysis_name(), target);
   }
 
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::signals(this), target, stream);
+  // repeated string signals = 3;
+  for (int i = 0, n = this->_internal_signals_size(); i < n; i++) {
+    const auto& s = this->_internal_signals(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.OpResult.signals");
+    target = stream->WriteString(3, s, target);
   }
 
   // repeated double data = 5;
@@ -3826,6 +3553,14 @@ size_t OpResult::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated string signals = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signals_.size());
+  for (int i = 0, n = signals_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signals_.Get(i));
+  }
+
   // repeated double data = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->_internal_data_size());
@@ -3843,13 +3578,6 @@ size_t OpResult::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
-  }
-
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *signals_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3880,12 +3608,10 @@ void OpResult::MergeFrom(const OpResult& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   if (!from._internal_analysis_name().empty()) {
     _internal_set_analysis_name(from._internal_analysis_name());
-  }
-  if (from._internal_has_signals()) {
-    _internal_mutable_signals()->::vlsir::spice::Signals::MergeFrom(from._internal_signals());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3904,19 +3630,19 @@ bool OpResult::IsInitialized() const {
 void OpResult::InternalSwap(OpResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &analysis_name_, GetArenaForAllocation(),
       &other->analysis_name_, other->GetArenaForAllocation()
   );
-  swap(signals_, other->signals_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OpResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[7]);
+      file_level_metadata_spice_2eproto[6]);
 }
 
 // ===================================================================
@@ -4232,7 +3958,7 @@ void DcInput::InternalSwap(DcInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DcInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[8]);
+      file_level_metadata_spice_2eproto[7]);
 }
 
 // ===================================================================
@@ -4246,23 +3972,19 @@ void DcResult_MeasurementsEntry_DoNotUse::MergeFrom(const DcResult_MeasurementsE
 ::PROTOBUF_NAMESPACE_ID::Metadata DcResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[9]);
+      file_level_metadata_spice_2eproto[8]);
 }
 
 // ===================================================================
 
 class DcResult::_Internal {
  public:
-  static const ::vlsir::spice::Signals& signals(const DcResult* msg);
 };
 
-const ::vlsir::spice::Signals&
-DcResult::_Internal::signals(const DcResult* msg) {
-  return *msg->signals_;
-}
 DcResult::DcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
@@ -4273,6 +3995,7 @@ DcResult::DcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 DcResult::DcResult(const DcResult& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
+      signals_(from.signals_),
       data_(from.data_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   measurements_.MergeFrom(from.measurements_);
@@ -4286,22 +4009,12 @@ DcResult::DcResult(const DcResult& from)
     indep_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_indep_name(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_signals()) {
-    signals_ = new ::vlsir::spice::Signals(*from.signals_);
-  } else {
-    signals_ = nullptr;
-  }
-  num_points_ = from.num_points_;
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.DcResult)
 }
 
 inline void DcResult::SharedCtor() {
 analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_points_) -
-    reinterpret_cast<char*>(&signals_)) + sizeof(num_points_));
 }
 
 DcResult::~DcResult() {
@@ -4315,7 +4028,6 @@ inline void DcResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   indep_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete signals_;
 }
 
 void DcResult::ArenaDtor(void* object) {
@@ -4338,15 +4050,11 @@ void DcResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  signals_.Clear();
   data_.Clear();
   measurements_.Clear();
   analysis_name_.ClearToEmpty();
   indep_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
-  num_points_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4374,18 +4082,18 @@ const char* DcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.Signals signals = 3;
+      // repeated string signals = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_signals(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int64 num_points = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          num_points_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signals();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.DcResult.signals"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       // repeated double data = 5;
@@ -4459,18 +4167,14 @@ failure:
         2, this->_internal_indep_name(), target);
   }
 
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::signals(this), target, stream);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_num_points(), target);
+  // repeated string signals = 3;
+  for (int i = 0, n = this->_internal_signals_size(); i < n; i++) {
+    const auto& s = this->_internal_signals(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.DcResult.signals");
+    target = stream->WriteString(3, s, target);
   }
 
   // repeated double data = 5;
@@ -4536,6 +4240,14 @@ size_t DcResult::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated string signals = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signals_.size());
+  for (int i = 0, n = signals_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signals_.Get(i));
+  }
+
   // repeated double data = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->_internal_data_size());
@@ -4571,20 +4283,6 @@ size_t DcResult::ByteSizeLong() const {
         this->_internal_indep_name());
   }
 
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *signals_);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_num_points());
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -4613,6 +4311,7 @@ void DcResult::MergeFrom(const DcResult& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
   if (!from._internal_analysis_name().empty()) {
@@ -4620,12 +4319,6 @@ void DcResult::MergeFrom(const DcResult& from) {
   }
   if (!from._internal_indep_name().empty()) {
     _internal_set_indep_name(from._internal_indep_name());
-  }
-  if (from._internal_has_signals()) {
-    _internal_mutable_signals()->::vlsir::spice::Signals::MergeFrom(from._internal_signals());
-  }
-  if (from._internal_num_points() != 0) {
-    _internal_set_num_points(from._internal_num_points());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -4644,6 +4337,7 @@ bool DcResult::IsInitialized() const {
 void DcResult::InternalSwap(DcResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
   measurements_.InternalSwap(&other->measurements_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
@@ -4656,18 +4350,12 @@ void DcResult::InternalSwap(DcResult* other) {
       &indep_name_, GetArenaForAllocation(),
       &other->indep_name_, other->GetArenaForAllocation()
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DcResult, num_points_)
-      + sizeof(DcResult::num_points_)
-      - PROTOBUF_FIELD_OFFSET(DcResult, signals_)>(
-          reinterpret_cast<char*>(&signals_),
-          reinterpret_cast<char*>(&other->signals_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata DcResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[10]);
+      file_level_metadata_spice_2eproto[9]);
 }
 
 // ===================================================================
@@ -4681,7 +4369,7 @@ void TranInput_IcEntry_DoNotUse::MergeFrom(const TranInput_IcEntry_DoNotUse& oth
 ::PROTOBUF_NAMESPACE_ID::Metadata TranInput_IcEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[11]);
+      file_level_metadata_spice_2eproto[10]);
 }
 
 // ===================================================================
@@ -5043,7 +4731,7 @@ void TranInput::InternalSwap(TranInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TranInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[12]);
+      file_level_metadata_spice_2eproto[11]);
 }
 
 // ===================================================================
@@ -5057,23 +4745,19 @@ void TranResult_MeasurementsEntry_DoNotUse::MergeFrom(const TranResult_Measureme
 ::PROTOBUF_NAMESPACE_ID::Metadata TranResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[13]);
+      file_level_metadata_spice_2eproto[12]);
 }
 
 // ===================================================================
 
 class TranResult::_Internal {
  public:
-  static const ::vlsir::spice::Signals& signals(const TranResult* msg);
 };
 
-const ::vlsir::spice::Signals&
-TranResult::_Internal::signals(const TranResult* msg) {
-  return *msg->signals_;
-}
 TranResult::TranResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
@@ -5084,6 +4768,7 @@ TranResult::TranResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 TranResult::TranResult(const TranResult& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
+      signals_(from.signals_),
       data_(from.data_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   measurements_.MergeFrom(from.measurements_);
@@ -5092,21 +4777,11 @@ TranResult::TranResult(const TranResult& from)
     analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_signals()) {
-    signals_ = new ::vlsir::spice::Signals(*from.signals_);
-  } else {
-    signals_ = nullptr;
-  }
-  num_points_ = from.num_points_;
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.TranResult)
 }
 
 inline void TranResult::SharedCtor() {
 analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_points_) -
-    reinterpret_cast<char*>(&signals_)) + sizeof(num_points_));
 }
 
 TranResult::~TranResult() {
@@ -5119,7 +4794,6 @@ TranResult::~TranResult() {
 inline void TranResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete signals_;
 }
 
 void TranResult::ArenaDtor(void* object) {
@@ -5142,14 +4816,10 @@ void TranResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  signals_.Clear();
   data_.Clear();
   measurements_.Clear();
   analysis_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
-  num_points_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -5168,18 +4838,18 @@ const char* TranResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.Signals signals = 3;
+      // repeated string signals = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_signals(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int64 num_points = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          num_points_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signals();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.TranResult.signals"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       // repeated double data = 5;
@@ -5243,18 +4913,14 @@ failure:
         1, this->_internal_analysis_name(), target);
   }
 
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::signals(this), target, stream);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_num_points(), target);
+  // repeated string signals = 3;
+  for (int i = 0, n = this->_internal_signals_size(); i < n; i++) {
+    const auto& s = this->_internal_signals(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.TranResult.signals");
+    target = stream->WriteString(3, s, target);
   }
 
   // repeated double data = 5;
@@ -5320,6 +4986,14 @@ size_t TranResult::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated string signals = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signals_.size());
+  for (int i = 0, n = signals_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signals_.Get(i));
+  }
+
   // repeated double data = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->_internal_data_size());
@@ -5346,20 +5020,6 @@ size_t TranResult::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
-  }
-
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *signals_);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_num_points());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5390,16 +5050,11 @@ void TranResult::MergeFrom(const TranResult& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
   if (!from._internal_analysis_name().empty()) {
     _internal_set_analysis_name(from._internal_analysis_name());
-  }
-  if (from._internal_has_signals()) {
-    _internal_mutable_signals()->::vlsir::spice::Signals::MergeFrom(from._internal_signals());
-  }
-  if (from._internal_num_points() != 0) {
-    _internal_set_num_points(from._internal_num_points());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -5418,6 +5073,7 @@ bool TranResult::IsInitialized() const {
 void TranResult::InternalSwap(TranResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
   measurements_.InternalSwap(&other->measurements_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
@@ -5425,18 +5081,12 @@ void TranResult::InternalSwap(TranResult* other) {
       &analysis_name_, GetArenaForAllocation(),
       &other->analysis_name_, other->GetArenaForAllocation()
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TranResult, num_points_)
-      + sizeof(TranResult::num_points_)
-      - PROTOBUF_FIELD_OFFSET(TranResult, signals_)>(
-          reinterpret_cast<char*>(&signals_),
-          reinterpret_cast<char*>(&other->signals_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TranResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[14]);
+      file_level_metadata_spice_2eproto[13]);
 }
 
 // ===================================================================
@@ -5652,7 +5302,7 @@ void ComplexNum::InternalSwap(ComplexNum* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ComplexNum::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[15]);
+      file_level_metadata_spice_2eproto[14]);
 }
 
 // ===================================================================
@@ -5965,7 +5615,7 @@ void AcInput::InternalSwap(AcInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AcInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[16]);
+      file_level_metadata_spice_2eproto[15]);
 }
 
 // ===================================================================
@@ -5979,24 +5629,20 @@ void AcResult_MeasurementsEntry_DoNotUse::MergeFrom(const AcResult_MeasurementsE
 ::PROTOBUF_NAMESPACE_ID::Metadata AcResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[17]);
+      file_level_metadata_spice_2eproto[16]);
 }
 
 // ===================================================================
 
 class AcResult::_Internal {
  public:
-  static const ::vlsir::spice::Signals& signals(const AcResult* msg);
 };
 
-const ::vlsir::spice::Signals&
-AcResult::_Internal::signals(const AcResult* msg) {
-  return *msg->signals_;
-}
 AcResult::AcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   freq_(arena),
+  signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
@@ -6008,6 +5654,7 @@ AcResult::AcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 AcResult::AcResult(const AcResult& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       freq_(from.freq_),
+      signals_(from.signals_),
       data_(from.data_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   measurements_.MergeFrom(from.measurements_);
@@ -6016,21 +5663,11 @@ AcResult::AcResult(const AcResult& from)
     analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_signals()) {
-    signals_ = new ::vlsir::spice::Signals(*from.signals_);
-  } else {
-    signals_ = nullptr;
-  }
-  num_points_ = from.num_points_;
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.AcResult)
 }
 
 inline void AcResult::SharedCtor() {
 analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_points_) -
-    reinterpret_cast<char*>(&signals_)) + sizeof(num_points_));
 }
 
 AcResult::~AcResult() {
@@ -6043,7 +5680,6 @@ AcResult::~AcResult() {
 inline void AcResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete signals_;
 }
 
 void AcResult::ArenaDtor(void* object) {
@@ -6067,14 +5703,10 @@ void AcResult::Clear() {
   (void) cached_has_bits;
 
   freq_.Clear();
+  signals_.Clear();
   data_.Clear();
   measurements_.Clear();
   analysis_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && signals_ != nullptr) {
-    delete signals_;
-  }
-  signals_ = nullptr;
-  num_points_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -6103,18 +5735,18 @@ const char* AcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           ptr += sizeof(double);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.Signals signals = 3;
+      // repeated string signals = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_signals(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int64 num_points = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          num_points_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signals();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.AcResult.signals"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       // repeated .vlsir.spice.ComplexNum data = 5;
@@ -6185,18 +5817,14 @@ failure:
     target = stream->WriteFixedPacked(2, _internal_freq(), target);
   }
 
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::signals(this), target, stream);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_num_points(), target);
+  // repeated string signals = 3;
+  for (int i = 0, n = this->_internal_signals_size(); i < n; i++) {
+    const auto& s = this->_internal_signals(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.AcResult.signals");
+    target = stream->WriteString(3, s, target);
   }
 
   // repeated .vlsir.spice.ComplexNum data = 5;
@@ -6277,6 +5905,14 @@ size_t AcResult::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated string signals = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signals_.size());
+  for (int i = 0, n = signals_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signals_.Get(i));
+  }
+
   // repeated .vlsir.spice.ComplexNum data = 5;
   total_size += 1UL * this->_internal_data_size();
   for (const auto& msg : this->data_) {
@@ -6298,20 +5934,6 @@ size_t AcResult::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
-  }
-
-  // .vlsir.spice.Signals signals = 3;
-  if (this->_internal_has_signals()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *signals_);
-  }
-
-  // int64 num_points = 4;
-  if (this->_internal_num_points() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_num_points());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6343,16 +5965,11 @@ void AcResult::MergeFrom(const AcResult& from) {
   (void) cached_has_bits;
 
   freq_.MergeFrom(from.freq_);
+  signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
   if (!from._internal_analysis_name().empty()) {
     _internal_set_analysis_name(from._internal_analysis_name());
-  }
-  if (from._internal_has_signals()) {
-    _internal_mutable_signals()->::vlsir::spice::Signals::MergeFrom(from._internal_signals());
-  }
-  if (from._internal_num_points() != 0) {
-    _internal_set_num_points(from._internal_num_points());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -6372,6 +5989,7 @@ void AcResult::InternalSwap(AcResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   freq_.InternalSwap(&other->freq_);
+  signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
   measurements_.InternalSwap(&other->measurements_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
@@ -6379,18 +5997,12 @@ void AcResult::InternalSwap(AcResult* other) {
       &analysis_name_, GetArenaForAllocation(),
       &other->analysis_name_, other->GetArenaForAllocation()
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AcResult, num_points_)
-      + sizeof(AcResult::num_points_)
-      - PROTOBUF_FIELD_OFFSET(AcResult, signals_)>(
-          reinterpret_cast<char*>(&signals_),
-          reinterpret_cast<char*>(&other->signals_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AcResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[18]);
+      file_level_metadata_spice_2eproto[17]);
 }
 
 // ===================================================================
@@ -6738,7 +6350,7 @@ void SweepInput::InternalSwap(SweepInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[19]);
+      file_level_metadata_spice_2eproto[18]);
 }
 
 // ===================================================================
@@ -7054,7 +6666,7 @@ void SweepResult::InternalSwap(SweepResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[20]);
+      file_level_metadata_spice_2eproto[19]);
 }
 
 // ===================================================================
@@ -7380,7 +6992,7 @@ void MonteInput::InternalSwap(MonteInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[21]);
+      file_level_metadata_spice_2eproto[20]);
 }
 
 // ===================================================================
@@ -7696,7 +7308,7 @@ void MonteResult::InternalSwap(MonteResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[22]);
+      file_level_metadata_spice_2eproto[21]);
 }
 
 // ===================================================================
@@ -7970,7 +7582,7 @@ void CustomAnalysisInput::InternalSwap(CustomAnalysisInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[23]);
+      file_level_metadata_spice_2eproto[22]);
 }
 
 // ===================================================================
@@ -8123,7 +7735,7 @@ void CustomAnalysisResult::InternalSwap(CustomAnalysisResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[24]);
+      file_level_metadata_spice_2eproto[23]);
 }
 
 // ===================================================================
@@ -8483,7 +8095,7 @@ void Sweep::InternalSwap(Sweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Sweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[25]);
+      file_level_metadata_spice_2eproto[24]);
 }
 
 // ===================================================================
@@ -8720,7 +8332,7 @@ void LinearSweep::InternalSwap(LinearSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LinearSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[26]);
+      file_level_metadata_spice_2eproto[25]);
 }
 
 // ===================================================================
@@ -8957,7 +8569,7 @@ void LogSweep::InternalSwap(LogSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LogSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[27]);
+      file_level_metadata_spice_2eproto[26]);
 }
 
 // ===================================================================
@@ -9205,39 +8817,34 @@ void PointSweep::InternalSwap(PointSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PointSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[28]);
+      file_level_metadata_spice_2eproto[27]);
 }
 
 // ===================================================================
 
 class Control::_Internal {
  public:
-  static const ::vlsir::spice::Save& save(const Control* msg);
   static const ::vlsir::spice::Include& include(const Control* msg);
+  static const ::vlsir::spice::LibInclude& lib(const Control* msg);
+  static const ::vlsir::spice::Save& save(const Control* msg);
+  static const ::vlsir::spice::Meas& meas(const Control* msg);
 };
 
-const ::vlsir::spice::Save&
-Control::_Internal::save(const Control* msg) {
-  return *msg->ctrl_.save_;
-}
 const ::vlsir::spice::Include&
 Control::_Internal::include(const Control* msg) {
   return *msg->ctrl_.include_;
 }
-void Control::set_allocated_save(::vlsir::spice::Save* save) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  clear_ctrl();
-  if (save) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Save>::GetOwningArena(save);
-    if (message_arena != submessage_arena) {
-      save = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, save, submessage_arena);
-    }
-    set_has_save();
-    ctrl_.save_ = save;
-  }
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.save)
+const ::vlsir::spice::LibInclude&
+Control::_Internal::lib(const Control* msg) {
+  return *msg->ctrl_.lib_;
+}
+const ::vlsir::spice::Save&
+Control::_Internal::save(const Control* msg) {
+  return *msg->ctrl_.save_;
+}
+const ::vlsir::spice::Meas&
+Control::_Internal::meas(const Control* msg) {
+  return *msg->ctrl_.meas_;
 }
 void Control::set_allocated_include(::vlsir::spice::Include* include) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -9254,6 +8861,51 @@ void Control::set_allocated_include(::vlsir::spice::Include* include) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.include)
 }
+void Control::set_allocated_lib(::vlsir::spice::LibInclude* lib) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_ctrl();
+  if (lib) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::LibInclude>::GetOwningArena(lib);
+    if (message_arena != submessage_arena) {
+      lib = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, lib, submessage_arena);
+    }
+    set_has_lib();
+    ctrl_.lib_ = lib;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.lib)
+}
+void Control::set_allocated_save(::vlsir::spice::Save* save) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_ctrl();
+  if (save) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Save>::GetOwningArena(save);
+    if (message_arena != submessage_arena) {
+      save = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, save, submessage_arena);
+    }
+    set_has_save();
+    ctrl_.save_ = save;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.save)
+}
+void Control::set_allocated_meas(::vlsir::spice::Meas* meas) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_ctrl();
+  if (meas) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Meas>::GetOwningArena(meas);
+    if (message_arena != submessage_arena) {
+      meas = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, meas, submessage_arena);
+    }
+    set_has_meas();
+    ctrl_.meas_ = meas;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.meas)
+}
 Control::Control(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -9268,12 +8920,20 @@ Control::Control(const Control& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   clear_has_ctrl();
   switch (from.ctrl_case()) {
+    case kInclude: {
+      _internal_mutable_include()->::vlsir::spice::Include::MergeFrom(from._internal_include());
+      break;
+    }
+    case kLib: {
+      _internal_mutable_lib()->::vlsir::spice::LibInclude::MergeFrom(from._internal_lib());
+      break;
+    }
     case kSave: {
       _internal_mutable_save()->::vlsir::spice::Save::MergeFrom(from._internal_save());
       break;
     }
-    case kInclude: {
-      _internal_mutable_include()->::vlsir::spice::Include::MergeFrom(from._internal_include());
+    case kMeas: {
+      _internal_mutable_meas()->::vlsir::spice::Meas::MergeFrom(from._internal_meas());
       break;
     }
     case kLiteral: {
@@ -9318,15 +8978,27 @@ void Control::SetCachedSize(int size) const {
 void Control::clear_ctrl() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.Control)
   switch (ctrl_case()) {
+    case kInclude: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete ctrl_.include_;
+      }
+      break;
+    }
+    case kLib: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete ctrl_.lib_;
+      }
+      break;
+    }
     case kSave: {
       if (GetArenaForAllocation() == nullptr) {
         delete ctrl_.save_;
       }
       break;
     }
-    case kInclude: {
+    case kMeas: {
       if (GetArenaForAllocation() == nullptr) {
-        delete ctrl_.include_;
+        delete ctrl_.meas_;
       }
       break;
     }
@@ -9358,23 +9030,37 @@ const char* Control::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .vlsir.spice.Save save = 1;
+      // .vlsir.spice.Include include = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_save(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .vlsir.spice.Include include = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_include(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string literal = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+      // .vlsir.spice.LibInclude lib = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_lib(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vlsir.spice.Save save = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_save(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vlsir.spice.Meas meas = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_meas(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string literal = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
           auto str = _internal_mutable_literal();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Control.literal"));
@@ -9410,30 +9096,46 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .vlsir.spice.Save save = 1;
-  if (_internal_has_save()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::save(this), target, stream);
-  }
-
-  // .vlsir.spice.Include include = 2;
+  // .vlsir.spice.Include include = 1;
   if (_internal_has_include()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::include(this), target, stream);
+        1, _Internal::include(this), target, stream);
   }
 
-  // string literal = 3;
+  // .vlsir.spice.LibInclude lib = 2;
+  if (_internal_has_lib()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::lib(this), target, stream);
+  }
+
+  // .vlsir.spice.Save save = 5;
+  if (_internal_has_save()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::save(this), target, stream);
+  }
+
+  // .vlsir.spice.Meas meas = 6;
+  if (_internal_has_meas()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        6, _Internal::meas(this), target, stream);
+  }
+
+  // string literal = 10;
   if (_internal_has_literal()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_literal().data(), static_cast<int>(this->_internal_literal().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "vlsir.spice.Control.literal");
     target = stream->WriteStringMaybeAliased(
-        3, this->_internal_literal(), target);
+        10, this->_internal_literal(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9453,21 +9155,35 @@ size_t Control::ByteSizeLong() const {
   (void) cached_has_bits;
 
   switch (ctrl_case()) {
-    // .vlsir.spice.Save save = 1;
-    case kSave: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *ctrl_.save_);
-      break;
-    }
-    // .vlsir.spice.Include include = 2;
+    // .vlsir.spice.Include include = 1;
     case kInclude: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *ctrl_.include_);
       break;
     }
-    // string literal = 3;
+    // .vlsir.spice.LibInclude lib = 2;
+    case kLib: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *ctrl_.lib_);
+      break;
+    }
+    // .vlsir.spice.Save save = 5;
+    case kSave: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *ctrl_.save_);
+      break;
+    }
+    // .vlsir.spice.Meas meas = 6;
+    case kMeas: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *ctrl_.meas_);
+      break;
+    }
+    // string literal = 10;
     case kLiteral: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -9507,12 +9223,20 @@ void Control::MergeFrom(const Control& from) {
   (void) cached_has_bits;
 
   switch (from.ctrl_case()) {
+    case kInclude: {
+      _internal_mutable_include()->::vlsir::spice::Include::MergeFrom(from._internal_include());
+      break;
+    }
+    case kLib: {
+      _internal_mutable_lib()->::vlsir::spice::LibInclude::MergeFrom(from._internal_lib());
+      break;
+    }
     case kSave: {
       _internal_mutable_save()->::vlsir::spice::Save::MergeFrom(from._internal_save());
       break;
     }
-    case kInclude: {
-      _internal_mutable_include()->::vlsir::spice::Include::MergeFrom(from._internal_include());
+    case kMeas: {
+      _internal_mutable_meas()->::vlsir::spice::Meas::MergeFrom(from._internal_meas());
       break;
     }
     case kLiteral: {
@@ -9547,7 +9271,7 @@ void Control::InternalSwap(Control* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Control::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[29]);
+      file_level_metadata_spice_2eproto[28]);
 }
 
 // ===================================================================
@@ -9810,7 +9534,7 @@ void Save::InternalSwap(Save* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Save::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[30]);
+      file_level_metadata_spice_2eproto[29]);
 }
 
 // ===================================================================
@@ -10010,7 +9734,7 @@ void Include::InternalSwap(Include* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Include::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[31]);
+      file_level_metadata_spice_2eproto[30]);
 }
 
 // ===================================================================
@@ -10252,7 +9976,7 @@ void LibInclude::InternalSwap(LibInclude* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LibInclude::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[32]);
+      file_level_metadata_spice_2eproto[31]);
 }
 
 // ===================================================================
@@ -10494,7 +10218,7 @@ void Meas::InternalSwap(Meas* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Meas::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[33]);
+      file_level_metadata_spice_2eproto[32]);
 }
 
 // ===================================================================
@@ -10520,11 +10244,13 @@ Signal::Signal(const Signal& from)
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
   }
+  quantity_ = from.quantity_;
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Signal)
 }
 
 inline void Signal::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+quantity_ = 0;
 }
 
 Signal::~Signal() {
@@ -10556,6 +10282,7 @@ void Signal::Clear() {
   (void) cached_has_bits;
 
   name_.ClearToEmpty();
+  quantity_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -10572,6 +10299,14 @@ const char* Signal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Signal.name"));
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vlsir.spice.Signal.Quantity quantity = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_quantity(static_cast<::vlsir::spice::Signal_Quantity>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -10613,6 +10348,13 @@ failure:
         1, this->_internal_name(), target);
   }
 
+  // .vlsir.spice.Signal.Quantity quantity = 2;
+  if (this->_internal_quantity() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_quantity(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -10634,6 +10376,12 @@ size_t Signal::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
+  }
+
+  // .vlsir.spice.Signal.Quantity quantity = 2;
+  if (this->_internal_quantity() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_quantity());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10667,6 +10415,9 @@ void Signal::MergeFrom(const Signal& from) {
   if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
+  if (from._internal_quantity() != 0) {
+    _internal_set_quantity(from._internal_quantity());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -10689,202 +10440,13 @@ void Signal::InternalSwap(Signal* other) {
       &name_, GetArenaForAllocation(),
       &other->name_, other->GetArenaForAllocation()
   );
+  swap(quantity_, other->quantity_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Signal::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[34]);
-}
-
-// ===================================================================
-
-class Signals::_Internal {
- public:
-};
-
-Signals::Signals(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  signals_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:vlsir.spice.Signals)
-}
-Signals::Signals(const Signals& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      signals_(from.signals_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:vlsir.spice.Signals)
-}
-
-inline void Signals::SharedCtor() {
-}
-
-Signals::~Signals() {
-  // @@protoc_insertion_point(destructor:vlsir.spice.Signals)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void Signals::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void Signals::ArenaDtor(void* object) {
-  Signals* _this = reinterpret_cast< Signals* >(object);
-  (void)_this;
-}
-void Signals::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void Signals::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void Signals::Clear() {
-// @@protoc_insertion_point(message_clear_start:vlsir.spice.Signals)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  signals_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* Signals::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated .vlsir.spice.Signal signals = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_signals(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* Signals::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.Signals)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // repeated .vlsir.spice.Signal signals = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_signals_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_signals(i), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.Signals)
-  return target;
-}
-
-size_t Signals::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.Signals)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated .vlsir.spice.Signal signals = 1;
-  total_size += 1UL * this->_internal_signals_size();
-  for (const auto& msg : this->signals_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Signals::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Signals::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Signals::GetClassData() const { return &_class_data_; }
-
-void Signals::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Signals *>(to)->MergeFrom(
-      static_cast<const Signals &>(from));
-}
-
-
-void Signals::MergeFrom(const Signals& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Signals)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  signals_.MergeFrom(from.signals_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void Signals::CopyFrom(const Signals& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.Signals)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Signals::IsInitialized() const {
-  return true;
-}
-
-void Signals::InternalSwap(Signals* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  signals_.InternalSwap(&other->signals_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata Signals::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[35]);
+      file_level_metadata_spice_2eproto[33]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -10899,9 +10461,6 @@ template<> PROTOBUF_NOINLINE ::vlsir::spice::SimResult* Arena::CreateMaybeMessag
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::SimOptions* Arena::CreateMaybeMessage< ::vlsir::spice::SimOptions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::SimOptions >(arena);
-}
-template<> PROTOBUF_NOINLINE ::vlsir::spice::Circuit* Arena::CreateMaybeMessage< ::vlsir::spice::Circuit >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vlsir::spice::Circuit >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Analysis* Arena::CreateMaybeMessage< ::vlsir::spice::Analysis >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Analysis >(arena);
@@ -10995,9 +10554,6 @@ template<> PROTOBUF_NOINLINE ::vlsir::spice::Meas* Arena::CreateMaybeMessage< ::
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Signal* Arena::CreateMaybeMessage< ::vlsir::spice::Signal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Signal >(arena);
-}
-template<> PROTOBUF_NOINLINE ::vlsir::spice::Signals* Arena::CreateMaybeMessage< ::vlsir::spice::Signals >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vlsir::spice::Signals >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

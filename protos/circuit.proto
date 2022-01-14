@@ -69,6 +69,7 @@ message Slice {
 }
 
 // Signal Concatenation 
+// FIXME: documentation of ordering, MSB-LSB 
 message Concat {
   repeated Connection parts = 1;
 }
@@ -79,7 +80,7 @@ message Concat {
 // (b) Concatenated 
 message Connection {
   oneof stype {
-    Signal sig = 1;
+    Signal sig = 1; // FIXME: can become just string-valued reference to signal-name
     Slice slice = 2;
     Concat concat = 3;
   }

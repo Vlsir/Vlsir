@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x1egoogle/protobuf/wrappers.proto\x1a\rcircuit.proto\"\x9c\x01\n\x08SimInput\x12!\n\x03\x63kt\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.Circuit\x12%\n\x04opts\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x03 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x04 \x03(\x0b\x32\x14.vlsir.spice.Control\"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"\xed\x01\n\nSimOptions\x12*\n\x04temp\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12*\n\x04tnom\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12*\n\x04gmin\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12-\n\x07iabstol\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12,\n\x06reltol\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\"w\n\x07\x43ircuit\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x07signals\x18\x03 \x03(\x0b\x32\x15.vlsir.circuit.Signal\x12*\n\tinstances\x18\x04 \x03(\x0b\x32\x17.vlsir.circuit.InstanceJ\x04\x08\x02\x10\x03J\x04\x08\x05\x10\x06\"\xac\x02\n\x08\x41nalysis\x12\"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12\"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12\"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n\"\xb9\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n\"D\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"b\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12%\n\x07signals\x18\x03 \x01(\x0b\x32\x14.vlsir.spice.Signals\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05\"{\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\xf2\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12%\n\x07signals\x18\x03 \x01(\x0b\x32\x14.vlsir.spice.Signals\x12\x12\n\nnum_points\x18\x04 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"\xbb\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"\xe8\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12%\n\x07signals\x18\x03 \x01(\x0b\x32\x14.vlsir.spice.Signals\x12\x12\n\nnum_points\x18\x04 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03\"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01\"q\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x85\x02\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12%\n\x07signals\x18\x03 \x01(\x0b\x32\x14.vlsir.spice.Signals\x12\x12\n\nnum_points\x18\x04 \x01(\x03\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x16\n\x14\x43ustomAnalysisResult\"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp\"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01\"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"p\n\x07\x43ontrol\x12!\n\x04save\x18\x01 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12\'\n\x07include\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12\x11\n\x07literal\x18\x03 \x01(\tH\x00\x42\x06\n\x04\x63trl\"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00\"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save\"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t\"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t\"\"\n\x04Meas\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x02 \x01(\t\"F\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\"/\n\x07Signals\x12$\n\x07signals\x18\x01 \x03(\x0b\x32\x13.vlsir.spice.Signal2=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3'
+  serialized_pb=b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x1egoogle/protobuf/wrappers.proto\x1a\rcircuit.proto\"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x01(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control\"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"\xed\x01\n\nSimOptions\x12*\n\x04temp\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12*\n\x04tnom\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12*\n\x04gmin\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12-\n\x07iabstol\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\x12,\n\x06reltol\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.DoubleValue\"\xac\x02\n\x08\x41nalysis\x12\"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12\"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12\"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n\"\xb9\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n\"D\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05\"{\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05\"\xbb\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05\"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01\"q\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12\"\n\x04\x63trl\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05\"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x16\n\x14\x43ustomAnalysisResult\"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp\"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01\"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"\xbb\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl\"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00\"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save\"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t\"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t\"\"\n\x04Meas\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x02 \x01(\t\"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity\".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_wrappers__pb2.DESCRIPTOR,circuit__pb2.DESCRIPTOR,])
 
@@ -47,8 +47,8 @@ _SAVE_SAVEMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3833,
-  serialized_end=3862,
+  serialized_start=3673,
+  serialized_end=3702,
 )
 _sym_db.RegisterEnumDescriptor(_SAVE_SAVEMODE)
 
@@ -77,8 +77,8 @@ _SIGNAL_QUANTITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4002,
-  serialized_end=4048,
+  serialized_start=3890,
+  serialized_end=3936,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_QUANTITY)
 
@@ -92,29 +92,36 @@ _SIMINPUT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ckt', full_name='vlsir.spice.SimInput.ckt', index=0,
+      name='pkg', full_name='vlsir.spice.SimInput.pkg', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='opts', full_name='vlsir.spice.SimInput.opts', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='top', full_name='vlsir.spice.SimInput.top', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='opts', full_name='vlsir.spice.SimInput.opts', index=2,
+      number=10, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='an', full_name='vlsir.spice.SimInput.an', index=2,
-      number=3, type=11, cpp_type=10, label=3,
+      name='an', full_name='vlsir.spice.SimInput.an', index=3,
+      number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ctrls', full_name='vlsir.spice.SimInput.ctrls', index=3,
-      number=4, type=11, cpp_type=10, label=3,
+      name='ctrls', full_name='vlsir.spice.SimInput.ctrls', index=4,
+      number=12, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -132,7 +139,7 @@ _SIMINPUT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=76,
-  serialized_end=232,
+  serialized_end=247,
 )
 
 
@@ -163,8 +170,8 @@ _SIMRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=234,
-  serialized_end=286,
+  serialized_start=249,
+  serialized_end=301,
 )
 
 
@@ -223,54 +230,8 @@ _SIMOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=289,
-  serialized_end=526,
-)
-
-
-_CIRCUIT = _descriptor.Descriptor(
-  name='Circuit',
-  full_name='vlsir.spice.Circuit',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='vlsir.spice.Circuit.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='signals', full_name='vlsir.spice.Circuit.signals', index=1,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='instances', full_name='vlsir.spice.Circuit.instances', index=2,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=528,
-  serialized_end=647,
+  serialized_start=304,
+  serialized_end=541,
 )
 
 
@@ -348,8 +309,8 @@ _ANALYSIS = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=650,
-  serialized_end=950,
+  serialized_start=544,
+  serialized_end=844,
 )
 
 
@@ -427,8 +388,8 @@ _ANALYSISRESULT = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=953,
-  serialized_end=1266,
+  serialized_start=847,
+  serialized_end=1160,
 )
 
 
@@ -466,8 +427,8 @@ _OPINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1268,
-  serialized_end=1336,
+  serialized_start=1162,
+  serialized_end=1230,
 )
 
 
@@ -488,8 +449,8 @@ _OPRESULT = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='signals', full_name='vlsir.spice.OpResult.signals', index=1,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -512,8 +473,8 @@ _OPRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1338,
-  serialized_end=1436,
+  serialized_start=1232,
+  serialized_end=1308,
 )
 
 
@@ -565,8 +526,8 @@ _DCINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1438,
-  serialized_end=1561,
+  serialized_start=1310,
+  serialized_end=1433,
 )
 
 
@@ -604,8 +565,8 @@ _DCRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1755,
-  serialized_end=1806,
+  serialized_start=1585,
+  serialized_end=1636,
 )
 
 _DCRESULT = _descriptor.Descriptor(
@@ -632,27 +593,20 @@ _DCRESULT = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='signals', full_name='vlsir.spice.DcResult.signals', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='num_points', full_name='vlsir.spice.DcResult.num_points', index=3,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='vlsir.spice.DcResult.data', index=4,
+      name='data', full_name='vlsir.spice.DcResult.data', index=3,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='measurements', full_name='vlsir.spice.DcResult.measurements', index=5,
+      name='measurements', full_name='vlsir.spice.DcResult.measurements', index=4,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -670,8 +624,8 @@ _DCRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1564,
-  serialized_end=1806,
+  serialized_start=1436,
+  serialized_end=1642,
 )
 
 
@@ -709,8 +663,8 @@ _TRANINPUT_ICENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1955,
-  serialized_end=1996,
+  serialized_start=1791,
+  serialized_end=1832,
 )
 
 _TRANINPUT = _descriptor.Descriptor(
@@ -768,8 +722,8 @@ _TRANINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1809,
-  serialized_end=1996,
+  serialized_start=1645,
+  serialized_end=1832,
 )
 
 
@@ -807,8 +761,8 @@ _TRANRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1755,
-  serialized_end=1806,
+  serialized_start=1585,
+  serialized_end=1636,
 )
 
 _TRANRESULT = _descriptor.Descriptor(
@@ -828,27 +782,20 @@ _TRANRESULT = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='signals', full_name='vlsir.spice.TranResult.signals', index=1,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='num_points', full_name='vlsir.spice.TranResult.num_points', index=2,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='vlsir.spice.TranResult.data', index=3,
+      name='data', full_name='vlsir.spice.TranResult.data', index=2,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='measurements', full_name='vlsir.spice.TranResult.measurements', index=4,
+      name='measurements', full_name='vlsir.spice.TranResult.measurements', index=3,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -866,8 +813,8 @@ _TRANRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1999,
-  serialized_end=2231,
+  serialized_start=1835,
+  serialized_end=2031,
 )
 
 
@@ -905,8 +852,8 @@ _COMPLEXNUM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2233,
-  serialized_end=2269,
+  serialized_start=2033,
+  serialized_end=2069,
 )
 
 
@@ -965,8 +912,8 @@ _ACINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2271,
-  serialized_end=2384,
+  serialized_start=2071,
+  serialized_end=2184,
 )
 
 
@@ -1004,8 +951,8 @@ _ACRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1755,
-  serialized_end=1806,
+  serialized_start=1585,
+  serialized_end=1636,
 )
 
 _ACRESULT = _descriptor.Descriptor(
@@ -1032,27 +979,20 @@ _ACRESULT = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='signals', full_name='vlsir.spice.AcResult.signals', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='num_points', full_name='vlsir.spice.AcResult.num_points', index=3,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='vlsir.spice.AcResult.data', index=4,
+      name='data', full_name='vlsir.spice.AcResult.data', index=3,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='measurements', full_name='vlsir.spice.AcResult.measurements', index=5,
+      name='measurements', full_name='vlsir.spice.AcResult.measurements', index=4,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1070,8 +1010,8 @@ _ACRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2387,
-  serialized_end=2648,
+  serialized_start=2187,
+  serialized_end=2412,
 )
 
 
@@ -1130,8 +1070,8 @@ _SWEEPINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2651,
-  serialized_end=2811,
+  serialized_start=2415,
+  serialized_end=2575,
 )
 
 
@@ -1183,8 +1123,8 @@ _SWEEPRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2814,
-  serialized_end=2944,
+  serialized_start=2578,
+  serialized_end=2708,
 )
 
 
@@ -1243,8 +1183,8 @@ _MONTEINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2947,
-  serialized_end=3082,
+  serialized_start=2711,
+  serialized_end=2846,
 )
 
 
@@ -1296,8 +1236,8 @@ _MONTERESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3085,
-  serialized_end=3215,
+  serialized_start=2849,
+  serialized_end=2979,
 )
 
 
@@ -1342,8 +1282,8 @@ _CUSTOMANALYSISINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3217,
-  serialized_end=3311,
+  serialized_start=2981,
+  serialized_end=3075,
 )
 
 
@@ -1367,8 +1307,8 @@ _CUSTOMANALYSISRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3313,
-  serialized_end=3335,
+  serialized_start=3077,
+  serialized_end=3099,
 )
 
 
@@ -1418,8 +1358,8 @@ _SWEEP = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3338,
-  serialized_end=3476,
+  serialized_start=3102,
+  serialized_end=3240,
 )
 
 
@@ -1464,8 +1404,8 @@ _LINEARSWEEP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3478,
-  serialized_end=3534,
+  serialized_start=3242,
+  serialized_end=3298,
 )
 
 
@@ -1510,8 +1450,8 @@ _LOGSWEEP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3536,
-  serialized_end=3589,
+  serialized_start=3300,
+  serialized_end=3353,
 )
 
 
@@ -1556,8 +1496,8 @@ _POINTSWEEP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3591,
-  serialized_end=3647,
+  serialized_start=3355,
+  serialized_end=3411,
 )
 
 
@@ -1570,22 +1510,36 @@ _CONTROL = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='save', full_name='vlsir.spice.Control.save', index=0,
+      name='include', full_name='vlsir.spice.Control.include', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='include', full_name='vlsir.spice.Control.include', index=1,
+      name='lib', full_name='vlsir.spice.Control.lib', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='literal', full_name='vlsir.spice.Control.literal', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='save', full_name='vlsir.spice.Control.save', index=2,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='meas', full_name='vlsir.spice.Control.meas', index=3,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='literal', full_name='vlsir.spice.Control.literal', index=4,
+      number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1607,8 +1561,8 @@ _CONTROL = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3649,
-  serialized_end=3761,
+  serialized_start=3414,
+  serialized_end=3601,
 )
 
 
@@ -1652,8 +1606,8 @@ _SAVE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3763,
-  serialized_end=3870,
+  serialized_start=3603,
+  serialized_end=3710,
 )
 
 
@@ -1684,8 +1638,8 @@ _INCLUDE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3872,
-  serialized_end=3895,
+  serialized_start=3712,
+  serialized_end=3735,
 )
 
 
@@ -1723,8 +1677,8 @@ _LIBINCLUDE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3897,
-  serialized_end=3940,
+  serialized_start=3737,
+  serialized_end=3780,
 )
 
 
@@ -1762,8 +1716,8 @@ _MEAS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3942,
-  serialized_end=3976,
+  serialized_start=3782,
+  serialized_end=3816,
 )
 
 
@@ -1782,6 +1736,13 @@ _SIGNAL = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='quantity', full_name='vlsir.spice.Signal.quantity', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1795,43 +1756,11 @@ _SIGNAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3978,
-  serialized_end=4048,
+  serialized_start=3818,
+  serialized_end=3936,
 )
 
-
-_SIGNALS = _descriptor.Descriptor(
-  name='Signals',
-  full_name='vlsir.spice.Signals',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='signals', full_name='vlsir.spice.Signals.signals', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4050,
-  serialized_end=4097,
-)
-
-_SIMINPUT.fields_by_name['ckt'].message_type = _CIRCUIT
+_SIMINPUT.fields_by_name['pkg'].message_type = circuit__pb2._PACKAGE
 _SIMINPUT.fields_by_name['opts'].message_type = _SIMOPTIONS
 _SIMINPUT.fields_by_name['an'].message_type = _ANALYSIS
 _SIMINPUT.fields_by_name['ctrls'].message_type = _CONTROL
@@ -1841,8 +1770,6 @@ _SIMOPTIONS.fields_by_name['tnom'].message_type = google_dot_protobuf_dot_wrappe
 _SIMOPTIONS.fields_by_name['gmin'].message_type = google_dot_protobuf_dot_wrappers__pb2._DOUBLEVALUE
 _SIMOPTIONS.fields_by_name['iabstol'].message_type = google_dot_protobuf_dot_wrappers__pb2._DOUBLEVALUE
 _SIMOPTIONS.fields_by_name['reltol'].message_type = google_dot_protobuf_dot_wrappers__pb2._DOUBLEVALUE
-_CIRCUIT.fields_by_name['signals'].message_type = circuit__pb2._SIGNAL
-_CIRCUIT.fields_by_name['instances'].message_type = circuit__pb2._INSTANCE
 _ANALYSIS.fields_by_name['op'].message_type = _OPINPUT
 _ANALYSIS.fields_by_name['dc'].message_type = _DCINPUT
 _ANALYSIS.fields_by_name['tran'].message_type = _TRANINPUT
@@ -1900,21 +1827,17 @@ _ANALYSISRESULT.oneofs_by_name['an'].fields.append(
   _ANALYSISRESULT.fields_by_name['custom'])
 _ANALYSISRESULT.fields_by_name['custom'].containing_oneof = _ANALYSISRESULT.oneofs_by_name['an']
 _OPINPUT.fields_by_name['ctrl'].message_type = _CONTROL
-_OPRESULT.fields_by_name['signals'].message_type = _SIGNALS
 _DCINPUT.fields_by_name['sweep'].message_type = _SWEEP
 _DCINPUT.fields_by_name['ctrl'].message_type = _CONTROL
 _DCRESULT_MEASUREMENTSENTRY.containing_type = _DCRESULT
-_DCRESULT.fields_by_name['signals'].message_type = _SIGNALS
 _DCRESULT.fields_by_name['measurements'].message_type = _DCRESULT_MEASUREMENTSENTRY
 _TRANINPUT_ICENTRY.containing_type = _TRANINPUT
 _TRANINPUT.fields_by_name['ic'].message_type = _TRANINPUT_ICENTRY
 _TRANINPUT.fields_by_name['ctrl'].message_type = _CONTROL
 _TRANRESULT_MEASUREMENTSENTRY.containing_type = _TRANRESULT
-_TRANRESULT.fields_by_name['signals'].message_type = _SIGNALS
 _TRANRESULT.fields_by_name['measurements'].message_type = _TRANRESULT_MEASUREMENTSENTRY
 _ACINPUT.fields_by_name['ctrl'].message_type = _CONTROL
 _ACRESULT_MEASUREMENTSENTRY.containing_type = _ACRESULT
-_ACRESULT.fields_by_name['signals'].message_type = _SIGNALS
 _ACRESULT.fields_by_name['data'].message_type = _COMPLEXNUM
 _ACRESULT.fields_by_name['measurements'].message_type = _ACRESULT_MEASUREMENTSENTRY
 _SWEEPINPUT.fields_by_name['sweep'].message_type = _SWEEP
@@ -1939,14 +1862,22 @@ _SWEEP.fields_by_name['log'].containing_oneof = _SWEEP.oneofs_by_name['tp']
 _SWEEP.oneofs_by_name['tp'].fields.append(
   _SWEEP.fields_by_name['points'])
 _SWEEP.fields_by_name['points'].containing_oneof = _SWEEP.oneofs_by_name['tp']
-_CONTROL.fields_by_name['save'].message_type = _SAVE
 _CONTROL.fields_by_name['include'].message_type = _INCLUDE
+_CONTROL.fields_by_name['lib'].message_type = _LIBINCLUDE
+_CONTROL.fields_by_name['save'].message_type = _SAVE
+_CONTROL.fields_by_name['meas'].message_type = _MEAS
+_CONTROL.oneofs_by_name['ctrl'].fields.append(
+  _CONTROL.fields_by_name['include'])
+_CONTROL.fields_by_name['include'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
+_CONTROL.oneofs_by_name['ctrl'].fields.append(
+  _CONTROL.fields_by_name['lib'])
+_CONTROL.fields_by_name['lib'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
 _CONTROL.oneofs_by_name['ctrl'].fields.append(
   _CONTROL.fields_by_name['save'])
 _CONTROL.fields_by_name['save'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
 _CONTROL.oneofs_by_name['ctrl'].fields.append(
-  _CONTROL.fields_by_name['include'])
-_CONTROL.fields_by_name['include'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
+  _CONTROL.fields_by_name['meas'])
+_CONTROL.fields_by_name['meas'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
 _CONTROL.oneofs_by_name['ctrl'].fields.append(
   _CONTROL.fields_by_name['literal'])
 _CONTROL.fields_by_name['literal'].containing_oneof = _CONTROL.oneofs_by_name['ctrl']
@@ -1958,12 +1889,11 @@ _SAVE.fields_by_name['mode'].containing_oneof = _SAVE.oneofs_by_name['save']
 _SAVE.oneofs_by_name['save'].fields.append(
   _SAVE.fields_by_name['signal'])
 _SAVE.fields_by_name['signal'].containing_oneof = _SAVE.oneofs_by_name['save']
+_SIGNAL.fields_by_name['quantity'].enum_type = _SIGNAL_QUANTITY
 _SIGNAL_QUANTITY.containing_type = _SIGNAL
-_SIGNALS.fields_by_name['signals'].message_type = _SIGNAL
 DESCRIPTOR.message_types_by_name['SimInput'] = _SIMINPUT
 DESCRIPTOR.message_types_by_name['SimResult'] = _SIMRESULT
 DESCRIPTOR.message_types_by_name['SimOptions'] = _SIMOPTIONS
-DESCRIPTOR.message_types_by_name['Circuit'] = _CIRCUIT
 DESCRIPTOR.message_types_by_name['Analysis'] = _ANALYSIS
 DESCRIPTOR.message_types_by_name['AnalysisResult'] = _ANALYSISRESULT
 DESCRIPTOR.message_types_by_name['OpInput'] = _OPINPUT
@@ -1991,7 +1921,6 @@ DESCRIPTOR.message_types_by_name['Include'] = _INCLUDE
 DESCRIPTOR.message_types_by_name['LibInclude'] = _LIBINCLUDE
 DESCRIPTOR.message_types_by_name['Meas'] = _MEAS
 DESCRIPTOR.message_types_by_name['Signal'] = _SIGNAL
-DESCRIPTOR.message_types_by_name['Signals'] = _SIGNALS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SimInput = _reflection.GeneratedProtocolMessageType('SimInput', (_message.Message,), {
@@ -2014,13 +1943,6 @@ SimOptions = _reflection.GeneratedProtocolMessageType('SimOptions', (_message.Me
   # @@protoc_insertion_point(class_scope:vlsir.spice.SimOptions)
   })
 _sym_db.RegisterMessage(SimOptions)
-
-Circuit = _reflection.GeneratedProtocolMessageType('Circuit', (_message.Message,), {
-  'DESCRIPTOR' : _CIRCUIT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Circuit)
-  })
-_sym_db.RegisterMessage(Circuit)
 
 Analysis = _reflection.GeneratedProtocolMessageType('Analysis', (_message.Message,), {
   'DESCRIPTOR' : _ANALYSIS,
@@ -2243,13 +2165,6 @@ Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,),
   })
 _sym_db.RegisterMessage(Signal)
 
-Signals = _reflection.GeneratedProtocolMessageType('Signals', (_message.Message,), {
-  'DESCRIPTOR' : _SIGNALS,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Signals)
-  })
-_sym_db.RegisterMessage(Signals)
-
 
 _DCRESULT_MEASUREMENTSENTRY._options = None
 _TRANINPUT_ICENTRY._options = None
@@ -2263,8 +2178,8 @@ _SPICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=4099,
-  serialized_end=4160,
+  serialized_start=3938,
+  serialized_end=3999,
   methods=[
   _descriptor.MethodDescriptor(
     name='Sim',

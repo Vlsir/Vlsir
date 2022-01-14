@@ -7,6 +7,7 @@ version = "0.1.1-dev0"
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
 protobuf = "^3.19.1"
+hdl21 = {path = "/Users/dan/dev/Vlsir/Hdl21", develop = true} # FIXME: for netlisting. Want this OUTTA here. 
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
