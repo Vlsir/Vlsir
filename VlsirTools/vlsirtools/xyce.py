@@ -11,6 +11,7 @@ import shutil
 import csv
 from typing import List, Tuple, IO
 
+
 # Local/ Project Dependencies
 import vlsir
 import hdl21
@@ -169,10 +170,12 @@ class Sim:
 
         # Extract fields from our `TranInput`
         analysis_name = an.analysis_name or "tran"
-
-        # FIXME: get rid of these faux-defaults
-        tstop = an.tstop or 1e-9
-        tstep = an.tstep or 1e-12
+        
+        # Why not make tstop/tstep required?
+        if not an.tstop or not an.tstep:
+            raise ValueError("tstop and tstep must be defined")
+        tstop = an.tstop
+        tstep = an.tstep
         if len(an.ic):
             raise NotImplementedError
         if len(an.ctrl):
