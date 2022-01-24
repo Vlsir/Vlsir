@@ -170,7 +170,8 @@ class Netlister:
             return str(pparam.string)
         raise ValueError
 
-    def get_module_name(self, module: vlsir.circuit.Module) -> str:
+    @classmethod
+    def get_module_name(cls, module: vlsir.circuit.Module) -> str:
         """ Create a netlist-compatible name for proto-Module `module` """
 
         # Create the module name
