@@ -42,8 +42,7 @@ def parse(filename: str) -> Mapping[str, Any]:
             flags = f.readline()  # Flags for this simulation result
             num_vars_line = f.readline()  # No. Variables:   [nvar]
             num_pts_line = f.readline()   # No. Points:      [npts]
-            breakpoint()
-            sim_name = plotname.decode("ascii").split("`")[-1][:-1]
+            sim_name = plotname.decode("ascii").split("`")[-1].split("'")[0]
             data[sim_name] = dict(data={}, units={})
 
             # Find the number of variables and number of points
@@ -81,7 +80,7 @@ def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
     Implements the `vlsir.spice.Sim` RPC interface.
     """
     with tempfile.TemporaryDirectory() as tmpdir:
-        tmpdir = "/tools/B/pandey/vlsir/tmp"  # FIXME
+        tmpdir = "./tmp"  # FIXME
         sim = Sim(inp, tmpdir)
         results = sim.run()
     return results
@@ -148,10 +147,21 @@ class Sim:
         netlist_file.close()
         self.run_simulation()
 
-        # Run each analysis in the input
+        # Parse output data
         results = vlsir.spice.SimResult()
+        data = parse("netlist.raw")
+        an_type_dispatch = dict(
+            ac=self.parse_ac,
+            dc=self.parse_dc,
+            op=self.parse_op,
+            tran=self.parse_tran)
         for an in self.inp.an:
-            results.an.append(self.parse_output(an))
+            an_type = an.WhichOneof("an")
+            inner = getattr(an, an_type)
+            results.an.append(
+                vlsir.spice.AnalysisResult(**{
+                    an_type: an_type_dispatch[an_type](
+                        inner, data[inner.analysis_name])}))
         return results
 
     def write_control_elements(self, netlist_file) -> None:
@@ -167,13 +177,13 @@ class Sim:
 
     def netlist_analysis(self, an: vlsir.spice.Analysis, netlist_file) -> None:
         inner = an.WhichOneof("an")
-        inner_to_func = dict(
+        inner_dispatch = dict(
             ac=self.netlist_ac,
             dc=self.netlist_dc,
             op=self.netlist_op,
             tran=self.netlist_tran)
 
-        inner_to_func[inner](getattr(an, inner), netlist_file)
+        inner_dispatch[inner](getattr(an, inner), netlist_file)
 
     def netlist_ac(self, an: vlsir.spice.AcInput, netlist_file) -> None:
         """ Run an AC analysis. """
@@ -188,7 +198,6 @@ class Sim:
         This netlists as a single point DC analysis
         """
         # Unpack the `OpInput`
-        print("made it to op", netlist_file)
         analysis_name = an.analysis_name or "op"
         if len(an.ctrl):
             raise NotImplementedError  # FIXME!
@@ -204,31 +213,30 @@ class Sim:
 
         netlist_file.write(f"{analysis_name} tran stop={an.tstop} \n\n")
 
-    def parse_output(self, an: vlsir.spice.Analysis
-                     ) -> vlsir.spice.AnalysisResult:
-        inner = an.WhichOneof("an")
-        inner_to_func = dict(
-            ac=self.parse_ac,
-            dc=self.parse_dc,
-            op=self.parse_op,
-            tran=self.parse_tran)
-
-        inner_to_func[inner](getattr(an, inner))
-
-    def parse_ac(self, an: vlsir.spice.AcInput) -> vlsir.spice.AcResult:
+    def parse_ac(self, an: vlsir.spice.AcInput, data: Mapping[str, Any]
+                 ) -> vlsir.spice.AcResult:
         raise NotImplementedError
 
-    def parse_dc(self, an: vlsir.spice.DcInput) -> vlsir.spice.DcResult:
+    def parse_dc(self, an: vlsir.spice.DcInput, data: Mapping[str, Any]
+                 ) -> vlsir.spice.DcResult:
         raise NotImplementedError
 
-    def parse_op(self, an: vlsir.spice.OpInput) -> vlsir.spice.OpResult:
-        out = parse("netlist.raw")
-        breakpoint()
-        raise NotImplementedError
+    def parse_op(self, an: vlsir.spice.OpInput, data: Mapping[str, Any]
+                 ) -> vlsir.spice.OpResult:
+        result = vlsir.spice.OpResult(analysis_name=an.analysis_name)
+        for sig_name in data['data'].keys():
+            result.signals.append(sig_name)
+            result.data.append(data['data'][sig_name][0])
+        return result
 
-    def parse_tran(self, an: vlsir.spice.TranInput) -> vlsir.spice.TranResult:
-        parse("netlist.raw")
-        raise NotImplementedError
+    def parse_tran(self, an: vlsir.spice.TranInput, data: Mapping[str, Any]
+                   ) -> vlsir.spice.TranResult:
+        result = vlsir.spice.TranResult(analysis_name=an.analysis_name)
+        for sig_name in data['data'].keys():
+            result.signals.append(sig_name)
+            for v in data['data'][sig_name]:
+                result.data.append(v)
+        return result
 
     def run_simulation(self):
         """ Run a Spectre simulation """
