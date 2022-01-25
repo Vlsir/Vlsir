@@ -13,9 +13,6 @@ from dataclasses import dataclass
 # Local Imports
 import vlsir
 
-# FIXME: these two dependencies should be removed!
-from hdl21.proto.to_proto import ProtoExporter
-from hdl21.proto.from_proto import ProtoImporter
 
 # Internal type shorthand
 ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
@@ -29,6 +26,7 @@ class SpicePrimitive(Enum):
     INDUCTOR = "l"
     MOS = "m"
     DIODE = "d"
+    BIPOLAR = "q"
     VSOURCE = "v"
     ISOURCE = "i"
 
@@ -92,7 +90,7 @@ class Netlister:
     """ # Abstract Base `Netlister` Class 
 
     `Netlister` is not directly instantiable, and none of its sub-classes are intended 
-    for usage outside `hdl21.netlist`. The primary API method `netlist` is designed to 
+    for usage outside the `netlist` package. The primary API method `netlist` is designed to 
     create, use, and drop a `Netlister` instance. 
     Once instantiated a `Netlister`'s primary API method is `netlist`. 
     This writes all content in its `pkg` field to destination `dest`. 
@@ -197,6 +195,48 @@ class Netlister:
 
         if ref.WhichOneof("to") == "external":  # Defined outside package
 
+            if ref.external.domain == "vlsir.primitives":
+                # Built-in primitive. Load its definition from the `vlsir.primitives` (python) module.
+                name = ref.external.name
+                module = getattr(vlsir.primitives, ref.external.name, None)
+                if module is None:
+                    raise RuntimeError(f"Invalid undefined primitive {ref.external}")
+
+                # Sort out the spectre-format name
+                # FIXME: probably make the naming a language-specific thing
+                if name == "capacitor":
+                    module_name = "capacitor"
+                    spice_primitive = SpicePrimitive.CAPACITOR
+                elif name == "resistor":
+                    module_name = "resistor"
+                    spice_primitive = SpicePrimitive.RESISTOR
+                elif name == "inductor":
+                    module_name = "inductor"
+                    spice_primitive = SpicePrimitive.INDUCTOR
+                elif name == "voltagesource":
+                    module_name = "vsource"
+                    spice_primitive = SpicePrimitive.VSOURCE
+                elif name == "currentsource":
+                    module_name = "isource"
+                    spice_primitive = SpicePrimitive.ISOURCE
+                elif name == "mos":
+                    module_name = "mos"
+                    spice_primitive = SpicePrimitive.MOS
+                elif name == "bipolar":
+                    module_name = "bipolar"
+                    spice_primitive = SpicePrimitive.BIPOLAR
+                elif name == "diode":
+                    module_name = "diode"
+                    spice_primitive = SpicePrimitive.DIODE
+                else:
+                    raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
+
+                return ResolvedModule(
+                    module=module,
+                    module_name=module_name,
+                    spice_primitive=spice_primitive,
+                )
+
             # First check the priviledged/ internally-defined domains
             if ref.external.domain == "hdl21.primitives":
                 msg = f"Invalid direct-netlisting of physical `hdl21.Primitive` `{ref.external.name}`. "
@@ -204,6 +244,11 @@ class Netlister:
                 raise RuntimeError(msg)
 
             if ref.external.domain == "hdl21.ideal":
+                import warnings
+
+                msg = f"Pending Deprecation: `hdl21.ideal` primitives. Move to `vlsir.primitives"
+                warnings.warn(msg)
+
                 # Ideal elements
                 name = ref.external.name
 
@@ -229,6 +274,11 @@ class Netlister:
                 # Awkwardly, primitives don't naturally have definitions as
                 # either `vlsir.circuit.Module` or `vlsir.circuit.ExternalModule`.
                 # So we create one on the fly.
+
+                # FIXME: these two dependencies should be removed!
+                from hdl21.proto.to_proto import ProtoExporter
+                from hdl21.proto.from_proto import ProtoImporter
+
                 prim = ProtoImporter.import_primitive(ref.external)
                 module = ProtoExporter.export_primitive(prim)
                 return ResolvedModule(
@@ -237,7 +287,7 @@ class Netlister:
                     spice_primitive=spice_primitive,
                 )
 
-            else:  # External Module
+            else:  # Externally-Defined, External-Domain `ExternalModule`
                 key = (ref.external.domain, ref.external.name)
                 module = self.ext_modules.get(key, None)
                 if module is None:
