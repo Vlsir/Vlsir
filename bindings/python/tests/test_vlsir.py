@@ -2,7 +2,7 @@
 # Vlsir Bindings Unit Tests 
 """
 
-# Import the package under test 
+# Import the package under test
 import vlsir
 
 
@@ -43,3 +43,8 @@ def test_sim():
     )
     inp.top = "top"
 
+
+def test_primitives1():
+    from vlsir.primitives import pkg
+
+    assert isinstance(pkg, vlsir.circuit.Package)

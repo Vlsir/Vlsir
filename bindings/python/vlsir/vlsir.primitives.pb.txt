@@ -1,0 +1,99 @@
+domain: "vlsir.primitives"
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "resistor"
+  }
+  desc: "Resistor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "capacitor"
+  }
+  desc: "Capacitor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "inductor"
+  }
+  desc: "Inductor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "mos"
+  }
+  desc: "Mosfet Transistor"
+  ports {
+    signal {
+      name: "d"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "g"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "s"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "b"
+      width: 1
+    }
+    direction: NONE
+  }
+}
