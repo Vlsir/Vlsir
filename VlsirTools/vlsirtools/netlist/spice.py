@@ -6,7 +6,7 @@ Of the countless Spice-class simulators have been designed the past half-century
 most have a similar general netlist format, including: 
 
 * Simulation input comprises a file-full of: 
-  * (a) Circuit elements, arranged in something like `hdl21.Module`, but "flattened" in the top-level file, 
+  * (a) Circuit elements, arranged in `vlsir.Module`s, and
   * (b) Simulator control "cards", such as analysis statements, global parameters, measurements, probes, and the like.
 * Circuit-specification is aided by hierarchy, generally in the form of "sub-circuits", denoted `SUBCKT`. 
   * Sub-circuits can commonly be parameterized, and can use a limited set of "parameter programming" to maniupulate their own parameter-values into those of their child-instances. 

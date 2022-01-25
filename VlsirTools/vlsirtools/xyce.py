@@ -13,7 +13,6 @@ from typing import List, Tuple, IO
 
 # Local/ Project Dependencies
 import vlsir
-import hdl21
 
 # from .netlist.spice import XyceNetlister
 
@@ -73,7 +72,7 @@ class Sim:
         #     mode="w+", encoding="utf-8", dir=self.tmpdir
         # )
         netlist_file = open("dut", "w")  # FIXME
-        hdl21.netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
+        vlsir.netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
         netlist_file.write(f"xtop 0 {self.inp.top} ; Top-Level DUT \n\n")
