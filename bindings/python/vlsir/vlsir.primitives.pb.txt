@@ -1,0 +1,230 @@
+domain: "vlsir.primitives"
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "mos"
+  }
+  desc: "\n# Mosfet Transistor\n\nPorts: (d, g, s, b), in identical order to SPICE convention \nParameters: string modelname\n\n`Vlsir.primitives.mos` Largely corresponds to the \"M-prefix\" element of Spice-class simulators. \nEach instance maps to a *spice model* instance (\"`m1`\"), *not* to sub-circuit instance (\"`x1`\"). \nIn many cases, particularly for technology-provided Mos devices, \nusing a foundry-provided sub-circuit will be appropriate instead. \n\nThe *sole* required parameter to each `vlsir.primitives.mos` is its string-valued `modelname`. \nAdditional parameters such as physical dimensions are typically model-specific and vary widely between models. \nConversion from `vlsir.primitives.mos` to spice-netlist formats is to pass all such additional parameters unmodified. \n\nExample instantiation:\n\n```python\nInstance(\n    name=\"mos1\",\n    module=Reference(domain=\"vlsir.primitives\", name=\"mos\"),\n    connections=dict(d=d, g=g, s=s, b=b),\n    parameters=dict(\n        modelname=\"my_favorite_nmos\", \n        w=1e-6, \n        geomod=2, # An example highly model-specific parameter\n    ),\n)\n```\n\nCorresponds to netlist-level content along the lines of: \n\n```spice\n.model my_favorite_nmos     * Model statement provided externally \n+ nmos level=53             * Model parameters\n\n* Instance compiled from `vlsir.primitives.mos`:\nmmos1                       * Note the `m` prefix\n+ d g s b                   * Connections \n+ my_favorite_nmos          * Model name\n+ w=1e-6 geomod=2           * Instance parameters, unmodified\n```\n"
+  ports {
+    signal {
+      name: "d"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "g"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "s"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "b"
+      width: 1
+    }
+    direction: NONE
+  }
+  parameters {
+    name: "modelname"
+    desc: "Model Name (string)"
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "bipolar"
+  }
+  desc: "Bipolar Junction Transistor (BJT)"
+  ports {
+    signal {
+      name: "c"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "b"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "e"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "diode"
+  }
+  desc: "Diode"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "resistor"
+  }
+  desc: "Ideal Resistor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "capacitor"
+  }
+  desc: "Ideal Capacitor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "inductor"
+  }
+  desc: "Ideal Inductor"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "currentsource"
+  }
+  desc: "Ideal Current Source"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "voltagesource"
+  }
+  desc: "Ideal Voltage Source"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+  parameters {
+    name: "dc"
+    default {
+      integer: 0
+    }
+    desc: "DC Value (V)"
+  }
+  parameters {
+    name: "delay"
+    desc: "Time Delay (s)"
+  }
+  parameters {
+    name: "v0"
+    desc: "Zero Value (V)"
+  }
+  parameters {
+    name: "v1"
+    desc: "One Value (V)"
+  }
+  parameters {
+    name: "period"
+    desc: "Period (s)"
+  }
+  parameters {
+    name: "rise"
+    desc: "Rise time (s)"
+  }
+  parameters {
+    name: "fall"
+    desc: "Fall time (s)"
+  }
+  parameters {
+    name: "width"
+    desc: "Pulse width (s)"
+  }
+}
+desc: "# Vlsir Primitive Modules \n\nDefines `ExternalModule`s for each irreducible primitive element in the namespace `vlsir.primitives`. \nThe content of `vlsir.primitives` largely parallels the \"elementary devices\" or \"primitive devices\" \nimplemented by Spice-class simulators. (Example: http://bwrcs.eecs.berkeley.edu/Classes/IcBook/SPICE/UserGuide/elements_fr.html)  \n\n"

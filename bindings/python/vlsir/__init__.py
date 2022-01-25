@@ -11,3 +11,5 @@ from . import circuit_pb2 as circuit
 from . import raw_pb2 as raw
 from . import tetris_pb2 as tetris
 
+# Primitives
+from . import primitives 
