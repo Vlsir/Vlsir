@@ -45,6 +45,13 @@ def test_sim():
 
 
 def test_primitives1():
+    # Load up and test the primitive definitions
     from vlsir.primitives import pkg
 
     assert isinstance(pkg, vlsir.circuit.Package)
+    assert pkg.domain == "vlsir.primitives"
+    assert isinstance(pkg.desc, str)
+    assert len(pkg.desc)
+    assert len(pkg.modules) == 0
+    assert len(pkg.ext_modules) == 8
+
