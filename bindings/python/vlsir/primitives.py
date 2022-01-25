@@ -12,5 +12,7 @@ here = Path(__file__).parent.absolute()
 prims = here / "vlsir.primitives.pb.txt"
 
 # And parse it into a `circuit.Package`
+from google.protobuf import text_format
+
 pkg = Package()
-(open(prims, "r").read(), pkg)
+text_format.Parse(open(prims, "r").read(), pkg)
