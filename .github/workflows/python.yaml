@@ -21,9 +21,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test with pytest
+      - name: pytest `bindings/python`
         run: |
           cd bindings/python
+          pip install -e ".[dev]"
+          pytest -sv --cov=./ --cov-report=xml
+      - name: pytest `VlsirTools`
+        run: |
+          cd VlsirTools
           pip install -e ".[dev]"
           pytest -sv --cov=./ --cov-report=xml
       # - name: Upload coverage to Codecov # Adapted from https://github.com/codecov/codecov-action#usage
