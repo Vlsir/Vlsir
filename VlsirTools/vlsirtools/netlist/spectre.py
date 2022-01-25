@@ -1,5 +1,5 @@
 """
-# Spectre-Format Netlister 
+# Spectre-Format Netlister
 """
 
 # Std-Lib Imports

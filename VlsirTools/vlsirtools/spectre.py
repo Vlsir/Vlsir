@@ -17,6 +17,7 @@ import numpy as np
 import vlsir
 from .netlist import netlist
 from .netlist.spectre import SpectreNetlister
+from .sim_data import *
 
 
 def _read_var_spec(line: str) -> Tuple[str, str]:
@@ -74,16 +75,23 @@ def parse(filename: str) -> Mapping[str, Any]:
         return data
 
 
-def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
+def sim(inp: vlsir.spice.SimInput, to_proto: bool = True
+        ) -> vlsir.spice.SimResult:
     """
     # Primary Simulation Method
     Implements the `vlsir.spice.Sim` RPC interface.
+
+    If proto is true, the results are returned in the
+    proto format, otherwise they are returned in the pythonic SimResult
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir = "./tmp"  # FIXME
         sim = Sim(inp, tmpdir)
         results = sim.run()
-    return results
+    if to_proto:
+        return results.to_proto()
+    else:
+        return results
 
 
 class Sim:
@@ -96,7 +104,7 @@ class Sim:
         self.inp = inp
         self.tmpdir = tmpdir
 
-    def run(self) -> vlsir.spice.SimResult:
+    def run(self) -> SimResult:
         """
         Run the specified `SimInput` in directory `self.tmpdir`,
         returning its results.
@@ -148,21 +156,19 @@ class Sim:
         self.run_simulation()
 
         # Parse output data
-        results = vlsir.spice.SimResult()
         data = parse("netlist.raw")
         an_type_dispatch = dict(
             ac=self.parse_ac,
             dc=self.parse_dc,
             op=self.parse_op,
             tran=self.parse_tran)
+        results = []
         for an in self.inp.an:
             an_type = an.WhichOneof("an")
             inner = getattr(an, an_type)
-            results.an.append(
-                vlsir.spice.AnalysisResult(**{
-                    an_type: an_type_dispatch[an_type](
-                        inner, data[inner.analysis_name])}))
-        return results
+            results.append(an_type_dispatch[an_type](
+                inner, data[inner.analysis_name]))
+        return SimResult(an=results)
 
     def write_control_elements(self, netlist_file) -> None:
         """ Write control elements to the netlist """
@@ -222,21 +228,14 @@ class Sim:
         raise NotImplementedError
 
     def parse_op(self, an: vlsir.spice.OpInput, data: Mapping[str, Any]
-                 ) -> vlsir.spice.OpResult:
-        result = vlsir.spice.OpResult(analysis_name=an.analysis_name)
-        for sig_name in data['data'].keys():
-            result.signals.append(sig_name)
-            result.data.append(data['data'][sig_name][0])
-        return result
+                 ) -> OpResult:
+        return OpResult(analysis_name=an.analysis_name,
+                        data={k: v[0] for k, v in data['data'].items()})
 
     def parse_tran(self, an: vlsir.spice.TranInput, data: Mapping[str, Any]
-                   ) -> vlsir.spice.TranResult:
-        result = vlsir.spice.TranResult(analysis_name=an.analysis_name)
-        for sig_name in data['data'].keys():
-            result.signals.append(sig_name)
-            for v in data['data'][sig_name]:
-                result.data.append(v)
-        return result
+                   ) -> TranResult:
+        return TranResult(analysis_name=an.analysis_name,
+                          data=data['data'])
 
     def run_simulation(self):
         """ Run a Spectre simulation """
