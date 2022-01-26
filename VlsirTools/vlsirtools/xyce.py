@@ -172,8 +172,7 @@ class Sim:
         """ Run a DC analysis. """
         
         # Unpack the `DcInput`
-        analysis_name = an.analysis_name or "dc"
-        sweep = an.sweep        
+        analysis_name = an.analysis_name or "dc"     
         
         if len(an.ctrl):
             raise NotImplementedError  # FIXME!
@@ -185,12 +184,15 @@ class Sim:
         # Write the analysis command
         param = an.indep_name
         ## Interpret the sweep 
-        sweep_type = an.WhichOneOf("sweep")
+        sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
+            sweep = an.sweep.linear
             netlist.write(f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n\n")
         elif sweep_type == "log":
+            sweep = an.sweep.log
             netlist.write(f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n\n")
         elif sweep_type == "points":
+            sweep = an.sweep.points
             netlist.write(f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n\n")
         else:
             raise ValueError("Invalid sweep type")
