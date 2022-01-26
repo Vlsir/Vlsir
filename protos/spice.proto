@@ -250,7 +250,7 @@ message AcInput {
   double fstart = 2; 
   // Stop (max) frequency in Hz 
   double fstop = 3; 
-  // Number of points. Total, not "per decade". 
+  // Number of points per interval of frequency sweep. 
   uint64 npts = 4;
   // Control Elements 
   repeated Control ctrl = 5; 
