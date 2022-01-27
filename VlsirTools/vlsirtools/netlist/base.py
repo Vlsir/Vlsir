@@ -21,14 +21,26 @@ ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
 class SpicePrimitive(Enum):
     """ Enumerated Spice Primitives and their Instance-Name Prefixes """
 
+    # Sub-circits, either from `Module`s or `ExternalModule`s
+    SUBCKT = "x"
+    # Ideal Passives
     RESISTOR = "r"
     CAPACITOR = "c"
     INDUCTOR = "l"
+    # Semiconductor Devices
     MOS = "m"
     DIODE = "d"
     BIPOLAR = "q"
+    # Independent Sources
     VSOURCE = "v"
     ISOURCE = "i"
+    # Dependent Sources
+    VCVS = "e"
+    VCCS = "g"
+    CCCS = "f"
+    CCVS = "h"
+    # Transmission Lines
+    TLINE = "o"
 
 
 @dataclass
@@ -243,6 +255,7 @@ class Netlister:
                 raise RuntimeError(msg)
 
             if ref.external.domain == "hdl21.ideal":
+                # FIXME: complete the deprecation of the dependency on `hdl21`.
                 import warnings
 
                 msg = f"Pending Deprecation: `hdl21.ideal` primitives. Move to `vlsir.primitives"

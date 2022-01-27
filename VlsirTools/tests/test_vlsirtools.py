@@ -96,7 +96,7 @@ def test_netlist1():
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
-@pytest.mark.xfail(reason="Hdl21 dependency being deprecated")
+@pytest.mark.xfail(reason="Hdl21 dependency pending deprecation")
 def test_netlist_hdl21_ideal1():
     # Test netlisting an `hdl21.ideal` element
 

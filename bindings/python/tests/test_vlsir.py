@@ -50,7 +50,7 @@ def test_primitives1():
     assert isinstance(primitives.pkg.desc, str)
     assert len(primitives.pkg.desc)
     assert len(primitives.pkg.modules) == 0
-    assert len(primitives.pkg.ext_modules) == 8
+    assert len(primitives.pkg.ext_modules) > 1
 
     assert isinstance(primitives.resistor, vlsir.circuit.ExternalModule)
     assert isinstance(primitives.dct["resistor"], vlsir.circuit.ExternalModule)
