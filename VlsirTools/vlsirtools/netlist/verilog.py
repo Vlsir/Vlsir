@@ -5,7 +5,7 @@
 import vlsir
 
 # Import the base-class
-from .base import Netlister
+from .base import Netlister, SpicePrefix
 
 
 class VerilogNetlister(Netlister):
@@ -87,8 +87,12 @@ class VerilogNetlister(Netlister):
         """ Format and write Instance `pinst` """
 
         # Get its Module or ExternalModule definition
-        target = self.resolve_reference(pinst.module)
-        module, module_name = target.module, target.module_name
+        rmodule = self.resolve_reference(pinst.module)
+        if rmodule.spice_prefix != SpicePrefix.SUBCKT:
+            # Spice-level primitives are generally not available in Verilog runtimes,
+            # and hence generate errors here if attempted in netlisting.
+            raise RuntimeError(f"Invalid module for Verilog: {rmodule}")
+        module, module_name = rmodule.module, rmodule.module_name
 
         # Write the module-name
         self.writeln(module_name)
