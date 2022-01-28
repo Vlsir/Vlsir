@@ -33,13 +33,13 @@ heavily re-using a central `SpiceNetlister` class, but requiring simulator-speci
 """
 
 # Std-Lib Imports
-from typing import List, Union
+from typing import Dict, Union
 
 # Local Imports
 import vlsir
 
 # Import the base-class
-from .base import Netlister, ResolvedModule
+from .base import Netlister, ResolvedModule, SpicePrefix, ModuleLike
 
 
 class SpiceNetlister(Netlister):
@@ -118,66 +118,117 @@ class SpiceNetlister(Netlister):
         self.write("\n")
 
     def write_instance_name(
-        self, pinst: vlsir.circuit.Instance, target: ResolvedModule
+        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
     ) -> None:
         """ Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix. """
-        prim = target.spice_primitive
-        prefix = "x" if prim is None else prim.value
-        self.write(f"{prefix}{pinst.name} \n")
+        self.write(f"{rmodule.spice_prefix}{pinst.name} \n")
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """ Create and return a netlist-string for Instance `pinst`"""
+        # Get its Module or ExternalModule definition, and dispatch to `subckt` or `primitive` writers
+        resolved = self.resolve_reference(pinst.module)
+        if resolved.spice_prefix == SpicePrefix.SUBCKT:
+            return self.write_subckt_instance(pinst, resolved)
+        return self.write_primitive_instance(pinst, resolved)
 
-        # Get its Module or ExternalModule definition, primarily for sake of port-order
-        target = self.resolve_reference(pinst.module)
-        module = target.module
+    def write_subckt_instance(
+        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
+    ) -> None:
+        """ Write sub-circuit-instance `pinst` of `rmodule`. """
 
-        # Create the instance name
-        self.write_instance_name(pinst, target)
+        # Write the instance name
+        self.write_instance_name(pinst, rmodule)
 
-        # Write its port-connections, if any are defined.
-        if module.ports:
-            # Get `module`'s port-order
-            port_order = [pport.signal.name for pport in module.ports]
-            self.write_instance_conns(pinst, port_list=port_order)
-        else:
-            self.write("+ ")
-            self.write_comment("No ports")
+        # Write its port-connections
+        self.write_instance_conns(pinst, rmodule.module)
 
-        if target.spice_primitive is None:
-            # For *non-primitive* sub-circuits, write the sub-circuit name.
-            self.write("+ " + target.module_name + " \n")
+        # Write the sub-circuit name
+        self.write("+ " + rmodule.module_name + " \n")
 
-        if pinst.parameters:  # Write the parameter-values
-            self.write_instance_params(pinst)
-        else:
-            self.write("+ ")
-            self.write_comment("No parameters")
+        # Write its parameter values
+        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+        self.write_instance_params(resolved_param_values)
+
+        # Add a blank after each instance
+        self.write("\n")
+
+    def write_primitive_instance(
+        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
+    ) -> None:
+        """ Write primitive-instance `pinst` of `rmodule`. 
+        Note spice's primitive instances often differn syntactically from sub-circuit instances, 
+        in that they can have positional (only) parameters. """
+
+        # Write the instance name
+        self.write_instance_name(pinst, rmodule)
+
+        # Write its port-connections
+        self.write_instance_conns(pinst, rmodule.module)
+
+        # Resolve its parameter-values to spice-strings
+        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+
+        # "Model-based" primitives get their model-name written, as though it were a sub-circuit name
+        model_based = {
+            SpicePrefix.MOS,
+            SpicePrefix.BIPOLAR,
+            SpicePrefix.DIODE,
+            SpicePrefix.TLINE,
+        }
+        if rmodule.spice_prefix in model_based:
+            # Pop the model-name from its instance parameters
+            modelname = resolved_param_values.pop("modelname", None)
+            if modelname is None:
+                raise RuntimeError(f"Invalid Primitive {pinst} lacking `modelname`")
+            self.write("+ " + modelname + " \n")
+
+        # Write its parameter values
+        self.write_instance_params(resolved_param_values)
 
         # Add a blank after each instance
         self.write("\n")
 
     def write_instance_conns(
-        self, pinst: vlsir.circuit.Instance, port_list: List[str]
+        self, pinst: vlsir.circuit.Instance, module: ModuleLike
     ) -> None:
         """ Write the port-connections for Instance `pinst` """
+
+        # Write a quick comment for port-less modules
+        if not module.ports:
+            self.write("+ ")
+            return self.write_comment("No ports")
+
         self.write("+ ")
         # And write the Instance ports, in that order
-        for pname in port_list:
+        port_order = [pport.signal.name for pport in module.ports]
+        for pname in port_order:
             pconn = pinst.connections.get(pname, None)
             if pconn is None:
                 raise RuntimeError(f"Unconnected Port {pname} on {pinst.name}")
             self.write(self.format_connection(pconn) + " ")
         self.write("\n")
 
-    def write_instance_params(self, pinst: vlsir.circuit.Instance) -> None:
-        """ Write the parameter-values for Instance `pinst`. 
+    def write_instance_params(self, pvals: Dict[str, str]) -> None:
+        """ 
+        Format and write the parameter-values in dictionary `pvals`. 
+        
         Parameter-values format:
-        XNAME <ports> <subckt-name> name1=val1 name2=val2 name3=val3 \n """
+        ```
+        XNAME 
+        + <ports> 
+        + <subckt-name> 
+        + name1=val1 name2=val2 name3=val3 
+        """
+
         self.write("+ ")
-        for pname, pparam in pinst.parameters.items():
-            pval = self.get_param_value(pparam)
+
+        if not pvals:  # Write a quick comment for no parameters
+            self.write_comment("No parameters")
+
+        # And write them
+        for (pname, pval) in pvals.items():
             self.write(f"{pname}={pval} ")
+
         self.write("\n")
 
     # TODO: copied from Spectre implementation, need test cases to exercise
@@ -260,15 +311,25 @@ class XyceNetlister(SpiceNetlister):
             self.write(self.format_param_decl(name, pparam))
         self.write("\n")
 
-    def write_instance_params(self, pinst: vlsir.circuit.Instance) -> None:
+    def write_instance_params(self, pvals: Dict[str, str]) -> None:
         """ Write the parameter-values for Instance `pinst`. 
+
         Parameter-values format:
-        XNAME <ports> <subckt-name> 
-        + PARAMS: name1=val1 name2=val2 name3=val3 \n """
-        self.write("+ PARAMS: ")  # <= Xyce-specific
-        for pname, pparam in pinst.parameters.items():
-            pval = self.get_param_value(pparam)
+        ```
+        XNAME 
+        + <ports> 
+        + <subckt-name> 
+        + PARAMS: name1=val1 name2=val2 name3=val3 
+        """
+
+        self.write("+ ")
+        if not pvals:  # Write a quick comment for no parameters
+            return self.write_comment("No parameters")
+
+        self.write("PARAMS: ")  # <= Xyce-specific
+        for (pname, pval) in pvals.items():
             self.write(f"{pname}={pval} ")
+
         self.write("\n")
 
     def write_comment(self, comment: str) -> None:
