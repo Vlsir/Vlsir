@@ -39,7 +39,7 @@ from typing import Dict, Union
 import vlsir
 
 # Import the base-class
-from .base import Netlister, ResolvedModule, SpicePrefix, ModuleLike
+from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
 
 
 class SpiceNetlister(Netlister):
@@ -125,10 +125,19 @@ class SpiceNetlister(Netlister):
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """ Create and return a netlist-string for Instance `pinst`"""
-        # Get its Module or ExternalModule definition, and dispatch to `subckt` or `primitive` writers
+
+        # Get its Module or ExternalModule definition,
         resolved = self.resolve_reference(pinst.module)
+
+        # And dispatch to `subckt` or `primitive` writers
         if resolved.spice_prefix == SpicePrefix.SUBCKT:
             return self.write_subckt_instance(pinst, resolved)
+
+        if resolved.spice_prefix == SpicePrefix.VSOURCE:
+            # Voltage sources get weird, and vary between dialiects. Farm them out to a dedicated method.
+            return self.write_voltage_source_instance(pinst, resolved)
+
+        # Everything else falls into the `primitive` category
         return self.write_primitive_instance(pinst, resolved)
 
     def write_subckt_instance(
@@ -168,21 +177,79 @@ class SpiceNetlister(Netlister):
         # Resolve its parameter-values to spice-strings
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
 
-        # "Model-based" primitives get their model-name written, as though it were a sub-circuit name
-        model_based = {
+        # Write special and/or positional parameters
+        if rmodule.spice_prefix == SpicePrefix.RESISTOR:
+            positional_keys = ["r"]
+        elif rmodule.spice_prefix == SpicePrefix.CAPACITOR:
+            positional_keys = ["c"]
+        elif rmodule.spice_prefix == SpicePrefix.INDUCTOR:
+            positional_keys = ["l"]
+        elif rmodule.spice_prefix == SpicePrefix.ISOURCE:
+            positional_keys = ["dc"]
+        elif rmodule.spice_prefix in (
+            SpicePrefix.VCVS,
+            SpicePrefix.VCCS,
+            SpicePrefix.CCCS,
+            SpicePrefix.CCVS,
+        ):
+            positional_keys = ["gain"]
+        elif rmodule.spice_prefix in (
             SpicePrefix.MOS,
             SpicePrefix.BIPOLAR,
             SpicePrefix.DIODE,
             SpicePrefix.TLINE,
-        }
-        if rmodule.spice_prefix in model_based:
-            # Pop the model-name from its instance parameters
-            modelname = resolved_param_values.pop("modelname", None)
-            if modelname is None:
-                raise RuntimeError(f"Invalid Primitive {pinst} lacking `modelname`")
-            self.write("+ " + modelname + " \n")
+        ):
+            positional_keys = ["modelname"]
+        else:
+            positional_keys = []
 
-        # Write its parameter values
+        # Pop all positional parameters ("pp") from `resolved_param_values`
+        pp = resolved_param_values.pop_many(positional_keys)
+
+        # Write the positional parameters, in the order specified by `positional_keys`
+        self.write("+ " + " ".join([pp[pkey] for pkey in positional_keys]) + " \n")
+
+        # Now! Write its subckt-style by-name parameter values
+        self.write_instance_params(resolved_param_values)
+
+        # Add a blank after each instance
+        self.write("\n")
+
+    def write_voltage_source_instance(
+        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule,
+    ) -> None:
+        """ Write a voltage-source instance `pinst`.
+        Throws an Exception if `rmodule` is not a known voltage-source type. """
+
+        # Resolve its parameter values
+        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+
+        # Write the instance name
+        self.write_instance_name(pinst, rmodule)
+
+        # Write its port-connections
+        self.write_instance_conns(pinst, rmodule.module)
+
+        # Handle each of the voltage-source cases
+        name = rmodule.module.name.name
+        if name == "vdc":
+            dc = resolved_param_values.pop("dc")
+            self.write(f"+ dc {dc} \n")
+
+        elif name == "vpulse":
+            keys = ["v1", "v2", "td", "tr", "tf", "tpw", "tper"]
+            pp = resolved_param_values.pop_many(keys)
+            self.write(f"+ pulse (" + " ".join([pp[k] for k in keys]) + ") \n")
+
+        elif name == "vsin":
+            keys = ["voff", "vamp", "freq", "td", "phase"]
+            pp = resolved_param_values.pop_many(keys)
+            self.write(f"+ sin (" + " ".join([pp[k] for k in keys]) + ") \n")
+
+        else:
+            raise ValueError(f"Invalid or unsupported voltage-source type: {name}")
+
+        # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)
 
         # Add a blank after each instance
@@ -208,7 +275,7 @@ class SpiceNetlister(Netlister):
             self.write(self.format_connection(pconn) + " ")
         self.write("\n")
 
-    def write_instance_params(self, pvals: Dict[str, str]) -> None:
+    def write_instance_params(self, pvals: ResolvedParams) -> None:
         """ 
         Format and write the parameter-values in dictionary `pvals`. 
         
@@ -227,11 +294,10 @@ class SpiceNetlister(Netlister):
 
         # And write them
         for (pname, pval) in pvals.items():
-            self.write(f"{pname}={pval} ")
+            self.write(f"{pname}={self.format_expression(pval)} ")
 
         self.write("\n")
 
-    # TODO: copied from Spectre implementation, need test cases to exercise
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
         """ Format the Concatenation of several other Connections """
         out = ""
@@ -289,6 +355,37 @@ class SpiceNetlister(Netlister):
         """ While dialects vary, the *generic* Spice-comment begins with the asterisk. """
         self.write(f"* {comment}\n")
 
+    def format_expression(self, expr: str) -> str:
+        """ Format a string such that the target format interprets it as an expression. 
+        Example:
+        ```
+        * Parameter Declarations
+        .param v0=1 v1='v0+1' * <= Here
+        * Instance with the same name 
+        v0 1 0 dc='v0+2*v1' * <= And here 
+        ``` 
+        Note the latter case includes the star character (`*`) for multiplication, 
+        where in many other contexts it is treated as the comment-character. 
+        """
+        # The base class does what (we think) is the most common practice:
+        # wrapping expressions in single-tick quotes.
+        return f"'{expr}'"
+
+
+class HspiceNetlister(SpiceNetlister):
+    """
+    # Hspice-Format Netlister 
+    
+    Other than its `NetlistFormat` enumeration, `HspiceNetlister` is identical to the base `SpiceNetlister`. 
+    """
+
+    @property
+    def enum(self):
+        """ Get our entry in the `NetlistFormat` enumeration """
+        from . import NetlistFormat
+
+        return NetlistFormat.HSPICE
+
 
 class XyceNetlister(SpiceNetlister):
     """ Xyce-Format Netlister """
@@ -328,7 +425,7 @@ class XyceNetlister(SpiceNetlister):
 
         self.write("PARAMS: ")  # <= Xyce-specific
         for (pname, pval) in pvals.items():
-            self.write(f"{pname}={pval} ")
+            self.write(f"{pname}={self.format_expression(pval)} ")
 
         self.write("\n")
 
@@ -339,19 +436,9 @@ class XyceNetlister(SpiceNetlister):
         So, just use it all the time. """
         self.write(f"; {comment}\n")
 
-
-class HspiceNetlister(SpiceNetlister):
-    """ FIXME: Hspice-Format Netlister """
-
-    def __init__(self, *_, **__):
-        raise NotImplementedError
-
-    @property
-    def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
-        from . import NetlistFormat
-
-        return NetlistFormat.HSPICE
+    def format_expression(self, expr: str) -> str:
+        # Xyce expressions are wrapped in curly braces.
+        return f"{{{expr}}}"
 
 
 class NgspiceNetlister(SpiceNetlister):

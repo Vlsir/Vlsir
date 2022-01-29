@@ -218,7 +218,7 @@ primitives = Package(
             parameters=[Parameter(name="dc", desc="DC Current (Amps)"),],
         ),
         ExternalModule(
-            name=_qname("vsource"),
+            name=_qname("vdc"),
             desc=dedent(
                 """
                 # Independent Voltage Source
@@ -226,14 +226,74 @@ primitives = Package(
                 Ports: (p, n) 
                 Parameters: `dc`, dc voltage (in Volts)
 
-                Largely corresponds to the "v-prefix" element of Spice-class simulators. 
-                Sole required parameter `dc` sets the DC value. 
                 All other parameters are passed unmodifed to netlist-level formats. 
                 """
             ),
             ports=_ports(("p", "n")),
             parameters=[Parameter(name="dc", desc="DC Voltage (Volts)"),],
         ),
+        ExternalModule(
+            name=_qname("vpulse"),
+            desc=dedent(
+                """
+                # Pulse Voltage Source
+                Two-value time-alternating voltage, with parametrizable rise and fall times and delays.
+
+                Ports: (p, n) 
+                Parameters: FIXME!
+
+                All other parameters are passed unmodifed to netlist-level formats. 
+                """
+            ),
+            ports=_ports(("p", "n")),
+            parameters=[
+                Parameter(name="v1", desc="Initial Value (V)"),
+                Parameter(name="v2", desc="Pulse Value (V)"),
+                Parameter(name="td", desc="Delay Time (s)"),
+                Parameter(name="tr", desc="Rise Time (s)"),
+                Parameter(name="tf", desc="Fall Time (s)"),
+                Parameter(name="tpw", desc="Pulse Width (s)"),
+                Parameter(name="tper", desc="Period (s)"),
+            ],
+        ),
+        ExternalModule(
+            name=_qname("vsin"),
+            desc=dedent(
+                """
+                # Sinusoidal Voltage Source
+
+                Ports: (p, n) 
+                Parameters: FIXME!
+
+                All other parameters are passed unmodifed to netlist-level formats. 
+                """
+            ),
+            ports=_ports(("p", "n")),
+            parameters=[
+                Parameter(name="voff", desc="Offset voltage (V)"),
+                Parameter(name="vamp", desc="Amplitude (V)"),
+                Parameter(name="freq", desc="Frequency (Hz)"),
+                Parameter(name="td", desc="Delay Time (s)"),
+                Parameter(name="phase", desc="Phase when t=td (degrees)"),
+            ],
+        ),
+        # FIXME: there's no straightforward way to implement "pwl", without list-valued parameters
+        # ExternalModule(
+        #     name=_qname("vpwl"),
+        #     desc=dedent(
+        #         """
+        #         # Piece-wise Linear Voltage Source
+        #         Driven by a set of (time, voltage) pairs.
+        #
+        #         Ports: (p, n)
+        #         Parameters: FIXME
+        #
+        #         All other parameters are passed unmodifed to netlist-level formats.
+        #         """
+        #     ),
+        #     ports=_ports(("p", "n")),
+        #     parameters=[],
+        # ),
         ExternalModule(
             name=_qname("mos"),
             desc=dedent(

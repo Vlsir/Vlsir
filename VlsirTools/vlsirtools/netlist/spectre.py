@@ -9,7 +9,7 @@ from typing import Union, Dict
 import vlsir
 
 # Import the base-class
-from .base import Netlister, ResolvedModule, SpicePrefix
+from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
 
 
 class SpectreNetlister(Netlister):
@@ -69,7 +69,7 @@ class SpectreNetlister(Netlister):
         self.write("ends \n\n")
 
     def get_primitive_name(
-        self, rmodule: ResolvedModule, paramvals: Dict[str, str]
+        self, rmodule: ResolvedModule, paramvals: ResolvedParams
     ) -> str:
         """ Get the module-name for primitives prefixed with `prefix`. 
         Note spectre syntax is such that the "apparent module name" can be either of: 
@@ -100,12 +100,7 @@ class SpectreNetlister(Netlister):
         }
         if rmodule.spice_prefix in model_based:
             # Get the model-name from its instance parameters
-            modelname = paramvals.pop("modelname", None)
-            if modelname is None:
-                raise RuntimeError(
-                    f"Invalid Primitive instance of {rmodule} lacking modelname"
-                )
-            return modelname
+            return paramvals.pop("modelname")
 
         # Otherwise, unclear what this is or how we got here.
         raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
@@ -121,9 +116,18 @@ class SpectreNetlister(Netlister):
         resolved_instance_parameters = self.get_instance_params(pinst, rmodule.module)
 
         module, module_name = rmodule.module, rmodule.module_name
-        if module_name is None:
-            # Primitive element. Look up spectre-format module-name
+        if rmodule.spice_prefix == SpicePrefix.SUBCKT:
+            module_name = rmodule.module_name
+        else:  # Primitive element. Look up spectre-format module-name
             module_name = self.get_primitive_name(pinst, resolved_instance_parameters)
+        
+        # For voltage sources, add spectre's "type" parameter
+        if rmodule.spice_prefix == SpicePrefix.VSOURCE:
+            vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
+            if module_name not in vtypes:
+                msg = f"Invalid or unsupported voltage-source type {module_name}"
+                raise ValueError(msg)
+            resolved_instance_parameters.set("type", vtypes[module_name])
 
         # Create the instance name
         self.write(pinst.name + "\n")
