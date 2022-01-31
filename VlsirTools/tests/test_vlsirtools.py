@@ -70,7 +70,7 @@ def test_netlist1():
                     ),
                     Instance(
                         name="v",
-                        module=_prim("vsource"),
+                        module=_prim("vdc"),
                         connections=_conns(),
                         parameters=dict(dc=ParameterValue(double=1.1)),
                     ),

@@ -258,9 +258,9 @@ ext_modules {
 ext_modules {
   name {
     domain: "vlsir.primitives"
-    name: "vsource"
+    name: "vdc"
   }
-  desc: "\n# Independent Voltage Source\n\nPorts: (p, n) \nParameters: `dc`, dc voltage (in Volts)\n\nLargely corresponds to the \"v-prefix\" element of Spice-class simulators. \nSole required parameter `dc` sets the DC value. \nAll other parameters are passed unmodifed to netlist-level formats. \n"
+  desc: "\n# Independent Voltage Source\n\nPorts: (p, n) \nParameters: `dc`, dc voltage (in Volts)\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
   ports {
     signal {
       name: "p"
@@ -278,6 +278,96 @@ ext_modules {
   parameters {
     name: "dc"
     desc: "DC Voltage (Volts)"
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "vpulse"
+  }
+  desc: "\n# Pulse Voltage Source\nTwo-value time-alternating voltage, with parametrizable rise and fall times and delays.\n\nPorts: (p, n) \nParameters: FIXME!\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+  parameters {
+    name: "v1"
+    desc: "Initial Value (V)"
+  }
+  parameters {
+    name: "v2"
+    desc: "Pulse Value (V)"
+  }
+  parameters {
+    name: "td"
+    desc: "Delay Time (s)"
+  }
+  parameters {
+    name: "tr"
+    desc: "Rise Time (s)"
+  }
+  parameters {
+    name: "tf"
+    desc: "Fall Time (s)"
+  }
+  parameters {
+    name: "tpw"
+    desc: "Pulse Width (s)"
+  }
+  parameters {
+    name: "tper"
+    desc: "Period (s)"
+  }
+}
+ext_modules {
+  name {
+    domain: "vlsir.primitives"
+    name: "vsin"
+  }
+  desc: "\n# Sinusoidal Voltage Source\n\nPorts: (p, n) \nParameters: FIXME!\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
+  ports {
+    signal {
+      name: "p"
+      width: 1
+    }
+    direction: NONE
+  }
+  ports {
+    signal {
+      name: "n"
+      width: 1
+    }
+    direction: NONE
+  }
+  parameters {
+    name: "voff"
+    desc: "Offset voltage (V)"
+  }
+  parameters {
+    name: "vamp"
+    desc: "Amplitude (V)"
+  }
+  parameters {
+    name: "freq"
+    desc: "Frequency (Hz)"
+  }
+  parameters {
+    name: "td"
+    desc: "Delay Time (s)"
+  }
+  parameters {
+    name: "phase"
+    desc: "Phase when t=td (degrees)"
   }
 }
 ext_modules {
