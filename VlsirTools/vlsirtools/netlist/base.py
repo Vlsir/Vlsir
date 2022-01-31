@@ -4,11 +4,9 @@
 """
 
 # Std-Lib Imports
-from typing import Optional, Tuple, List, Mapping, Union, IO
+from typing import Optional, Union, IO, Dict, Iterable
 from enum import Enum
-from dataclasses import field
-from enum import Enum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 # Local Imports
 import vlsir
@@ -18,28 +16,80 @@ import vlsir
 ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
 
 
-class SpicePrimitive(Enum):
+class SpicePrefix(Enum):
     """ Enumerated Spice Primitives and their Instance-Name Prefixes """
 
+    # Sub-circits, either from `Module`s or `ExternalModule`s
+    SUBCKT = "x"
+    # Ideal Passives
     RESISTOR = "r"
     CAPACITOR = "c"
     INDUCTOR = "l"
+    # Semiconductor Devices
     MOS = "m"
     DIODE = "d"
     BIPOLAR = "q"
+    # Independent Sources
     VSOURCE = "v"
     ISOURCE = "i"
+    # Dependent Sources
+    VCVS = "e"
+    VCCS = "g"
+    CCCS = "f"
+    CCVS = "h"
+    # Transmission Lines
+    TLINE = "o"
 
 
 @dataclass
 class ResolvedModule:
     """ Resolved reference to a `Module` or `ExternalModule`. 
-    Includes its netlist-sanitized name, and indication of 
-    whether spice-formatting should treat the device as a primitive. """
+    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name. """
 
     module: ModuleLike
     module_name: str
-    spice_primitive: Optional[SpicePrimitive]
+    spice_prefix: SpicePrefix
+
+
+@dataclass
+class ResolvedParams:
+    """ Resolved Instance-Parameter Values 
+    Factoring in defaults, and converted to strings. 
+    Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing. """
+
+    values: Dict[str, str]
+
+    def set(self, key: str, val: str) -> None:
+        """ Set the value of `key` to `val` in the resolved parameters. """
+        self.values[key] = val
+
+    def get(self, key: str) -> str:
+        """ Get the value of `key` from the resolved parameters. 
+        Raises `RuntimeError` if `key` is not present. """
+        if key not in self.values:
+            raise RuntimeError(f"Missing parameter {key}")
+        return self.values[key]
+
+    def pop(self, key: str) -> str:
+        """ Get the value of `key` from the resolved parameters, and remove it from the `ResolvedParams`. 
+        Raises `RuntimeError` if `key` is not present. """
+        if key not in self.values:
+            raise RuntimeError(f"Missing parameter {key}")
+        return self.values.pop(key)
+
+    def pop_many(self, keys: Iterable[str]) -> Dict[str, str]:
+        """ Get the values of `keys` from the resolved parameters, and remove them from the `ResolvedParams`. 
+        Raises `RuntimeError` if any `key` is not present. """
+        return {key: self.pop(key) for key in keys}
+
+    @property
+    def items(self):
+        return self.values.items
+
+    def __bool__(self):
+        """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
+        are forwarded down to the internal values dictionary. """
+        return bool(self.values)
 
 
 @dataclass
@@ -152,24 +202,56 @@ class Netlister:
     @classmethod
     def get_param_default(cls, pparam: vlsir.circuit.Parameter) -> Optional[str]:
         """ Get the default value of `pparam`. Returns `None` for no default. """
-        if pparam.WhichOneof("value") is None:
+        if pparam.default.WhichOneof("value") is None:
             return None
-        return cls.get_param_value(pparam)
+        return cls.get_param_value(pparam.default)
 
     @classmethod
-    def get_param_value(cls, pparam: vlsir.circuit.Parameter) -> str:
+    def get_param_value(cls, ppval: vlsir.circuit.ParameterValue) -> str:
         """ Get a string representation of a parameter-value """
-        ptype = pparam.WhichOneof("value")
+        ptype = ppval.WhichOneof("value")
         if ptype == "integer":
-            return str(int(pparam.integer))
+            return str(int(ppval.integer))
         if ptype == "double":
-            return str(float(pparam.double))
+            return str(float(ppval.double))
         if ptype == "string":
-            return str(pparam.string)
+            return str(ppval.string)
+        if ptype == "literal":
+            return str(ppval.literal)
         raise ValueError
 
     @classmethod
-    def get_module_name(cls, module: vlsir.circuit.Module) -> str:
+    def get_instance_params(
+        cls, pinst: vlsir.circuit.Instance, pmodule: ModuleLike
+    ) -> ResolvedParams:
+        """ Resolve the parameters of `pinst` to their values, including default values provided by `pmodule`. 
+        Raises a `RuntimeError` if any required parameter is not defined. 
+
+        Note this method *does not* raise errors for parameters *not specified* in `pmodule`, 
+        allowing for "pass-through" parameters not explicitly defined. """
+
+        values = dict()
+
+        # Step through each of `pmodule`'s declared parameters first, applying defaults if necessary
+        for mparam in pmodule.parameters:
+            if mparam.name in pinst.parameters:  # Specified by the Instance
+                inst_pval = pinst.parameters.pop(mparam.name)
+                values[mparam.name] = cls.get_param_value(inst_pval)
+            else:  # Not specified by the instance. Apply the default, or fail.
+                pdefault = cls.get_param_default(mparam)
+                if pdefault is None:
+                    msg = f"Required parameter `{mparam.name}` not specified for Instance `{pinst}`"
+                    raise RuntimeError(msg)
+                values[mparam.name] = pdefault
+
+        # Convert the remaining instance-provided parameters to strings
+        for (pname, pval) in pinst.parameters.items():
+            values[pname] = cls.get_param_value(pval)
+
+        # And wrap the resolved values in a `ResolvedParams` object
+        return ResolvedParams(values)
+
+    def get_module_name(self, module: vlsir.circuit.Module) -> str:
         """ Create a netlist-compatible name for proto-Module `module` """
 
         # Create the module name
@@ -190,60 +272,54 @@ class Netlister:
             return ResolvedModule(
                 module=module,
                 module_name=self.get_module_name(module),
-                spice_primitive=None,
+                spice_prefix=SpicePrefix.SUBCKT,
             )
 
         if ref.WhichOneof("to") == "external":  # Defined outside package
 
+            # First check the priviledged/ internally-defined domains
             if ref.external.domain == "vlsir.primitives":
                 # Built-in primitive. Load its definition from the `vlsir.primitives` (python) module.
                 name = ref.external.name
-                module = getattr(vlsir.primitives, ref.external.name, None)
+                module = vlsir.primitives.dct.get(ref.external.name, None)
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
-                # Sort out the spectre-format name
-                # FIXME: probably make the naming a language-specific thing
-                if name == "capacitor":
-                    module_name = "capacitor"
-                    spice_primitive = SpicePrimitive.CAPACITOR
-                elif name == "resistor":
-                    module_name = "resistor"
-                    spice_primitive = SpicePrimitive.RESISTOR
-                elif name == "inductor":
-                    module_name = "inductor"
-                    spice_primitive = SpicePrimitive.INDUCTOR
-                elif name == "voltagesource":
-                    module_name = "vsource"
-                    spice_primitive = SpicePrimitive.VSOURCE
-                elif name == "currentsource":
-                    module_name = "isource"
-                    spice_primitive = SpicePrimitive.ISOURCE
-                elif name == "mos":
-                    module_name = "mos"
-                    spice_primitive = SpicePrimitive.MOS
-                elif name == "bipolar":
-                    module_name = "bipolar"
-                    spice_primitive = SpicePrimitive.BIPOLAR
-                elif name == "diode":
-                    module_name = "diode"
-                    spice_primitive = SpicePrimitive.DIODE
-                else:
+                # Mapping from primitive-name to spice-prefix
+                prefixes = dict(
+                    resistor=SpicePrefix.RESISTOR,
+                    capacitor=SpicePrefix.CAPACITOR,
+                    inductor=SpicePrefix.INDUCTOR,
+                    vdc=SpicePrefix.VSOURCE,
+                    vpulse=SpicePrefix.VSOURCE,
+                    vpwl=SpicePrefix.VSOURCE,
+                    vsin=SpicePrefix.VSOURCE,
+                    isource=SpicePrefix.ISOURCE,
+                    vcvs=SpicePrefix.VCVS,
+                    vccs=SpicePrefix.VCCS,
+                    cccs=SpicePrefix.CCCS,
+                    ccvs=SpicePrefix.CCVS,
+                    mos=SpicePrefix.MOS,
+                    bipolar=SpicePrefix.BIPOLAR,
+                    diode=SpicePrefix.DIODE,
+                )
+
+                if name not in prefixes:
                     raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
 
                 return ResolvedModule(
                     module=module,
-                    module_name=module_name,
-                    spice_primitive=spice_primitive,
+                    module_name=module.name.name,
+                    spice_prefix=prefixes[name],
                 )
 
-            # First check the priviledged/ internally-defined domains
             if ref.external.domain == "hdl21.primitives":
                 msg = f"Invalid direct-netlisting of physical `hdl21.Primitive` `{ref.external.name}`. "
                 msg += "Either compile to a target technology, or replace with an `ExternalModule`. "
                 raise RuntimeError(msg)
 
             if ref.external.domain == "hdl21.ideal":
+                # FIXME: complete the deprecation of the dependency on `hdl21`.
                 import warnings
 
                 msg = f"Pending Deprecation: `hdl21.ideal` primitives. Move to `vlsir.primitives"
@@ -255,19 +331,19 @@ class Netlister:
                 # Sort out the spectre-format name
                 if name == "IdealCapacitor":
                     module_name = "capacitor"
-                    spice_primitive = SpicePrimitive.CAPACITOR
+                    spice_prefix = SpicePrefix.CAPACITOR
                 elif name == "IdealResistor":
                     module_name = "resistor"
-                    spice_primitive = SpicePrimitive.RESISTOR
+                    spice_prefix = SpicePrefix.RESISTOR
                 elif name == "IdealInductor":
                     module_name = "inductor"
-                    spice_primitive = SpicePrimitive.INDUCTOR
+                    spice_prefix = SpicePrefix.INDUCTOR
                 elif name == "VoltageSource":
                     module_name = "vsource"
-                    spice_primitive = SpicePrimitive.VSOURCE
+                    spice_prefix = SpicePrefix.VSOURCE
                 elif name == "CurrentSource":
                     module_name = "isource"
-                    spice_primitive = SpicePrimitive.ISOURCE
+                    spice_prefix = SpicePrefix.ISOURCE
                 else:
                     raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
 
@@ -279,12 +355,10 @@ class Netlister:
                 from hdl21.proto.to_proto import ProtoExporter
                 from hdl21.proto.from_proto import ProtoImporter
 
-                prim = ProtoImporter.import_primitive(ref.external)
-                module = ProtoExporter.export_primitive(prim)
+                prim = ProtoImporter.import_hdl21_primitive(ref.external)
+                module = ProtoExporter.export_hdl21_primitive(prim)
                 return ResolvedModule(
-                    module=module,
-                    module_name=module_name,
-                    spice_primitive=spice_primitive,
+                    module=module, module_name=module_name, spice_prefix=spice_prefix,
                 )
 
             else:  # Externally-Defined, External-Domain `ExternalModule`
@@ -303,7 +377,9 @@ class Netlister:
                     raise RuntimeError(msg)
                 self.ext_module_names[module_name] = module
                 return ResolvedModule(
-                    module=module, module_name=module_name, spice_primitive=None,
+                    module=module,
+                    module_name=module_name,
+                    spice_prefix=SpicePrefix.SUBCKT,
                 )
 
         # Not a Module, not an ExternalModule, not sure what it is

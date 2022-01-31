@@ -3,13 +3,13 @@
 """
 
 # Std-Lib Imports
-from typing import Union
+from typing import Union, Dict
 
 # Local Imports
 import vlsir
 
 # Import the base-class
-from .base import Netlister
+from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
 
 
 class SpectreNetlister(Netlister):
@@ -68,15 +68,69 @@ class SpectreNetlister(Netlister):
         # Close up the sub-circuit
         self.write("ends \n\n")
 
+    def get_primitive_name(
+        self, rmodule: ResolvedModule, paramvals: ResolvedParams
+    ) -> str:
+        """ Get the module-name for primitives prefixed with `prefix`. 
+        Note spectre syntax is such that the "apparent module name" can be either of: 
+        (a) a fixed name per spice-prefix, for basic types (r, c, l, etc), or 
+        (b) the *model* name for model-based devices, (mos, bjt, diode, etc) """
+
+        # Mapping from spice-prefix to spectre-name for fixed-name types
+        basics = {
+            SpicePrefix.RESISTOR: "resistor",
+            SpicePrefix.CAPACITOR: "capacitor",
+            SpicePrefix.INDUCTOR: "inductor",
+            SpicePrefix.VSOURCE: "vsource",
+            SpicePrefix.ISOURCE: "isource",
+            SpicePrefix.VCVS: "vcvs",
+            SpicePrefix.VCCS: "vccs",
+            SpicePrefix.CCCS: "cccs",
+            SpicePrefix.CCVS: "ccvs",
+        }
+        if rmodule.spice_prefix in basics:
+            return basics[rmodule.spice_prefix]
+
+        # Other primitive-types get an "apparent module name" equal to their *model* name.
+        model_based = {
+            SpicePrefix.MOS,
+            SpicePrefix.BIPOLAR,
+            SpicePrefix.DIODE,
+            SpicePrefix.TLINE,
+        }
+        if rmodule.spice_prefix in model_based:
+            # Get the model-name from its instance parameters
+            return paramvals.pop("modelname")
+
+        # Otherwise, unclear what this is or how we got here.
+        raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
+
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
+        # Initial resolution phase.
+        # Start by getting the Module or ExternalModule definition
+        rmodule = self.resolve_reference(pinst.module)
+
+        # Resolve its parameter values
+        resolved_instance_parameters = self.get_instance_params(pinst, rmodule.module)
+
+        module, module_name = rmodule.module, rmodule.module_name
+        if rmodule.spice_prefix == SpicePrefix.SUBCKT:
+            module_name = rmodule.module_name
+        else:  # Primitive element. Look up spectre-format module-name
+            module_name = self.get_primitive_name(rmodule, resolved_instance_parameters)
+        
+        # For voltage sources, add spectre's "type" parameter
+        if rmodule.spice_prefix == SpicePrefix.VSOURCE:
+            vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
+            if module_name not in vtypes:
+                msg = f"Invalid or unsupported voltage-source type {module_name}"
+                raise ValueError(msg)
+            resolved_instance_parameters.set("type", vtypes[module_name])
+
         # Create the instance name
         self.write(pinst.name + "\n")
-
-        # Get its Module or ExternalModule definition, primarily for sake of port-order
-        target = self.resolve_reference(pinst.module)
-        module, module_name = target.module, target.module_name
 
         if module.ports:
             self.write("+  ( ")
@@ -95,10 +149,9 @@ class SpectreNetlister(Netlister):
         # Write the module-name
         self.write("+  " + module_name + " \n")
 
-        if pinst.parameters:  # Write the parameter-values
+        if resolved_instance_parameters:  # Write its parameter-values
             self.write("+  ")
-            for pname, pparam in pinst.parameters.items():
-                pval = self.get_param_value(pparam)
+            for pname, pval in resolved_instance_parameters.items():
                 self.write(f"{pname}={pval} ")
             self.write(" \n")
         else:

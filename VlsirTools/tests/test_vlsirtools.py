@@ -17,7 +17,15 @@ def test_version():
 def test_netlist1():
     # Test netlisting, including instantiating primitives
 
-    from vlsir.circuit_pb2 import Module, Signal, Connection, Port, Instance, Package
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        Port,
+        Instance,
+        Package,
+        ParameterValue,
+    )
     from vlsir.utils_pb2 import Reference, QualifiedName
 
     def _prim(name: str) -> Reference:
@@ -42,17 +50,35 @@ def test_netlist1():
                 ],
                 signals=[],
                 instances=[
-                    Instance(name="r", module=_prim("resistor"), connections=_conns(),),
                     Instance(
-                        name="c", module=_prim("capacitor"), connections=_conns(),
-                    ),
-                    Instance(name="l", module=_prim("inductor"), connections=_conns(),),
-                    Instance(name="d", module=_prim("diode"), connections=_conns(),),
-                    Instance(
-                        name="v", module=_prim("voltagesource"), connections=_conns(),
+                        name="r",
+                        module=_prim("resistor"),
+                        connections=_conns(),
+                        parameters=dict(r=ParameterValue(double=1e3)),
                     ),
                     Instance(
-                        name="i", module=_prim("currentsource"), connections=_conns(),
+                        name="c",
+                        module=_prim("capacitor"),
+                        connections=_conns(),
+                        parameters=dict(c=ParameterValue(double=1e-15)),
+                    ),
+                    Instance(
+                        name="l",
+                        module=_prim("inductor"),
+                        connections=_conns(),
+                        parameters=dict(l=ParameterValue(double=1e-9)),
+                    ),
+                    Instance(
+                        name="v",
+                        module=_prim("vdc"),
+                        connections=_conns(),
+                        parameters=dict(dc=ParameterValue(double=1.1)),
+                    ),
+                    Instance(
+                        name="i",
+                        module=_prim("isource"),
+                        connections=_conns(),
+                        parameters=dict(dc=ParameterValue(double=1e-6)),
                     ),
                     Instance(
                         name="m",
@@ -63,6 +89,9 @@ def test_netlist1():
                             s=Connection(sig=Signal(name="VSS", width=1)),
                             b=Connection(sig=Signal(name="VSS", width=1)),
                         ),
+                        parameters=dict(
+                            modelname=ParameterValue(string="some_model_name")
+                        ),
                     ),
                     Instance(
                         name="q",
@@ -71,6 +100,17 @@ def test_netlist1():
                             c=Connection(sig=Signal(name="VSS", width=1)),
                             b=Connection(sig=Signal(name="VSS", width=1)),
                             e=Connection(sig=Signal(name="VSS", width=1)),
+                        ),
+                        parameters=dict(
+                            modelname=ParameterValue(string="some_model_name")
+                        ),
+                    ),
+                    Instance(
+                        name="d",
+                        module=_prim("diode"),
+                        connections=_conns(),
+                        parameters=dict(
+                            modelname=ParameterValue(string="some_model_name")
                         ),
                     ),
                 ],
@@ -96,7 +136,7 @@ def test_netlist1():
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
-@pytest.mark.xfail(reason="Hdl21 dependency being deprecated")
+@pytest.mark.xfail(reason="Hdl21 dependency pending deprecation")
 def test_netlist_hdl21_ideal1():
     # Test netlisting an `hdl21.ideal` element
 
