@@ -1,7 +1,7 @@
 """ 
-# Hdl21 Netlisting 
+# Vlsir Netlisting 
 
-Exports vlsir.circuit.Package to a netlist format.
+Exports `vlsir.circuit.Package` to a netlist format.
 """
 
 # Std-Lib Imports
