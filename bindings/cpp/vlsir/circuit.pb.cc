@@ -22,7 +22,8 @@ constexpr Package::Package(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : modules_()
   , ext_modules_()
-  , domain_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , domain_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , desc_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct PackageDefaultTypeInternal {
   constexpr PackageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -47,6 +48,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ParameterValueDefaultTypeIntern
 constexpr Parameter::Parameter(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , desc_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , default__(nullptr){}
 struct ParameterDefaultTypeInternal {
   constexpr ParameterDefaultTypeInternal()
@@ -218,6 +220,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_circuit_2eproto::offsets[] PRO
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Package, domain_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Package, modules_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Package, ext_modules_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Package, desc_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ParameterValue, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -235,6 +238,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_circuit_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Parameter, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Parameter, default__),
+  PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Parameter, desc_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Port, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -328,19 +332,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_circuit_2eproto::offsets[] PRO
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::vlsir::circuit::Package)},
-  { 8, -1, sizeof(::vlsir::circuit::ParameterValue)},
-  { 18, -1, sizeof(::vlsir::circuit::Parameter)},
-  { 25, -1, sizeof(::vlsir::circuit::Port)},
-  { 32, -1, sizeof(::vlsir::circuit::Signal)},
-  { 39, -1, sizeof(::vlsir::circuit::Slice)},
-  { 47, -1, sizeof(::vlsir::circuit::Concat)},
-  { 53, -1, sizeof(::vlsir::circuit::Connection)},
-  { 62, 69, sizeof(::vlsir::circuit::Instance_ParametersEntry_DoNotUse)},
-  { 71, 78, sizeof(::vlsir::circuit::Instance_ConnectionsEntry_DoNotUse)},
-  { 80, -1, sizeof(::vlsir::circuit::Instance)},
-  { 89, -1, sizeof(::vlsir::circuit::Module)},
-  { 99, -1, sizeof(::vlsir::circuit::ExternalModule)},
-  { 108, -1, sizeof(::vlsir::circuit::Interface)},
+  { 9, -1, sizeof(::vlsir::circuit::ParameterValue)},
+  { 19, -1, sizeof(::vlsir::circuit::Parameter)},
+  { 27, -1, sizeof(::vlsir::circuit::Port)},
+  { 34, -1, sizeof(::vlsir::circuit::Signal)},
+  { 41, -1, sizeof(::vlsir::circuit::Slice)},
+  { 49, -1, sizeof(::vlsir::circuit::Concat)},
+  { 55, -1, sizeof(::vlsir::circuit::Connection)},
+  { 64, 71, sizeof(::vlsir::circuit::Instance_ParametersEntry_DoNotUse)},
+  { 73, 80, sizeof(::vlsir::circuit::Instance_ConnectionsEntry_DoNotUse)},
+  { 82, -1, sizeof(::vlsir::circuit::Instance)},
+  { 91, -1, sizeof(::vlsir::circuit::Module)},
+  { 101, -1, sizeof(::vlsir::circuit::ExternalModule)},
+  { 110, -1, sizeof(::vlsir::circuit::Interface)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -362,51 +366,52 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_circuit_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\rcircuit.proto\022\rvlsir.circuit\032\013utils.pr"
-  "oto\"u\n\007Package\022\016\n\006domain\030\001 \001(\t\022&\n\007module"
-  "s\030\002 \003(\0132\025.vlsir.circuit.Module\0222\n\013ext_mo"
-  "dules\030\003 \003(\0132\035.vlsir.circuit.ExternalModu"
-  "le\"c\n\016ParameterValue\022\021\n\007integer\030\002 \001(\003H\000\022"
-  "\020\n\006double\030\003 \001(\001H\000\022\020\n\006string\030\004 \001(\tH\000\022\021\n\007l"
-  "iteral\030\005 \001(\tH\000B\007\n\005value\"I\n\tParameter\022\014\n\004"
-  "name\030\001 \001(\t\022.\n\007default\030\002 \001(\0132\035.vlsir.circ"
-  "uit.ParameterValue\"\230\001\n\004Port\022%\n\006signal\030\001 "
-  "\001(\0132\025.vlsir.circuit.Signal\0220\n\tdirection\030"
-  "\002 \001(\0162\035.vlsir.circuit.Port.Direction\"7\n\t"
-  "Direction\022\t\n\005INPUT\020\000\022\n\n\006OUTPUT\020\001\022\t\n\005INOU"
-  "T\020\002\022\010\n\004NONE\020\003\"%\n\006Signal\022\014\n\004name\030\001 \001(\t\022\r\n"
-  "\005width\030\002 \001(\003\"1\n\005Slice\022\016\n\006signal\030\001 \001(\t\022\013\n"
-  "\003top\030\002 \001(\003\022\013\n\003bot\030\003 \001(\003\"2\n\006Concat\022(\n\005par"
-  "ts\030\001 \003(\0132\031.vlsir.circuit.Connection\"\213\001\n\n"
-  "Connection\022$\n\003sig\030\001 \001(\0132\025.vlsir.circuit."
-  "SignalH\000\022%\n\005slice\030\002 \001(\0132\024.vlsir.circuit."
-  "SliceH\000\022\'\n\006concat\030\003 \001(\0132\025.vlsir.circuit."
-  "ConcatH\000B\007\n\005stype\"\335\002\n\010Instance\022\014\n\004name\030\001"
-  " \001(\t\022&\n\006module\030\002 \001(\0132\026.vlsir.utils.Refer"
-  "ence\022;\n\nparameters\030\003 \003(\0132\'.vlsir.circuit"
-  ".Instance.ParametersEntry\022=\n\013connections"
-  "\030\004 \003(\0132(.vlsir.circuit.Instance.Connecti"
-  "onsEntry\032P\n\017ParametersEntry\022\013\n\003key\030\001 \001(\t"
-  "\022,\n\005value\030\002 \001(\0132\035.vlsir.circuit.Paramete"
-  "rValue:\0028\001\032M\n\020ConnectionsEntry\022\013\n\003key\030\001 "
-  "\001(\t\022(\n\005value\030\002 \001(\0132\031.vlsir.circuit.Conne"
-  "ction:\0028\001\"\274\001\n\006Module\022\014\n\004name\030\001 \001(\t\022\"\n\005po"
-  "rts\030\002 \003(\0132\023.vlsir.circuit.Port\022&\n\007signal"
-  "s\030\003 \003(\0132\025.vlsir.circuit.Signal\022*\n\tinstan"
-  "ces\030\004 \003(\0132\027.vlsir.circuit.Instance\022,\n\npa"
-  "rameters\030\005 \003(\0132\030.vlsir.circuit.Parameter"
-  "\"\232\001\n\016ExternalModule\022(\n\004name\030\001 \001(\0132\032.vlsi"
-  "r.utils.QualifiedName\022\014\n\004desc\030\002 \001(\t\022\"\n\005p"
-  "orts\030\003 \003(\0132\023.vlsir.circuit.Port\022,\n\nparam"
-  "eters\030\005 \003(\0132\030.vlsir.circuit.Parameter\"=\n"
-  "\tInterface\022\014\n\004name\030\001 \001(\t\022\"\n\005ports\030\n \003(\0132"
-  "\023.vlsir.circuit.Portb\006proto3"
+  "oto\"\203\001\n\007Package\022\016\n\006domain\030\001 \001(\t\022&\n\007modul"
+  "es\030\002 \003(\0132\025.vlsir.circuit.Module\0222\n\013ext_m"
+  "odules\030\003 \003(\0132\035.vlsir.circuit.ExternalMod"
+  "ule\022\014\n\004desc\030\n \001(\t\"c\n\016ParameterValue\022\021\n\007i"
+  "nteger\030\002 \001(\003H\000\022\020\n\006double\030\003 \001(\001H\000\022\020\n\006stri"
+  "ng\030\004 \001(\tH\000\022\021\n\007literal\030\005 \001(\tH\000B\007\n\005value\"W"
+  "\n\tParameter\022\014\n\004name\030\001 \001(\t\022.\n\007default\030\002 \001"
+  "(\0132\035.vlsir.circuit.ParameterValue\022\014\n\004des"
+  "c\030\003 \001(\t\"\230\001\n\004Port\022%\n\006signal\030\001 \001(\0132\025.vlsir"
+  ".circuit.Signal\0220\n\tdirection\030\002 \001(\0162\035.vls"
+  "ir.circuit.Port.Direction\"7\n\tDirection\022\t"
+  "\n\005INPUT\020\000\022\n\n\006OUTPUT\020\001\022\t\n\005INOUT\020\002\022\010\n\004NONE"
+  "\020\003\"%\n\006Signal\022\014\n\004name\030\001 \001(\t\022\r\n\005width\030\002 \001("
+  "\003\"1\n\005Slice\022\016\n\006signal\030\001 \001(\t\022\013\n\003top\030\002 \001(\003\022"
+  "\013\n\003bot\030\003 \001(\003\"2\n\006Concat\022(\n\005parts\030\001 \003(\0132\031."
+  "vlsir.circuit.Connection\"\213\001\n\nConnection\022"
+  "$\n\003sig\030\001 \001(\0132\025.vlsir.circuit.SignalH\000\022%\n"
+  "\005slice\030\002 \001(\0132\024.vlsir.circuit.SliceH\000\022\'\n\006"
+  "concat\030\003 \001(\0132\025.vlsir.circuit.ConcatH\000B\007\n"
+  "\005stype\"\335\002\n\010Instance\022\014\n\004name\030\001 \001(\t\022&\n\006mod"
+  "ule\030\002 \001(\0132\026.vlsir.utils.Reference\022;\n\npar"
+  "ameters\030\003 \003(\0132\'.vlsir.circuit.Instance.P"
+  "arametersEntry\022=\n\013connections\030\004 \003(\0132(.vl"
+  "sir.circuit.Instance.ConnectionsEntry\032P\n"
+  "\017ParametersEntry\022\013\n\003key\030\001 \001(\t\022,\n\005value\030\002"
+  " \001(\0132\035.vlsir.circuit.ParameterValue:\0028\001\032"
+  "M\n\020ConnectionsEntry\022\013\n\003key\030\001 \001(\t\022(\n\005valu"
+  "e\030\002 \001(\0132\031.vlsir.circuit.Connection:\0028\001\"\274"
+  "\001\n\006Module\022\014\n\004name\030\001 \001(\t\022\"\n\005ports\030\002 \003(\0132\023"
+  ".vlsir.circuit.Port\022&\n\007signals\030\003 \003(\0132\025.v"
+  "lsir.circuit.Signal\022*\n\tinstances\030\004 \003(\0132\027"
+  ".vlsir.circuit.Instance\022,\n\nparameters\030\005 "
+  "\003(\0132\030.vlsir.circuit.Parameter\"\232\001\n\016Extern"
+  "alModule\022(\n\004name\030\001 \001(\0132\032.vlsir.utils.Qua"
+  "lifiedName\022\014\n\004desc\030\002 \001(\t\022\"\n\005ports\030\003 \003(\0132"
+  "\023.vlsir.circuit.Port\022,\n\nparameters\030\005 \003(\013"
+  "2\030.vlsir.circuit.Parameter\"=\n\tInterface\022"
+  "\014\n\004name\030\001 \001(\t\022\"\n\005ports\030\n \003(\0132\023.vlsir.cir"
+  "cuit.Portb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_circuit_2eproto_deps[1] = {
   &::descriptor_table_utils_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_circuit_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_circuit_2eproto = {
-  false, false, 1548, descriptor_table_protodef_circuit_2eproto, "circuit.proto", 
+  false, false, 1577, descriptor_table_protodef_circuit_2eproto, "circuit.proto", 
   &descriptor_table_circuit_2eproto_once, descriptor_table_circuit_2eproto_deps, 1, 14,
   schemas, file_default_instances, TableStruct_circuit_2eproto::offsets,
   file_level_metadata_circuit_2eproto, file_level_enum_descriptors_circuit_2eproto, file_level_service_descriptors_circuit_2eproto,
@@ -472,11 +477,17 @@ Package::Package(const Package& from)
     domain_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_domain(), 
       GetArenaForAllocation());
   }
+  desc_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_desc().empty()) {
+    desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_desc(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:vlsir.circuit.Package)
 }
 
 inline void Package::SharedCtor() {
 domain_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+desc_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Package::~Package() {
@@ -489,6 +500,7 @@ Package::~Package() {
 inline void Package::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   domain_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  desc_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Package::ArenaDtor(void* object) {
@@ -510,6 +522,7 @@ void Package::Clear() {
   modules_.Clear();
   ext_modules_.Clear();
   domain_.ClearToEmpty();
+  desc_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -550,6 +563,15 @@ const char* Package::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // string desc = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+          auto str = _internal_mutable_desc();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.circuit.Package.desc"));
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -607,6 +629,16 @@ failure:
       InternalWriteMessage(3, this->_internal_ext_modules(i), target, stream);
   }
 
+  // string desc = 10;
+  if (!this->_internal_desc().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_desc().data(), static_cast<int>(this->_internal_desc().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.circuit.Package.desc");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_desc(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -644,6 +676,13 @@ size_t Package::ByteSizeLong() const {
         this->_internal_domain());
   }
 
+  // string desc = 10;
+  if (!this->_internal_desc().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_desc());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -677,6 +716,9 @@ void Package::MergeFrom(const Package& from) {
   if (!from._internal_domain().empty()) {
     _internal_set_domain(from._internal_domain());
   }
+  if (!from._internal_desc().empty()) {
+    _internal_set_desc(from._internal_desc());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -700,6 +742,11 @@ void Package::InternalSwap(Package* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &domain_, GetArenaForAllocation(),
       &other->domain_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &desc_, GetArenaForAllocation(),
+      &other->desc_, other->GetArenaForAllocation()
   );
 }
 
@@ -1067,6 +1114,11 @@ Parameter::Parameter(const Parameter& from)
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
   }
+  desc_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_desc().empty()) {
+    desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_desc(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_default_()) {
     default__ = new ::vlsir::circuit::ParameterValue(*from.default__);
   } else {
@@ -1077,6 +1129,7 @@ Parameter::Parameter(const Parameter& from)
 
 inline void Parameter::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+desc_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 default__ = nullptr;
 }
 
@@ -1090,6 +1143,7 @@ Parameter::~Parameter() {
 inline void Parameter::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  desc_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete default__;
 }
 
@@ -1110,6 +1164,7 @@ void Parameter::Clear() {
   (void) cached_has_bits;
 
   name_.ClearToEmpty();
+  desc_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && default__ != nullptr) {
     delete default__;
   }
@@ -1136,6 +1191,15 @@ const char* Parameter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_default_(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string desc = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_desc();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.circuit.Parameter.desc"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1186,6 +1250,16 @@ failure:
         2, _Internal::default_(this), target, stream);
   }
 
+  // string desc = 3;
+  if (!this->_internal_desc().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_desc().data(), static_cast<int>(this->_internal_desc().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.circuit.Parameter.desc");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_desc(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1207,6 +1281,13 @@ size_t Parameter::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
+  }
+
+  // string desc = 3;
+  if (!this->_internal_desc().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_desc());
   }
 
   // .vlsir.circuit.ParameterValue default = 2;
@@ -1247,6 +1328,9 @@ void Parameter::MergeFrom(const Parameter& from) {
   if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
+  if (!from._internal_desc().empty()) {
+    _internal_set_desc(from._internal_desc());
+  }
   if (from._internal_has_default_()) {
     _internal_mutable_default_()->::vlsir::circuit::ParameterValue::MergeFrom(from._internal_default_());
   }
@@ -1271,6 +1355,11 @@ void Parameter::InternalSwap(Parameter* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &name_, GetArenaForAllocation(),
       &other->name_, other->GetArenaForAllocation()
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &desc_, GetArenaForAllocation(),
+      &other->desc_, other->GetArenaForAllocation()
   );
   swap(default__, other->default__);
 }

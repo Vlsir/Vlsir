@@ -72,7 +72,8 @@ proto.vlsir.circuit.Parameter.prototype.toObject = function(opt_includeInstance)
 proto.vlsir.circuit.Parameter.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    pb_default: (f = msg.getDefault()) && proto.vlsir.circuit.ParameterValue.toObject(includeInstance, f)
+    pb_default: (f = msg.getDefault()) && proto.vlsir.circuit.ParameterValue.toObject(includeInstance, f),
+    desc: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -118,6 +119,10 @@ proto.vlsir.circuit.Parameter.deserializeBinaryFromReader = function(msg, reader
       reader.readMessage(value,proto.vlsir.circuit.ParameterValue.deserializeBinaryFromReader);
       msg.setDefault(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDesc(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -160,6 +165,13 @@ proto.vlsir.circuit.Parameter.serializeBinaryToWriter = function(message, writer
       2,
       f,
       proto.vlsir.circuit.ParameterValue.serializeBinaryToWriter
+    );
+  }
+  f = message.getDesc();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
     );
   }
 };
@@ -217,6 +229,24 @@ proto.vlsir.circuit.Parameter.prototype.clearDefault = function() {
  */
 proto.vlsir.circuit.Parameter.prototype.hasDefault = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional string desc = 3;
+ * @return {string}
+ */
+proto.vlsir.circuit.Parameter.prototype.getDesc = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.vlsir.circuit.Parameter} returns this
+ */
+proto.vlsir.circuit.Parameter.prototype.setDesc = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

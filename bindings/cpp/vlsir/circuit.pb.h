@@ -270,6 +270,7 @@ class Package final :
     kModulesFieldNumber = 2,
     kExtModulesFieldNumber = 3,
     kDomainFieldNumber = 1,
+    kDescFieldNumber = 10,
   };
   // repeated .vlsir.circuit.Module modules = 2;
   int modules_size() const;
@@ -321,6 +322,20 @@ class Package final :
   std::string* _internal_mutable_domain();
   public:
 
+  // string desc = 10;
+  void clear_desc();
+  const std::string& desc() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_desc(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_desc();
+  PROTOBUF_MUST_USE_RESULT std::string* release_desc();
+  void set_allocated_desc(std::string* desc);
+  private:
+  const std::string& _internal_desc() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_desc(const std::string& value);
+  std::string* _internal_mutable_desc();
+  public:
+
   // @@protoc_insertion_point(class_scope:vlsir.circuit.Package)
  private:
   class _Internal;
@@ -331,6 +346,7 @@ class Package final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Module > modules_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::ExternalModule > ext_modules_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr domain_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desc_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_circuit_2eproto;
 };
@@ -673,6 +689,7 @@ class Parameter final :
 
   enum : int {
     kNameFieldNumber = 1,
+    kDescFieldNumber = 3,
     kDefaultFieldNumber = 2,
   };
   // string name = 1;
@@ -687,6 +704,20 @@ class Parameter final :
   const std::string& _internal_name() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
   std::string* _internal_mutable_name();
+  public:
+
+  // string desc = 3;
+  void clear_desc();
+  const std::string& desc() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_desc(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_desc();
+  PROTOBUF_MUST_USE_RESULT std::string* release_desc();
+  void set_allocated_desc(std::string* desc);
+  private:
+  const std::string& _internal_desc() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_desc(const std::string& value);
+  std::string* _internal_mutable_desc();
   public:
 
   // .vlsir.circuit.ParameterValue default = 2;
@@ -715,6 +746,7 @@ class Parameter final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desc_;
   ::vlsir::circuit::ParameterValue* default__;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_circuit_2eproto;
@@ -2580,6 +2612,52 @@ Package::ext_modules() const {
   return ext_modules_;
 }
 
+// string desc = 10;
+inline void Package::clear_desc() {
+  desc_.ClearToEmpty();
+}
+inline const std::string& Package::desc() const {
+  // @@protoc_insertion_point(field_get:vlsir.circuit.Package.desc)
+  return _internal_desc();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Package::set_desc(ArgT0&& arg0, ArgT... args) {
+ 
+ desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vlsir.circuit.Package.desc)
+}
+inline std::string* Package::mutable_desc() {
+  std::string* _s = _internal_mutable_desc();
+  // @@protoc_insertion_point(field_mutable:vlsir.circuit.Package.desc)
+  return _s;
+}
+inline const std::string& Package::_internal_desc() const {
+  return desc_.Get();
+}
+inline void Package::_internal_set_desc(const std::string& value) {
+  
+  desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Package::_internal_mutable_desc() {
+  
+  return desc_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Package::release_desc() {
+  // @@protoc_insertion_point(field_release:vlsir.circuit.Package.desc)
+  return desc_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Package::set_allocated_desc(std::string* desc) {
+  if (desc != nullptr) {
+    
+  } else {
+    
+  }
+  desc_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), desc,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Package.desc)
+}
+
 // -------------------------------------------------------------------
 
 // ParameterValue
@@ -2971,6 +3049,52 @@ inline void Parameter::set_allocated_default_(::vlsir::circuit::ParameterValue* 
   }
   default__ = default_;
   // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Parameter.default)
+}
+
+// string desc = 3;
+inline void Parameter::clear_desc() {
+  desc_.ClearToEmpty();
+}
+inline const std::string& Parameter::desc() const {
+  // @@protoc_insertion_point(field_get:vlsir.circuit.Parameter.desc)
+  return _internal_desc();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Parameter::set_desc(ArgT0&& arg0, ArgT... args) {
+ 
+ desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vlsir.circuit.Parameter.desc)
+}
+inline std::string* Parameter::mutable_desc() {
+  std::string* _s = _internal_mutable_desc();
+  // @@protoc_insertion_point(field_mutable:vlsir.circuit.Parameter.desc)
+  return _s;
+}
+inline const std::string& Parameter::_internal_desc() const {
+  return desc_.Get();
+}
+inline void Parameter::_internal_set_desc(const std::string& value) {
+  
+  desc_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Parameter::_internal_mutable_desc() {
+  
+  return desc_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Parameter::release_desc() {
+  // @@protoc_insertion_point(field_release:vlsir.circuit.Parameter.desc)
+  return desc_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Parameter::set_allocated_desc(std::string* desc) {
+  if (desc != nullptr) {
+    
+  } else {
+    
+  }
+  desc_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), desc,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Parameter.desc)
 }
 
 // -------------------------------------------------------------------
