@@ -121,7 +121,7 @@ class SpiceNetlister(Netlister):
         self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
     ) -> None:
         """ Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix. """
-        self.write(f"{rmodule.spice_prefix}{pinst.name} \n")
+        self.write(f"{rmodule.spice_prefix.value}{pinst.name} \n")
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """ Create and return a netlist-string for Instance `pinst`"""

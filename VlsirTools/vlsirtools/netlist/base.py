@@ -86,6 +86,11 @@ class ResolvedParams:
     def items(self):
         return self.values.items
 
+    def __bool__(self):
+        """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
+        are forwarded down to the internal values dictionary. """
+        return bool(self.values)
+
 
 @dataclass
 class Indent:
@@ -350,8 +355,8 @@ class Netlister:
                 from hdl21.proto.to_proto import ProtoExporter
                 from hdl21.proto.from_proto import ProtoImporter
 
-                prim = ProtoImporter.import_primitive(ref.external)
-                module = ProtoExporter.export_primitive(prim)
+                prim = ProtoImporter.import_hdl21_primitive(ref.external)
+                module = ProtoExporter.export_hdl21_primitive(prim)
                 return ResolvedModule(
                     module=module, module_name=module_name, spice_prefix=spice_prefix,
                 )

@@ -119,7 +119,7 @@ class SpectreNetlister(Netlister):
         if rmodule.spice_prefix == SpicePrefix.SUBCKT:
             module_name = rmodule.module_name
         else:  # Primitive element. Look up spectre-format module-name
-            module_name = self.get_primitive_name(pinst, resolved_instance_parameters)
+            module_name = self.get_primitive_name(rmodule, resolved_instance_parameters)
         
         # For voltage sources, add spectre's "type" parameter
         if rmodule.spice_prefix == SpicePrefix.VSOURCE:
