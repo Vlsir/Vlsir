@@ -14,8 +14,7 @@ from typing import List, Tuple, IO
 
 # Local/ Project Dependencies
 import vlsir
-
-# from .netlist.spice import XyceNetlister
+from .netlist import netlist
 
 
 def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
@@ -73,7 +72,7 @@ class Sim:
         #     mode="w+", encoding="utf-8", dir=self.tmpdir
         # )
         netlist_file = open("dut", "w")  # FIXME
-        vlsir.netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
+        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
         netlist_file.write(f"xtop 0 {self.inp.top} ; Top-Level DUT \n\n")
@@ -119,7 +118,7 @@ class Sim:
 
     def ac(self, an: vlsir.spice.AcInput) -> vlsir.spice.AcResult:
         """ Run an AC analysis. """
-        
+
         # Unpack the `AcInput`
         analysis_name = an.analysis_name or "ac"
         if len(an.ctrl):
@@ -149,30 +148,31 @@ class Sim:
         # Read the results from CSV
         with open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
-            
+
         # Separate Frequency vector
-        n_sigs = len(signals)       # Get length of signals vector because...
-        freq = data[::n_sigs]       # ...every n-th data pt is a freq pt
-        del data[::n_sigs]          # Clean the list of data of all frequencies
-        signals.pop(0)              # Remove "Frequency" from list of signals
-        
+        n_sigs = len(signals)  # Get length of signals vector because...
+        freq = data[::n_sigs]  # ...every n-th data pt is a freq pt
+        del data[::n_sigs]  # Clean the list of data of all frequencies
+        signals.pop(0)  # Remove "Frequency" from list of signals
+
         # Build ComplexNumbers for each data point
         reals = data[::2]
         imags = data[1::2]
-        if not len(reals) == len(imags): # Sanity check
+        if not len(reals) == len(imags):  # Sanity check
             raise RuntimeError("Unpaired complex number in data")
-        cplx_data = [vlsir.spice.ComplexNum(re=real, im=imag) for real, imag
-                     in zip(reals, imags)]
+        cplx_data = [
+            vlsir.spice.ComplexNum(re=real, im=imag) for real, imag in zip(reals, imags)
+        ]
 
         # And arrange them in an `AcResult`
         return vlsir.spice.AcResult(freq=freq, signals=signals, data=cplx_data)
 
     def dc(self, an: vlsir.spice.DcInput) -> vlsir.spice.DcResult:
         """ Run a DC analysis. """
-        
+
         # Unpack the `DcInput`
-        analysis_name = an.analysis_name or "dc"     
-        
+        analysis_name = an.analysis_name or "dc"
+
         if len(an.ctrl):
             raise NotImplementedError  # FIXME!
 
@@ -182,20 +182,25 @@ class Sim:
 
         # Write the analysis command
         param = an.indep_name
-        ## Interpret the sweep 
+        ## Interpret the sweep
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            netlist.write(f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n\n")
+            netlist.write(
+                f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n\n"
+            )
         elif sweep_type == "log":
             sweep = an.sweep.log
-            netlist.write(f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n\n")
+            netlist.write(
+                f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n\n"
+            )
         elif sweep_type == "points":
             sweep = an.sweep.points
-            netlist.write(f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n\n")
+            netlist.write(
+                f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n\n"
+            )
         else:
             raise ValueError("Invalid sweep type")
-        
 
         # FIXME: always saving everything, no matter what
         # Note `csv` output-formatting is encoded here
@@ -259,7 +264,7 @@ class Sim:
 
         # Extract fields from our `TranInput`
         analysis_name = an.analysis_name or "tran"
-        
+
         # Why not make tstop/tstep required?
         if not an.tstop or not an.tstep:
             raise ValueError("tstop and tstep must be defined")
