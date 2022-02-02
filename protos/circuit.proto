@@ -10,9 +10,14 @@ import "utils.proto";
 // # Package
 // A Collection of Modules and ExternalModules
 message Package {
+  // Domain Name 
   string domain = 1;
+  // `Module` Definitions
   repeated Module modules = 2;
+  // `ExternalModule` interfaces used by `modules`, and available externally
   repeated ExternalModule ext_modules = 3;
+  // Description
+  string desc = 10;
 }
 
 // # Parameter-Value Enumeration 
@@ -32,6 +37,8 @@ message Parameter {
   string name = 1;
   // Default value
   ParameterValue default = 2;
+  // Description 
+  string desc = 3;
 }
 
 // # Port 

@@ -83,7 +83,8 @@ proto.vlsir.circuit.Package.toObject = function(includeInstance, msg) {
     modulesList: jspb.Message.toObjectList(msg.getModulesList(),
     proto.vlsir.circuit.Module.toObject, includeInstance),
     extModulesList: jspb.Message.toObjectList(msg.getExtModulesList(),
-    proto.vlsir.circuit.ExternalModule.toObject, includeInstance)
+    proto.vlsir.circuit.ExternalModule.toObject, includeInstance),
+    desc: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
   if (includeInstance) {
@@ -133,6 +134,10 @@ proto.vlsir.circuit.Package.deserializeBinaryFromReader = function(msg, reader) 
       var value = new proto.vlsir.circuit.ExternalModule;
       reader.readMessage(value,proto.vlsir.circuit.ExternalModule.deserializeBinaryFromReader);
       msg.addExtModules(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDesc(value);
       break;
     default:
       reader.skipField();
@@ -184,6 +189,13 @@ proto.vlsir.circuit.Package.serializeBinaryToWriter = function(message, writer) 
       3,
       f,
       proto.vlsir.circuit.ExternalModule.serializeBinaryToWriter
+    );
+  }
+  f = message.getDesc();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
+      f
     );
   }
 };
@@ -280,6 +292,24 @@ proto.vlsir.circuit.Package.prototype.addExtModules = function(opt_value, opt_in
  */
 proto.vlsir.circuit.Package.prototype.clearExtModulesList = function() {
   return this.setExtModulesList([]);
+};
+
+
+/**
+ * optional string desc = 10;
+ * @return {string}
+ */
+proto.vlsir.circuit.Package.prototype.getDesc = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.vlsir.circuit.Package} returns this
+ */
+proto.vlsir.circuit.Package.prototype.setDesc = function(value) {
+  return jspb.Message.setProto3StringField(this, 10, value);
 };
 
 
