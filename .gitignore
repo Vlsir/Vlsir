@@ -4,3 +4,4 @@
 # packages/cpp/**/*pb.cc
 # packages/cpp/**/*pb.h
 # packages/js/**/*.js
+settings.json
