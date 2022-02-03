@@ -26,5 +26,5 @@ setup(
     packages=["vlsirtools"],
     python_requires=">=3.7, <4",
     install_requires=["vlsir==0.2.0",],
-    extras_require={"dev": ["pytest==5.2", "coverage", "pytest-cov"]},
+    extras_require={"dev": ["pytest==5.2", "coverage", "pytest-cov", "black==19.10b0"]},
 )
