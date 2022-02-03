@@ -22,11 +22,11 @@ fn main() {
 
     // And build!
     let src = [
-        "../../protos/utils.proto",
-        "../../protos/raw.proto",
-        "../../protos/circuit.proto",
-        "../../protos/tetris.proto",
-        "../../protos/spice.proto",
+        "protos/utils.proto",
+        "protos/raw.proto",
+        "protos/circuit.proto",
+        "protos/tetris.proto",
+        "protos/spice.proto",
     ];
-    config.compile_protos(&src, &["../../protos/"]).unwrap();
+    config.compile_protos(&src, &["protos/"]).unwrap();
 }
