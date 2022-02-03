@@ -17,14 +17,15 @@ long_description = (here / "readme.md").read_text(encoding="utf-8")
 
 setup(
     name="vlsir",
-    version="0.2.0",
+    version="0.1.1",
     description="Data Schemas for Chip Design",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/dan-fritchman/Vlsir",
     author="Dan Fritchman",
     packages=["vlsir"],
+    package_data={"vlsir": ["*.pb.txt"]},  # Include the protobuf-text literals
     python_requires=">=3.7, <4",
     install_requires=["protobuf==3.19.1"],
-    extras_require={"dev": ["pytest==5.2", "coverage", "pytest-cov"]},
+    extras_require={"dev": ["pytest==5.2", "coverage", "pytest-cov", "black==19.10b0"]},
 )
