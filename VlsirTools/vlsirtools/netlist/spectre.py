@@ -120,14 +120,14 @@ class SpectreNetlister(Netlister):
             module_name = rmodule.module_name
         else:  # Primitive element. Look up spectre-format module-name
             module_name = self.get_primitive_name(rmodule, resolved_instance_parameters)
-        
+
         # For voltage sources, add spectre's "type" parameter
         if rmodule.spice_prefix == SpicePrefix.VSOURCE:
             vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
-            if module_name not in vtypes:
+            if rmodule.module.name.name not in vtypes:
                 msg = f"Invalid or unsupported voltage-source type {module_name}"
                 raise ValueError(msg)
-            resolved_instance_parameters.set("type", vtypes[module_name])
+            resolved_instance_parameters.set("type", vtypes[rmodule.module.name.name])
 
         # Create the instance name
         self.write(pinst.name + "\n")
