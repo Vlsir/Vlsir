@@ -14,475 +14,676 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-
-PROTOBUF_PRAGMA_INIT_SEG
+extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2fwrappers_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DoubleValue_google_2fprotobuf_2fwrappers_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_circuit_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Package_circuit_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AcInput_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_AcResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<7> scc_info_Analysis_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<6> scc_info_AnalysisResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ComplexNum_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Control_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_CustomAnalysisInput_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CustomAnalysisResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_DcInput_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_DcResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Include_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LibInclude_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LinearSweep_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LogSweep_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Meas_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_OpInput_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PointSweep_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Save_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SimOptions_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Sweep_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_TranInput_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranInput_IcEntry_DoNotUse_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TranResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto;
 namespace vlsir {
 namespace spice {
-constexpr SimInput::SimInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_()
-  , ctrls_()
-  , top_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , pkg_(nullptr)
-  , opts_(nullptr){}
-struct SimInputDefaultTypeInternal {
-  constexpr SimInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SimInputDefaultTypeInternal() {}
-  union {
-    SimInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SimInputDefaultTypeInternal _SimInput_default_instance_;
-constexpr SimResult::SimResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_(){}
-struct SimResultDefaultTypeInternal {
-  constexpr SimResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SimResultDefaultTypeInternal() {}
-  union {
-    SimResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SimResultDefaultTypeInternal _SimResult_default_instance_;
-constexpr SimOptions::SimOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : temp_(nullptr)
-  , tnom_(nullptr)
-  , gmin_(nullptr)
-  , iabstol_(nullptr)
-  , reltol_(nullptr){}
-struct SimOptionsDefaultTypeInternal {
-  constexpr SimOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SimOptionsDefaultTypeInternal() {}
-  union {
-    SimOptions _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SimOptionsDefaultTypeInternal _SimOptions_default_instance_;
-constexpr Analysis::Analysis(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct AnalysisDefaultTypeInternal {
-  constexpr AnalysisDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AnalysisDefaultTypeInternal() {}
-  union {
-    Analysis _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AnalysisDefaultTypeInternal _Analysis_default_instance_;
-constexpr AnalysisResult::AnalysisResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct AnalysisResultDefaultTypeInternal {
-  constexpr AnalysisResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AnalysisResultDefaultTypeInternal() {}
-  union {
-    AnalysisResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AnalysisResultDefaultTypeInternal _AnalysisResult_default_instance_;
-constexpr OpInput::OpInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ctrl_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct OpInputDefaultTypeInternal {
-  constexpr OpInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~OpInputDefaultTypeInternal() {}
-  union {
-    OpInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OpInputDefaultTypeInternal _OpInput_default_instance_;
-constexpr OpResult::OpResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : signals_()
-  , data_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct OpResultDefaultTypeInternal {
-  constexpr OpResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~OpResultDefaultTypeInternal() {}
-  union {
-    OpResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OpResultDefaultTypeInternal _OpResult_default_instance_;
-constexpr DcInput::DcInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ctrl_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , indep_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sweep_(nullptr){}
-struct DcInputDefaultTypeInternal {
-  constexpr DcInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~DcInputDefaultTypeInternal() {}
-  union {
-    DcInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DcInputDefaultTypeInternal _DcInput_default_instance_;
-constexpr DcResult_MeasurementsEntry_DoNotUse::DcResult_MeasurementsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
-  constexpr DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    DcResult_MeasurementsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _DcResult_MeasurementsEntry_DoNotUse_default_instance_;
-constexpr DcResult::DcResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : signals_()
-  , data_()
-  , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , indep_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct DcResultDefaultTypeInternal {
-  constexpr DcResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~DcResultDefaultTypeInternal() {}
-  union {
-    DcResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DcResultDefaultTypeInternal _DcResult_default_instance_;
-constexpr TranInput_IcEntry_DoNotUse::TranInput_IcEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct TranInput_IcEntry_DoNotUseDefaultTypeInternal {
-  constexpr TranInput_IcEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~TranInput_IcEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    TranInput_IcEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranInput_IcEntry_DoNotUseDefaultTypeInternal _TranInput_IcEntry_DoNotUse_default_instance_;
-constexpr TranInput::TranInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ic_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , ctrl_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , tstop_(0)
-  , tstep_(0){}
-struct TranInputDefaultTypeInternal {
-  constexpr TranInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~TranInputDefaultTypeInternal() {}
-  union {
-    TranInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranInputDefaultTypeInternal _TranInput_default_instance_;
-constexpr TranResult_MeasurementsEntry_DoNotUse::TranResult_MeasurementsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
-  constexpr TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    TranResult_MeasurementsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _TranResult_MeasurementsEntry_DoNotUse_default_instance_;
-constexpr TranResult::TranResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : signals_()
-  , data_()
-  , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct TranResultDefaultTypeInternal {
-  constexpr TranResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~TranResultDefaultTypeInternal() {}
-  union {
-    TranResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranResultDefaultTypeInternal _TranResult_default_instance_;
-constexpr ComplexNum::ComplexNum(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : re_(0)
-  , im_(0){}
-struct ComplexNumDefaultTypeInternal {
-  constexpr ComplexNumDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ComplexNumDefaultTypeInternal() {}
-  union {
-    ComplexNum _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ComplexNumDefaultTypeInternal _ComplexNum_default_instance_;
-constexpr AcInput::AcInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ctrl_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , fstart_(0)
-  , fstop_(0)
-  , npts_(uint64_t{0u}){}
-struct AcInputDefaultTypeInternal {
-  constexpr AcInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AcInputDefaultTypeInternal() {}
-  union {
-    AcInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AcInputDefaultTypeInternal _AcInput_default_instance_;
-constexpr AcResult_MeasurementsEntry_DoNotUse::AcResult_MeasurementsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct AcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
-  constexpr AcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    AcResult_MeasurementsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _AcResult_MeasurementsEntry_DoNotUse_default_instance_;
-constexpr AcResult::AcResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : freq_()
-  , signals_()
-  , data_()
-  , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct AcResultDefaultTypeInternal {
-  constexpr AcResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AcResultDefaultTypeInternal() {}
-  union {
-    AcResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AcResultDefaultTypeInternal _AcResult_default_instance_;
-constexpr SweepInput::SweepInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_()
-  , ctrls_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , variable_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sweep_(nullptr){}
-struct SweepInputDefaultTypeInternal {
-  constexpr SweepInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SweepInputDefaultTypeInternal() {}
-  union {
-    SweepInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SweepInputDefaultTypeInternal _SweepInput_default_instance_;
-constexpr SweepResult::SweepResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , variable_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sweep_(nullptr){}
-struct SweepResultDefaultTypeInternal {
-  constexpr SweepResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SweepResultDefaultTypeInternal() {}
-  union {
-    SweepResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SweepResultDefaultTypeInternal _SweepResult_default_instance_;
-constexpr MonteInput::MonteInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_()
-  , ctrls_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , npts_(int64_t{0})
-  , seed_(int64_t{0}){}
-struct MonteInputDefaultTypeInternal {
-  constexpr MonteInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MonteInputDefaultTypeInternal() {}
-  union {
-    MonteInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MonteInputDefaultTypeInternal _MonteInput_default_instance_;
-constexpr MonteResult::MonteResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : an_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , variable_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sweep_(nullptr){}
-struct MonteResultDefaultTypeInternal {
-  constexpr MonteResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MonteResultDefaultTypeInternal() {}
-  union {
-    MonteResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MonteResultDefaultTypeInternal _MonteResult_default_instance_;
-constexpr CustomAnalysisInput::CustomAnalysisInput(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ctrls_()
-  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , cmd_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct CustomAnalysisInputDefaultTypeInternal {
-  constexpr CustomAnalysisInputDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CustomAnalysisInputDefaultTypeInternal() {}
-  union {
-    CustomAnalysisInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CustomAnalysisInputDefaultTypeInternal _CustomAnalysisInput_default_instance_;
-constexpr CustomAnalysisResult::CustomAnalysisResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct CustomAnalysisResultDefaultTypeInternal {
-  constexpr CustomAnalysisResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CustomAnalysisResultDefaultTypeInternal() {}
-  union {
-    CustomAnalysisResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CustomAnalysisResultDefaultTypeInternal _CustomAnalysisResult_default_instance_;
-constexpr Sweep::Sweep(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct SweepDefaultTypeInternal {
-  constexpr SweepDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SweepDefaultTypeInternal() {}
-  union {
-    Sweep _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SweepDefaultTypeInternal _Sweep_default_instance_;
-constexpr LinearSweep::LinearSweep(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : start_(0)
-  , stop_(0)
-  , step_(0){}
-struct LinearSweepDefaultTypeInternal {
-  constexpr LinearSweepDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~LinearSweepDefaultTypeInternal() {}
-  union {
-    LinearSweep _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LinearSweepDefaultTypeInternal _LinearSweep_default_instance_;
-constexpr LogSweep::LogSweep(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : start_(0)
-  , stop_(0)
-  , npts_(0){}
-struct LogSweepDefaultTypeInternal {
-  constexpr LogSweepDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~LogSweepDefaultTypeInternal() {}
-  union {
-    LogSweep _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LogSweepDefaultTypeInternal _LogSweep_default_instance_;
-constexpr PointSweep::PointSweep(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : points_()
-  , stop_(0)
-  , npts_(0){}
-struct PointSweepDefaultTypeInternal {
-  constexpr PointSweepDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~PointSweepDefaultTypeInternal() {}
-  union {
-    PointSweep _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PointSweepDefaultTypeInternal _PointSweep_default_instance_;
-constexpr Control::Control(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct ControlDefaultTypeInternal {
-  constexpr ControlDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ControlDefaultTypeInternal() {}
-  union {
-    Control _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ControlDefaultTypeInternal _Control_default_instance_;
-constexpr Save::Save(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct SaveDefaultTypeInternal {
-  constexpr SaveDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SaveDefaultTypeInternal() {}
-  union {
-    Save _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveDefaultTypeInternal _Save_default_instance_;
-constexpr Include::Include(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct IncludeDefaultTypeInternal {
-  constexpr IncludeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~IncludeDefaultTypeInternal() {}
-  union {
-    Include _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IncludeDefaultTypeInternal _Include_default_instance_;
-constexpr LibInclude::LibInclude(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , section_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct LibIncludeDefaultTypeInternal {
-  constexpr LibIncludeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~LibIncludeDefaultTypeInternal() {}
-  union {
-    LibInclude _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LibIncludeDefaultTypeInternal _LibInclude_default_instance_;
-constexpr Meas::Meas(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , expr_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct MeasDefaultTypeInternal {
-  constexpr MeasDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MeasDefaultTypeInternal() {}
-  union {
-    Meas _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MeasDefaultTypeInternal _Meas_default_instance_;
-constexpr Signal::Signal(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , quantity_(0)
-{}
-struct SignalDefaultTypeInternal {
-  constexpr SignalDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SignalDefaultTypeInternal() {}
-  union {
-    Signal _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SignalDefaultTypeInternal _Signal_default_instance_;
+class SimInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SimInput> _instance;
+} _SimInput_default_instance_;
+class SimResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SimResult> _instance;
+} _SimResult_default_instance_;
+class SimOptionsDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SimOptions> _instance;
+} _SimOptions_default_instance_;
+class AnalysisDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Analysis> _instance;
+  const ::vlsir::spice::OpInput* op_;
+  const ::vlsir::spice::DcInput* dc_;
+  const ::vlsir::spice::TranInput* tran_;
+  const ::vlsir::spice::AcInput* ac_;
+  const ::vlsir::spice::SweepInput* sweep_;
+  const ::vlsir::spice::MonteInput* monte_;
+  const ::vlsir::spice::CustomAnalysisInput* custom_;
+} _Analysis_default_instance_;
+class AnalysisResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AnalysisResult> _instance;
+  const ::vlsir::spice::OpResult* op_;
+  const ::vlsir::spice::DcResult* dc_;
+  const ::vlsir::spice::TranResult* tran_;
+  const ::vlsir::spice::AcResult* ac_;
+  const ::vlsir::spice::SweepResult* sweep_;
+  const ::vlsir::spice::MonteResult* monte_;
+  const ::vlsir::spice::CustomAnalysisResult* custom_;
+} _AnalysisResult_default_instance_;
+class OpInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<OpInput> _instance;
+} _OpInput_default_instance_;
+class OpResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<OpResult> _instance;
+} _OpResult_default_instance_;
+class DcInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<DcInput> _instance;
+} _DcInput_default_instance_;
+class DcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<DcResult_MeasurementsEntry_DoNotUse> _instance;
+} _DcResult_MeasurementsEntry_DoNotUse_default_instance_;
+class DcResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<DcResult> _instance;
+} _DcResult_default_instance_;
+class TranInput_IcEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TranInput_IcEntry_DoNotUse> _instance;
+} _TranInput_IcEntry_DoNotUse_default_instance_;
+class TranInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TranInput> _instance;
+} _TranInput_default_instance_;
+class TranResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TranResult_MeasurementsEntry_DoNotUse> _instance;
+} _TranResult_MeasurementsEntry_DoNotUse_default_instance_;
+class TranResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TranResult> _instance;
+} _TranResult_default_instance_;
+class ComplexNumDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ComplexNum> _instance;
+} _ComplexNum_default_instance_;
+class AcInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AcInput> _instance;
+} _AcInput_default_instance_;
+class AcResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AcResult_MeasurementsEntry_DoNotUse> _instance;
+} _AcResult_MeasurementsEntry_DoNotUse_default_instance_;
+class AcResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AcResult> _instance;
+} _AcResult_default_instance_;
+class SweepInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SweepInput> _instance;
+} _SweepInput_default_instance_;
+class SweepResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SweepResult> _instance;
+} _SweepResult_default_instance_;
+class MonteInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MonteInput> _instance;
+} _MonteInput_default_instance_;
+class MonteResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MonteResult> _instance;
+} _MonteResult_default_instance_;
+class CustomAnalysisInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CustomAnalysisInput> _instance;
+} _CustomAnalysisInput_default_instance_;
+class CustomAnalysisResultDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CustomAnalysisResult> _instance;
+} _CustomAnalysisResult_default_instance_;
+class SweepDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Sweep> _instance;
+  const ::vlsir::spice::LinearSweep* linear_;
+  const ::vlsir::spice::LogSweep* log_;
+  const ::vlsir::spice::PointSweep* points_;
+} _Sweep_default_instance_;
+class LinearSweepDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LinearSweep> _instance;
+} _LinearSweep_default_instance_;
+class LogSweepDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LogSweep> _instance;
+} _LogSweep_default_instance_;
+class PointSweepDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PointSweep> _instance;
+} _PointSweep_default_instance_;
+class ControlDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Control> _instance;
+  const ::vlsir::spice::Include* include_;
+  const ::vlsir::spice::LibInclude* lib_;
+  const ::vlsir::spice::Save* save_;
+  const ::vlsir::spice::Meas* meas_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
+} _Control_default_instance_;
+class SaveDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Save> _instance;
+  int mode_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signal_;
+} _Save_default_instance_;
+class IncludeDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Include> _instance;
+} _Include_default_instance_;
+class LibIncludeDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LibInclude> _instance;
+} _LibInclude_default_instance_;
+class MeasDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Meas> _instance;
+} _Meas_default_instance_;
+class SignalDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Signal> _instance;
+} _Signal_default_instance_;
 }  // namespace spice
 }  // namespace vlsir
+static void InitDefaultsscc_info_AcInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_AcInput_default_instance_;
+    new (ptr) ::vlsir::spice::AcInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::AcInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AcInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AcInput_spice_2eproto}, {
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_AcResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_AcResult_default_instance_;
+    new (ptr) ::vlsir::spice::AcResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::AcResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_AcResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_AcResult_spice_2eproto}, {
+      &scc_info_ComplexNum_spice_2eproto.base,
+      &scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_AcResult_MeasurementsEntry_DoNotUse_default_instance_;
+    new (ptr) ::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse();
+  }
+  ::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Analysis_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Analysis_default_instance_;
+    new (ptr) ::vlsir::spice::Analysis();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  {
+    void* ptr = &::vlsir::spice::_SweepInput_default_instance_;
+    new (ptr) ::vlsir::spice::SweepInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  {
+    void* ptr = &::vlsir::spice::_MonteInput_default_instance_;
+    new (ptr) ::vlsir::spice::MonteInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Analysis::InitAsDefaultInstance();
+  ::vlsir::spice::SweepInput::InitAsDefaultInstance();
+  ::vlsir::spice::MonteInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<7> scc_info_Analysis_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 7, 0, InitDefaultsscc_info_Analysis_spice_2eproto}, {
+      &scc_info_OpInput_spice_2eproto.base,
+      &scc_info_DcInput_spice_2eproto.base,
+      &scc_info_TranInput_spice_2eproto.base,
+      &scc_info_AcInput_spice_2eproto.base,
+      &scc_info_CustomAnalysisInput_spice_2eproto.base,
+      &scc_info_Control_spice_2eproto.base,
+      &scc_info_Sweep_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_AnalysisResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_AnalysisResult_default_instance_;
+    new (ptr) ::vlsir::spice::AnalysisResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  {
+    void* ptr = &::vlsir::spice::_SweepResult_default_instance_;
+    new (ptr) ::vlsir::spice::SweepResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  {
+    void* ptr = &::vlsir::spice::_MonteResult_default_instance_;
+    new (ptr) ::vlsir::spice::MonteResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::AnalysisResult::InitAsDefaultInstance();
+  ::vlsir::spice::SweepResult::InitAsDefaultInstance();
+  ::vlsir::spice::MonteResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<6> scc_info_AnalysisResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 6, 0, InitDefaultsscc_info_AnalysisResult_spice_2eproto}, {
+      &scc_info_OpResult_spice_2eproto.base,
+      &scc_info_DcResult_spice_2eproto.base,
+      &scc_info_TranResult_spice_2eproto.base,
+      &scc_info_AcResult_spice_2eproto.base,
+      &scc_info_CustomAnalysisResult_spice_2eproto.base,
+      &scc_info_Sweep_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_ComplexNum_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_ComplexNum_default_instance_;
+    new (ptr) ::vlsir::spice::ComplexNum();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::ComplexNum::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ComplexNum_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ComplexNum_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Control_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Control_default_instance_;
+    new (ptr) ::vlsir::spice::Control();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Control::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Control_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_Control_spice_2eproto}, {
+      &scc_info_Include_spice_2eproto.base,
+      &scc_info_LibInclude_spice_2eproto.base,
+      &scc_info_Save_spice_2eproto.base,
+      &scc_info_Meas_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_CustomAnalysisInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_CustomAnalysisInput_default_instance_;
+    new (ptr) ::vlsir::spice::CustomAnalysisInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::CustomAnalysisInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_CustomAnalysisInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_CustomAnalysisInput_spice_2eproto}, {
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_CustomAnalysisResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_CustomAnalysisResult_default_instance_;
+    new (ptr) ::vlsir::spice::CustomAnalysisResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::CustomAnalysisResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CustomAnalysisResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_CustomAnalysisResult_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_DcInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_DcInput_default_instance_;
+    new (ptr) ::vlsir::spice::DcInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::DcInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_DcInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_DcInput_spice_2eproto}, {
+      &scc_info_Sweep_spice_2eproto.base,
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_DcResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_DcResult_default_instance_;
+    new (ptr) ::vlsir::spice::DcResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::DcResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_DcResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_DcResult_spice_2eproto}, {
+      &scc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_DcResult_MeasurementsEntry_DoNotUse_default_instance_;
+    new (ptr) ::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse();
+  }
+  ::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Include_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Include_default_instance_;
+    new (ptr) ::vlsir::spice::Include();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Include::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Include_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Include_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_LibInclude_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_LibInclude_default_instance_;
+    new (ptr) ::vlsir::spice::LibInclude();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::LibInclude::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LibInclude_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LibInclude_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_LinearSweep_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_LinearSweep_default_instance_;
+    new (ptr) ::vlsir::spice::LinearSweep();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::LinearSweep::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LinearSweep_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LinearSweep_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_LogSweep_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_LogSweep_default_instance_;
+    new (ptr) ::vlsir::spice::LogSweep();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::LogSweep::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LogSweep_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LogSweep_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Meas_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Meas_default_instance_;
+    new (ptr) ::vlsir::spice::Meas();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Meas::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Meas_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Meas_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_OpInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_OpInput_default_instance_;
+    new (ptr) ::vlsir::spice::OpInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::OpInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_OpInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_OpInput_spice_2eproto}, {
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_OpResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_OpResult_default_instance_;
+    new (ptr) ::vlsir::spice::OpResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::OpResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_OpResult_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_PointSweep_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_PointSweep_default_instance_;
+    new (ptr) ::vlsir::spice::PointSweep();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::PointSweep::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PointSweep_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_PointSweep_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Save_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Save_default_instance_;
+    new (ptr) ::vlsir::spice::Save();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Save::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Save_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Save_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_Signal_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Signal_default_instance_;
+    new (ptr) ::vlsir::spice::Signal();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Signal::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Signal_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Signal_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_SimInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_SimInput_default_instance_;
+    new (ptr) ::vlsir::spice::SimInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::SimInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_SimInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_SimInput_spice_2eproto}, {
+      &scc_info_Package_circuit_2eproto.base,
+      &scc_info_SimOptions_spice_2eproto.base,
+      &scc_info_Analysis_spice_2eproto.base,
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_SimOptions_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_SimOptions_default_instance_;
+    new (ptr) ::vlsir::spice::SimOptions();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::SimOptions::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SimOptions_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_SimOptions_spice_2eproto}, {
+      &scc_info_DoubleValue_google_2fprotobuf_2fwrappers_2eproto.base,}};
+
+static void InitDefaultsscc_info_SimResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_SimResult_default_instance_;
+    new (ptr) ::vlsir::spice::SimResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::SimResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SimResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_SimResult_spice_2eproto}, {
+      &scc_info_AnalysisResult_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_Sweep_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Sweep_default_instance_;
+    new (ptr) ::vlsir::spice::Sweep();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Sweep::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_Sweep_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_Sweep_spice_2eproto}, {
+      &scc_info_LinearSweep_spice_2eproto.base,
+      &scc_info_LogSweep_spice_2eproto.base,
+      &scc_info_PointSweep_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_TranInput_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_TranInput_default_instance_;
+    new (ptr) ::vlsir::spice::TranInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::TranInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_TranInput_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_TranInput_spice_2eproto}, {
+      &scc_info_TranInput_IcEntry_DoNotUse_spice_2eproto.base,
+      &scc_info_Control_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_TranInput_IcEntry_DoNotUse_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_TranInput_IcEntry_DoNotUse_default_instance_;
+    new (ptr) ::vlsir::spice::TranInput_IcEntry_DoNotUse();
+  }
+  ::vlsir::spice::TranInput_IcEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranInput_IcEntry_DoNotUse_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TranInput_IcEntry_DoNotUse_spice_2eproto}, {}};
+
+static void InitDefaultsscc_info_TranResult_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_TranResult_default_instance_;
+    new (ptr) ::vlsir::spice::TranResult();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::TranResult::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TranResult_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_TranResult_spice_2eproto}, {
+      &scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,}};
+
+static void InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_TranResult_MeasurementsEntry_DoNotUse_default_instance_;
+    new (ptr) ::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse();
+  }
+  ::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto}, {}};
+
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[34];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_spice_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spice_2eproto = nullptr;
@@ -519,26 +720,26 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Analysis, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, op_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, dc_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, tran_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, ac_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, sweep_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, monte_),
+  offsetof(::vlsir::spice::AnalysisDefaultTypeInternal, custom_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Analysis, an_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AnalysisResult, _internal_metadata_),
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AnalysisResult, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, op_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, dc_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, tran_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, ac_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, sweep_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, monte_),
+  offsetof(::vlsir::spice::AnalysisResultDefaultTypeInternal, custom_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AnalysisResult, an_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::OpInput, _internal_metadata_),
@@ -712,9 +913,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Sweep, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  offsetof(::vlsir::spice::SweepDefaultTypeInternal, linear_),
+  offsetof(::vlsir::spice::SweepDefaultTypeInternal, log_),
+  offsetof(::vlsir::spice::SweepDefaultTypeInternal, points_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Sweep, tp_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::LinearSweep, _internal_metadata_),
@@ -745,19 +946,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Control, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, include_),
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, lib_),
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, save_),
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, meas_),
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, literal_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Control, ctrl_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Save, _internal_metadata_),
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Save, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  offsetof(::vlsir::spice::SaveDefaultTypeInternal, mode_),
+  offsetof(::vlsir::spice::SaveDefaultTypeInternal, signal_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Save, save_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Include, _internal_metadata_),
@@ -968,19 +1169,48 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_circuit_2eproto,
   &::descriptor_table_google_2fprotobuf_2fwrappers_2eproto,
 };
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spice_2eproto_sccs[30] = {
+  &scc_info_AcInput_spice_2eproto.base,
+  &scc_info_AcResult_spice_2eproto.base,
+  &scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,
+  &scc_info_Analysis_spice_2eproto.base,
+  &scc_info_AnalysisResult_spice_2eproto.base,
+  &scc_info_ComplexNum_spice_2eproto.base,
+  &scc_info_Control_spice_2eproto.base,
+  &scc_info_CustomAnalysisInput_spice_2eproto.base,
+  &scc_info_CustomAnalysisResult_spice_2eproto.base,
+  &scc_info_DcInput_spice_2eproto.base,
+  &scc_info_DcResult_spice_2eproto.base,
+  &scc_info_DcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,
+  &scc_info_Include_spice_2eproto.base,
+  &scc_info_LibInclude_spice_2eproto.base,
+  &scc_info_LinearSweep_spice_2eproto.base,
+  &scc_info_LogSweep_spice_2eproto.base,
+  &scc_info_Meas_spice_2eproto.base,
+  &scc_info_OpInput_spice_2eproto.base,
+  &scc_info_OpResult_spice_2eproto.base,
+  &scc_info_PointSweep_spice_2eproto.base,
+  &scc_info_Save_spice_2eproto.base,
+  &scc_info_Signal_spice_2eproto.base,
+  &scc_info_SimInput_spice_2eproto.base,
+  &scc_info_SimOptions_spice_2eproto.base,
+  &scc_info_SimResult_spice_2eproto.base,
+  &scc_info_Sweep_spice_2eproto.base,
+  &scc_info_TranInput_spice_2eproto.base,
+  &scc_info_TranInput_IcEntry_DoNotUse_spice_2eproto.base,
+  &scc_info_TranResult_spice_2eproto.base,
+  &scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spice_2eproto = {
-  false, false, 4007, descriptor_table_protodef_spice_2eproto, "spice.proto", 
-  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_deps, 2, 34,
+  false, false, descriptor_table_protodef_spice_2eproto, "spice.proto", 4007,
+  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_sccs, descriptor_table_spice_2eproto_deps, 30, 2,
   schemas, file_default_instances, TableStruct_spice_2eproto::offsets,
-  file_level_metadata_spice_2eproto, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
+  file_level_metadata_spice_2eproto, 34, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_spice_2eproto_getter() {
-  return &descriptor_table_spice_2eproto;
-}
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_spice_2eproto(&descriptor_table_spice_2eproto);
+static bool dynamic_init_dummy_spice_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_spice_2eproto)), true);
 namespace vlsir {
 namespace spice {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Save_SaveMode_descriptor() {
@@ -1030,6 +1260,12 @@ constexpr int Signal::Quantity_ARRAYSIZE;
 
 // ===================================================================
 
+void SimInput::InitAsDefaultInstance() {
+  ::vlsir::spice::_SimInput_default_instance_._instance.get_mutable()->pkg_ = const_cast< ::vlsir::circuit::Package*>(
+      ::vlsir::circuit::Package::internal_default_instance());
+  ::vlsir::spice::_SimInput_default_instance_._instance.get_mutable()->opts_ = const_cast< ::vlsir::spice::SimOptions*>(
+      ::vlsir::spice::SimOptions::internal_default_instance());
+}
 class SimInput::_Internal {
  public:
   static const ::vlsir::circuit::Package& pkg(const SimInput* msg);
@@ -1045,20 +1281,17 @@ SimInput::_Internal::opts(const SimInput* msg) {
   return *msg->opts_;
 }
 void SimInput::clear_pkg() {
-  if (GetArenaForAllocation() == nullptr && pkg_ != nullptr) {
+  if (GetArena() == nullptr && pkg_ != nullptr) {
     delete pkg_;
   }
   pkg_ = nullptr;
 }
-SimInput::SimInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+SimInput::SimInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena),
   ctrls_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.SimInput)
 }
 SimInput::SimInput(const SimInput& from)
@@ -1068,8 +1301,8 @@ SimInput::SimInput(const SimInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   top_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_top().empty()) {
-    top_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_top(), 
-      GetArenaForAllocation());
+    top_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_top(),
+      GetArena());
   }
   if (from._internal_has_pkg()) {
     pkg_ = new ::vlsir::circuit::Package(*from.pkg_);
@@ -1084,23 +1317,22 @@ SimInput::SimInput(const SimInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.SimInput)
 }
 
-inline void SimInput::SharedCtor() {
-top_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&pkg_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&opts_) -
-    reinterpret_cast<char*>(&pkg_)) + sizeof(opts_));
+void SimInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SimInput_spice_2eproto.base);
+  top_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&pkg_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&opts_) -
+      reinterpret_cast<char*>(&pkg_)) + sizeof(opts_));
 }
 
 SimInput::~SimInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.SimInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void SimInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void SimInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   top_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete pkg_;
   if (this != internal_default_instance()) delete opts_;
@@ -1115,6 +1347,11 @@ void SimInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void SimInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const SimInput& SimInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SimInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void SimInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.SimInput)
@@ -1124,12 +1361,12 @@ void SimInput::Clear() {
 
   an_.Clear();
   ctrls_.Clear();
-  top_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && pkg_ != nullptr) {
+  top_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && pkg_ != nullptr) {
     delete pkg_;
   }
   pkg_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && opts_ != nullptr) {
+  if (GetArena() == nullptr && opts_ != nullptr) {
     delete opts_;
   }
   opts_ = nullptr;
@@ -1138,9 +1375,11 @@ void SimInput::Clear() {
 
 const char* SimInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.circuit.Package pkg = 1;
       case 1:
@@ -1191,8 +1430,7 @@ const char* SimInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -1219,7 +1457,7 @@ failure:
   (void) cached_has_bits;
 
   // .vlsir.circuit.Package pkg = 1;
-  if (this->_internal_has_pkg()) {
+  if (this->has_pkg()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1227,7 +1465,7 @@ failure:
   }
 
   // string top = 2;
-  if (!this->_internal_top().empty()) {
+  if (this->top().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_top().data(), static_cast<int>(this->_internal_top().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1237,7 +1475,7 @@ failure:
   }
 
   // .vlsir.spice.SimOptions opts = 10;
-  if (this->_internal_has_opts()) {
+  if (this->has_opts()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1291,21 +1529,21 @@ size_t SimInput::ByteSizeLong() const {
   }
 
   // string top = 2;
-  if (!this->_internal_top().empty()) {
+  if (this->top().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_top());
   }
 
   // .vlsir.circuit.Package pkg = 1;
-  if (this->_internal_has_pkg()) {
+  if (this->has_pkg()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *pkg_);
   }
 
   // .vlsir.spice.SimOptions opts = 10;
-  if (this->_internal_has_opts()) {
+  if (this->has_opts()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *opts_);
@@ -1320,37 +1558,46 @@ size_t SimInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SimInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SimInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SimInput::GetClassData() const { return &_class_data_; }
-
-void SimInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SimInput *>(to)->MergeFrom(
-      static_cast<const SimInput &>(from));
+void SimInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.SimInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SimInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SimInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.SimInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.SimInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void SimInput::MergeFrom(const SimInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.SimInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
   ctrls_.MergeFrom(from.ctrls_);
-  if (!from._internal_top().empty()) {
+  if (from.top().size() > 0) {
     _internal_set_top(from._internal_top());
   }
-  if (from._internal_has_pkg()) {
+  if (from.has_pkg()) {
     _internal_mutable_pkg()->::vlsir::circuit::Package::MergeFrom(from._internal_pkg());
   }
-  if (from._internal_has_opts()) {
+  if (from.has_opts()) {
     _internal_mutable_opts()->::vlsir::spice::SimOptions::MergeFrom(from._internal_opts());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SimInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.SimInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SimInput::CopyFrom(const SimInput& from) {
@@ -1366,14 +1613,10 @@ bool SimInput::IsInitialized() const {
 
 void SimInput::InternalSwap(SimInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
   ctrls_.InternalSwap(&other->ctrls_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &top_, GetArenaForAllocation(),
-      &other->top_, other->GetArenaForAllocation()
-  );
+  top_.Swap(&other->top_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SimInput, opts_)
       + sizeof(SimInput::opts_)
@@ -1383,25 +1626,23 @@ void SimInput::InternalSwap(SimInput* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SimInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[0]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void SimResult::InitAsDefaultInstance() {
+}
 class SimResult::_Internal {
  public:
 };
 
-SimResult::SimResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+SimResult::SimResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.SimResult)
 }
 SimResult::SimResult(const SimResult& from)
@@ -1411,18 +1652,18 @@ SimResult::SimResult(const SimResult& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.SimResult)
 }
 
-inline void SimResult::SharedCtor() {
+void SimResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SimResult_spice_2eproto.base);
 }
 
 SimResult::~SimResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.SimResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void SimResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void SimResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void SimResult::ArenaDtor(void* object) {
@@ -1434,6 +1675,11 @@ void SimResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void SimResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const SimResult& SimResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SimResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void SimResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.SimResult)
@@ -1447,9 +1693,11 @@ void SimResult::Clear() {
 
 const char* SimResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // repeated .vlsir.spice.AnalysisResult an = 1;
       case 1:
@@ -1465,8 +1713,7 @@ const char* SimResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -1532,27 +1779,36 @@ size_t SimResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SimResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SimResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SimResult::GetClassData() const { return &_class_data_; }
-
-void SimResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SimResult *>(to)->MergeFrom(
-      static_cast<const SimResult &>(from));
+void SimResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.SimResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SimResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SimResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.SimResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.SimResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void SimResult::MergeFrom(const SimResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.SimResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SimResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.SimResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SimResult::CopyFrom(const SimResult& from) {
@@ -1568,18 +1824,29 @@ bool SimResult::IsInitialized() const {
 
 void SimResult::InternalSwap(SimResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SimResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[1]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void SimOptions::InitAsDefaultInstance() {
+  ::vlsir::spice::_SimOptions_default_instance_._instance.get_mutable()->temp_ = const_cast< PROTOBUF_NAMESPACE_ID::DoubleValue*>(
+      PROTOBUF_NAMESPACE_ID::DoubleValue::internal_default_instance());
+  ::vlsir::spice::_SimOptions_default_instance_._instance.get_mutable()->tnom_ = const_cast< PROTOBUF_NAMESPACE_ID::DoubleValue*>(
+      PROTOBUF_NAMESPACE_ID::DoubleValue::internal_default_instance());
+  ::vlsir::spice::_SimOptions_default_instance_._instance.get_mutable()->gmin_ = const_cast< PROTOBUF_NAMESPACE_ID::DoubleValue*>(
+      PROTOBUF_NAMESPACE_ID::DoubleValue::internal_default_instance());
+  ::vlsir::spice::_SimOptions_default_instance_._instance.get_mutable()->iabstol_ = const_cast< PROTOBUF_NAMESPACE_ID::DoubleValue*>(
+      PROTOBUF_NAMESPACE_ID::DoubleValue::internal_default_instance());
+  ::vlsir::spice::_SimOptions_default_instance_._instance.get_mutable()->reltol_ = const_cast< PROTOBUF_NAMESPACE_ID::DoubleValue*>(
+      PROTOBUF_NAMESPACE_ID::DoubleValue::internal_default_instance());
+}
 class SimOptions::_Internal {
  public:
   static const PROTOBUF_NAMESPACE_ID::DoubleValue& temp(const SimOptions* msg);
@@ -1610,42 +1877,39 @@ SimOptions::_Internal::reltol(const SimOptions* msg) {
   return *msg->reltol_;
 }
 void SimOptions::clear_temp() {
-  if (GetArenaForAllocation() == nullptr && temp_ != nullptr) {
+  if (GetArena() == nullptr && temp_ != nullptr) {
     delete temp_;
   }
   temp_ = nullptr;
 }
 void SimOptions::clear_tnom() {
-  if (GetArenaForAllocation() == nullptr && tnom_ != nullptr) {
+  if (GetArena() == nullptr && tnom_ != nullptr) {
     delete tnom_;
   }
   tnom_ = nullptr;
 }
 void SimOptions::clear_gmin() {
-  if (GetArenaForAllocation() == nullptr && gmin_ != nullptr) {
+  if (GetArena() == nullptr && gmin_ != nullptr) {
     delete gmin_;
   }
   gmin_ = nullptr;
 }
 void SimOptions::clear_iabstol() {
-  if (GetArenaForAllocation() == nullptr && iabstol_ != nullptr) {
+  if (GetArena() == nullptr && iabstol_ != nullptr) {
     delete iabstol_;
   }
   iabstol_ = nullptr;
 }
 void SimOptions::clear_reltol() {
-  if (GetArenaForAllocation() == nullptr && reltol_ != nullptr) {
+  if (GetArena() == nullptr && reltol_ != nullptr) {
     delete reltol_;
   }
   reltol_ = nullptr;
 }
-SimOptions::SimOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+SimOptions::SimOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.SimOptions)
 }
 SimOptions::SimOptions(const SimOptions& from)
@@ -1679,22 +1943,21 @@ SimOptions::SimOptions(const SimOptions& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.SimOptions)
 }
 
-inline void SimOptions::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&temp_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&reltol_) -
-    reinterpret_cast<char*>(&temp_)) + sizeof(reltol_));
+void SimOptions::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SimOptions_spice_2eproto.base);
+  ::memset(&temp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&reltol_) -
+      reinterpret_cast<char*>(&temp_)) + sizeof(reltol_));
 }
 
 SimOptions::~SimOptions() {
   // @@protoc_insertion_point(destructor:vlsir.spice.SimOptions)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void SimOptions::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void SimOptions::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (this != internal_default_instance()) delete temp_;
   if (this != internal_default_instance()) delete tnom_;
   if (this != internal_default_instance()) delete gmin_;
@@ -1711,6 +1974,11 @@ void SimOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void SimOptions::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const SimOptions& SimOptions::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SimOptions_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void SimOptions::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.SimOptions)
@@ -1718,23 +1986,23 @@ void SimOptions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && temp_ != nullptr) {
+  if (GetArena() == nullptr && temp_ != nullptr) {
     delete temp_;
   }
   temp_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && tnom_ != nullptr) {
+  if (GetArena() == nullptr && tnom_ != nullptr) {
     delete tnom_;
   }
   tnom_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && gmin_ != nullptr) {
+  if (GetArena() == nullptr && gmin_ != nullptr) {
     delete gmin_;
   }
   gmin_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && iabstol_ != nullptr) {
+  if (GetArena() == nullptr && iabstol_ != nullptr) {
     delete iabstol_;
   }
   iabstol_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && reltol_ != nullptr) {
+  if (GetArena() == nullptr && reltol_ != nullptr) {
     delete reltol_;
   }
   reltol_ = nullptr;
@@ -1743,9 +2011,11 @@ void SimOptions::Clear() {
 
 const char* SimOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .google.protobuf.DoubleValue temp = 1;
       case 1:
@@ -1784,8 +2054,7 @@ const char* SimOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -1812,7 +2081,7 @@ failure:
   (void) cached_has_bits;
 
   // .google.protobuf.DoubleValue temp = 1;
-  if (this->_internal_has_temp()) {
+  if (this->has_temp()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1820,7 +2089,7 @@ failure:
   }
 
   // .google.protobuf.DoubleValue tnom = 2;
-  if (this->_internal_has_tnom()) {
+  if (this->has_tnom()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1828,7 +2097,7 @@ failure:
   }
 
   // .google.protobuf.DoubleValue gmin = 3;
-  if (this->_internal_has_gmin()) {
+  if (this->has_gmin()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1836,7 +2105,7 @@ failure:
   }
 
   // .google.protobuf.DoubleValue iabstol = 4;
-  if (this->_internal_has_iabstol()) {
+  if (this->has_iabstol()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1844,7 +2113,7 @@ failure:
   }
 
   // .google.protobuf.DoubleValue reltol = 5;
-  if (this->_internal_has_reltol()) {
+  if (this->has_reltol()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1868,35 +2137,35 @@ size_t SimOptions::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // .google.protobuf.DoubleValue temp = 1;
-  if (this->_internal_has_temp()) {
+  if (this->has_temp()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *temp_);
   }
 
   // .google.protobuf.DoubleValue tnom = 2;
-  if (this->_internal_has_tnom()) {
+  if (this->has_tnom()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *tnom_);
   }
 
   // .google.protobuf.DoubleValue gmin = 3;
-  if (this->_internal_has_gmin()) {
+  if (this->has_gmin()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *gmin_);
   }
 
   // .google.protobuf.DoubleValue iabstol = 4;
-  if (this->_internal_has_iabstol()) {
+  if (this->has_iabstol()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *iabstol_);
   }
 
   // .google.protobuf.DoubleValue reltol = 5;
-  if (this->_internal_has_reltol()) {
+  if (this->has_reltol()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *reltol_);
@@ -1911,41 +2180,50 @@ size_t SimOptions::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SimOptions::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SimOptions::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SimOptions::GetClassData() const { return &_class_data_; }
-
-void SimOptions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SimOptions *>(to)->MergeFrom(
-      static_cast<const SimOptions &>(from));
+void SimOptions::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.SimOptions)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SimOptions* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SimOptions>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.SimOptions)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.SimOptions)
+    MergeFrom(*source);
+  }
 }
-
 
 void SimOptions::MergeFrom(const SimOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.SimOptions)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_temp()) {
+  if (from.has_temp()) {
     _internal_mutable_temp()->PROTOBUF_NAMESPACE_ID::DoubleValue::MergeFrom(from._internal_temp());
   }
-  if (from._internal_has_tnom()) {
+  if (from.has_tnom()) {
     _internal_mutable_tnom()->PROTOBUF_NAMESPACE_ID::DoubleValue::MergeFrom(from._internal_tnom());
   }
-  if (from._internal_has_gmin()) {
+  if (from.has_gmin()) {
     _internal_mutable_gmin()->PROTOBUF_NAMESPACE_ID::DoubleValue::MergeFrom(from._internal_gmin());
   }
-  if (from._internal_has_iabstol()) {
+  if (from.has_iabstol()) {
     _internal_mutable_iabstol()->PROTOBUF_NAMESPACE_ID::DoubleValue::MergeFrom(from._internal_iabstol());
   }
-  if (from._internal_has_reltol()) {
+  if (from.has_reltol()) {
     _internal_mutable_reltol()->PROTOBUF_NAMESPACE_ID::DoubleValue::MergeFrom(from._internal_reltol());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SimOptions::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.SimOptions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SimOptions::CopyFrom(const SimOptions& from) {
@@ -1961,7 +2239,7 @@ bool SimOptions::IsInitialized() const {
 
 void SimOptions::InternalSwap(SimOptions* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SimOptions, reltol_)
       + sizeof(SimOptions::reltol_)
@@ -1971,13 +2249,28 @@ void SimOptions::InternalSwap(SimOptions* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SimOptions::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[2]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Analysis::InitAsDefaultInstance() {
+  ::vlsir::spice::_Analysis_default_instance_.op_ = const_cast< ::vlsir::spice::OpInput*>(
+      ::vlsir::spice::OpInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.dc_ = const_cast< ::vlsir::spice::DcInput*>(
+      ::vlsir::spice::DcInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.tran_ = const_cast< ::vlsir::spice::TranInput*>(
+      ::vlsir::spice::TranInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.ac_ = const_cast< ::vlsir::spice::AcInput*>(
+      ::vlsir::spice::AcInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.sweep_ = const_cast< ::vlsir::spice::SweepInput*>(
+      ::vlsir::spice::SweepInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.monte_ = const_cast< ::vlsir::spice::MonteInput*>(
+      ::vlsir::spice::MonteInput::internal_default_instance());
+  ::vlsir::spice::_Analysis_default_instance_.custom_ = const_cast< ::vlsir::spice::CustomAnalysisInput*>(
+      ::vlsir::spice::CustomAnalysisInput::internal_default_instance());
+}
 class Analysis::_Internal {
  public:
   static const ::vlsir::spice::OpInput& op(const Analysis* msg);
@@ -2018,11 +2311,11 @@ Analysis::_Internal::custom(const Analysis* msg) {
   return *msg->an_.custom_;
 }
 void Analysis::set_allocated_op(::vlsir::spice::OpInput* op) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (op) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::OpInput>::GetOwningArena(op);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(op);
     if (message_arena != submessage_arena) {
       op = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, op, submessage_arena);
@@ -2033,11 +2326,11 @@ void Analysis::set_allocated_op(::vlsir::spice::OpInput* op) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.op)
 }
 void Analysis::set_allocated_dc(::vlsir::spice::DcInput* dc) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (dc) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::DcInput>::GetOwningArena(dc);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(dc);
     if (message_arena != submessage_arena) {
       dc = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, dc, submessage_arena);
@@ -2048,11 +2341,11 @@ void Analysis::set_allocated_dc(::vlsir::spice::DcInput* dc) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.dc)
 }
 void Analysis::set_allocated_tran(::vlsir::spice::TranInput* tran) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (tran) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::TranInput>::GetOwningArena(tran);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(tran);
     if (message_arena != submessage_arena) {
       tran = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, tran, submessage_arena);
@@ -2063,11 +2356,11 @@ void Analysis::set_allocated_tran(::vlsir::spice::TranInput* tran) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.tran)
 }
 void Analysis::set_allocated_ac(::vlsir::spice::AcInput* ac) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (ac) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::AcInput>::GetOwningArena(ac);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(ac);
     if (message_arena != submessage_arena) {
       ac = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ac, submessage_arena);
@@ -2078,11 +2371,11 @@ void Analysis::set_allocated_ac(::vlsir::spice::AcInput* ac) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.ac)
 }
 void Analysis::set_allocated_sweep(::vlsir::spice::SweepInput* sweep) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (sweep) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::SweepInput>::GetOwningArena(sweep);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(sweep);
     if (message_arena != submessage_arena) {
       sweep = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, sweep, submessage_arena);
@@ -2093,11 +2386,11 @@ void Analysis::set_allocated_sweep(::vlsir::spice::SweepInput* sweep) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.sweep)
 }
 void Analysis::set_allocated_monte(::vlsir::spice::MonteInput* monte) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (monte) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::MonteInput>::GetOwningArena(monte);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(monte);
     if (message_arena != submessage_arena) {
       monte = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, monte, submessage_arena);
@@ -2108,11 +2401,11 @@ void Analysis::set_allocated_monte(::vlsir::spice::MonteInput* monte) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.monte)
 }
 void Analysis::set_allocated_custom(::vlsir::spice::CustomAnalysisInput* custom) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (custom) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::CustomAnalysisInput>::GetOwningArena(custom);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(custom);
     if (message_arena != submessage_arena) {
       custom = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, custom, submessage_arena);
@@ -2122,13 +2415,10 @@ void Analysis::set_allocated_custom(::vlsir::spice::CustomAnalysisInput* custom)
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.custom)
 }
-Analysis::Analysis(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Analysis::Analysis(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Analysis)
 }
 Analysis::Analysis(const Analysis& from)
@@ -2171,19 +2461,19 @@ Analysis::Analysis(const Analysis& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Analysis)
 }
 
-inline void Analysis::SharedCtor() {
-clear_has_an();
+void Analysis::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Analysis_spice_2eproto.base);
+  clear_has_an();
 }
 
 Analysis::~Analysis() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Analysis)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Analysis::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Analysis::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (has_an()) {
     clear_an();
   }
@@ -2198,48 +2488,53 @@ void Analysis::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Analysis::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Analysis& Analysis::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Analysis_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Analysis::clear_an() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.Analysis)
   switch (an_case()) {
     case kOp: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.op_;
       }
       break;
     }
     case kDc: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.dc_;
       }
       break;
     }
     case kTran: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.tran_;
       }
       break;
     }
     case kAc: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.ac_;
       }
       break;
     }
     case kSweep: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.sweep_;
       }
       break;
     }
     case kMonte: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.monte_;
       }
       break;
     }
     case kCustom: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.custom_;
       }
       break;
@@ -2264,9 +2559,11 @@ void Analysis::Clear() {
 
 const char* Analysis::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.spice.OpInput op = 1;
       case 1:
@@ -2319,8 +2616,7 @@ const char* Analysis::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -2481,22 +2777,25 @@ size_t Analysis::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Analysis::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Analysis::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Analysis::GetClassData() const { return &_class_data_; }
-
-void Analysis::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Analysis *>(to)->MergeFrom(
-      static_cast<const Analysis &>(from));
+void Analysis::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Analysis)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Analysis* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Analysis>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Analysis)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Analysis)
+    MergeFrom(*source);
+  }
 }
-
 
 void Analysis::MergeFrom(const Analysis& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Analysis)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2533,7 +2832,13 @@ void Analysis::MergeFrom(const Analysis& from) {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Analysis::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Analysis)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Analysis::CopyFrom(const Analysis& from) {
@@ -2549,19 +2854,34 @@ bool Analysis::IsInitialized() const {
 
 void Analysis::InternalSwap(Analysis* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(an_, other->an_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Analysis::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[3]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void AnalysisResult::InitAsDefaultInstance() {
+  ::vlsir::spice::_AnalysisResult_default_instance_.op_ = const_cast< ::vlsir::spice::OpResult*>(
+      ::vlsir::spice::OpResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.dc_ = const_cast< ::vlsir::spice::DcResult*>(
+      ::vlsir::spice::DcResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.tran_ = const_cast< ::vlsir::spice::TranResult*>(
+      ::vlsir::spice::TranResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.ac_ = const_cast< ::vlsir::spice::AcResult*>(
+      ::vlsir::spice::AcResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.sweep_ = const_cast< ::vlsir::spice::SweepResult*>(
+      ::vlsir::spice::SweepResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.monte_ = const_cast< ::vlsir::spice::MonteResult*>(
+      ::vlsir::spice::MonteResult::internal_default_instance());
+  ::vlsir::spice::_AnalysisResult_default_instance_.custom_ = const_cast< ::vlsir::spice::CustomAnalysisResult*>(
+      ::vlsir::spice::CustomAnalysisResult::internal_default_instance());
+}
 class AnalysisResult::_Internal {
  public:
   static const ::vlsir::spice::OpResult& op(const AnalysisResult* msg);
@@ -2602,11 +2922,11 @@ AnalysisResult::_Internal::custom(const AnalysisResult* msg) {
   return *msg->an_.custom_;
 }
 void AnalysisResult::set_allocated_op(::vlsir::spice::OpResult* op) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (op) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::OpResult>::GetOwningArena(op);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(op);
     if (message_arena != submessage_arena) {
       op = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, op, submessage_arena);
@@ -2617,11 +2937,11 @@ void AnalysisResult::set_allocated_op(::vlsir::spice::OpResult* op) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.op)
 }
 void AnalysisResult::set_allocated_dc(::vlsir::spice::DcResult* dc) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (dc) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::DcResult>::GetOwningArena(dc);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(dc);
     if (message_arena != submessage_arena) {
       dc = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, dc, submessage_arena);
@@ -2632,11 +2952,11 @@ void AnalysisResult::set_allocated_dc(::vlsir::spice::DcResult* dc) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.dc)
 }
 void AnalysisResult::set_allocated_tran(::vlsir::spice::TranResult* tran) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (tran) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::TranResult>::GetOwningArena(tran);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(tran);
     if (message_arena != submessage_arena) {
       tran = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, tran, submessage_arena);
@@ -2647,11 +2967,11 @@ void AnalysisResult::set_allocated_tran(::vlsir::spice::TranResult* tran) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.tran)
 }
 void AnalysisResult::set_allocated_ac(::vlsir::spice::AcResult* ac) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (ac) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::AcResult>::GetOwningArena(ac);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(ac);
     if (message_arena != submessage_arena) {
       ac = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ac, submessage_arena);
@@ -2662,11 +2982,11 @@ void AnalysisResult::set_allocated_ac(::vlsir::spice::AcResult* ac) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.ac)
 }
 void AnalysisResult::set_allocated_sweep(::vlsir::spice::SweepResult* sweep) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (sweep) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::SweepResult>::GetOwningArena(sweep);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(sweep);
     if (message_arena != submessage_arena) {
       sweep = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, sweep, submessage_arena);
@@ -2677,11 +2997,11 @@ void AnalysisResult::set_allocated_sweep(::vlsir::spice::SweepResult* sweep) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.sweep)
 }
 void AnalysisResult::set_allocated_monte(::vlsir::spice::MonteResult* monte) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (monte) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::MonteResult>::GetOwningArena(monte);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(monte);
     if (message_arena != submessage_arena) {
       monte = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, monte, submessage_arena);
@@ -2692,11 +3012,11 @@ void AnalysisResult::set_allocated_monte(::vlsir::spice::MonteResult* monte) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.monte)
 }
 void AnalysisResult::set_allocated_custom(::vlsir::spice::CustomAnalysisResult* custom) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_an();
   if (custom) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::CustomAnalysisResult>::GetOwningArena(custom);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(custom);
     if (message_arena != submessage_arena) {
       custom = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, custom, submessage_arena);
@@ -2706,13 +3026,10 @@ void AnalysisResult::set_allocated_custom(::vlsir::spice::CustomAnalysisResult* 
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.custom)
 }
-AnalysisResult::AnalysisResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+AnalysisResult::AnalysisResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.AnalysisResult)
 }
 AnalysisResult::AnalysisResult(const AnalysisResult& from)
@@ -2755,19 +3072,19 @@ AnalysisResult::AnalysisResult(const AnalysisResult& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.AnalysisResult)
 }
 
-inline void AnalysisResult::SharedCtor() {
-clear_has_an();
+void AnalysisResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AnalysisResult_spice_2eproto.base);
+  clear_has_an();
 }
 
 AnalysisResult::~AnalysisResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.AnalysisResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void AnalysisResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void AnalysisResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (has_an()) {
     clear_an();
   }
@@ -2782,48 +3099,53 @@ void AnalysisResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void AnalysisResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const AnalysisResult& AnalysisResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AnalysisResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void AnalysisResult::clear_an() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.AnalysisResult)
   switch (an_case()) {
     case kOp: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.op_;
       }
       break;
     }
     case kDc: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.dc_;
       }
       break;
     }
     case kTran: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.tran_;
       }
       break;
     }
     case kAc: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.ac_;
       }
       break;
     }
     case kSweep: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.sweep_;
       }
       break;
     }
     case kMonte: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.monte_;
       }
       break;
     }
     case kCustom: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete an_.custom_;
       }
       break;
@@ -2848,9 +3170,11 @@ void AnalysisResult::Clear() {
 
 const char* AnalysisResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.spice.OpResult op = 1;
       case 1:
@@ -2903,8 +3227,7 @@ const char* AnalysisResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -3065,22 +3388,25 @@ size_t AnalysisResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AnalysisResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    AnalysisResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AnalysisResult::GetClassData() const { return &_class_data_; }
-
-void AnalysisResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<AnalysisResult *>(to)->MergeFrom(
-      static_cast<const AnalysisResult &>(from));
+void AnalysisResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.AnalysisResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AnalysisResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AnalysisResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.AnalysisResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.AnalysisResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void AnalysisResult::MergeFrom(const AnalysisResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.AnalysisResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3117,7 +3443,13 @@ void AnalysisResult::MergeFrom(const AnalysisResult& from) {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void AnalysisResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.AnalysisResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void AnalysisResult::CopyFrom(const AnalysisResult& from) {
@@ -3133,31 +3465,29 @@ bool AnalysisResult::IsInitialized() const {
 
 void AnalysisResult::InternalSwap(AnalysisResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(an_, other->an_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AnalysisResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[4]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void OpInput::InitAsDefaultInstance() {
+}
 class OpInput::_Internal {
  public:
 };
 
-OpInput::OpInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+OpInput::OpInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   ctrl_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.OpInput)
 }
 OpInput::OpInput(const OpInput& from)
@@ -3166,25 +3496,25 @@ OpInput::OpInput(const OpInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.OpInput)
 }
 
-inline void OpInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void OpInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_OpInput_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 OpInput::~OpInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.OpInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void OpInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void OpInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -3197,6 +3527,11 @@ void OpInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void OpInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const OpInput& OpInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_OpInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void OpInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.OpInput)
@@ -3205,15 +3540,17 @@ void OpInput::Clear() {
   (void) cached_has_bits;
 
   ctrl_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* OpInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -3238,8 +3575,7 @@ const char* OpInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -3266,7 +3602,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -3307,7 +3643,7 @@ size_t OpInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
@@ -3322,30 +3658,39 @@ size_t OpInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OpInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    OpInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OpInput::GetClassData() const { return &_class_data_; }
-
-void OpInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<OpInput *>(to)->MergeFrom(
-      static_cast<const OpInput &>(from));
+void OpInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.OpInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const OpInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<OpInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.OpInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.OpInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void OpInput::MergeFrom(const OpInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.OpInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   ctrl_.MergeFrom(from.ctrl_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void OpInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.OpInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void OpInput::CopyFrom(const OpInput& from) {
@@ -3361,36 +3706,30 @@ bool OpInput::IsInitialized() const {
 
 void OpInput::InternalSwap(OpInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ctrl_.InternalSwap(&other->ctrl_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OpInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[5]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void OpResult::InitAsDefaultInstance() {
+}
 class OpResult::_Internal {
  public:
 };
 
-OpResult::OpResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+OpResult::OpResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   signals_(arena),
   data_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.OpResult)
 }
 OpResult::OpResult(const OpResult& from)
@@ -3400,25 +3739,25 @@ OpResult::OpResult(const OpResult& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.OpResult)
 }
 
-inline void OpResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void OpResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_OpResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 OpResult::~OpResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.OpResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void OpResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void OpResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -3431,6 +3770,11 @@ void OpResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void OpResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const OpResult& OpResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_OpResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void OpResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.OpResult)
@@ -3440,15 +3784,17 @@ void OpResult::Clear() {
 
   signals_.Clear();
   data_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* OpResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -3485,8 +3831,7 @@ const char* OpResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -3513,7 +3858,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -3570,11 +3915,14 @@ size_t OpResult::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _data_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
     total_size += data_size;
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
@@ -3589,31 +3937,40 @@ size_t OpResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OpResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    OpResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OpResult::GetClassData() const { return &_class_data_; }
-
-void OpResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<OpResult *>(to)->MergeFrom(
-      static_cast<const OpResult &>(from));
+void OpResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.OpResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const OpResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<OpResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.OpResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.OpResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void OpResult::MergeFrom(const OpResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.OpResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void OpResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.OpResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void OpResult::CopyFrom(const OpResult& from) {
@@ -3629,24 +3986,23 @@ bool OpResult::IsInitialized() const {
 
 void OpResult::InternalSwap(OpResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OpResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[6]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void DcInput::InitAsDefaultInstance() {
+  ::vlsir::spice::_DcInput_default_instance_._instance.get_mutable()->sweep_ = const_cast< ::vlsir::spice::Sweep*>(
+      ::vlsir::spice::Sweep::internal_default_instance());
+}
 class DcInput::_Internal {
  public:
   static const ::vlsir::spice::Sweep& sweep(const DcInput* msg);
@@ -3656,14 +4012,11 @@ const ::vlsir::spice::Sweep&
 DcInput::_Internal::sweep(const DcInput* msg) {
   return *msg->sweep_;
 }
-DcInput::DcInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+DcInput::DcInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   ctrl_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.DcInput)
 }
 DcInput::DcInput(const DcInput& from)
@@ -3672,13 +4025,13 @@ DcInput::DcInput(const DcInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_indep_name().empty()) {
-    indep_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_indep_name(), 
-      GetArenaForAllocation());
+    indep_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_indep_name(),
+      GetArena());
   }
   if (from._internal_has_sweep()) {
     sweep_ = new ::vlsir::spice::Sweep(*from.sweep_);
@@ -3688,21 +4041,21 @@ DcInput::DcInput(const DcInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.DcInput)
 }
 
-inline void DcInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sweep_ = nullptr;
+void DcInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_DcInput_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sweep_ = nullptr;
 }
 
 DcInput::~DcInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.DcInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void DcInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void DcInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   indep_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete sweep_;
@@ -3717,6 +4070,11 @@ void DcInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void DcInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const DcInput& DcInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_DcInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void DcInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.DcInput)
@@ -3725,9 +4083,9 @@ void DcInput::Clear() {
   (void) cached_has_bits;
 
   ctrl_.Clear();
-  analysis_name_.ClearToEmpty();
-  indep_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && sweep_ != nullptr) {
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  indep_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && sweep_ != nullptr) {
     delete sweep_;
   }
   sweep_ = nullptr;
@@ -3736,9 +4094,11 @@ void DcInput::Clear() {
 
 const char* DcInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -3779,8 +4139,7 @@ const char* DcInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -3807,7 +4166,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -3817,7 +4176,7 @@ failure:
   }
 
   // string indep_name = 2;
-  if (!this->_internal_indep_name().empty()) {
+  if (this->indep_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_indep_name().data(), static_cast<int>(this->_internal_indep_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -3827,7 +4186,7 @@ failure:
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -3866,21 +4225,21 @@ size_t DcInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string indep_name = 2;
-  if (!this->_internal_indep_name().empty()) {
+  if (this->indep_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_indep_name());
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *sweep_);
@@ -3895,36 +4254,45 @@ size_t DcInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DcInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    DcInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DcInput::GetClassData() const { return &_class_data_; }
-
-void DcInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<DcInput *>(to)->MergeFrom(
-      static_cast<const DcInput &>(from));
+void DcInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.DcInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const DcInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<DcInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.DcInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.DcInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void DcInput::MergeFrom(const DcInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.DcInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   ctrl_.MergeFrom(from.ctrl_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_indep_name().empty()) {
+  if (from.indep_name().size() > 0) {
     _internal_set_indep_name(from._internal_indep_name());
   }
-  if (from._internal_has_sweep()) {
+  if (from.has_sweep()) {
     _internal_mutable_sweep()->::vlsir::spice::Sweep::MergeFrom(from._internal_sweep());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DcInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.DcInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void DcInput::CopyFrom(const DcInput& from) {
@@ -3940,26 +4308,17 @@ bool DcInput::IsInitialized() const {
 
 void DcInput::InternalSwap(DcInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ctrl_.InternalSwap(&other->ctrl_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &indep_name_, GetArenaForAllocation(),
-      &other->indep_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  indep_name_.Swap(&other->indep_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(sweep_, other->sweep_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata DcInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[7]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
@@ -3970,27 +4329,29 @@ void DcResult_MeasurementsEntry_DoNotUse::MergeFrom(const DcResult_MeasurementsE
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata DcResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[8]);
+  return GetMetadataStatic();
 }
+void DcResult_MeasurementsEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
 
 // ===================================================================
 
+void DcResult::InitAsDefaultInstance() {
+}
 class DcResult::_Internal {
  public:
 };
 
-DcResult::DcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+DcResult::DcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.DcResult)
 }
 DcResult::DcResult(const DcResult& from)
@@ -4001,31 +4362,31 @@ DcResult::DcResult(const DcResult& from)
   measurements_.MergeFrom(from.measurements_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_indep_name().empty()) {
-    indep_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_indep_name(), 
-      GetArenaForAllocation());
+    indep_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_indep_name(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.DcResult)
 }
 
-inline void DcResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void DcResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_DcResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  indep_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 DcResult::~DcResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.DcResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void DcResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void DcResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   indep_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -4033,16 +4394,17 @@ inline void DcResult::SharedDtor() {
 void DcResult::ArenaDtor(void* object) {
   DcResult* _this = reinterpret_cast< DcResult* >(object);
   (void)_this;
-  _this->measurements_. ~MapField();
 }
-inline void DcResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &DcResult::ArenaDtor);
-  }
+void DcResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void DcResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const DcResult& DcResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_DcResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void DcResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.DcResult)
@@ -4053,16 +4415,18 @@ void DcResult::Clear() {
   signals_.Clear();
   data_.Clear();
   measurements_.Clear();
-  analysis_name_.ClearToEmpty();
-  indep_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  indep_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* DcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -4120,8 +4484,7 @@ const char* DcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -4148,7 +4511,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4158,7 +4521,7 @@ failure:
   }
 
   // string indep_name = 2;
-  if (!this->_internal_indep_name().empty()) {
+  if (this->indep_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_indep_name().data(), static_cast<int>(this->_internal_indep_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4190,7 +4553,6 @@ failure:
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
     struct Utf8Check {
       static void Check(ConstPtr p) {
-        (void)p;
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
           p->first.data(), static_cast<int>(p->first.length()),
           ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4257,6 +4619,9 @@ size_t DcResult::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _data_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
     total_size += data_size;
   }
 
@@ -4270,14 +4635,14 @@ size_t DcResult::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string indep_name = 2;
-  if (!this->_internal_indep_name().empty()) {
+  if (this->indep_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_indep_name());
@@ -4292,35 +4657,44 @@ size_t DcResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DcResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    DcResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DcResult::GetClassData() const { return &_class_data_; }
-
-void DcResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<DcResult *>(to)->MergeFrom(
-      static_cast<const DcResult &>(from));
+void DcResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.DcResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const DcResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<DcResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.DcResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.DcResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void DcResult::MergeFrom(const DcResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.DcResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_indep_name().empty()) {
+  if (from.indep_name().size() > 0) {
     _internal_set_indep_name(from._internal_indep_name());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DcResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.DcResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void DcResult::CopyFrom(const DcResult& from) {
@@ -4336,27 +4710,18 @@ bool DcResult::IsInitialized() const {
 
 void DcResult::InternalSwap(DcResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
-  measurements_.InternalSwap(&other->measurements_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &indep_name_, GetArenaForAllocation(),
-      &other->indep_name_, other->GetArenaForAllocation()
-  );
+  measurements_.Swap(&other->measurements_);
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  indep_name_.Swap(&other->indep_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata DcResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[9]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
@@ -4367,26 +4732,28 @@ void TranInput_IcEntry_DoNotUse::MergeFrom(const TranInput_IcEntry_DoNotUse& oth
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata TranInput_IcEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[10]);
+  return GetMetadataStatic();
 }
+void TranInput_IcEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
 
 // ===================================================================
 
+void TranInput::InitAsDefaultInstance() {
+}
 class TranInput::_Internal {
  public:
 };
 
-TranInput::TranInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+TranInput::TranInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   ic_(arena),
   ctrl_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.TranInput)
 }
 TranInput::TranInput(const TranInput& from)
@@ -4396,8 +4763,8 @@ TranInput::TranInput(const TranInput& from)
   ic_.MergeFrom(from.ic_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   ::memcpy(&tstop_, &from.tstop_,
     static_cast<size_t>(reinterpret_cast<char*>(&tstep_) -
@@ -4405,39 +4772,39 @@ TranInput::TranInput(const TranInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.TranInput)
 }
 
-inline void TranInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&tstop_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&tstep_) -
-    reinterpret_cast<char*>(&tstop_)) + sizeof(tstep_));
+void TranInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TranInput_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&tstop_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&tstep_) -
+      reinterpret_cast<char*>(&tstop_)) + sizeof(tstep_));
 }
 
 TranInput::~TranInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.TranInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void TranInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void TranInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void TranInput::ArenaDtor(void* object) {
   TranInput* _this = reinterpret_cast< TranInput* >(object);
   (void)_this;
-  _this->ic_. ~MapField();
 }
-inline void TranInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &TranInput::ArenaDtor);
-  }
+void TranInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void TranInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const TranInput& TranInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TranInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void TranInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.TranInput)
@@ -4447,7 +4814,7 @@ void TranInput::Clear() {
 
   ic_.Clear();
   ctrl_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&tstop_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&tstep_) -
       reinterpret_cast<char*>(&tstop_)) + sizeof(tstep_));
@@ -4456,9 +4823,11 @@ void TranInput::Clear() {
 
 const char* TranInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -4509,8 +4878,7 @@ const char* TranInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -4537,7 +4905,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4547,13 +4915,13 @@ failure:
   }
 
   // double tstop = 2;
-  if (!(this->_internal_tstop() <= 0 && this->_internal_tstop() >= 0)) {
+  if (!(this->tstop() <= 0 && this->tstop() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_tstop(), target);
   }
 
   // double tstep = 3;
-  if (!(this->_internal_tstep() <= 0 && this->_internal_tstep() >= 0)) {
+  if (!(this->tstep() <= 0 && this->tstep() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_tstep(), target);
   }
@@ -4566,7 +4934,6 @@ failure:
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
     struct Utf8Check {
       static void Check(ConstPtr p) {
-        (void)p;
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
           p->first.data(), static_cast<int>(p->first.length()),
           ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4641,19 +5008,19 @@ size_t TranInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // double tstop = 2;
-  if (!(this->_internal_tstop() <= 0 && this->_internal_tstop() >= 0)) {
+  if (!(this->tstop() <= 0 && this->tstop() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double tstep = 3;
-  if (!(this->_internal_tstep() <= 0 && this->_internal_tstep() >= 0)) {
+  if (!(this->tstep() <= 0 && this->tstep() >= 0)) {
     total_size += 1 + 8;
   }
 
@@ -4666,37 +5033,46 @@ size_t TranInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TranInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    TranInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TranInput::GetClassData() const { return &_class_data_; }
-
-void TranInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<TranInput *>(to)->MergeFrom(
-      static_cast<const TranInput &>(from));
+void TranInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.TranInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const TranInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TranInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.TranInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.TranInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void TranInput::MergeFrom(const TranInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.TranInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   ic_.MergeFrom(from.ic_);
   ctrl_.MergeFrom(from.ctrl_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!(from._internal_tstop() <= 0 && from._internal_tstop() >= 0)) {
+  if (!(from.tstop() <= 0 && from.tstop() >= 0)) {
     _internal_set_tstop(from._internal_tstop());
   }
-  if (!(from._internal_tstep() <= 0 && from._internal_tstep() >= 0)) {
+  if (!(from.tstep() <= 0 && from.tstep() >= 0)) {
     _internal_set_tstep(from._internal_tstep());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void TranInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.TranInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void TranInput::CopyFrom(const TranInput& from) {
@@ -4712,14 +5088,10 @@ bool TranInput::IsInitialized() const {
 
 void TranInput::InternalSwap(TranInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ic_.InternalSwap(&other->ic_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  ic_.Swap(&other->ic_);
   ctrl_.InternalSwap(&other->ctrl_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TranInput, tstep_)
       + sizeof(TranInput::tstep_)
@@ -4729,10 +5101,9 @@ void TranInput::InternalSwap(TranInput* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TranInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[11]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
@@ -4743,27 +5114,29 @@ void TranResult_MeasurementsEntry_DoNotUse::MergeFrom(const TranResult_Measureme
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata TranResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[12]);
+  return GetMetadataStatic();
 }
+void TranResult_MeasurementsEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
 
 // ===================================================================
 
+void TranResult::InitAsDefaultInstance() {
+}
 class TranResult::_Internal {
  public:
 };
 
-TranResult::TranResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+TranResult::TranResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.TranResult)
 }
 TranResult::TranResult(const TranResult& from)
@@ -4774,41 +5147,42 @@ TranResult::TranResult(const TranResult& from)
   measurements_.MergeFrom(from.measurements_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.TranResult)
 }
 
-inline void TranResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void TranResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TranResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 TranResult::~TranResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.TranResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void TranResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void TranResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void TranResult::ArenaDtor(void* object) {
   TranResult* _this = reinterpret_cast< TranResult* >(object);
   (void)_this;
-  _this->measurements_. ~MapField();
 }
-inline void TranResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &TranResult::ArenaDtor);
-  }
+void TranResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void TranResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const TranResult& TranResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TranResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void TranResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.TranResult)
@@ -4819,15 +5193,17 @@ void TranResult::Clear() {
   signals_.Clear();
   data_.Clear();
   measurements_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* TranResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -4876,8 +5252,7 @@ const char* TranResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -4904,7 +5279,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4936,7 +5311,6 @@ failure:
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
     struct Utf8Check {
       static void Check(ConstPtr p) {
-        (void)p;
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
           p->first.data(), static_cast<int>(p->first.length()),
           ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -5003,6 +5377,9 @@ size_t TranResult::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _data_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
     total_size += data_size;
   }
 
@@ -5016,7 +5393,7 @@ size_t TranResult::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
@@ -5031,32 +5408,41 @@ size_t TranResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TranResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    TranResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TranResult::GetClassData() const { return &_class_data_; }
-
-void TranResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<TranResult *>(to)->MergeFrom(
-      static_cast<const TranResult &>(from));
+void TranResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.TranResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const TranResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TranResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.TranResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.TranResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void TranResult::MergeFrom(const TranResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.TranResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void TranResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.TranResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void TranResult::CopyFrom(const TranResult& from) {
@@ -5072,36 +5458,30 @@ bool TranResult::IsInitialized() const {
 
 void TranResult::InternalSwap(TranResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
-  measurements_.InternalSwap(&other->measurements_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  measurements_.Swap(&other->measurements_);
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TranResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[13]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void ComplexNum::InitAsDefaultInstance() {
+}
 class ComplexNum::_Internal {
  public:
 };
 
-ComplexNum::ComplexNum(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+ComplexNum::ComplexNum(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.ComplexNum)
 }
 ComplexNum::ComplexNum(const ComplexNum& from)
@@ -5113,22 +5493,20 @@ ComplexNum::ComplexNum(const ComplexNum& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.ComplexNum)
 }
 
-inline void ComplexNum::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&re_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&im_) -
-    reinterpret_cast<char*>(&re_)) + sizeof(im_));
+void ComplexNum::SharedCtor() {
+  ::memset(&re_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&im_) -
+      reinterpret_cast<char*>(&re_)) + sizeof(im_));
 }
 
 ComplexNum::~ComplexNum() {
   // @@protoc_insertion_point(destructor:vlsir.spice.ComplexNum)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void ComplexNum::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void ComplexNum::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void ComplexNum::ArenaDtor(void* object) {
@@ -5140,6 +5518,11 @@ void ComplexNum::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void ComplexNum::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const ComplexNum& ComplexNum::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ComplexNum_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void ComplexNum::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.ComplexNum)
@@ -5155,9 +5538,11 @@ void ComplexNum::Clear() {
 
 const char* ComplexNum::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // double re = 1;
       case 1:
@@ -5175,8 +5560,7 @@ const char* ComplexNum::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -5203,13 +5587,13 @@ failure:
   (void) cached_has_bits;
 
   // double re = 1;
-  if (!(this->_internal_re() <= 0 && this->_internal_re() >= 0)) {
+  if (!(this->re() <= 0 && this->re() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_re(), target);
   }
 
   // double im = 2;
-  if (!(this->_internal_im() <= 0 && this->_internal_im() >= 0)) {
+  if (!(this->im() <= 0 && this->im() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_im(), target);
   }
@@ -5231,12 +5615,12 @@ size_t ComplexNum::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double re = 1;
-  if (!(this->_internal_re() <= 0 && this->_internal_re() >= 0)) {
+  if (!(this->re() <= 0 && this->re() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double im = 2;
-  if (!(this->_internal_im() <= 0 && this->_internal_im() >= 0)) {
+  if (!(this->im() <= 0 && this->im() >= 0)) {
     total_size += 1 + 8;
   }
 
@@ -5249,32 +5633,41 @@ size_t ComplexNum::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ComplexNum::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ComplexNum::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ComplexNum::GetClassData() const { return &_class_data_; }
-
-void ComplexNum::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ComplexNum *>(to)->MergeFrom(
-      static_cast<const ComplexNum &>(from));
+void ComplexNum::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.ComplexNum)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ComplexNum* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ComplexNum>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.ComplexNum)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.ComplexNum)
+    MergeFrom(*source);
+  }
 }
-
 
 void ComplexNum::MergeFrom(const ComplexNum& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.ComplexNum)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_re() <= 0 && from._internal_re() >= 0)) {
+  if (!(from.re() <= 0 && from.re() >= 0)) {
     _internal_set_re(from._internal_re());
   }
-  if (!(from._internal_im() <= 0 && from._internal_im() >= 0)) {
+  if (!(from.im() <= 0 && from.im() >= 0)) {
     _internal_set_im(from._internal_im());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ComplexNum::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.ComplexNum)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void ComplexNum::CopyFrom(const ComplexNum& from) {
@@ -5290,7 +5683,7 @@ bool ComplexNum::IsInitialized() const {
 
 void ComplexNum::InternalSwap(ComplexNum* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ComplexNum, im_)
       + sizeof(ComplexNum::im_)
@@ -5300,25 +5693,23 @@ void ComplexNum::InternalSwap(ComplexNum* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ComplexNum::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[14]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void AcInput::InitAsDefaultInstance() {
+}
 class AcInput::_Internal {
  public:
 };
 
-AcInput::AcInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+AcInput::AcInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   ctrl_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.AcInput)
 }
 AcInput::AcInput(const AcInput& from)
@@ -5327,8 +5718,8 @@ AcInput::AcInput(const AcInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   ::memcpy(&fstart_, &from.fstart_,
     static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
@@ -5336,23 +5727,22 @@ AcInput::AcInput(const AcInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.AcInput)
 }
 
-inline void AcInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fstart_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
-    reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
+void AcInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AcInput_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&fstart_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&npts_) -
+      reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
 }
 
 AcInput::~AcInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.AcInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void AcInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void AcInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -5365,6 +5755,11 @@ void AcInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void AcInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const AcInput& AcInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AcInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void AcInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.AcInput)
@@ -5373,7 +5768,7 @@ void AcInput::Clear() {
   (void) cached_has_bits;
 
   ctrl_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&fstart_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&npts_) -
       reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
@@ -5382,9 +5777,11 @@ void AcInput::Clear() {
 
 const char* AcInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -5430,8 +5827,7 @@ const char* AcInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -5458,7 +5854,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -5468,19 +5864,19 @@ failure:
   }
 
   // double fstart = 2;
-  if (!(this->_internal_fstart() <= 0 && this->_internal_fstart() >= 0)) {
+  if (!(this->fstart() <= 0 && this->fstart() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_fstart(), target);
   }
 
   // double fstop = 3;
-  if (!(this->_internal_fstop() <= 0 && this->_internal_fstop() >= 0)) {
+  if (!(this->fstop() <= 0 && this->fstop() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_fstop(), target);
   }
 
   // uint64 npts = 4;
-  if (this->_internal_npts() != 0) {
+  if (this->npts() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_npts(), target);
   }
@@ -5517,24 +5913,24 @@ size_t AcInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // double fstart = 2;
-  if (!(this->_internal_fstart() <= 0 && this->_internal_fstart() >= 0)) {
+  if (!(this->fstart() <= 0 && this->fstart() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double fstop = 3;
-  if (!(this->_internal_fstop() <= 0 && this->_internal_fstop() >= 0)) {
+  if (!(this->fstop() <= 0 && this->fstop() >= 0)) {
     total_size += 1 + 8;
   }
 
   // uint64 npts = 4;
-  if (this->_internal_npts() != 0) {
+  if (this->npts() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
         this->_internal_npts());
@@ -5549,39 +5945,48 @@ size_t AcInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AcInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    AcInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AcInput::GetClassData() const { return &_class_data_; }
-
-void AcInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<AcInput *>(to)->MergeFrom(
-      static_cast<const AcInput &>(from));
+void AcInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.AcInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AcInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AcInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.AcInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.AcInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void AcInput::MergeFrom(const AcInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.AcInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   ctrl_.MergeFrom(from.ctrl_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!(from._internal_fstart() <= 0 && from._internal_fstart() >= 0)) {
+  if (!(from.fstart() <= 0 && from.fstart() >= 0)) {
     _internal_set_fstart(from._internal_fstart());
   }
-  if (!(from._internal_fstop() <= 0 && from._internal_fstop() >= 0)) {
+  if (!(from.fstop() <= 0 && from.fstop() >= 0)) {
     _internal_set_fstop(from._internal_fstop());
   }
-  if (from._internal_npts() != 0) {
+  if (from.npts() != 0) {
     _internal_set_npts(from._internal_npts());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void AcInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.AcInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void AcInput::CopyFrom(const AcInput& from) {
@@ -5597,13 +6002,9 @@ bool AcInput::IsInitialized() const {
 
 void AcInput::InternalSwap(AcInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ctrl_.InternalSwap(&other->ctrl_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AcInput, npts_)
       + sizeof(AcInput::npts_)
@@ -5613,10 +6014,9 @@ void AcInput::InternalSwap(AcInput* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AcInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[15]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
@@ -5627,28 +6027,30 @@ void AcResult_MeasurementsEntry_DoNotUse::MergeFrom(const AcResult_MeasurementsE
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata AcResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[16]);
+  return GetMetadataStatic();
 }
+void AcResult_MeasurementsEntry_DoNotUse::MergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::Message& other) {
+  ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom(other);
+}
+
 
 // ===================================================================
 
+void AcResult::InitAsDefaultInstance() {
+}
 class AcResult::_Internal {
  public:
 };
 
-AcResult::AcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+AcResult::AcResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   freq_(arena),
   signals_(arena),
   data_(arena),
   measurements_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.AcResult)
 }
 AcResult::AcResult(const AcResult& from)
@@ -5660,41 +6062,42 @@ AcResult::AcResult(const AcResult& from)
   measurements_.MergeFrom(from.measurements_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.AcResult)
 }
 
-inline void AcResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void AcResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AcResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 AcResult::~AcResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.AcResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void AcResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void AcResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void AcResult::ArenaDtor(void* object) {
   AcResult* _this = reinterpret_cast< AcResult* >(object);
   (void)_this;
-  _this->measurements_. ~MapField();
 }
-inline void AcResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &AcResult::ArenaDtor);
-  }
+void AcResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void AcResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const AcResult& AcResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AcResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void AcResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.AcResult)
@@ -5706,15 +6109,17 @@ void AcResult::Clear() {
   signals_.Clear();
   data_.Clear();
   measurements_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* AcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -5775,8 +6180,7 @@ const char* AcResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -5803,7 +6207,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -5843,7 +6247,6 @@ failure:
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
     struct Utf8Check {
       static void Check(ConstPtr p) {
-        (void)p;
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
           p->first.data(), static_cast<int>(p->first.length()),
           ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -5902,6 +6305,9 @@ size_t AcResult::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _freq_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
     total_size += data_size;
   }
 
@@ -5930,7 +6336,7 @@ size_t AcResult::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
@@ -5945,22 +6351,25 @@ size_t AcResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AcResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    AcResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AcResult::GetClassData() const { return &_class_data_; }
-
-void AcResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<AcResult *>(to)->MergeFrom(
-      static_cast<const AcResult &>(from));
+void AcResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.AcResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AcResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AcResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.AcResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.AcResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void AcResult::MergeFrom(const AcResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.AcResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -5968,10 +6377,16 @@ void AcResult::MergeFrom(const AcResult& from) {
   signals_.MergeFrom(from.signals_);
   data_.MergeFrom(from.data_);
   measurements_.MergeFrom(from.measurements_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void AcResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.AcResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void AcResult::CopyFrom(const AcResult& from) {
@@ -5987,26 +6402,25 @@ bool AcResult::IsInitialized() const {
 
 void AcResult::InternalSwap(AcResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   freq_.InternalSwap(&other->freq_);
   signals_.InternalSwap(&other->signals_);
   data_.InternalSwap(&other->data_);
-  measurements_.InternalSwap(&other->measurements_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  measurements_.Swap(&other->measurements_);
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AcResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[17]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void SweepInput::InitAsDefaultInstance() {
+  ::vlsir::spice::_SweepInput_default_instance_._instance.get_mutable()->sweep_ = const_cast< ::vlsir::spice::Sweep*>(
+      ::vlsir::spice::Sweep::internal_default_instance());
+}
 class SweepInput::_Internal {
  public:
   static const ::vlsir::spice::Sweep& sweep(const SweepInput* msg);
@@ -6016,15 +6430,12 @@ const ::vlsir::spice::Sweep&
 SweepInput::_Internal::sweep(const SweepInput* msg) {
   return *msg->sweep_;
 }
-SweepInput::SweepInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+SweepInput::SweepInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena),
   ctrls_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.SweepInput)
 }
 SweepInput::SweepInput(const SweepInput& from)
@@ -6034,13 +6445,13 @@ SweepInput::SweepInput(const SweepInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_variable().empty()) {
-    variable_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_variable(), 
-      GetArenaForAllocation());
+    variable_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_variable(),
+      GetArena());
   }
   if (from._internal_has_sweep()) {
     sweep_ = new ::vlsir::spice::Sweep(*from.sweep_);
@@ -6050,21 +6461,21 @@ SweepInput::SweepInput(const SweepInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.SweepInput)
 }
 
-inline void SweepInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sweep_ = nullptr;
+void SweepInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Analysis_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sweep_ = nullptr;
 }
 
 SweepInput::~SweepInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.SweepInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void SweepInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void SweepInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   variable_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete sweep_;
@@ -6079,6 +6490,11 @@ void SweepInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void SweepInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const SweepInput& SweepInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Analysis_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void SweepInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.SweepInput)
@@ -6088,9 +6504,9 @@ void SweepInput::Clear() {
 
   an_.Clear();
   ctrls_.Clear();
-  analysis_name_.ClearToEmpty();
-  variable_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && sweep_ != nullptr) {
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && sweep_ != nullptr) {
     delete sweep_;
   }
   sweep_ = nullptr;
@@ -6099,9 +6515,11 @@ void SweepInput::Clear() {
 
 const char* SweepInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -6154,8 +6572,7 @@ const char* SweepInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -6182,7 +6599,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6192,7 +6609,7 @@ failure:
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_variable().data(), static_cast<int>(this->_internal_variable().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6202,7 +6619,7 @@ failure:
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6256,21 +6673,21 @@ size_t SweepInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_variable());
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *sweep_);
@@ -6285,37 +6702,46 @@ size_t SweepInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SweepInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SweepInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SweepInput::GetClassData() const { return &_class_data_; }
-
-void SweepInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SweepInput *>(to)->MergeFrom(
-      static_cast<const SweepInput &>(from));
+void SweepInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.SweepInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SweepInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SweepInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.SweepInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.SweepInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void SweepInput::MergeFrom(const SweepInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.SweepInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
   ctrls_.MergeFrom(from.ctrls_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_variable().empty()) {
+  if (from.variable().size() > 0) {
     _internal_set_variable(from._internal_variable());
   }
-  if (from._internal_has_sweep()) {
+  if (from.has_sweep()) {
     _internal_mutable_sweep()->::vlsir::spice::Sweep::MergeFrom(from._internal_sweep());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SweepInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.SweepInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SweepInput::CopyFrom(const SweepInput& from) {
@@ -6331,30 +6757,25 @@ bool SweepInput::IsInitialized() const {
 
 void SweepInput::InternalSwap(SweepInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
   ctrls_.InternalSwap(&other->ctrls_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &variable_, GetArenaForAllocation(),
-      &other->variable_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.Swap(&other->variable_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(sweep_, other->sweep_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[18]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void SweepResult::InitAsDefaultInstance() {
+  ::vlsir::spice::_SweepResult_default_instance_._instance.get_mutable()->sweep_ = const_cast< ::vlsir::spice::Sweep*>(
+      ::vlsir::spice::Sweep::internal_default_instance());
+}
 class SweepResult::_Internal {
  public:
   static const ::vlsir::spice::Sweep& sweep(const SweepResult* msg);
@@ -6364,14 +6785,11 @@ const ::vlsir::spice::Sweep&
 SweepResult::_Internal::sweep(const SweepResult* msg) {
   return *msg->sweep_;
 }
-SweepResult::SweepResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+SweepResult::SweepResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.SweepResult)
 }
 SweepResult::SweepResult(const SweepResult& from)
@@ -6380,13 +6798,13 @@ SweepResult::SweepResult(const SweepResult& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_variable().empty()) {
-    variable_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_variable(), 
-      GetArenaForAllocation());
+    variable_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_variable(),
+      GetArena());
   }
   if (from._internal_has_sweep()) {
     sweep_ = new ::vlsir::spice::Sweep(*from.sweep_);
@@ -6396,21 +6814,21 @@ SweepResult::SweepResult(const SweepResult& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.SweepResult)
 }
 
-inline void SweepResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sweep_ = nullptr;
+void SweepResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AnalysisResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sweep_ = nullptr;
 }
 
 SweepResult::~SweepResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.SweepResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void SweepResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void SweepResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   variable_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete sweep_;
@@ -6425,6 +6843,11 @@ void SweepResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void SweepResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const SweepResult& SweepResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AnalysisResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void SweepResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.SweepResult)
@@ -6433,9 +6856,9 @@ void SweepResult::Clear() {
   (void) cached_has_bits;
 
   an_.Clear();
-  analysis_name_.ClearToEmpty();
-  variable_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && sweep_ != nullptr) {
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && sweep_ != nullptr) {
     delete sweep_;
   }
   sweep_ = nullptr;
@@ -6444,9 +6867,11 @@ void SweepResult::Clear() {
 
 const char* SweepResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -6487,8 +6912,7 @@ const char* SweepResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -6515,7 +6939,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6525,7 +6949,7 @@ failure:
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_variable().data(), static_cast<int>(this->_internal_variable().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6535,7 +6959,7 @@ failure:
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6574,21 +6998,21 @@ size_t SweepResult::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_variable());
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *sweep_);
@@ -6603,36 +7027,45 @@ size_t SweepResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SweepResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SweepResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SweepResult::GetClassData() const { return &_class_data_; }
-
-void SweepResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SweepResult *>(to)->MergeFrom(
-      static_cast<const SweepResult &>(from));
+void SweepResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.SweepResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SweepResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SweepResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.SweepResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.SweepResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void SweepResult::MergeFrom(const SweepResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.SweepResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_variable().empty()) {
+  if (from.variable().size() > 0) {
     _internal_set_variable(from._internal_variable());
   }
-  if (from._internal_has_sweep()) {
+  if (from.has_sweep()) {
     _internal_mutable_sweep()->::vlsir::spice::Sweep::MergeFrom(from._internal_sweep());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SweepResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.SweepResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SweepResult::CopyFrom(const SweepResult& from) {
@@ -6648,42 +7081,32 @@ bool SweepResult::IsInitialized() const {
 
 void SweepResult::InternalSwap(SweepResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &variable_, GetArenaForAllocation(),
-      &other->variable_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.Swap(&other->variable_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(sweep_, other->sweep_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[19]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void MonteInput::InitAsDefaultInstance() {
+}
 class MonteInput::_Internal {
  public:
 };
 
-MonteInput::MonteInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+MonteInput::MonteInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena),
   ctrls_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.MonteInput)
 }
 MonteInput::MonteInput(const MonteInput& from)
@@ -6693,8 +7116,8 @@ MonteInput::MonteInput(const MonteInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   ::memcpy(&npts_, &from.npts_,
     static_cast<size_t>(reinterpret_cast<char*>(&seed_) -
@@ -6702,23 +7125,22 @@ MonteInput::MonteInput(const MonteInput& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.MonteInput)
 }
 
-inline void MonteInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&npts_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&seed_) -
-    reinterpret_cast<char*>(&npts_)) + sizeof(seed_));
+void MonteInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Analysis_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&npts_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&seed_) -
+      reinterpret_cast<char*>(&npts_)) + sizeof(seed_));
 }
 
 MonteInput::~MonteInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.MonteInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void MonteInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void MonteInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -6731,6 +7153,11 @@ void MonteInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void MonteInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const MonteInput& MonteInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Analysis_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void MonteInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.MonteInput)
@@ -6740,7 +7167,7 @@ void MonteInput::Clear() {
 
   an_.Clear();
   ctrls_.Clear();
-  analysis_name_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&npts_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&seed_) -
       reinterpret_cast<char*>(&npts_)) + sizeof(seed_));
@@ -6749,9 +7176,11 @@ void MonteInput::Clear() {
 
 const char* MonteInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -6802,8 +7231,7 @@ const char* MonteInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -6830,7 +7258,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6840,13 +7268,13 @@ failure:
   }
 
   // int64 npts = 2;
-  if (this->_internal_npts() != 0) {
+  if (this->npts() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_npts(), target);
   }
 
   // int64 seed = 3;
-  if (this->_internal_seed() != 0) {
+  if (this->seed() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_seed(), target);
   }
@@ -6898,21 +7326,21 @@ size_t MonteInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // int64 npts = 2;
-  if (this->_internal_npts() != 0) {
+  if (this->npts() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
         this->_internal_npts());
   }
 
   // int64 seed = 3;
-  if (this->_internal_seed() != 0) {
+  if (this->seed() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
         this->_internal_seed());
@@ -6927,37 +7355,46 @@ size_t MonteInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MonteInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    MonteInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MonteInput::GetClassData() const { return &_class_data_; }
-
-void MonteInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<MonteInput *>(to)->MergeFrom(
-      static_cast<const MonteInput &>(from));
+void MonteInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.MonteInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MonteInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MonteInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.MonteInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.MonteInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void MonteInput::MergeFrom(const MonteInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.MonteInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
   ctrls_.MergeFrom(from.ctrls_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (from._internal_npts() != 0) {
+  if (from.npts() != 0) {
     _internal_set_npts(from._internal_npts());
   }
-  if (from._internal_seed() != 0) {
+  if (from.seed() != 0) {
     _internal_set_seed(from._internal_seed());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void MonteInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.MonteInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void MonteInput::CopyFrom(const MonteInput& from) {
@@ -6973,14 +7410,10 @@ bool MonteInput::IsInitialized() const {
 
 void MonteInput::InternalSwap(MonteInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
   ctrls_.InternalSwap(&other->ctrls_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(MonteInput, seed_)
       + sizeof(MonteInput::seed_)
@@ -6990,13 +7423,16 @@ void MonteInput::InternalSwap(MonteInput* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[20]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void MonteResult::InitAsDefaultInstance() {
+  ::vlsir::spice::_MonteResult_default_instance_._instance.get_mutable()->sweep_ = const_cast< ::vlsir::spice::Sweep*>(
+      ::vlsir::spice::Sweep::internal_default_instance());
+}
 class MonteResult::_Internal {
  public:
   static const ::vlsir::spice::Sweep& sweep(const MonteResult* msg);
@@ -7006,14 +7442,11 @@ const ::vlsir::spice::Sweep&
 MonteResult::_Internal::sweep(const MonteResult* msg) {
   return *msg->sweep_;
 }
-MonteResult::MonteResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+MonteResult::MonteResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   an_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.MonteResult)
 }
 MonteResult::MonteResult(const MonteResult& from)
@@ -7022,13 +7455,13 @@ MonteResult::MonteResult(const MonteResult& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_variable().empty()) {
-    variable_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_variable(), 
-      GetArenaForAllocation());
+    variable_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_variable(),
+      GetArena());
   }
   if (from._internal_has_sweep()) {
     sweep_ = new ::vlsir::spice::Sweep(*from.sweep_);
@@ -7038,21 +7471,21 @@ MonteResult::MonteResult(const MonteResult& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.MonteResult)
 }
 
-inline void MonteResult::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sweep_ = nullptr;
+void MonteResult::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AnalysisResult_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  variable_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sweep_ = nullptr;
 }
 
 MonteResult::~MonteResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.MonteResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void MonteResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void MonteResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   variable_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete sweep_;
@@ -7067,6 +7500,11 @@ void MonteResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void MonteResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const MonteResult& MonteResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AnalysisResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void MonteResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.MonteResult)
@@ -7075,9 +7513,9 @@ void MonteResult::Clear() {
   (void) cached_has_bits;
 
   an_.Clear();
-  analysis_name_.ClearToEmpty();
-  variable_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && sweep_ != nullptr) {
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && sweep_ != nullptr) {
     delete sweep_;
   }
   sweep_ = nullptr;
@@ -7086,9 +7524,11 @@ void MonteResult::Clear() {
 
 const char* MonteResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -7129,8 +7569,7 @@ const char* MonteResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -7157,7 +7596,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -7167,7 +7606,7 @@ failure:
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_variable().data(), static_cast<int>(this->_internal_variable().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -7177,7 +7616,7 @@ failure:
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -7216,21 +7655,21 @@ size_t MonteResult::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string variable = 2;
-  if (!this->_internal_variable().empty()) {
+  if (this->variable().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_variable());
   }
 
   // .vlsir.spice.Sweep sweep = 3;
-  if (this->_internal_has_sweep()) {
+  if (this->has_sweep()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *sweep_);
@@ -7245,36 +7684,45 @@ size_t MonteResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MonteResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    MonteResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MonteResult::GetClassData() const { return &_class_data_; }
-
-void MonteResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<MonteResult *>(to)->MergeFrom(
-      static_cast<const MonteResult &>(from));
+void MonteResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.MonteResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MonteResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MonteResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.MonteResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.MonteResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void MonteResult::MergeFrom(const MonteResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.MonteResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   an_.MergeFrom(from.an_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_variable().empty()) {
+  if (from.variable().size() > 0) {
     _internal_set_variable(from._internal_variable());
   }
-  if (from._internal_has_sweep()) {
+  if (from.has_sweep()) {
     _internal_mutable_sweep()->::vlsir::spice::Sweep::MergeFrom(from._internal_sweep());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void MonteResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.MonteResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void MonteResult::CopyFrom(const MonteResult& from) {
@@ -7290,41 +7738,31 @@ bool MonteResult::IsInitialized() const {
 
 void MonteResult::InternalSwap(MonteResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   an_.InternalSwap(&other->an_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &variable_, GetArenaForAllocation(),
-      &other->variable_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  variable_.Swap(&other->variable_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(sweep_, other->sweep_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[21]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void CustomAnalysisInput::InitAsDefaultInstance() {
+}
 class CustomAnalysisInput::_Internal {
  public:
 };
 
-CustomAnalysisInput::CustomAnalysisInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+CustomAnalysisInput::CustomAnalysisInput(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   ctrls_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.CustomAnalysisInput)
 }
 CustomAnalysisInput::CustomAnalysisInput(const CustomAnalysisInput& from)
@@ -7333,31 +7771,31 @@ CustomAnalysisInput::CustomAnalysisInput(const CustomAnalysisInput& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_analysis_name().empty()) {
-    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
-      GetArenaForAllocation());
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_analysis_name(),
+      GetArena());
   }
   cmd_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_cmd().empty()) {
-    cmd_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cmd(), 
-      GetArenaForAllocation());
+    cmd_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_cmd(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.CustomAnalysisInput)
 }
 
-inline void CustomAnalysisInput::SharedCtor() {
-analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-cmd_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void CustomAnalysisInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CustomAnalysisInput_spice_2eproto.base);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  cmd_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 CustomAnalysisInput::~CustomAnalysisInput() {
   // @@protoc_insertion_point(destructor:vlsir.spice.CustomAnalysisInput)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void CustomAnalysisInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void CustomAnalysisInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   cmd_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -7371,6 +7809,11 @@ void CustomAnalysisInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void CustomAnalysisInput::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const CustomAnalysisInput& CustomAnalysisInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CustomAnalysisInput_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void CustomAnalysisInput::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.CustomAnalysisInput)
@@ -7379,16 +7822,18 @@ void CustomAnalysisInput::Clear() {
   (void) cached_has_bits;
 
   ctrls_.Clear();
-  analysis_name_.ClearToEmpty();
-  cmd_.ClearToEmpty();
+  analysis_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  cmd_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CustomAnalysisInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string analysis_name = 1;
       case 1:
@@ -7422,8 +7867,7 @@ const char* CustomAnalysisInput::_InternalParse(const char* ptr, ::PROTOBUF_NAME
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -7450,7 +7894,7 @@ failure:
   (void) cached_has_bits;
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -7460,7 +7904,7 @@ failure:
   }
 
   // string cmd = 2;
-  if (!this->_internal_cmd().empty()) {
+  if (this->cmd().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_cmd().data(), static_cast<int>(this->_internal_cmd().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -7501,14 +7945,14 @@ size_t CustomAnalysisInput::ByteSizeLong() const {
   }
 
   // string analysis_name = 1;
-  if (!this->_internal_analysis_name().empty()) {
+  if (this->analysis_name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_analysis_name());
   }
 
   // string cmd = 2;
-  if (!this->_internal_cmd().empty()) {
+  if (this->cmd().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_cmd());
@@ -7523,33 +7967,42 @@ size_t CustomAnalysisInput::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CustomAnalysisInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CustomAnalysisInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CustomAnalysisInput::GetClassData() const { return &_class_data_; }
-
-void CustomAnalysisInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<CustomAnalysisInput *>(to)->MergeFrom(
-      static_cast<const CustomAnalysisInput &>(from));
+void CustomAnalysisInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.CustomAnalysisInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CustomAnalysisInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CustomAnalysisInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.CustomAnalysisInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.CustomAnalysisInput)
+    MergeFrom(*source);
+  }
 }
-
 
 void CustomAnalysisInput::MergeFrom(const CustomAnalysisInput& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.CustomAnalysisInput)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   ctrls_.MergeFrom(from.ctrls_);
-  if (!from._internal_analysis_name().empty()) {
+  if (from.analysis_name().size() > 0) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!from._internal_cmd().empty()) {
+  if (from.cmd().size() > 0) {
     _internal_set_cmd(from._internal_cmd());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CustomAnalysisInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.CustomAnalysisInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CustomAnalysisInput::CopyFrom(const CustomAnalysisInput& from) {
@@ -7565,39 +8018,29 @@ bool CustomAnalysisInput::IsInitialized() const {
 
 void CustomAnalysisInput::InternalSwap(CustomAnalysisInput* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ctrls_.InternalSwap(&other->ctrls_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &analysis_name_, GetArenaForAllocation(),
-      &other->analysis_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &cmd_, GetArenaForAllocation(),
-      &other->cmd_, other->GetArenaForAllocation()
-  );
+  analysis_name_.Swap(&other->analysis_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  cmd_.Swap(&other->cmd_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisInput::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[22]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void CustomAnalysisResult::InitAsDefaultInstance() {
+}
 class CustomAnalysisResult::_Internal {
  public:
 };
 
-CustomAnalysisResult::CustomAnalysisResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+CustomAnalysisResult::CustomAnalysisResult(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.CustomAnalysisResult)
 }
 CustomAnalysisResult::CustomAnalysisResult(const CustomAnalysisResult& from)
@@ -7606,18 +8049,17 @@ CustomAnalysisResult::CustomAnalysisResult(const CustomAnalysisResult& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.CustomAnalysisResult)
 }
 
-inline void CustomAnalysisResult::SharedCtor() {
+void CustomAnalysisResult::SharedCtor() {
 }
 
 CustomAnalysisResult::~CustomAnalysisResult() {
   // @@protoc_insertion_point(destructor:vlsir.spice.CustomAnalysisResult)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void CustomAnalysisResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void CustomAnalysisResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void CustomAnalysisResult::ArenaDtor(void* object) {
@@ -7629,6 +8071,11 @@ void CustomAnalysisResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void CustomAnalysisResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const CustomAnalysisResult& CustomAnalysisResult::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CustomAnalysisResult_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void CustomAnalysisResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.CustomAnalysisResult)
@@ -7641,11 +8088,12 @@ void CustomAnalysisResult::Clear() {
 
 const char* CustomAnalysisResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+    CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -7694,26 +8142,35 @@ size_t CustomAnalysisResult::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CustomAnalysisResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CustomAnalysisResult::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CustomAnalysisResult::GetClassData() const { return &_class_data_; }
-
-void CustomAnalysisResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<CustomAnalysisResult *>(to)->MergeFrom(
-      static_cast<const CustomAnalysisResult &>(from));
+void CustomAnalysisResult::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.CustomAnalysisResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CustomAnalysisResult* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CustomAnalysisResult>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.CustomAnalysisResult)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.CustomAnalysisResult)
+    MergeFrom(*source);
+  }
 }
-
 
 void CustomAnalysisResult::MergeFrom(const CustomAnalysisResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.CustomAnalysisResult)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CustomAnalysisResult::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.CustomAnalysisResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CustomAnalysisResult::CopyFrom(const CustomAnalysisResult& from) {
@@ -7729,17 +8186,24 @@ bool CustomAnalysisResult::IsInitialized() const {
 
 void CustomAnalysisResult::InternalSwap(CustomAnalysisResult* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[23]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Sweep::InitAsDefaultInstance() {
+  ::vlsir::spice::_Sweep_default_instance_.linear_ = const_cast< ::vlsir::spice::LinearSweep*>(
+      ::vlsir::spice::LinearSweep::internal_default_instance());
+  ::vlsir::spice::_Sweep_default_instance_.log_ = const_cast< ::vlsir::spice::LogSweep*>(
+      ::vlsir::spice::LogSweep::internal_default_instance());
+  ::vlsir::spice::_Sweep_default_instance_.points_ = const_cast< ::vlsir::spice::PointSweep*>(
+      ::vlsir::spice::PointSweep::internal_default_instance());
+}
 class Sweep::_Internal {
  public:
   static const ::vlsir::spice::LinearSweep& linear(const Sweep* msg);
@@ -7760,11 +8224,11 @@ Sweep::_Internal::points(const Sweep* msg) {
   return *msg->tp_.points_;
 }
 void Sweep::set_allocated_linear(::vlsir::spice::LinearSweep* linear) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_tp();
   if (linear) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::LinearSweep>::GetOwningArena(linear);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(linear);
     if (message_arena != submessage_arena) {
       linear = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, linear, submessage_arena);
@@ -7775,11 +8239,11 @@ void Sweep::set_allocated_linear(::vlsir::spice::LinearSweep* linear) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Sweep.linear)
 }
 void Sweep::set_allocated_log(::vlsir::spice::LogSweep* log) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_tp();
   if (log) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::LogSweep>::GetOwningArena(log);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(log);
     if (message_arena != submessage_arena) {
       log = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, log, submessage_arena);
@@ -7790,11 +8254,11 @@ void Sweep::set_allocated_log(::vlsir::spice::LogSweep* log) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Sweep.log)
 }
 void Sweep::set_allocated_points(::vlsir::spice::PointSweep* points) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_tp();
   if (points) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::PointSweep>::GetOwningArena(points);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(points);
     if (message_arena != submessage_arena) {
       points = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, points, submessage_arena);
@@ -7804,13 +8268,10 @@ void Sweep::set_allocated_points(::vlsir::spice::PointSweep* points) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Sweep.points)
 }
-Sweep::Sweep(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Sweep::Sweep(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Sweep)
 }
 Sweep::Sweep(const Sweep& from)
@@ -7837,19 +8298,19 @@ Sweep::Sweep(const Sweep& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Sweep)
 }
 
-inline void Sweep::SharedCtor() {
-clear_has_tp();
+void Sweep::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Sweep_spice_2eproto.base);
+  clear_has_tp();
 }
 
 Sweep::~Sweep() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Sweep)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Sweep::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Sweep::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (has_tp()) {
     clear_tp();
   }
@@ -7864,24 +8325,29 @@ void Sweep::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Sweep::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Sweep& Sweep::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Sweep_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Sweep::clear_tp() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.Sweep)
   switch (tp_case()) {
     case kLinear: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete tp_.linear_;
       }
       break;
     }
     case kLog: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete tp_.log_;
       }
       break;
     }
     case kPoints: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete tp_.points_;
       }
       break;
@@ -7906,9 +8372,11 @@ void Sweep::Clear() {
 
 const char* Sweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.spice.LinearSweep linear = 1;
       case 1:
@@ -7933,8 +8401,7 @@ const char* Sweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -8035,22 +8502,25 @@ size_t Sweep::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Sweep::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Sweep::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Sweep::GetClassData() const { return &_class_data_; }
-
-void Sweep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Sweep *>(to)->MergeFrom(
-      static_cast<const Sweep &>(from));
+void Sweep::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Sweep)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Sweep* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Sweep>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Sweep)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Sweep)
+    MergeFrom(*source);
+  }
 }
-
 
 void Sweep::MergeFrom(const Sweep& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Sweep)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -8071,7 +8541,13 @@ void Sweep::MergeFrom(const Sweep& from) {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Sweep::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Sweep)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Sweep::CopyFrom(const Sweep& from) {
@@ -8087,30 +8563,28 @@ bool Sweep::IsInitialized() const {
 
 void Sweep::InternalSwap(Sweep* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(tp_, other->tp_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Sweep::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[24]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void LinearSweep::InitAsDefaultInstance() {
+}
 class LinearSweep::_Internal {
  public:
 };
 
-LinearSweep::LinearSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+LinearSweep::LinearSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.LinearSweep)
 }
 LinearSweep::LinearSweep(const LinearSweep& from)
@@ -8122,22 +8596,20 @@ LinearSweep::LinearSweep(const LinearSweep& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.LinearSweep)
 }
 
-inline void LinearSweep::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&start_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&step_) -
-    reinterpret_cast<char*>(&start_)) + sizeof(step_));
+void LinearSweep::SharedCtor() {
+  ::memset(&start_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&step_) -
+      reinterpret_cast<char*>(&start_)) + sizeof(step_));
 }
 
 LinearSweep::~LinearSweep() {
   // @@protoc_insertion_point(destructor:vlsir.spice.LinearSweep)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void LinearSweep::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void LinearSweep::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void LinearSweep::ArenaDtor(void* object) {
@@ -8149,6 +8621,11 @@ void LinearSweep::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void LinearSweep::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const LinearSweep& LinearSweep::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LinearSweep_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void LinearSweep::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.LinearSweep)
@@ -8164,9 +8641,11 @@ void LinearSweep::Clear() {
 
 const char* LinearSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // double start = 1;
       case 1:
@@ -8191,8 +8670,7 @@ const char* LinearSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -8219,19 +8697,19 @@ failure:
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  if (!(this->start() <= 0 && this->start() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_start(), target);
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double step = 3;
-  if (!(this->_internal_step() <= 0 && this->_internal_step() >= 0)) {
+  if (!(this->step() <= 0 && this->step() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_step(), target);
   }
@@ -8253,17 +8731,17 @@ size_t LinearSweep::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  if (!(this->start() <= 0 && this->start() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double step = 3;
-  if (!(this->_internal_step() <= 0 && this->_internal_step() >= 0)) {
+  if (!(this->step() <= 0 && this->step() >= 0)) {
     total_size += 1 + 8;
   }
 
@@ -8276,35 +8754,44 @@ size_t LinearSweep::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LinearSweep::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    LinearSweep::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LinearSweep::GetClassData() const { return &_class_data_; }
-
-void LinearSweep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<LinearSweep *>(to)->MergeFrom(
-      static_cast<const LinearSweep &>(from));
+void LinearSweep::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.LinearSweep)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LinearSweep* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LinearSweep>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.LinearSweep)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.LinearSweep)
+    MergeFrom(*source);
+  }
 }
-
 
 void LinearSweep::MergeFrom(const LinearSweep& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.LinearSweep)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_start() <= 0 && from._internal_start() >= 0)) {
+  if (!(from.start() <= 0 && from.start() >= 0)) {
     _internal_set_start(from._internal_start());
   }
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  if (!(from.stop() <= 0 && from.stop() >= 0)) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_step() <= 0 && from._internal_step() >= 0)) {
+  if (!(from.step() <= 0 && from.step() >= 0)) {
     _internal_set_step(from._internal_step());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LinearSweep::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.LinearSweep)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void LinearSweep::CopyFrom(const LinearSweep& from) {
@@ -8320,7 +8807,7 @@ bool LinearSweep::IsInitialized() const {
 
 void LinearSweep::InternalSwap(LinearSweep* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(LinearSweep, step_)
       + sizeof(LinearSweep::step_)
@@ -8330,24 +8817,22 @@ void LinearSweep::InternalSwap(LinearSweep* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LinearSweep::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[25]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void LogSweep::InitAsDefaultInstance() {
+}
 class LogSweep::_Internal {
  public:
 };
 
-LogSweep::LogSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+LogSweep::LogSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.LogSweep)
 }
 LogSweep::LogSweep(const LogSweep& from)
@@ -8359,22 +8844,20 @@ LogSweep::LogSweep(const LogSweep& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.LogSweep)
 }
 
-inline void LogSweep::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&start_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
-    reinterpret_cast<char*>(&start_)) + sizeof(npts_));
+void LogSweep::SharedCtor() {
+  ::memset(&start_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&npts_) -
+      reinterpret_cast<char*>(&start_)) + sizeof(npts_));
 }
 
 LogSweep::~LogSweep() {
   // @@protoc_insertion_point(destructor:vlsir.spice.LogSweep)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void LogSweep::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void LogSweep::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void LogSweep::ArenaDtor(void* object) {
@@ -8386,6 +8869,11 @@ void LogSweep::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void LogSweep::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const LogSweep& LogSweep::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LogSweep_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void LogSweep::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.LogSweep)
@@ -8401,9 +8889,11 @@ void LogSweep::Clear() {
 
 const char* LogSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // double start = 1;
       case 1:
@@ -8428,8 +8918,7 @@ const char* LogSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -8456,19 +8945,19 @@ failure:
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  if (!(this->start() <= 0 && this->start() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_start(), target);
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  if (!(this->npts() <= 0 && this->npts() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_npts(), target);
   }
@@ -8490,17 +8979,17 @@ size_t LogSweep::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  if (!(this->start() <= 0 && this->start() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  if (!(this->npts() <= 0 && this->npts() >= 0)) {
     total_size += 1 + 8;
   }
 
@@ -8513,35 +9002,44 @@ size_t LogSweep::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LogSweep::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    LogSweep::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LogSweep::GetClassData() const { return &_class_data_; }
-
-void LogSweep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<LogSweep *>(to)->MergeFrom(
-      static_cast<const LogSweep &>(from));
+void LogSweep::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.LogSweep)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LogSweep* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LogSweep>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.LogSweep)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.LogSweep)
+    MergeFrom(*source);
+  }
 }
-
 
 void LogSweep::MergeFrom(const LogSweep& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.LogSweep)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_start() <= 0 && from._internal_start() >= 0)) {
+  if (!(from.start() <= 0 && from.start() >= 0)) {
     _internal_set_start(from._internal_start());
   }
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  if (!(from.stop() <= 0 && from.stop() >= 0)) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_npts() <= 0 && from._internal_npts() >= 0)) {
+  if (!(from.npts() <= 0 && from.npts() >= 0)) {
     _internal_set_npts(from._internal_npts());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LogSweep::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.LogSweep)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void LogSweep::CopyFrom(const LogSweep& from) {
@@ -8557,7 +9055,7 @@ bool LogSweep::IsInitialized() const {
 
 void LogSweep::InternalSwap(LogSweep* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(LogSweep, npts_)
       + sizeof(LogSweep::npts_)
@@ -8567,25 +9065,23 @@ void LogSweep::InternalSwap(LogSweep* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LogSweep::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[26]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void PointSweep::InitAsDefaultInstance() {
+}
 class PointSweep::_Internal {
  public:
 };
 
-PointSweep::PointSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+PointSweep::PointSweep(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   points_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.PointSweep)
 }
 PointSweep::PointSweep(const PointSweep& from)
@@ -8598,22 +9094,20 @@ PointSweep::PointSweep(const PointSweep& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.PointSweep)
 }
 
-inline void PointSweep::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&stop_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
-    reinterpret_cast<char*>(&stop_)) + sizeof(npts_));
+void PointSweep::SharedCtor() {
+  ::memset(&stop_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&npts_) -
+      reinterpret_cast<char*>(&stop_)) + sizeof(npts_));
 }
 
 PointSweep::~PointSweep() {
   // @@protoc_insertion_point(destructor:vlsir.spice.PointSweep)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void PointSweep::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void PointSweep::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
 void PointSweep::ArenaDtor(void* object) {
@@ -8625,6 +9119,11 @@ void PointSweep::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void PointSweep::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const PointSweep& PointSweep::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_PointSweep_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void PointSweep::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.PointSweep)
@@ -8641,9 +9140,11 @@ void PointSweep::Clear() {
 
 const char* PointSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // repeated double points = 1;
       case 1:
@@ -8671,8 +9172,7 @@ const char* PointSweep::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -8704,13 +9204,13 @@ failure:
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  if (!(this->npts() <= 0 && this->npts() >= 0)) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_npts(), target);
   }
@@ -8740,16 +9240,19 @@ size_t PointSweep::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _points_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
     total_size += data_size;
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  if (!(this->stop() <= 0 && this->stop() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  if (!(this->npts() <= 0 && this->npts() >= 0)) {
     total_size += 1 + 8;
   }
 
@@ -8762,33 +9265,42 @@ size_t PointSweep::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PointSweep::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    PointSweep::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PointSweep::GetClassData() const { return &_class_data_; }
-
-void PointSweep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<PointSweep *>(to)->MergeFrom(
-      static_cast<const PointSweep &>(from));
+void PointSweep::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.PointSweep)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PointSweep* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PointSweep>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.PointSweep)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.PointSweep)
+    MergeFrom(*source);
+  }
 }
-
 
 void PointSweep::MergeFrom(const PointSweep& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.PointSweep)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   points_.MergeFrom(from.points_);
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  if (!(from.stop() <= 0 && from.stop() >= 0)) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_npts() <= 0 && from._internal_npts() >= 0)) {
+  if (!(from.npts() <= 0 && from.npts() >= 0)) {
     _internal_set_npts(from._internal_npts());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PointSweep::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.PointSweep)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void PointSweep::CopyFrom(const PointSweep& from) {
@@ -8804,7 +9316,7 @@ bool PointSweep::IsInitialized() const {
 
 void PointSweep::InternalSwap(PointSweep* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   points_.InternalSwap(&other->points_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PointSweep, npts_)
@@ -8815,13 +9327,24 @@ void PointSweep::InternalSwap(PointSweep* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PointSweep::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[27]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Control::InitAsDefaultInstance() {
+  ::vlsir::spice::_Control_default_instance_.include_ = const_cast< ::vlsir::spice::Include*>(
+      ::vlsir::spice::Include::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.lib_ = const_cast< ::vlsir::spice::LibInclude*>(
+      ::vlsir::spice::LibInclude::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.save_ = const_cast< ::vlsir::spice::Save*>(
+      ::vlsir::spice::Save::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.meas_ = const_cast< ::vlsir::spice::Meas*>(
+      ::vlsir::spice::Meas::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.literal_.UnsafeSetDefault(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 class Control::_Internal {
  public:
   static const ::vlsir::spice::Include& include(const Control* msg);
@@ -8847,11 +9370,11 @@ Control::_Internal::meas(const Control* msg) {
   return *msg->ctrl_.meas_;
 }
 void Control::set_allocated_include(::vlsir::spice::Include* include) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_ctrl();
   if (include) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Include>::GetOwningArena(include);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(include);
     if (message_arena != submessage_arena) {
       include = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, include, submessage_arena);
@@ -8862,11 +9385,11 @@ void Control::set_allocated_include(::vlsir::spice::Include* include) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.include)
 }
 void Control::set_allocated_lib(::vlsir::spice::LibInclude* lib) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_ctrl();
   if (lib) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::LibInclude>::GetOwningArena(lib);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(lib);
     if (message_arena != submessage_arena) {
       lib = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, lib, submessage_arena);
@@ -8877,11 +9400,11 @@ void Control::set_allocated_lib(::vlsir::spice::LibInclude* lib) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.lib)
 }
 void Control::set_allocated_save(::vlsir::spice::Save* save) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_ctrl();
   if (save) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Save>::GetOwningArena(save);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(save);
     if (message_arena != submessage_arena) {
       save = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, save, submessage_arena);
@@ -8892,11 +9415,11 @@ void Control::set_allocated_save(::vlsir::spice::Save* save) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.save)
 }
 void Control::set_allocated_meas(::vlsir::spice::Meas* meas) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_ctrl();
   if (meas) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::Meas>::GetOwningArena(meas);
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(meas);
     if (message_arena != submessage_arena) {
       meas = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, meas, submessage_arena);
@@ -8906,13 +9429,10 @@ void Control::set_allocated_meas(::vlsir::spice::Meas* meas) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.meas)
 }
-Control::Control(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Control::Control(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Control)
 }
 Control::Control(const Control& from)
@@ -8947,19 +9467,19 @@ Control::Control(const Control& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Control)
 }
 
-inline void Control::SharedCtor() {
-clear_has_ctrl();
+void Control::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Control_spice_2eproto.base);
+  clear_has_ctrl();
 }
 
 Control::~Control() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Control)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Control::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Control::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (has_ctrl()) {
     clear_ctrl();
   }
@@ -8974,36 +9494,41 @@ void Control::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Control::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Control& Control::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Control_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Control::clear_ctrl() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.Control)
   switch (ctrl_case()) {
     case kInclude: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete ctrl_.include_;
       }
       break;
     }
     case kLib: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete ctrl_.lib_;
       }
       break;
     }
     case kSave: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete ctrl_.save_;
       }
       break;
     }
     case kMeas: {
-      if (GetArenaForAllocation() == nullptr) {
+      if (GetArena() == nullptr) {
         delete ctrl_.meas_;
       }
       break;
     }
     case kLiteral: {
-      ctrl_.literal_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      ctrl_.literal_.Destroy(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
       break;
     }
     case CTRL_NOT_SET: {
@@ -9026,9 +9551,11 @@ void Control::Clear() {
 
 const char* Control::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.spice.Include include = 1;
       case 1:
@@ -9069,8 +9596,7 @@ const char* Control::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -9203,22 +9729,25 @@ size_t Control::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Control::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Control::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Control::GetClassData() const { return &_class_data_; }
-
-void Control::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Control *>(to)->MergeFrom(
-      static_cast<const Control &>(from));
+void Control::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Control)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Control* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Control>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Control)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Control)
+    MergeFrom(*source);
+  }
 }
-
 
 void Control::MergeFrom(const Control& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Control)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -9247,7 +9776,13 @@ void Control::MergeFrom(const Control& from) {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Control::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Control)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Control::CopyFrom(const Control& from) {
@@ -9263,30 +9798,31 @@ bool Control::IsInitialized() const {
 
 void Control::InternalSwap(Control* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(ctrl_, other->ctrl_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Control::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[28]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Save::InitAsDefaultInstance() {
+  ::vlsir::spice::_Save_default_instance_.mode_ = 0;
+  ::vlsir::spice::_Save_default_instance_.signal_.UnsafeSetDefault(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 class Save::_Internal {
  public:
 };
 
-Save::Save(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Save::Save(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Save)
 }
 Save::Save(const Save& from)
@@ -9309,19 +9845,19 @@ Save::Save(const Save& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Save)
 }
 
-inline void Save::SharedCtor() {
-clear_has_save();
+void Save::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Save_spice_2eproto.base);
+  clear_has_save();
 }
 
 Save::~Save() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Save)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Save::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Save::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   if (has_save()) {
     clear_save();
   }
@@ -9336,6 +9872,11 @@ void Save::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Save::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Save& Save::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Save_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Save::clear_save() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.spice.Save)
@@ -9345,7 +9886,7 @@ void Save::clear_save() {
       break;
     }
     case kSignal: {
-      save_.signal_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      save_.signal_.Destroy(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
       break;
     }
     case SAVE_NOT_SET: {
@@ -9368,9 +9909,11 @@ void Save::Clear() {
 
 const char* Save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.spice.Save.SaveMode mode = 1;
       case 1:
@@ -9391,8 +9934,7 @@ const char* Save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -9478,22 +10020,25 @@ size_t Save::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Save::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Save::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Save::GetClassData() const { return &_class_data_; }
-
-void Save::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Save *>(to)->MergeFrom(
-      static_cast<const Save &>(from));
+void Save::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Save)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Save* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Save>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Save)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Save)
+    MergeFrom(*source);
+  }
 }
-
 
 void Save::MergeFrom(const Save& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Save)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -9510,7 +10055,13 @@ void Save::MergeFrom(const Save& from) {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Save::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Save)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Save::CopyFrom(const Save& from) {
@@ -9526,30 +10077,28 @@ bool Save::IsInitialized() const {
 
 void Save::InternalSwap(Save* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(save_, other->save_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Save::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[29]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Include::InitAsDefaultInstance() {
+}
 class Include::_Internal {
  public:
 };
 
-Include::Include(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Include::Include(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Include)
 }
 Include::Include(const Include& from)
@@ -9557,25 +10106,25 @@ Include::Include(const Include& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_path().empty()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_path(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Include)
 }
 
-inline void Include::SharedCtor() {
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void Include::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Include_spice_2eproto.base);
+  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Include::~Include() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Include)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Include::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Include::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -9588,6 +10137,11 @@ void Include::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Include::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Include& Include::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Include_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Include::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.Include)
@@ -9595,15 +10149,17 @@ void Include::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  path_.ClearToEmpty();
+  path_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Include::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string path = 1;
       case 1:
@@ -9616,8 +10172,7 @@ const char* Include::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -9644,7 +10199,7 @@ failure:
   (void) cached_has_bits;
 
   // string path = 1;
-  if (!this->_internal_path().empty()) {
+  if (this->path().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_path().data(), static_cast<int>(this->_internal_path().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -9670,7 +10225,7 @@ size_t Include::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // string path = 1;
-  if (!this->_internal_path().empty()) {
+  if (this->path().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_path());
@@ -9685,29 +10240,38 @@ size_t Include::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Include::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Include::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Include::GetClassData() const { return &_class_data_; }
-
-void Include::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Include *>(to)->MergeFrom(
-      static_cast<const Include &>(from));
+void Include::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Include)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Include* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Include>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Include)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Include)
+    MergeFrom(*source);
+  }
 }
-
 
 void Include::MergeFrom(const Include& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Include)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_path().empty()) {
+  if (from.path().size() > 0) {
     _internal_set_path(from._internal_path());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Include::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Include)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Include::CopyFrom(const Include& from) {
@@ -9723,33 +10287,27 @@ bool Include::IsInitialized() const {
 
 void Include::InternalSwap(Include* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, GetArenaForAllocation(),
-      &other->path_, other->GetArenaForAllocation()
-  );
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  path_.Swap(&other->path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Include::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[30]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void LibInclude::InitAsDefaultInstance() {
+}
 class LibInclude::_Internal {
  public:
 };
 
-LibInclude::LibInclude(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+LibInclude::LibInclude(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.LibInclude)
 }
 LibInclude::LibInclude(const LibInclude& from)
@@ -9757,31 +10315,31 @@ LibInclude::LibInclude(const LibInclude& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_path().empty()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_path(),
+      GetArena());
   }
   section_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_section().empty()) {
-    section_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_section(), 
-      GetArenaForAllocation());
+    section_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_section(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.LibInclude)
 }
 
-inline void LibInclude::SharedCtor() {
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-section_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void LibInclude::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_LibInclude_spice_2eproto.base);
+  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  section_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 LibInclude::~LibInclude() {
   // @@protoc_insertion_point(destructor:vlsir.spice.LibInclude)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void LibInclude::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void LibInclude::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   section_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -9795,6 +10353,11 @@ void LibInclude::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void LibInclude::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const LibInclude& LibInclude::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LibInclude_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void LibInclude::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.LibInclude)
@@ -9802,16 +10365,18 @@ void LibInclude::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  path_.ClearToEmpty();
-  section_.ClearToEmpty();
+  path_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  section_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* LibInclude::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string path = 1;
       case 1:
@@ -9833,8 +10398,7 @@ const char* LibInclude::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -9861,7 +10425,7 @@ failure:
   (void) cached_has_bits;
 
   // string path = 1;
-  if (!this->_internal_path().empty()) {
+  if (this->path().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_path().data(), static_cast<int>(this->_internal_path().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -9871,7 +10435,7 @@ failure:
   }
 
   // string section = 2;
-  if (!this->_internal_section().empty()) {
+  if (this->section().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_section().data(), static_cast<int>(this->_internal_section().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -9897,14 +10461,14 @@ size_t LibInclude::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // string path = 1;
-  if (!this->_internal_path().empty()) {
+  if (this->path().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_path());
   }
 
   // string section = 2;
-  if (!this->_internal_section().empty()) {
+  if (this->section().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_section());
@@ -9919,32 +10483,41 @@ size_t LibInclude::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LibInclude::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    LibInclude::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LibInclude::GetClassData() const { return &_class_data_; }
-
-void LibInclude::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<LibInclude *>(to)->MergeFrom(
-      static_cast<const LibInclude &>(from));
+void LibInclude::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.LibInclude)
+  GOOGLE_DCHECK_NE(&from, this);
+  const LibInclude* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LibInclude>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.LibInclude)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.LibInclude)
+    MergeFrom(*source);
+  }
 }
-
 
 void LibInclude::MergeFrom(const LibInclude& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.LibInclude)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_path().empty()) {
+  if (from.path().size() > 0) {
     _internal_set_path(from._internal_path());
   }
-  if (!from._internal_section().empty()) {
+  if (from.section().size() > 0) {
     _internal_set_section(from._internal_section());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LibInclude::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.LibInclude)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void LibInclude::CopyFrom(const LibInclude& from) {
@@ -9960,38 +10533,28 @@ bool LibInclude::IsInitialized() const {
 
 void LibInclude::InternalSwap(LibInclude* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, GetArenaForAllocation(),
-      &other->path_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &section_, GetArenaForAllocation(),
-      &other->section_, other->GetArenaForAllocation()
-  );
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  path_.Swap(&other->path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  section_.Swap(&other->section_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LibInclude::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[31]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Meas::InitAsDefaultInstance() {
+}
 class Meas::_Internal {
  public:
 };
 
-Meas::Meas(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Meas::Meas(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Meas)
 }
 Meas::Meas(const Meas& from)
@@ -9999,31 +10562,31 @@ Meas::Meas(const Meas& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+      GetArena());
   }
   expr_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_expr().empty()) {
-    expr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_expr(), 
-      GetArenaForAllocation());
+    expr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_expr(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Meas)
 }
 
-inline void Meas::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-expr_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+void Meas::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Meas_spice_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  expr_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Meas::~Meas() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Meas)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Meas::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Meas::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   expr_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -10037,6 +10600,11 @@ void Meas::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Meas::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Meas& Meas::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Meas_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Meas::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.Meas)
@@ -10044,16 +10612,18 @@ void Meas::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  expr_.ClearToEmpty();
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  expr_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Meas::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
@@ -10075,8 +10645,7 @@ const char* Meas::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -10103,7 +10672,7 @@ failure:
   (void) cached_has_bits;
 
   // string name = 1;
-  if (!this->_internal_name().empty()) {
+  if (this->name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -10113,7 +10682,7 @@ failure:
   }
 
   // string expr = 2;
-  if (!this->_internal_expr().empty()) {
+  if (this->expr().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_expr().data(), static_cast<int>(this->_internal_expr().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -10139,14 +10708,14 @@ size_t Meas::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // string name = 1;
-  if (!this->_internal_name().empty()) {
+  if (this->name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // string expr = 2;
-  if (!this->_internal_expr().empty()) {
+  if (this->expr().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_expr());
@@ -10161,32 +10730,41 @@ size_t Meas::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Meas::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Meas::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Meas::GetClassData() const { return &_class_data_; }
-
-void Meas::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Meas *>(to)->MergeFrom(
-      static_cast<const Meas &>(from));
+void Meas::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Meas)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Meas* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Meas>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Meas)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Meas)
+    MergeFrom(*source);
+  }
 }
-
 
 void Meas::MergeFrom(const Meas& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Meas)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_name().empty()) {
+  if (from.name().size() > 0) {
     _internal_set_name(from._internal_name());
   }
-  if (!from._internal_expr().empty()) {
+  if (from.expr().size() > 0) {
     _internal_set_expr(from._internal_expr());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Meas::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Meas)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Meas::CopyFrom(const Meas& from) {
@@ -10202,38 +10780,28 @@ bool Meas::IsInitialized() const {
 
 void Meas::InternalSwap(Meas* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, GetArenaForAllocation(),
-      &other->name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &expr_, GetArenaForAllocation(),
-      &other->expr_, other->GetArenaForAllocation()
-  );
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  expr_.Swap(&other->expr_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Meas::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[32]);
+  return GetMetadataStatic();
 }
+
 
 // ===================================================================
 
+void Signal::InitAsDefaultInstance() {
+}
 class Signal::_Internal {
  public:
 };
 
-Signal::Signal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+Signal::Signal(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:vlsir.spice.Signal)
 }
 Signal::Signal(const Signal& from)
@@ -10241,27 +10809,27 @@ Signal::Signal(const Signal& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+      GetArena());
   }
   quantity_ = from.quantity_;
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.Signal)
 }
 
-inline void Signal::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-quantity_ = 0;
+void Signal::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Signal_spice_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  quantity_ = 0;
 }
 
 Signal::~Signal() {
   // @@protoc_insertion_point(destructor:vlsir.spice.Signal)
-  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void Signal::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+void Signal::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -10274,6 +10842,11 @@ void Signal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Signal::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Signal& Signal::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Signal_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Signal::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.spice.Signal)
@@ -10281,16 +10854,18 @@ void Signal::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   quantity_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Signal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
@@ -10311,8 +10886,7 @@ const char* Signal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         continue;
       default: {
       handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
         }
@@ -10339,7 +10913,7 @@ failure:
   (void) cached_has_bits;
 
   // string name = 1;
-  if (!this->_internal_name().empty()) {
+  if (this->name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -10349,7 +10923,7 @@ failure:
   }
 
   // .vlsir.spice.Signal.Quantity quantity = 2;
-  if (this->_internal_quantity() != 0) {
+  if (this->quantity() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_quantity(), target);
@@ -10372,14 +10946,14 @@ size_t Signal::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // string name = 1;
-  if (!this->_internal_name().empty()) {
+  if (this->name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.spice.Signal.Quantity quantity = 2;
-  if (this->_internal_quantity() != 0) {
+  if (this->quantity() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_quantity());
   }
@@ -10393,32 +10967,41 @@ size_t Signal::ByteSizeLong() const {
   return total_size;
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Signal::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    Signal::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Signal::GetClassData() const { return &_class_data_; }
-
-void Signal::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<Signal *>(to)->MergeFrom(
-      static_cast<const Signal &>(from));
+void Signal::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Signal)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Signal* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Signal>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Signal)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Signal)
+    MergeFrom(*source);
+  }
 }
-
 
 void Signal::MergeFrom(const Signal& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Signal)
   GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_name().empty()) {
+  if (from.name().size() > 0) {
     _internal_set_name(from._internal_name());
   }
-  if (from._internal_quantity() != 0) {
+  if (from.quantity() != 0) {
     _internal_set_quantity(from._internal_quantity());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Signal::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Signal)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Signal::CopyFrom(const Signal& from) {
@@ -10434,20 +11017,15 @@ bool Signal::IsInitialized() const {
 
 void Signal::InternalSwap(Signal* other) {
   using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, GetArenaForAllocation(),
-      &other->name_, other->GetArenaForAllocation()
-  );
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(quantity_, other->quantity_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Signal::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[33]);
+  return GetMetadataStatic();
 }
+
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace spice
