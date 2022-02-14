@@ -251,7 +251,8 @@ class Netlister:
         # And wrap the resolved values in a `ResolvedParams` object
         return ResolvedParams(values)
 
-    def get_module_name(self, module: vlsir.circuit.Module) -> str:
+    @classmethod
+    def get_module_name(cls, module: vlsir.circuit.Module) -> str:
         """ Create a netlist-compatible name for proto-Module `module` """
 
         # Create the module name
