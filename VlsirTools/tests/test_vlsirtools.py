@@ -3,6 +3,7 @@
 Unit Tests
 """
 
+from numpy import isin
 import pytest
 import vlsirtools
 
@@ -173,3 +174,43 @@ def test_netlist_hdl21_ideal1():
     )
     dest = StringIO()
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
+
+
+def empty_testbench_package():
+    """ Create and return a `circuit.Package` with a single, empty testbench module."""
+    from vlsir.circuit_pb2 import Module, Signal, Port, Package
+
+    return Package(
+        domain="vlsirtools.tests.empty_testbench_package",
+        modules=[
+            Module(
+                name="empty_testbench",
+                ports=[Port(direction="NONE", signal=Signal(name="VSS", width=1)),],
+            )
+        ],
+    )
+
+
+@pytest.mark.skipif(
+    not vlsirtools.spectre.available(), reason="No spectre installation on path",
+)
+def test_spectre1():
+    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`. """
+    from vlsir.spice_pb2 import SimInput
+    from vlsirtools.spectre import sim, SimResult
+
+    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    assert isinstance(results, SimResult)
+
+
+@pytest.mark.skipif(
+    not vlsirtools.xyce.available(), reason="No Xyce installation on path",
+)
+def test_xyce1():
+    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`. """
+    from vlsir.spice_pb2 import SimInput, SimResult
+    from vlsirtools.xyce import sim
+
+    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    assert isinstance(results, SimResult)
+

@@ -7,11 +7,19 @@ TODO: Go from proto -> sim_result
 """
 
 
+from enum import Enum, auto
 from dataclasses import dataclass
 import numpy as np
 from typing import List, Mapping, Union
 
 import vlsir
+
+
+class ResultFormat(Enum):
+    """ Enumerated Result Formats """
+
+    SIM_DATA = auto()  # The `SimData` classes defined below
+    VLSIR_PROTO = auto()  # `vlsir.spice.SimResults` and related protobuf-defined types
 
 
 @dataclass
@@ -27,6 +35,7 @@ class OpResult:
             res.data.append(v)
         return res
 
+
 @dataclass
 class DcResult:
     analysis_name: str
@@ -37,8 +46,8 @@ class DcResult:
 
     def to_proto(self) -> vlsir.spice.DcResult:
         res = vlsir.spice.DcResult(
-            analysis_name=self.analysis_name,
-            indep_name=self.indep_name)
+            analysis_name=self.analysis_name, indep_name=self.indep_name
+        )
         for k, v in self.data.items():
             res.signals.append(k)
             for d in v:
@@ -74,14 +83,17 @@ class AcResult:
         raise NotImplementedError
 
 
+# Type alias for the union of each result-type
+AnalysisResult = Union[AcResult, DcResult, TranResult, OpResult]
+
+
 @dataclass
 class SimResult:
-    an: List[Union[AcResult, DcResult, TranResult, OpResult]]
+    an: List[AnalysisResult]
 
     def to_proto(self) -> vlsir.spice.SimResult:
         res = vlsir.spice.SimResult()
         for a in self.an:
-            res.an.append(vlsir.spice.AnalysisResult(
-                **{a.vlsir_type: a.to_proto()}))
+            res.an.append(vlsir.spice.AnalysisResult(**{a.vlsir_type: a.to_proto()}))
         return res
 
