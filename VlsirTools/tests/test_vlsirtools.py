@@ -3,7 +3,6 @@
 Unit Tests
 """
 
-from numpy import isin
 import pytest
 import vlsirtools
 
@@ -177,8 +176,34 @@ def test_netlist_hdl21_ideal1():
 
 
 def empty_testbench_package():
-    """ Create and return a `circuit.Package` with a single, empty testbench module."""
-    from vlsir.circuit_pb2 import Module, Signal, Port, Package
+    """ Create and return a `circuit.Package` with a single, (near) empty testbench module. 
+    Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes. 
+    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node". """
+
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        Port,
+        Instance,
+        Package,
+        ParameterValue,
+    )
+    from vlsir.utils_pb2 import Reference, QualifiedName
+
+    def _r(name: str) -> Instance:
+        # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
+        return Instance(
+            name=name,  # <= Instance name argument here
+            module=Reference(
+                external=QualifiedName(domain="vlsir.primitives", name="resistor")
+            ),
+            connections=dict(
+                p=Connection(sig=Signal(name="the_other_node", width=1)),
+                n=Connection(sig=Signal(name="VSS", width=1)),
+            ),
+            parameters=dict(r=ParameterValue(double=1e3)),
+        )
 
     return Package(
         domain="vlsirtools.tests.empty_testbench_package",
@@ -186,6 +211,8 @@ def empty_testbench_package():
             Module(
                 name="empty_testbench",
                 ports=[Port(direction="NONE", signal=Signal(name="VSS", width=1)),],
+                signals=[Signal(name="the_other_node", width=1),],
+                instances=[_r("r1"), _r("r2"),],
             )
         ],
     )

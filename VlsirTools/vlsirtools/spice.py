@@ -5,13 +5,41 @@ Base class(es), utilities, and shared functionality for simulators.
 """
 
 # Std-Lib Imports
-import os, tempfile
-from typing import IO, Union
-from pathlib import Path
+import os, tempfile, subprocess
+from typing import Union, Callable
+from enum import Enum, auto
 
 # Local/ Project Dependencies
 import vlsir
-from .sim_data import SimResult, ResultFormat
+from .sim_data import SimResult
+
+
+class SupportedSimulators(Enum):
+    """ Enumerated, Internally-Defined Spice-Class Simulators """
+
+    XYCE = auto()
+    SPECTRE = auto()
+
+
+def sim(simulator: SupportedSimulators) -> Callable:
+    """ Get the `sim` method for `simulator`. 
+    Returns its function-object, callable with its own signature. 
+    Example: 
+    
+    ```python
+    from vlsirtools.spice import sim, SupportedSimulators
+
+    inp = vlsir.spice.SimInput()
+    results = sim(SupportedSimulators.SPECTRE)(inp)
+    ```
+    """
+    if simulator == SupportedSimulators.XYCE:
+        from .xyce import sim
+    elif simulator == SupportedSimulators.SPECTRE:
+        from .spectre import sim
+    else:
+        raise ValueError(f"Unsupported simulator: {simulator}")
+    return sim
 
 
 class Sim:
@@ -39,10 +67,13 @@ class Sim:
 
     * `run` is the primary entry point, implemented by this base class. 
       * After initial checks and setup, `run` hands off to a sub-class-specific `_run` method.
-    * Creating a file in the sim-directory requires calling the `open` method on `Sim` 
-      * I.e. call `self.open(filename, "w")`, rather than the built-in `open` function.
-    * All other methods are implemented by the sub-class.
-    * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
+    * When used as a context manager via `with`, all internal activity occurs within the simulation's temporary directory.
+      * System-calls to create and manage files can be made without knowledge of this directory.
+      * E.g. `open('netlist', 'w')` will land `netlist` in the temporary directory.
+    * All other methods are implemented by the sub-classes. 
+      * No requirements or conventions are placed on their names or activities. 
+      * Such methods will generally do things including: writing simulator-specific netlist-content, launching a sim process, parsing results. 
+      * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
     """
 
     def __init__(self, inp: vlsir.spice.SimInput) -> None:
@@ -61,10 +92,6 @@ class Sim:
         """ On exit, clean up our temporary directory, and navigate back to its predecessor.  """
         os.chdir(self.prevdir)
         self.tmpdir.cleanup()
-
-    def open(self, fname: str, mode: str) -> IO:
-        """ Open a file in the temporary directory, in read/write-mode `mode`. """
-        return open(Path(self.tmpdir.name) / fname, mode=mode)
 
     def validate_top(self) -> None:
         """ Ensure that the `top` module exists,
@@ -94,8 +121,6 @@ class Sim:
 
         # Setup
         self.validate_top()
-        prev_dir = os.getcwd()
-        os.chdir(self.tmpdir.name)
 
         # And hand off to the simulator-specific sub-class's `_run` method.
         return self._run()
@@ -108,3 +133,13 @@ class SimError(Exception):
     """ Exception raised when a simulation fails. """
 
     pass
+
+
+class SimProcessError(SimError):
+    """ Exception raised when an external simulator process fails. """
+
+    def __init__(self, e: subprocess.CalledProcessError) -> None:
+        super().__init__(str(e.stderr) + str(e.stdout))
+        self.stdout = e.stdout
+        self.stderr = e.stderr
+

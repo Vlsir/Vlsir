@@ -9,7 +9,8 @@ from typing import List, Tuple, IO
 # Local/ Project Dependencies
 import vlsir
 from .netlist import netlist
-from .spice import Sim, SimError, ResultFormat
+from .spice import Sim, SimError
+from .sim_data import ResultFormat
 
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -52,7 +53,7 @@ class XyceSim(Sim):
         """ Run the specified `SimInput` in directory `self.tmpdir`, 
         returning its results. """
 
-        netlist_file = self.open("dut", "w")
+        netlist_file = open("dut", "w")
         netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
@@ -107,7 +108,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
         npts = an.npts
@@ -127,7 +128,7 @@ class XyceSim(Sim):
         self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with self.open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
+        with open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
 
         # Separate Frequency vector
@@ -159,7 +160,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
         param = an.indep_name
@@ -195,7 +196,7 @@ class XyceSim(Sim):
         self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
 
         # And arrange them in an `OpResult`
@@ -213,7 +214,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = open(f"{analysis_name}.sp", "a")
 
         # Create the dummy parameter, and "sweep" a single value of it
         dummy_param = f"_dummy_{random.randint(0,65536)}_"
@@ -234,7 +235,7 @@ class XyceSim(Sim):
         self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
 
         # And arrange them in an `OpResult`
@@ -259,7 +260,7 @@ class XyceSim(Sim):
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
 
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = open(f"{analysis_name}.sp", "a")
 
         # FIXME: add a few fake components!
         # netlist.write("r1 1 0 1k \n\n")
@@ -281,7 +282,7 @@ class XyceSim(Sim):
 
         # Parse and organize our results
         # First pull them in from CSV
-        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
 
         # And organize them into a `TranResult` message
@@ -293,8 +294,8 @@ class XyceSim(Sim):
         try:
             subprocess.run(
                 f"{XYCE_EXECUTABLE} {name}.sp ",
-                stdout=self.open(f"{name}.sp.stdout.log", "w"),
-                stderr=self.open(f"{name}.sp.stderr.log", "w"),
+                stdout=open(f"{name}.sp.stdout.log", "w"),
+                stderr=open(f"{name}.sp.stderr.log", "w"),
                 shell=True,
                 check=True,
             )
