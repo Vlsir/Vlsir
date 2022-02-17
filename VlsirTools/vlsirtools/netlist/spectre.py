@@ -1,5 +1,5 @@
 """
-# Spectre-Format Netlister 
+# Spectre-Format Netlister
 """
 
 # Std-Lib Imports
@@ -123,11 +123,12 @@ class SpectreNetlister(Netlister):
         
         # For voltage sources, add spectre's "type" parameter
         if rmodule.spice_prefix == SpicePrefix.VSOURCE:
+            vname = rmodule.module_name
             vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
-            if module_name not in vtypes:
-                msg = f"Invalid or unsupported voltage-source type {module_name}"
+            if vname not in vtypes:
+                msg = f"Invalid or unsupported voltage-source type {vname}"
                 raise ValueError(msg)
-            resolved_instance_parameters.set("type", vtypes[module_name])
+            resolved_instance_parameters.set("type", vtypes[vname])
 
         # Create the instance name
         self.write(pinst.name + "\n")

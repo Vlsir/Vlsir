@@ -3,34 +3,41 @@ Xyce Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess
-import random
-import os
-import tempfile
-import shutil
-import csv
+import subprocess, random, shutil, csv
 from typing import List, Tuple, IO
-
 
 # Local/ Project Dependencies
 import vlsir
+from .netlist import netlist
+from .spice import Sim, SimError
+from .sim_data import ResultFormat
 
-# from .netlist.spice import XyceNetlister
+
+# Module-level configuration. Over-writeable by sufficiently motivated users.
+XYCE_EXECUTABLE = "Xyce"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
 
 
-def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
+def available() -> bool:
+    """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
+    return shutil.which(XYCE_EXECUTABLE) is not None
+
+
+def sim(
+    inp: vlsir.spice.SimInput, fmt: ResultFormat = ResultFormat.VLSIR_PROTO
+) -> vlsir.spice.SimResult:
     """ 
     # Primary Simulation Method 
     Implements the `vlsir.spice.Sim` RPC interface. 
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
-        tmpdir = "/tmp/xyce.vlsir.test"  # FIXME
-        sim = Sim(inp, tmpdir)
-        results = sim.run()
-    return results
+
+    if fmt != ResultFormat.VLSIR_PROTO:
+        raise RuntimeError(f"Unsupported ResultFormat: {fmt} for Xyce")
+
+    with XyceSim(inp) as sim:
+        return sim.run()
 
 
-class Sim:
+class XyceSim(Sim):
     """ 
     State and execution logic for a Xyce-call to `vlsir.spice.Sim`. 
     
@@ -42,38 +49,12 @@ class Sim:
     Results from each analysis-process are collated into a single `SimResult`. 
     """
 
-    def __init__(
-        self, inp: vlsir.spice.SimInput, tmpdir: tempfile.TemporaryDirectory
-    ) -> None:
-        self.inp = inp
-        self.tmpdir = tmpdir
-
-    def run(self) -> vlsir.spice.SimResult:
+    def _run(self) -> vlsir.spice.SimResult:
         """ Run the specified `SimInput` in directory `self.tmpdir`, 
         returning its results. """
 
-        # Ensure that the `top` module exists,
-        # and adheres to the "Spice top-level" port-interface:
-        # a single port for ground / VSS / node-zero.
-        if not self.inp.top:
-            raise RuntimeError(f"No top-level module specified")
-        found = False
-        for module in self.inp.pkg.modules:
-            if module.name == self.inp.top:
-                found = True
-                if len(module.ports) != 1:
-                    msg = f"`vlsir.SimInput` top-level module {self.inp.top} must have *one* (VSS) port - has {len(module.ports)} ports [{module.ports}]"
-                    raise RuntimeError(msg)
-                break
-        if not found:
-            raise RuntimeError(f"Top-level module `{self.inp.top}` not found")
-
-        os.chdir(self.tmpdir)
-        # netlist_file = tempfile.TemporaryFile(
-        #     mode="w+", encoding="utf-8", dir=self.tmpdir
-        # )
-        netlist_file = open("dut", "w")  # FIXME
-        vlsir.netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
+        netlist_file = open("dut", "w")
+        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
         netlist_file.write(f"xtop 0 {self.inp.top} ; Top-Level DUT \n\n")
@@ -119,7 +100,7 @@ class Sim:
 
     def ac(self, an: vlsir.spice.AcInput) -> vlsir.spice.AcResult:
         """ Run an AC analysis. """
-        
+
         # Unpack the `AcInput`
         analysis_name = an.analysis_name or "ac"
         if len(an.ctrl):
@@ -149,30 +130,31 @@ class Sim:
         # Read the results from CSV
         with open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
             (signals, data) = self.read_csv(csv_handle)
-            
+
         # Separate Frequency vector
-        n_sigs = len(signals)       # Get length of signals vector because...
-        freq = data[::n_sigs]       # ...every n-th data pt is a freq pt
-        del data[::n_sigs]          # Clean the list of data of all frequencies
-        signals.pop(0)              # Remove "Frequency" from list of signals
-        
+        n_sigs = len(signals)  # Get length of signals vector because...
+        freq = data[::n_sigs]  # ...every n-th data pt is a freq pt
+        del data[::n_sigs]  # Clean the list of data of all frequencies
+        signals.pop(0)  # Remove "Frequency" from list of signals
+
         # Build ComplexNumbers for each data point
         reals = data[::2]
         imags = data[1::2]
-        if not len(reals) == len(imags): # Sanity check
+        if not len(reals) == len(imags):  # Sanity check
             raise RuntimeError("Unpaired complex number in data")
-        cplx_data = [vlsir.spice.ComplexNum(re=real, im=imag) for real, imag
-                     in zip(reals, imags)]
+        cplx_data = [
+            vlsir.spice.ComplexNum(re=real, im=imag) for real, imag in zip(reals, imags)
+        ]
 
         # And arrange them in an `AcResult`
         return vlsir.spice.AcResult(freq=freq, signals=signals, data=cplx_data)
 
     def dc(self, an: vlsir.spice.DcInput) -> vlsir.spice.DcResult:
         """ Run a DC analysis. """
-        
+
         # Unpack the `DcInput`
-        analysis_name = an.analysis_name or "dc"     
-        
+        analysis_name = an.analysis_name or "dc"
+
         if len(an.ctrl):
             raise NotImplementedError  # FIXME!
 
@@ -182,20 +164,25 @@ class Sim:
 
         # Write the analysis command
         param = an.indep_name
-        ## Interpret the sweep 
+        ## Interpret the sweep
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            netlist.write(f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n\n")
+            netlist.write(
+                f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n\n"
+            )
         elif sweep_type == "log":
             sweep = an.sweep.log
-            netlist.write(f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n\n")
+            netlist.write(
+                f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n\n"
+            )
         elif sweep_type == "points":
             sweep = an.sweep.points
-            netlist.write(f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n\n")
+            netlist.write(
+                f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n\n"
+            )
         else:
             raise ValueError("Invalid sweep type")
-        
 
         # FIXME: always saving everything, no matter what
         # Note `csv` output-formatting is encoded here
@@ -259,7 +246,7 @@ class Sim:
 
         # Extract fields from our `TranInput`
         analysis_name = an.analysis_name or "tran"
-        
+
         # Why not make tstop/tstep required?
         if not an.tstop or not an.tstep:
             raise ValueError("tstop and tstep must be defined")
@@ -304,10 +291,9 @@ class Sim:
     def run_xyce_process(self, name: str):
         """ Run a `Xyce` sub-process, collecting terminal output. """
 
-        cmd = f"Xyce {name}.sp "
         try:
             subprocess.run(
-                cmd,
+                f"{XYCE_EXECUTABLE} {name}.sp ",
                 stdout=open(f"{name}.sp.stdout.log", "w"),
                 stderr=open(f"{name}.sp.stderr.log", "w"),
                 shell=True,
@@ -334,8 +320,3 @@ class Sim:
         # And return the two as a tuple
         return (headers, data)
 
-
-class SimError(Exception):
-    """ Exception raised when a simulation fails. """
-
-    pass
