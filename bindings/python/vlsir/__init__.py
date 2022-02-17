@@ -2,7 +2,7 @@
 VLSIR Python Bindings 
 """
 
-__version__ = "0.1.1"
+__version__ = "0.2.0rc1"
 
 # Schema 
 from . import utils_pb2 as utils

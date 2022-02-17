@@ -17,7 +17,7 @@ long_description = (here / "readme.md").read_text(encoding="utf-8")
 
 setup(
     name="vlsirtools",
-    version="0.2.0",
+    version="0.2.0rc1",
     description="Tools for the Vlsir IC Design Schema",
     long_description=long_description,
     long_description_content_type="text/markdown",

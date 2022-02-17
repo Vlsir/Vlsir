@@ -17,7 +17,7 @@ long_description = (here / "readme.md").read_text(encoding="utf-8")
 
 setup(
     name="vlsir",
-    version="0.1.1",
+    version="0.2.0rc1",
     description="Data Schemas for Chip Design",
     long_description=long_description,
     long_description_content_type="text/markdown",
