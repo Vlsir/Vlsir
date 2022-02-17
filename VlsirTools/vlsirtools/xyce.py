@@ -3,33 +3,41 @@ Xyce Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess
-import random
-import os
-import tempfile
-import shutil
-import csv
+import subprocess, random, shutil, csv
 from typing import List, Tuple, IO
-
 
 # Local/ Project Dependencies
 import vlsir
 from .netlist import netlist
+from .spice import Sim, SimError
+from .sim_data import ResultFormat
 
 
-def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
+# Module-level configuration. Over-writeable by sufficiently motivated users.
+XYCE_EXECUTABLE = "Xyce"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
+
+
+def available() -> bool:
+    """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
+    return shutil.which(XYCE_EXECUTABLE) is not None
+
+
+def sim(
+    inp: vlsir.spice.SimInput, fmt: ResultFormat = ResultFormat.VLSIR_PROTO
+) -> vlsir.spice.SimResult:
     """ 
     # Primary Simulation Method 
     Implements the `vlsir.spice.Sim` RPC interface. 
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
-        tmpdir = "/tmp/xyce.vlsir.test"  # FIXME
-        sim = Sim(inp, tmpdir)
-        results = sim.run()
-    return results
+
+    if fmt != ResultFormat.VLSIR_PROTO:
+        raise RuntimeError(f"Unsupported ResultFormat: {fmt} for Xyce")
+
+    with XyceSim(inp) as sim:
+        return sim.run()
 
 
-class Sim:
+class XyceSim(Sim):
     """ 
     State and execution logic for a Xyce-call to `vlsir.spice.Sim`. 
     
@@ -41,37 +49,11 @@ class Sim:
     Results from each analysis-process are collated into a single `SimResult`. 
     """
 
-    def __init__(
-        self, inp: vlsir.spice.SimInput, tmpdir: tempfile.TemporaryDirectory
-    ) -> None:
-        self.inp = inp
-        self.tmpdir = tmpdir
-
-    def run(self) -> vlsir.spice.SimResult:
+    def _run(self) -> vlsir.spice.SimResult:
         """ Run the specified `SimInput` in directory `self.tmpdir`, 
         returning its results. """
 
-        # Ensure that the `top` module exists,
-        # and adheres to the "Spice top-level" port-interface:
-        # a single port for ground / VSS / node-zero.
-        if not self.inp.top:
-            raise RuntimeError(f"No top-level module specified")
-        found = False
-        for module in self.inp.pkg.modules:
-            if module.name == self.inp.top:
-                found = True
-                if len(module.ports) != 1:
-                    msg = f"`vlsir.SimInput` top-level module {self.inp.top} must have *one* (VSS) port - has {len(module.ports)} ports [{module.ports}]"
-                    raise RuntimeError(msg)
-                break
-        if not found:
-            raise RuntimeError(f"Top-level module `{self.inp.top}` not found")
-
-        os.chdir(self.tmpdir)
-        # netlist_file = tempfile.TemporaryFile(
-        #     mode="w+", encoding="utf-8", dir=self.tmpdir
-        # )
-        netlist_file = open("dut", "w")  # FIXME
+        netlist_file = open("dut", "w")
         netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
@@ -309,10 +291,9 @@ class Sim:
     def run_xyce_process(self, name: str):
         """ Run a `Xyce` sub-process, collecting terminal output. """
 
-        cmd = f"Xyce {name}.sp "
         try:
             subprocess.run(
-                cmd,
+                f"{XYCE_EXECUTABLE} {name}.sp ",
                 stdout=open(f"{name}.sp.stdout.log", "w"),
                 stderr=open(f"{name}.sp.stderr.log", "w"),
                 shell=True,
@@ -339,8 +320,3 @@ class Sim:
         # And return the two as a tuple
         return (headers, data)
 
-
-class SimError(Exception):
-    """ Exception raised when a simulation fails. """
-
-    pass
