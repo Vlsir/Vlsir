@@ -8,7 +8,7 @@
 # i.e. the folder generally named `Vlsir`. 
 # -------------------------------------
 
-VERSION=0.2.0rc1
+VERSION=0.2.0
 
 # Python
 cd bindings/python 
