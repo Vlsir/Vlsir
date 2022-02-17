@@ -8,6 +8,8 @@
 # i.e. the folder generally named `Vlsir`. 
 # -------------------------------------
 
+set -eo pipefail
+
 VERSION=0.2.0
 
 # Python
@@ -18,7 +20,7 @@ twine upload dist/vlsir-${VERSION}.tar.gz
 # Python Tools 
 cd ../../VlsirTools 
 python setup.py sdist 
-twine upload dist/vlsir-${VERSION}.tar.gz
+twine upload dist/vlsirtools-${VERSION}.tar.gz
 
 # Rust
 cd ../bindings/rust 
