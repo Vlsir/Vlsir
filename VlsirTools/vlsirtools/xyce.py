@@ -3,13 +3,13 @@ Xyce Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, random, shutil, csv
-from typing import List, Tuple, IO
+import subprocess, random, shutil, csv, os
+from typing import List, Tuple, IO, Optional, Dict 
 
 # Local/ Project Dependencies
 import vlsir
-from .netlist import netlist
-from .spice import Sim, SimError
+from .netlist import netlist, XyceNetlister
+from .spice import Sim, SimProcessError
 from .sim_data import ResultFormat
 
 
@@ -23,7 +23,10 @@ def available() -> bool:
 
 
 def sim(
-    inp: vlsir.spice.SimInput, fmt: ResultFormat = ResultFormat.VLSIR_PROTO
+    inp: vlsir.spice.SimInput,
+    *,
+    fmt: ResultFormat = ResultFormat.VLSIR_PROTO,
+    rundir: Optional[os.PathLike] = None,
 ) -> vlsir.spice.SimResult:
     """ 
     # Primary Simulation Method 
@@ -33,7 +36,7 @@ def sim(
     if fmt != ResultFormat.VLSIR_PROTO:
         raise RuntimeError(f"Unsupported ResultFormat: {fmt} for Xyce")
 
-    with XyceSim(inp) as sim:
+    with XyceSim(inp=inp, rundir=rundir) as sim:
         return sim.run()
 
 
@@ -50,22 +53,30 @@ class XyceSim(Sim):
     """
 
     def _run(self) -> vlsir.spice.SimResult:
-        """ Run the specified `SimInput` in directory `self.tmpdir`, 
+        """ Run the specified `SimInput` in directory `self.rundir`, 
         returning its results. """
 
         netlist_file = open("dut", "w")
         netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
-        netlist_file.write(f"xtop 0 {self.inp.top} ; Top-Level DUT \n\n")
+        netlist_file.write(
+            f"xtop 0 {XyceNetlister.get_module_name(self.top)} ; Top-Level DUT \n\n"
+        )
 
         # Write each control element
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
                 netlist_file.write(f".include '{ctrl.include.path}' \n")
-            elif inner in ("lib", "save", "meas", "literal"):
-                raise NotImplementedError  # FIXME!
+            elif inner == "lib":
+                netlist_file.write(f".lib {ctrl.lib.path} {ctrl.lib.section} \n")
+            elif inner == "literal":
+                netlist_file.write(ctrl.literal + "\n")
+            elif inner in ("save", "meas"):
+                raise NotImplementedError(
+                    f"Unimplemented control card {ctrl} for {self}"
+                )  # FIXME!
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
@@ -292,15 +303,15 @@ class XyceSim(Sim):
         """ Run a `Xyce` sub-process, collecting terminal output. """
 
         try:
-            subprocess.run(
+            _result = subprocess.run(
                 f"{XYCE_EXECUTABLE} {name}.sp ",
-                stdout=open(f"{name}.sp.stdout.log", "w"),
-                stderr=open(f"{name}.sp.stderr.log", "w"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 shell=True,
                 check=True,
             )
         except subprocess.CalledProcessError as e:
-            raise SimError
+            raise SimProcessError(e)
         except Exception as e:
             raise
 
@@ -319,4 +330,16 @@ class XyceSim(Sim):
 
         # And return the two as a tuple
         return (headers, data)
+
+
+def parse_meas(file: IO) -> Dict[str, float]:
+    """ Parse an (open) measurement-file to a name: value dictionary. """
+    rv = {}
+    for line in file.readlines():
+        contents = line.split()
+        if len(contents) != 3 or contents[1] != "=":
+            raise RuntimeError
+        name, val = contents[0], float(contents[2])
+        rv[name] = val
+    return rv
 

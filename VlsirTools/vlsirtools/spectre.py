@@ -3,8 +3,8 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil
-from typing import Tuple, Any, Mapping, Union
+import subprocess, re, shutil, os
+from typing import Tuple, Any, Mapping, Union, Optional, IO , Dict 
 import numpy as np
 
 # Local/ Project Dependencies
@@ -33,7 +33,9 @@ def _read_var_spec(line: str) -> Tuple[str, str]:
 
 
 def sim(
-    inp: vlsir.spice.SimInput, fmt: ResultFormat = ResultFormat.SIM_DATA
+    inp: vlsir.spice.SimInput,
+    fmt: ResultFormat = ResultFormat.SIM_DATA,
+    rundir: Optional[os.PathLike] = None,
 ) -> Union[SimResult, vlsir.spice.SimResult]:
     """
     # Primary Simulation Method
@@ -45,7 +47,7 @@ def sim(
     if not isinstance(fmt, ResultFormat):
         raise TypeError(f"Invalid ResultFormat: {fmt}")
 
-    with SpectreSim(inp) as sim:
+    with SpectreSim(inp=inp, rundir=rundir) as sim:
         results: SimResult = sim.run()
 
     if fmt == ResultFormat.VLSIR_PROTO:
@@ -101,8 +103,16 @@ class SpectreSim(Sim):
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
                 netlist_file.write(f'include "{ctrl.include.path}" \n')
-            elif inner in ("lib", "save", "meas", "literal"):
-                raise NotImplementedError  # FIXME!
+            elif inner == "lib":
+                netlist_file.write(
+                    f'include "{ctrl.lib.path}" section={ctrl.lib.section} \n'
+                )
+            elif inner == "literal":
+                netlist_file.write(ctrl.literal + "\n")
+            elif inner in ("save", "meas"):
+                raise NotImplementedError(
+                    f"Unimplemented control card {ctrl} for {self}"
+                )  # FIXME!
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
@@ -123,7 +133,25 @@ class SpectreSim(Sim):
 
     def netlist_dc(self, an: vlsir.spice.DcInput, netlist_file) -> None:
         """ Run a DC analysis. """
-        raise NotImplementedError
+        # Unpack the `DcInput`
+        analysis_name = an.analysis_name or "dc"
+
+        if len(an.ctrl):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            netlist_file.write(
+                f"{analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            )
+        elif sweep_type in ("log", "points"):
+            raise NotImplementedError
+        else:
+            raise ValueError("Invalid sweep type")
 
     def netlist_op(self, an: vlsir.spice.OpInput, netlist_file) -> None:
         """
@@ -173,9 +201,8 @@ class SpectreSim(Sim):
         try:
             subprocess.run(
                 cmd,
-                capture_output=True,
-                # stdout=open(f"netlist.scs.stdout.log", "w"),
-                # stderr=open(f"netlist.scs.stderr.log", "w"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 shell=True,
                 check=True,
             )
@@ -235,3 +262,13 @@ def parse(filename: str) -> Mapping[str, Any]:
                 data[sim_name]["units"][var[0]] = var[1]
 
         return data
+
+def parse_mt0(file: IO) -> Dict[str, float]:
+    """ Parse (open) measurement-file into a set of name: value pairs. """
+    file.readline() # Header
+    file.readline() # Netlist Title 
+    keys = file.readline() # Measurement Names Line 
+    keys = keys.split()
+    values = file.readline() # Measurement Values Line
+    values = [float(s) for s in values.split()]
+    return dict(zip(keys, values))

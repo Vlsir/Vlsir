@@ -6,8 +6,9 @@ Base class(es), utilities, and shared functionality for simulators.
 
 # Std-Lib Imports
 import os, tempfile, subprocess
-from typing import Union, Callable
+from typing import Union, Callable, Optional 
 from enum import Enum, auto
+from pathlib import Path 
 
 # Local/ Project Dependencies
 import vlsir
@@ -76,22 +77,29 @@ class Sim:
       * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
     """
 
-    def __init__(self, inp: vlsir.spice.SimInput) -> None:
+    def __init__(self, inp: vlsir.spice.SimInput, rundir:Optional[os.PathLike]=None) -> None:
         self.inp = inp
-        self.tmpdir = None
+        self.rundir = rundir
         self.prevdir = os.getcwd()
         self.top = None
 
     def __enter__(self) -> "Sim":
-        """ On entry, create and navigate to a temporary directory for the sim's files.  """
-        self.tmpdir = tempfile.TemporaryDirectory()
-        os.chdir(self.tmpdir.name)
+        """ On entry, create and navigate to a directory for the sim's files.  """
+        if self.rundir is not None:
+            self.rundir = Path(self.rundir).absolute()
+            if not self.rundir.exists():
+                os.makedirs(self.rundir)
+            os.chdir(self.rundir)
+        else: # Create a new temp directory
+            self.rundir = tempfile.TemporaryDirectory()
+            os.chdir(self.rundir.name)
         return self
 
     def __exit__(self, _type, _value, _traceback):
         """ On exit, clean up our temporary directory, and navigate back to its predecessor.  """
         os.chdir(self.prevdir)
-        self.tmpdir.cleanup()
+        if isinstance(self.rundir, tempfile.TemporaryDirectory):
+            self.rundir.cleanup()   
 
     def validate_top(self) -> None:
         """ Ensure that the `top` module exists,
@@ -116,7 +124,7 @@ class Sim:
 
     def run(self) -> Union[SimResult, vlsir.spice.SimResult]:
         """ Primary invocation method. 
-        Run the specified `SimInput` in directory `self.tmpdir`, returning its results. 
+        Run the specified `SimInput` in directory `self.rundir`, returning its results. 
         Performs initial setup, then hands off to the simulator-specific sub-class's `_run` method. """
 
         # Setup

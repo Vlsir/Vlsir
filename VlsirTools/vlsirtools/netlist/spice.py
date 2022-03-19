@@ -234,17 +234,17 @@ class SpiceNetlister(Netlister):
         name = rmodule.module.name.name
         if name == "vdc":
             dc = resolved_param_values.pop("dc")
-            self.write(f"+ dc {dc} \n")
+            self.write(f"+ dc {self.format_expression(dc)} \n")
 
         elif name == "vpulse":
             keys = ["v1", "v2", "td", "tr", "tf", "tpw", "tper"]
             pp = resolved_param_values.pop_many(keys)
-            self.write(f"+ pulse (" + " ".join([pp[k] for k in keys]) + ") \n")
+            self.write(f"+ pulse (" + " ".join([self.format_expression(pp[k]) for k in keys]) + ") \n")
 
         elif name == "vsin":
             keys = ["voff", "vamp", "freq", "td", "phase"]
             pp = resolved_param_values.pop_many(keys)
-            self.write(f"+ sin (" + " ".join([pp[k] for k in keys]) + ") \n")
+            self.write(f"+ sin (" + " ".join([self.format_expression(pp[k]) for k in keys]) + ") \n")
 
         else:
             raise ValueError(f"Invalid or unsupported voltage-source type: {name}")
