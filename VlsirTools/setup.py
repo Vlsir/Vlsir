@@ -17,7 +17,7 @@ long_description = (here / "readme.md").read_text(encoding="utf-8")
 
 setup(
     name="vlsirtools",
-    version="0.2.0",
+    version="1.0.0.dev0",
     description="Tools for the Vlsir IC Design Schema",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -25,7 +25,7 @@ setup(
     author="Dan Fritchman",
     packages=["vlsirtools"],
     python_requires=">=3.7, <4",
-    install_requires=["vlsir==0.2.0", "numpy==1.21.5"],
+    install_requires=["vlsir==1.0.0.dev0", "numpy==1.21.5"],
     extras_require={
         "dev": ["pytest==5.2", "coverage", "pytest-cov", "black==19.10b0", "twine"]
     },

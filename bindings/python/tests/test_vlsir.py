@@ -7,7 +7,7 @@ import vlsir
 
 
 def test_version():
-    assert vlsir.__version__ == "0.2.0"
+    assert vlsir.__version__ == "1.0.0.dev0"
 
 
 def test_sim():
