@@ -15,17 +15,22 @@ here = pathlib.Path(__file__).parent.resolve()
 # Get the long description from the README file
 long_description = (here / "readme.md").read_text(encoding="utf-8")
 
+_VLSIR_VERSION = "1.0.0.dev0"
+
 setup(
     name="vlsirtools",
-    version="1.0.0.dev0",
+    version=f"{_VLSIR_VERSION}",
     description="Tools for the Vlsir IC Design Schema",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/dan-fritchman/Vlsir",
     author="Dan Fritchman",
-    packages=["vlsirtools"],
+    packages=find_packages(),
     python_requires=">=3.7, <4",
-    install_requires=["vlsir==1.0.0.dev0", "numpy==1.21.5"],
+    install_requires=[
+        "vlsir==f{_VLSIR_VERSION}", 
+        "numpy==1.21.5"
+    ],
     extras_require={
         "dev": ["pytest==5.2", "coverage", "pytest-cov", "black==19.10b0", "twine"]
     },

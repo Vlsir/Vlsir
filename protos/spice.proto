@@ -65,7 +65,7 @@ message SimInput {
 
   // # Simulation Configuration Input 
   // Global simulator options 
-  SimOptions opts = 10;
+  repeated SimOptions opts = 10;
   // List of circuit analyses
   repeated Analysis an = 11;
   // Control elements. 
@@ -79,12 +79,13 @@ message SimResult {
 }
 // # Simulator Options 
 // Global, cross-analysis settings. 
+// FIXME: all of these should probably be "explicitly optional" as `google.protobuf.DoubleValue`s or similar. 
 message SimOptions {
-  google.protobuf.DoubleValue temp = 1;
-  google.protobuf.DoubleValue tnom = 2;
-  google.protobuf.DoubleValue gmin = 3;
-  google.protobuf.DoubleValue iabstol = 4;
-  google.protobuf.DoubleValue reltol = 5;
+  double temp = 1;
+  double tnom = 2;
+  double gmin = 3;
+  double iabstol = 4;
+  double reltol = 5;
 }
 
 // # Circuit 
@@ -155,7 +156,7 @@ message OpInput {
   // (Optional) Analysis Name
   string analysis_name = 1;
   // Control Elements 
-  repeated Control ctrl = 5;
+  repeated Control ctrls = 5;
 }
 // Operating Point Results 
 message OpResult {
@@ -182,7 +183,7 @@ message DcInput {
   // Sweep Data 
   Sweep sweep = 3;
   // Control Elements 
-  repeated Control ctrl = 5;
+  repeated Control ctrls = 5;
 }
 // # Dc Sweep Result 
 // 
@@ -216,7 +217,7 @@ message TranInput {
   // Initial Conditions. Mapping in the form of {signal-name: value}
   map <string, double> ic = 4; 
   // Control Elements 
-  repeated Control ctrl = 5;
+  repeated Control ctrls = 5;
 }
 // # Transient Analysis Results 
 message TranResult {
@@ -253,7 +254,7 @@ message AcInput {
   // Number of points per interval of frequency sweep. 
   uint64 npts = 4;
   // Control Elements 
-  repeated Control ctrl = 5; 
+  repeated Control ctrls = 5; 
 }
 // # AC Analysis Results 
 // 
@@ -448,10 +449,12 @@ message LibInclude {
 }
 // # Scalar Measurement 
 message Meas {
+  // Analysis Name (FIXME: or analysis-type)
+  string analysis_type = 1;
   // Measurement Name
-  string name = 1;
+  string name = 2;
   // Expression to be evaluated
-  string expr = 2;
+  string expr = 3;
 }
 // # Parameter Declaration 
 message Param {

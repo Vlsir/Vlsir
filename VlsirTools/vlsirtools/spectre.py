@@ -73,6 +73,9 @@ class SpectreSim(Sim):
         top_name = SpectreNetlister.get_module_name(self.top)
         netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
 
+        if self.inp.opts:
+            raise NotImplementedError
+
         # Write each control element
         self.write_control_elements(netlist_file)
 
@@ -109,7 +112,13 @@ class SpectreSim(Sim):
                 )
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
-            elif inner in ("save", "meas"):
+            elif inner == "param":
+                netlist_file.write(f"parameters {ctrl.param.name}={str(ctrl.param.val)} \n")
+            elif inner == "meas":
+                netlist_file.write(f"simulator lang=spice \n")
+                netlist_file.write(f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n")
+                netlist_file.write(f"simulator lang=spectre \n")
+            elif inner in ("save"):
                 raise NotImplementedError(
                     f"Unimplemented control card {ctrl} for {self}"
                 )  # FIXME!
@@ -136,7 +145,7 @@ class SpectreSim(Sim):
         # Unpack the `DcInput`
         analysis_name = an.analysis_name or "dc"
 
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Write the analysis command
@@ -159,14 +168,14 @@ class SpectreSim(Sim):
         """
         # Unpack the `OpInput`
         analysis_name = an.analysis_name or "op"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         netlist_file.write(f"{analysis_name} dc oppoint=rawfile\n\n")
 
     def netlist_tran(self, an: vlsir.spice.TranInput, netlist_file) -> None:
         analysis_name = an.analysis_name or "tran"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError
         if len(an.ic):
             raise NotImplementedError

@@ -64,6 +64,9 @@ class XyceSim(Sim):
             f"xtop 0 {XyceNetlister.get_module_name(self.top)} ; Top-Level DUT \n\n"
         )
 
+        if self.inp.opts:
+            raise NotImplementedError
+
         # Write each control element
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
@@ -71,9 +74,13 @@ class XyceSim(Sim):
                 netlist_file.write(f".include '{ctrl.include.path}' \n")
             elif inner == "lib":
                 netlist_file.write(f".lib {ctrl.lib.path} {ctrl.lib.section} \n")
+            elif inner == "param":
+                netlist_file.write(f".param {ctrl.param.name}={str(ctrl.param.val)} \n")
+            elif inner == "meas":
+                netlist_file.write(f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n")
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
-            elif inner in ("save", "meas"):
+            elif inner in ("save"):
                 raise NotImplementedError(
                     f"Unimplemented control card {ctrl} for {self}"
                 )  # FIXME!
@@ -114,7 +121,7 @@ class XyceSim(Sim):
 
         # Unpack the `AcInput`
         analysis_name = an.analysis_name or "ac"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -166,7 +173,7 @@ class XyceSim(Sim):
         # Unpack the `DcInput`
         analysis_name = an.analysis_name or "dc"
 
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -220,7 +227,7 @@ class XyceSim(Sim):
 
         # Unpack the `OpInput`
         analysis_name = an.analysis_name or "op"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -265,7 +272,7 @@ class XyceSim(Sim):
         tstep = an.tstep
         if len(an.ic):
             raise NotImplementedError
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError
 
         # Copy and append to the existing DUT netlist

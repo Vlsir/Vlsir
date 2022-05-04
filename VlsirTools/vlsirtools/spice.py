@@ -12,6 +12,7 @@ from pathlib import Path
 
 # Local/ Project Dependencies
 import vlsir
+from vlsir.spice_pb2 import * 
 from .sim_data import SimResult
 
 
@@ -120,7 +121,8 @@ class Sim:
                 break
 
         if not found:
-            raise RuntimeError(f"Top-level module `{self.inp.top}` not found")
+            names = [m.name for m in self.inp.pkg.modules]
+            raise RuntimeError(f"Top-level module `{self.inp.top}` not found among Modules {names}")
 
     def run(self) -> Union[SimResult, vlsir.spice.SimResult]:
         """ Primary invocation method. 

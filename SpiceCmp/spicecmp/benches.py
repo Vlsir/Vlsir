@@ -1,47 +1,43 @@
 # Std-Lib Imports
 from textwrap import dedent
-from copy import deepcopy
+from enum import Enum
 from pathlib import Path
 from typing import List, Dict
 from dataclasses import dataclass
+from warnings import warn 
 
-import vlsirtools
-from vlsir.spice_pb2 import (
-    SimInput,
-    Analysis,
-    DcInput,
-    DcResult,
-    TranInput,
-    TranResult,
-    Sweep,
-    LinearSweep,
-    Control,
-)
-from vlsirtools.spice import SupportedSimulators
+# Some "Friendly" Imports 
 import hdl21 as h
-from hdl21.primitives import MosType, MosVth
+import vlsirtools.spice as vsp 
+
 
 # Local Imports
 from .testcase import Test, TestCase
 from .pdk import Pdk, MosModel
-from .simulator import Simulator, Simulators
+from .simulator import Simulator
+
+class ErrorMode(Enum):
+    """ Enumerated error-handling strategies """
+    RAISE = "raise"
+    WARN = "warn"
 
 
 @h.paramclass
 class DcIvParams:
     dut = h.Param(dtype=h.Instantiable, desc="The transistor DUT")
-    mos_type = h.Param(dtype=MosType, desc="Mos Type (NMOS/ PMOS)")
-    mos_vth = h.Param(dtype=MosVth, desc="Mos Vth (enumerated)")
-    ctrls = h.Param(dtype=List[Control], desc="Simulator control cards")
+    mos_type = h.Param(dtype=h.MosType, desc="Mos Type (NMOS/ PMOS)")
+    mos_vth = h.Param(dtype=h.MosVth, desc="Mos Vth (enumerated)")
+    ctrls = h.Param(dtype=List[vsp.Control], desc="Simulator control cards")
     rundir = h.Param(dtype=Path, desc="Run directory")
     vlsirtools_simulator = h.Param(
-        dtype=SupportedSimulators, desc="VlsirTools Simulator Tag"
+        dtype=vsp.SupportedSimulators, desc="VlsirTools Simulator Tag"
     )
     vdd = h.Param(dtype=str, desc="Supply Voltage (V), in string form")
     temper = h.Param(dtype=int, desc="Simulation Temperature")
+    errormode = h.Param(dtype=ErrorMode, default=ErrorMode.WARN, desc="Error handling strategy")
 
 
-def dc_iv(params: DcIvParams) -> DcResult:
+def dc_iv(params: DcIvParams) -> None:
     """ Transistor I-V Curve Test """
 
     @h.module
@@ -55,62 +51,46 @@ def dc_iv(params: DcIvParams) -> DcResult:
         vg = h.V(h.V.Params(dc="polarity*vgs"))(p=g, n=vss)
         vd = h.V(h.V.Params(dc="polarity*vds"))(p=d, n=vss)
 
-    # Convert to VLSIR protobuf schema
-    tb_pkg = h.to_proto(DcIvTestbench)
+    polarity = -1 if params.mos_type == h.MosType.PMOS else 1
+    
+    from hdl21.sim import Sim 
 
-    # FIXME: this generated-module-name-extraction should be a feature of the libraries, somehow
-    top_name = tb_pkg.modules[0].name
+    # Create some simulation input 
+    sim = Sim(tb=DcIvTestbench)
+    sim.param("polarity", polarity)  
+    sim.param ("vds", params.vdd)
+    sim.param ("vgs", params.vdd)
+    # sim.options(temper=params.temper) # FIXME!
 
-    polarity = -1 if params.mos_type == MosType.PMOS else 1
+    sim.dc(
+        var="vgs",
+        sweep=h.sim.LinearSweep(start=0.0, stop=float(params.vdd), step=0.01)
+    )
 
-    for_xyce = dedent(
-        f"""
-        .param polarity={polarity} vds={params.vdd} vgs={params.vdd}
-        .measure dc idsat find i(xtop:vvd) at={params.vdd}
-        .options device temp={params.temper} 
-        """
-    )
-    for_spectre = dedent(
-        f"""
-        parameters polarity={polarity} vds={params.vdd} vgs={params.vdd}
-        options options temp={params.temper}
-        simulator lang=spice
-        .measure dc idsat find i(xtop.vd) at='{params.vdd}'
-        simulator lang=spectre
-        """
-    )
-    literal = (
-        for_xyce
-        if params.vlsirtools_simulator == SupportedSimulators.XYCE
-        else for_spectre
-    )
-    ctrls = params.ctrls + [Control(literal=literal)]
+    # Add the measurement, which requires a hierarchical path we sadly cannot yet distinguish per simulator. 
+    # And the temperature option, sadly. 
+    if params.vlsirtools_simulator == vsp.SupportedSimulators.XYCE:
+        sim.literal(f".options device temp={params.temper}")
+        sim.meas(name="idsat", expr=f"find i(xtop:vvd) at={params.vdd}", analysis="dc")
+    else: 
+        sim.literal(f"options options temp={params.temper}")
+        sim.meas(name="idsat", expr=f"find i(xtop.vd) at='{params.vdd}'", analysis="dc")
 
-    sim_input = SimInput(
-        top=top_name,
-        pkg=tb_pkg,
-        an=[
-            Analysis(
-                dc=DcInput(
-                    # analysis_name="dc_iv",
-                    indep_name="vgs",
-                    sweep=Sweep(
-                        linear=LinearSweep(start=0.0, stop=float(params.vdd), step=0.01)
-                    ),
-                ),
-            ),
-        ],
-        ctrls=ctrls,
-    )
+    # Convert to VLSIR ProtoBufs
+    sim_input = h.sim.to_proto(sim)
+    sim_input.ctrls.extend(params.ctrls)
+
     try:
-        res = vlsirtools.spice.sim(params.vlsirtools_simulator)(
+        vsp.sim(params.vlsirtools_simulator)(
             sim_input, rundir=params.rundir
         )
     except Exception as e:
-        print(e)
-        return None
-    print(f"ran {params}")
-    return res.an[0].dc
+        if params.errormode == ErrorMode.WARN:
+            warn(str(e))
+        else:
+            raise e
+    else:
+        print(f"ran {params}")
 
 
 @dataclass
@@ -125,7 +105,7 @@ class MosDut:
 
 def mosiv_test(
     testcase: TestCase, pdk: Pdk, simulator: Simulator, parentdir: Path
-) -> TranResult:
+) -> None:
     """ MOS DC I-V Test Case """
     mos_dut: MosDut = testcase.dut(pdk)
     params = DcIvParams(
@@ -221,16 +201,17 @@ def Nand2Stg(params: InvParams) -> h.Module:
 class StdCellRoParams:
     dut = h.Param(dtype=h.Instantiable, desc="Single DUT Stage")
     nstg = h.Param(dtype=int, desc="Number of stages")
-    ctrls = h.Param(dtype=List[Control], desc="Simualtor control cards")
+    ctrls = h.Param(dtype=List[vsp.Control], desc="Simualtor control cards")
     rundir = h.Param(dtype=Path, desc="Run directory")
     vlsirtools_simulator = h.Param(
-        dtype=SupportedSimulators, desc="VlsirTools Simulator Tag"
+        dtype=vsp.SupportedSimulators, desc="VlsirTools Simulator Tag"
     )
     vdd = h.Param(dtype=str, desc="Supply Voltage (V), in string form")
     temper = h.Param(dtype=int, desc="Simulation Temperature")
+    errormode = h.Param(dtype=ErrorMode, default=ErrorMode.RAISE, desc="Error handling strategy")
 
 
-def std_cell_ro(params: StdCellRoParams) -> TranResult:
+def std_cell_ro(params: StdCellRoParams) -> None:
     """ Standard-Cell Ring Oscillator Test """
 
     if params.nstg % 2 != 1:
@@ -259,72 +240,65 @@ def std_cell_ro(params: StdCellRoParams) -> TranResult:
         )
         RoTb.add(name=f"stg{stgnum}", val=inst)
 
-    # Convert to VLSIR protobuf schema
-    tb_pkg = h.to_proto(RoTb)
+    from hdl21.sim import Sim 
 
-    # FIXME: this generated-module-name-extraction should be a feature of the libraries, somehow
-    top_name = tb_pkg.modules[-1].name
-    print([m.name for m in tb_pkg.modules])
+    # Create some simulation input
+    sim = Sim(tb=RoTb)
+    sim.param(name="vdd", val=params.vdd)
+    sim.tran(tstop=50e-9, tstep=1e-12)
+    # sim.options(temper=params.temper) # FIXME! 
 
     # An ugly part: the not-totally-supported input-differences, including
-    # (a) initial condition syntax, (b) hierarchical paths, (c) parameter declarations, (d) using SPICE-format `meas`
-    for_xyce = dedent(
-        f"""
-        .ic xtop:osc_0 0 
-        .options device temp={params.temper}
-        .param vdd={params.vdd}
-        .measure tran trise5  when V(xtop:osc_0)={{vdd/2}} rise=5
-        .measure tran trise15 when V(xtop:osc_0)={{vdd/2}} rise=15
-    """
-    )
-    for_spectre = dedent(
-        f"""
-        options options temp={params.temper}
+    # * (a) initial conditions, 
+    # * (b) hierarchical paths, 
+    # * (c) non-first-class spice-format `options`, e.g. `autostop`
+    # # (d) options, particular the categorized xyce variety 
 
-        simulator lang=spice
-        .ic xtop.osc_0 0 
-        .param vdd={params.vdd}
-        .measure tran trise5  when V(xtop:osc_0)='vdd/2' rise=5
-        .measure tran trise15 when V(xtop:osc_0)='vdd/2' rise=15
-        .option autostop
-        simulator lang=spectre
-    """
-    )
-    literal = (
-        for_xyce
-        if params.vlsirtools_simulator == SupportedSimulators.XYCE
-        else for_spectre
-    )
-    ctrls = params.ctrls + [Control(literal=literal)]
+    if params.vlsirtools_simulator == vsp.SupportedSimulators.XYCE:
+         sim.literal(dedent(
+            f"""
+            .options device temp={params.temper}
+            .ic xtop:osc_0 0 
+            .measure tran trise5  when V(xtop:osc_0)={{vdd/2}} rise=5
+            .measure tran trise15 when V(xtop:osc_0)={{vdd/2}} rise=15
+        """
+        ))
+    else: 
+        sim.literal(dedent(
+            f"""
+            options options temp={params.temper}
 
-    sim_input = SimInput(
-        top=top_name,
-        pkg=tb_pkg,
-        an=[
-            Analysis(
-                tran=TranInput(
-                    # analysis_name=f"{top_name}_ro_tran",
-                    tstop=50e-9,
-                    tstep=1e-12,
-                ),
-            ),
-        ],
-        ctrls=ctrls,
-    )
+            simulator lang=spice
+            .ic xtop.osc_0 0 
+            .measure tran trise5  when V(xtop:osc_0)='vdd/2' rise=5
+            .measure tran trise15 when V(xtop:osc_0)='vdd/2' rise=15
+            .option autostop
+            simulator lang=spectre
+        """
+        ))
+
+    # Convert all that to VLSIR protobuf 
+    sim_input = h.sim.to_proto(sim)
+
+    # Add any control-cards from `params`
+    sim_input.ctrls.extend(params.ctrls)
+
     try:
-        res = vlsirtools.spice.sim(params.vlsirtools_simulator)(
+        vsp.sim(params.vlsirtools_simulator)(
             sim_input, rundir=params.rundir
         )
     except Exception as e:
-        print(e)
-        return None
-    print(f"ran {params}")
-    return res.an[0].tran
+        if params.errormode == ErrorMode.WARN:
+            warn(str(e))
+        else:
+            raise e
+    else:
+        print(f"ran {params}")
 
 
 def ro_test(
     testcase: TestCase, pdk: Pdk, simulator: Simulator, parentdir: Path
-) -> TranResult:
+) -> None:
     """ "TestCase Interface" for the RO Tests
     Largely a thin wrapper around `std_cell_ro`. """
 
@@ -355,3 +329,4 @@ def ro_meas(inp: Dict[str, float]) -> Dict[str, float]:
 
 
 ro_test = Test(name="Ro", run_func=ro_test, meas_func=ro_meas)
+

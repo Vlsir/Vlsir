@@ -80,7 +80,7 @@ proto.vlsir.spice.TranInput.toObject = function(includeInstance, msg) {
     tstop: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
     tstep: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
     icMap: (f = msg.getIcMap()) ? f.toObject(includeInstance, undefined) : [],
-    ctrlList: jspb.Message.toObjectList(msg.getCtrlList(),
+    ctrlsList: jspb.Message.toObjectList(msg.getCtrlsList(),
     proto.vlsir.spice.Control.toObject, includeInstance)
   };
 
@@ -139,7 +139,7 @@ proto.vlsir.spice.TranInput.deserializeBinaryFromReader = function(msg, reader) 
     case 5:
       var value = new proto.vlsir.spice.Control;
       reader.readMessage(value,proto.vlsir.spice.Control.deserializeBinaryFromReader);
-      msg.addCtrl(value);
+      msg.addCtrls(value);
       break;
     default:
       reader.skipField();
@@ -195,7 +195,7 @@ proto.vlsir.spice.TranInput.serializeBinaryToWriter = function(message, writer) 
   if (f && f.getLength() > 0) {
     f.serializeBinary(4, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeDouble);
   }
-  f = message.getCtrlList();
+  f = message.getCtrlsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       5,
@@ -283,10 +283,10 @@ proto.vlsir.spice.TranInput.prototype.clearIcMap = function() {
 
 
 /**
- * repeated Control ctrl = 5;
+ * repeated Control ctrls = 5;
  * @return {!Array<!proto.vlsir.spice.Control>}
  */
-proto.vlsir.spice.TranInput.prototype.getCtrlList = function() {
+proto.vlsir.spice.TranInput.prototype.getCtrlsList = function() {
   return /** @type{!Array<!proto.vlsir.spice.Control>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.vlsir.spice.Control, 5));
 };
@@ -296,7 +296,7 @@ proto.vlsir.spice.TranInput.prototype.getCtrlList = function() {
  * @param {!Array<!proto.vlsir.spice.Control>} value
  * @return {!proto.vlsir.spice.TranInput} returns this
 */
-proto.vlsir.spice.TranInput.prototype.setCtrlList = function(value) {
+proto.vlsir.spice.TranInput.prototype.setCtrlsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
@@ -306,7 +306,7 @@ proto.vlsir.spice.TranInput.prototype.setCtrlList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.vlsir.spice.Control}
  */
-proto.vlsir.spice.TranInput.prototype.addCtrl = function(opt_value, opt_index) {
+proto.vlsir.spice.TranInput.prototype.addCtrls = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.vlsir.spice.Control, opt_index);
 };
 
@@ -315,8 +315,8 @@ proto.vlsir.spice.TranInput.prototype.addCtrl = function(opt_value, opt_index) {
  * Clears the list making it empty but non-null.
  * @return {!proto.vlsir.spice.TranInput} returns this
  */
-proto.vlsir.spice.TranInput.prototype.clearCtrlList = function() {
-  return this.setCtrlList([]);
+proto.vlsir.spice.TranInput.prototype.clearCtrlsList = function() {
+  return this.setCtrlsList([]);
 };
 
 

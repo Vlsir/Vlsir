@@ -375,12 +375,30 @@ class SimInput PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kOptsFieldNumber = 10,
     kAnFieldNumber = 11,
     kCtrlsFieldNumber = 12,
     kTopFieldNumber = 2,
     kPkgFieldNumber = 1,
-    kOptsFieldNumber = 10,
   };
+  // repeated .vlsir.spice.SimOptions opts = 10;
+  int opts_size() const;
+  private:
+  int _internal_opts_size() const;
+  public:
+  void clear_opts();
+  ::vlsir::spice::SimOptions* mutable_opts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::SimOptions >*
+      mutable_opts();
+  private:
+  const ::vlsir::spice::SimOptions& _internal_opts(int index) const;
+  ::vlsir::spice::SimOptions* _internal_add_opts();
+  public:
+  const ::vlsir::spice::SimOptions& opts(int index) const;
+  ::vlsir::spice::SimOptions* add_opts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::SimOptions >&
+      opts() const;
+
   // repeated .vlsir.spice.Analysis an = 11;
   int an_size() const;
   private:
@@ -460,24 +478,6 @@ class SimInput PROTOBUF_FINAL :
       ::vlsir::circuit::Package* pkg);
   ::vlsir::circuit::Package* unsafe_arena_release_pkg();
 
-  // .vlsir.spice.SimOptions opts = 10;
-  bool has_opts() const;
-  private:
-  bool _internal_has_opts() const;
-  public:
-  void clear_opts();
-  const ::vlsir::spice::SimOptions& opts() const;
-  ::vlsir::spice::SimOptions* release_opts();
-  ::vlsir::spice::SimOptions* mutable_opts();
-  void set_allocated_opts(::vlsir::spice::SimOptions* opts);
-  private:
-  const ::vlsir::spice::SimOptions& _internal_opts() const;
-  ::vlsir::spice::SimOptions* _internal_mutable_opts();
-  public:
-  void unsafe_arena_set_allocated_opts(
-      ::vlsir::spice::SimOptions* opts);
-  ::vlsir::spice::SimOptions* unsafe_arena_release_opts();
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.SimInput)
  private:
   class _Internal;
@@ -485,11 +485,11 @@ class SimInput PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::SimOptions > opts_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Analysis > an_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr top_;
   ::vlsir::circuit::Package* pkg_;
-  ::vlsir::spice::SimOptions* opts_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -760,95 +760,50 @@ class SimOptions PROTOBUF_FINAL :
     kIabstolFieldNumber = 4,
     kReltolFieldNumber = 5,
   };
-  // .google.protobuf.DoubleValue temp = 1;
-  bool has_temp() const;
-  private:
-  bool _internal_has_temp() const;
-  public:
+  // double temp = 1;
   void clear_temp();
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& temp() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* release_temp();
-  PROTOBUF_NAMESPACE_ID::DoubleValue* mutable_temp();
-  void set_allocated_temp(PROTOBUF_NAMESPACE_ID::DoubleValue* temp);
+  double temp() const;
+  void set_temp(double value);
   private:
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& _internal_temp() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* _internal_mutable_temp();
+  double _internal_temp() const;
+  void _internal_set_temp(double value);
   public:
-  void unsafe_arena_set_allocated_temp(
-      PROTOBUF_NAMESPACE_ID::DoubleValue* temp);
-  PROTOBUF_NAMESPACE_ID::DoubleValue* unsafe_arena_release_temp();
 
-  // .google.protobuf.DoubleValue tnom = 2;
-  bool has_tnom() const;
-  private:
-  bool _internal_has_tnom() const;
-  public:
+  // double tnom = 2;
   void clear_tnom();
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& tnom() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* release_tnom();
-  PROTOBUF_NAMESPACE_ID::DoubleValue* mutable_tnom();
-  void set_allocated_tnom(PROTOBUF_NAMESPACE_ID::DoubleValue* tnom);
+  double tnom() const;
+  void set_tnom(double value);
   private:
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& _internal_tnom() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* _internal_mutable_tnom();
+  double _internal_tnom() const;
+  void _internal_set_tnom(double value);
   public:
-  void unsafe_arena_set_allocated_tnom(
-      PROTOBUF_NAMESPACE_ID::DoubleValue* tnom);
-  PROTOBUF_NAMESPACE_ID::DoubleValue* unsafe_arena_release_tnom();
 
-  // .google.protobuf.DoubleValue gmin = 3;
-  bool has_gmin() const;
-  private:
-  bool _internal_has_gmin() const;
-  public:
+  // double gmin = 3;
   void clear_gmin();
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& gmin() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* release_gmin();
-  PROTOBUF_NAMESPACE_ID::DoubleValue* mutable_gmin();
-  void set_allocated_gmin(PROTOBUF_NAMESPACE_ID::DoubleValue* gmin);
+  double gmin() const;
+  void set_gmin(double value);
   private:
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& _internal_gmin() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* _internal_mutable_gmin();
+  double _internal_gmin() const;
+  void _internal_set_gmin(double value);
   public:
-  void unsafe_arena_set_allocated_gmin(
-      PROTOBUF_NAMESPACE_ID::DoubleValue* gmin);
-  PROTOBUF_NAMESPACE_ID::DoubleValue* unsafe_arena_release_gmin();
 
-  // .google.protobuf.DoubleValue iabstol = 4;
-  bool has_iabstol() const;
-  private:
-  bool _internal_has_iabstol() const;
-  public:
+  // double iabstol = 4;
   void clear_iabstol();
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& iabstol() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* release_iabstol();
-  PROTOBUF_NAMESPACE_ID::DoubleValue* mutable_iabstol();
-  void set_allocated_iabstol(PROTOBUF_NAMESPACE_ID::DoubleValue* iabstol);
+  double iabstol() const;
+  void set_iabstol(double value);
   private:
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& _internal_iabstol() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* _internal_mutable_iabstol();
+  double _internal_iabstol() const;
+  void _internal_set_iabstol(double value);
   public:
-  void unsafe_arena_set_allocated_iabstol(
-      PROTOBUF_NAMESPACE_ID::DoubleValue* iabstol);
-  PROTOBUF_NAMESPACE_ID::DoubleValue* unsafe_arena_release_iabstol();
 
-  // .google.protobuf.DoubleValue reltol = 5;
-  bool has_reltol() const;
-  private:
-  bool _internal_has_reltol() const;
-  public:
+  // double reltol = 5;
   void clear_reltol();
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& reltol() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* release_reltol();
-  PROTOBUF_NAMESPACE_ID::DoubleValue* mutable_reltol();
-  void set_allocated_reltol(PROTOBUF_NAMESPACE_ID::DoubleValue* reltol);
+  double reltol() const;
+  void set_reltol(double value);
   private:
-  const PROTOBUF_NAMESPACE_ID::DoubleValue& _internal_reltol() const;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* _internal_mutable_reltol();
+  double _internal_reltol() const;
+  void _internal_set_reltol(double value);
   public:
-  void unsafe_arena_set_allocated_reltol(
-      PROTOBUF_NAMESPACE_ID::DoubleValue* reltol);
-  PROTOBUF_NAMESPACE_ID::DoubleValue* unsafe_arena_release_reltol();
 
   // @@protoc_insertion_point(class_scope:vlsir.spice.SimOptions)
  private:
@@ -857,11 +812,11 @@ class SimOptions PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp_;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* tnom_;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* gmin_;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* iabstol_;
-  PROTOBUF_NAMESPACE_ID::DoubleValue* reltol_;
+  double temp_;
+  double tnom_;
+  double gmin_;
+  double iabstol_;
+  double reltol_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
 };
@@ -1568,26 +1523,26 @@ class OpInput PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCtrlFieldNumber = 5,
+    kCtrlsFieldNumber = 5,
     kAnalysisNameFieldNumber = 1,
   };
-  // repeated .vlsir.spice.Control ctrl = 5;
-  int ctrl_size() const;
+  // repeated .vlsir.spice.Control ctrls = 5;
+  int ctrls_size() const;
   private:
-  int _internal_ctrl_size() const;
+  int _internal_ctrls_size() const;
   public:
-  void clear_ctrl();
-  ::vlsir::spice::Control* mutable_ctrl(int index);
+  void clear_ctrls();
+  ::vlsir::spice::Control* mutable_ctrls(int index);
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-      mutable_ctrl();
+      mutable_ctrls();
   private:
-  const ::vlsir::spice::Control& _internal_ctrl(int index) const;
-  ::vlsir::spice::Control* _internal_add_ctrl();
+  const ::vlsir::spice::Control& _internal_ctrls(int index) const;
+  ::vlsir::spice::Control* _internal_add_ctrls();
   public:
-  const ::vlsir::spice::Control& ctrl(int index) const;
-  ::vlsir::spice::Control* add_ctrl();
+  const ::vlsir::spice::Control& ctrls(int index) const;
+  ::vlsir::spice::Control* add_ctrls();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-      ctrl() const;
+      ctrls() const;
 
   // string analysis_name = 1;
   void clear_analysis_name();
@@ -1621,7 +1576,7 @@ class OpInput PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrl_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_spice_2eproto;
@@ -1945,28 +1900,28 @@ class DcInput PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCtrlFieldNumber = 5,
+    kCtrlsFieldNumber = 5,
     kAnalysisNameFieldNumber = 1,
     kIndepNameFieldNumber = 2,
     kSweepFieldNumber = 3,
   };
-  // repeated .vlsir.spice.Control ctrl = 5;
-  int ctrl_size() const;
+  // repeated .vlsir.spice.Control ctrls = 5;
+  int ctrls_size() const;
   private:
-  int _internal_ctrl_size() const;
+  int _internal_ctrls_size() const;
   public:
-  void clear_ctrl();
-  ::vlsir::spice::Control* mutable_ctrl(int index);
+  void clear_ctrls();
+  ::vlsir::spice::Control* mutable_ctrls(int index);
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-      mutable_ctrl();
+      mutable_ctrls();
   private:
-  const ::vlsir::spice::Control& _internal_ctrl(int index) const;
-  ::vlsir::spice::Control* _internal_add_ctrl();
+  const ::vlsir::spice::Control& _internal_ctrls(int index) const;
+  ::vlsir::spice::Control* _internal_add_ctrls();
   public:
-  const ::vlsir::spice::Control& ctrl(int index) const;
-  ::vlsir::spice::Control* add_ctrl();
+  const ::vlsir::spice::Control& ctrls(int index) const;
+  ::vlsir::spice::Control* add_ctrls();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-      ctrl() const;
+      ctrls() const;
 
   // string analysis_name = 1;
   void clear_analysis_name();
@@ -2043,7 +1998,7 @@ class DcInput PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrl_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr indep_name_;
   ::vlsir::spice::Sweep* sweep_;
@@ -2487,7 +2442,7 @@ class TranInput PROTOBUF_FINAL :
 
   enum : int {
     kIcFieldNumber = 4,
-    kCtrlFieldNumber = 5,
+    kCtrlsFieldNumber = 5,
     kAnalysisNameFieldNumber = 1,
     kTstopFieldNumber = 2,
     kTstepFieldNumber = 3,
@@ -2509,23 +2464,23 @@ class TranInput PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::Map< std::string, double >*
       mutable_ic();
 
-  // repeated .vlsir.spice.Control ctrl = 5;
-  int ctrl_size() const;
+  // repeated .vlsir.spice.Control ctrls = 5;
+  int ctrls_size() const;
   private:
-  int _internal_ctrl_size() const;
+  int _internal_ctrls_size() const;
   public:
-  void clear_ctrl();
-  ::vlsir::spice::Control* mutable_ctrl(int index);
+  void clear_ctrls();
+  ::vlsir::spice::Control* mutable_ctrls(int index);
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-      mutable_ctrl();
+      mutable_ctrls();
   private:
-  const ::vlsir::spice::Control& _internal_ctrl(int index) const;
-  ::vlsir::spice::Control* _internal_add_ctrl();
+  const ::vlsir::spice::Control& _internal_ctrls(int index) const;
+  ::vlsir::spice::Control* _internal_add_ctrls();
   public:
-  const ::vlsir::spice::Control& ctrl(int index) const;
-  ::vlsir::spice::Control* add_ctrl();
+  const ::vlsir::spice::Control& ctrls(int index) const;
+  ::vlsir::spice::Control* add_ctrls();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-      ctrl() const;
+      ctrls() const;
 
   // string analysis_name = 1;
   void clear_analysis_name();
@@ -2583,7 +2538,7 @@ class TranInput PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_DOUBLE,
       0 > ic_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrl_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
   double tstop_;
   double tstep_;
@@ -3114,29 +3069,29 @@ class AcInput PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCtrlFieldNumber = 5,
+    kCtrlsFieldNumber = 5,
     kAnalysisNameFieldNumber = 1,
     kFstartFieldNumber = 2,
     kFstopFieldNumber = 3,
     kNptsFieldNumber = 4,
   };
-  // repeated .vlsir.spice.Control ctrl = 5;
-  int ctrl_size() const;
+  // repeated .vlsir.spice.Control ctrls = 5;
+  int ctrls_size() const;
   private:
-  int _internal_ctrl_size() const;
+  int _internal_ctrls_size() const;
   public:
-  void clear_ctrl();
-  ::vlsir::spice::Control* mutable_ctrl(int index);
+  void clear_ctrls();
+  ::vlsir::spice::Control* mutable_ctrls(int index);
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-      mutable_ctrl();
+      mutable_ctrls();
   private:
-  const ::vlsir::spice::Control& _internal_ctrl(int index) const;
-  ::vlsir::spice::Control* _internal_add_ctrl();
+  const ::vlsir::spice::Control& _internal_ctrls(int index) const;
+  ::vlsir::spice::Control* _internal_add_ctrls();
   public:
-  const ::vlsir::spice::Control& ctrl(int index) const;
-  ::vlsir::spice::Control* add_ctrl();
+  const ::vlsir::spice::Control& ctrls(int index) const;
+  ::vlsir::spice::Control* add_ctrls();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-      ctrl() const;
+      ctrls() const;
 
   // string analysis_name = 1;
   void clear_analysis_name();
@@ -3197,7 +3152,7 @@ class AcInput PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrl_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_name_;
   double fstart_;
   double fstop_;
@@ -6350,10 +6305,36 @@ class Meas PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNameFieldNumber = 1,
-    kExprFieldNumber = 2,
+    kAnalysisTypeFieldNumber = 1,
+    kNameFieldNumber = 2,
+    kExprFieldNumber = 3,
   };
-  // string name = 1;
+  // string analysis_type = 1;
+  void clear_analysis_type();
+  const std::string& analysis_type() const;
+  void set_analysis_type(const std::string& value);
+  void set_analysis_type(std::string&& value);
+  void set_analysis_type(const char* value);
+  void set_analysis_type(const char* value, size_t size);
+  std::string* mutable_analysis_type();
+  std::string* release_analysis_type();
+  void set_allocated_analysis_type(std::string* analysis_type);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_analysis_type();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_analysis_type(
+      std::string* analysis_type);
+  private:
+  const std::string& _internal_analysis_type() const;
+  void _internal_set_analysis_type(const std::string& value);
+  std::string* _internal_mutable_analysis_type();
+  public:
+
+  // string name = 2;
   void clear_name();
   const std::string& name() const;
   void set_name(const std::string& value);
@@ -6378,7 +6359,7 @@ class Meas PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // string expr = 2;
+  // string expr = 3;
   void clear_expr();
   const std::string& expr() const;
   void set_expr(const std::string& value);
@@ -6410,6 +6391,7 @@ class Meas PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr analysis_type_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr expr_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -6958,85 +6940,43 @@ inline void SimInput::unsafe_arena_set_allocated_top(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimInput.top)
 }
 
-// .vlsir.spice.SimOptions opts = 10;
-inline bool SimInput::_internal_has_opts() const {
-  return this != internal_default_instance() && opts_ != nullptr;
+// repeated .vlsir.spice.SimOptions opts = 10;
+inline int SimInput::_internal_opts_size() const {
+  return opts_.size();
 }
-inline bool SimInput::has_opts() const {
-  return _internal_has_opts();
+inline int SimInput::opts_size() const {
+  return _internal_opts_size();
 }
 inline void SimInput::clear_opts() {
-  if (GetArena() == nullptr && opts_ != nullptr) {
-    delete opts_;
-  }
-  opts_ = nullptr;
+  opts_.Clear();
 }
-inline const ::vlsir::spice::SimOptions& SimInput::_internal_opts() const {
-  const ::vlsir::spice::SimOptions* p = opts_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::vlsir::spice::SimOptions*>(
-      &::vlsir::spice::_SimOptions_default_instance_);
-}
-inline const ::vlsir::spice::SimOptions& SimInput::opts() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.SimInput.opts)
-  return _internal_opts();
-}
-inline void SimInput::unsafe_arena_set_allocated_opts(
-    ::vlsir::spice::SimOptions* opts) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(opts_);
-  }
-  opts_ = opts;
-  if (opts) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimInput.opts)
-}
-inline ::vlsir::spice::SimOptions* SimInput::release_opts() {
-  auto temp = unsafe_arena_release_opts();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline ::vlsir::spice::SimOptions* SimInput::unsafe_arena_release_opts() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimInput.opts)
-  
-  ::vlsir::spice::SimOptions* temp = opts_;
-  opts_ = nullptr;
-  return temp;
-}
-inline ::vlsir::spice::SimOptions* SimInput::_internal_mutable_opts() {
-  
-  if (opts_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::spice::SimOptions>(GetArena());
-    opts_ = p;
-  }
-  return opts_;
-}
-inline ::vlsir::spice::SimOptions* SimInput::mutable_opts() {
+inline ::vlsir::spice::SimOptions* SimInput::mutable_opts(int index) {
   // @@protoc_insertion_point(field_mutable:vlsir.spice.SimInput.opts)
-  return _internal_mutable_opts();
+  return opts_.Mutable(index);
 }
-inline void SimInput::set_allocated_opts(::vlsir::spice::SimOptions* opts) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete opts_;
-  }
-  if (opts) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(opts);
-    if (message_arena != submessage_arena) {
-      opts = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, opts, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  opts_ = opts;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimInput.opts)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::SimOptions >*
+SimInput::mutable_opts() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.SimInput.opts)
+  return &opts_;
+}
+inline const ::vlsir::spice::SimOptions& SimInput::_internal_opts(int index) const {
+  return opts_.Get(index);
+}
+inline const ::vlsir::spice::SimOptions& SimInput::opts(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.SimInput.opts)
+  return _internal_opts(index);
+}
+inline ::vlsir::spice::SimOptions* SimInput::_internal_add_opts() {
+  return opts_.Add();
+}
+inline ::vlsir::spice::SimOptions* SimInput::add_opts() {
+  // @@protoc_insertion_point(field_add:vlsir.spice.SimInput.opts)
+  return _internal_add_opts();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::SimOptions >&
+SimInput::opts() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.SimInput.opts)
+  return opts_;
 }
 
 // repeated .vlsir.spice.Analysis an = 11;
@@ -7164,379 +7104,104 @@ SimResult::an() const {
 
 // SimOptions
 
-// .google.protobuf.DoubleValue temp = 1;
-inline bool SimOptions::_internal_has_temp() const {
-  return this != internal_default_instance() && temp_ != nullptr;
+// double temp = 1;
+inline void SimOptions::clear_temp() {
+  temp_ = 0;
 }
-inline bool SimOptions::has_temp() const {
-  return _internal_has_temp();
+inline double SimOptions::_internal_temp() const {
+  return temp_;
 }
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::_internal_temp() const {
-  const PROTOBUF_NAMESPACE_ID::DoubleValue* p = temp_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::DoubleValue*>(
-      &PROTOBUF_NAMESPACE_ID::_DoubleValue_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::temp() const {
+inline double SimOptions::temp() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.SimOptions.temp)
   return _internal_temp();
 }
-inline void SimOptions::unsafe_arena_set_allocated_temp(
-    PROTOBUF_NAMESPACE_ID::DoubleValue* temp) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp_);
-  }
-  temp_ = temp;
-  if (temp) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimOptions.temp)
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::release_temp() {
-  auto temp = unsafe_arena_release_temp();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::unsafe_arena_release_temp() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimOptions.temp)
+inline void SimOptions::_internal_set_temp(double value) {
   
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp = temp_;
-  temp_ = nullptr;
-  return temp;
+  temp_ = value;
 }
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::_internal_mutable_temp() {
-  
-  if (temp_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::DoubleValue>(GetArena());
-    temp_ = p;
-  }
-  return temp_;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::mutable_temp() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimOptions.temp)
-  return _internal_mutable_temp();
-}
-inline void SimOptions::set_allocated_temp(PROTOBUF_NAMESPACE_ID::DoubleValue* temp) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp_);
-  }
-  if (temp) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp)->GetArena();
-    if (message_arena != submessage_arena) {
-      temp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, temp, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  temp_ = temp;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.temp)
+inline void SimOptions::set_temp(double value) {
+  _internal_set_temp(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimOptions.temp)
 }
 
-// .google.protobuf.DoubleValue tnom = 2;
-inline bool SimOptions::_internal_has_tnom() const {
-  return this != internal_default_instance() && tnom_ != nullptr;
+// double tnom = 2;
+inline void SimOptions::clear_tnom() {
+  tnom_ = 0;
 }
-inline bool SimOptions::has_tnom() const {
-  return _internal_has_tnom();
+inline double SimOptions::_internal_tnom() const {
+  return tnom_;
 }
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::_internal_tnom() const {
-  const PROTOBUF_NAMESPACE_ID::DoubleValue* p = tnom_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::DoubleValue*>(
-      &PROTOBUF_NAMESPACE_ID::_DoubleValue_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::tnom() const {
+inline double SimOptions::tnom() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.SimOptions.tnom)
   return _internal_tnom();
 }
-inline void SimOptions::unsafe_arena_set_allocated_tnom(
-    PROTOBUF_NAMESPACE_ID::DoubleValue* tnom) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tnom_);
-  }
-  tnom_ = tnom;
-  if (tnom) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimOptions.tnom)
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::release_tnom() {
-  auto temp = unsafe_arena_release_tnom();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::unsafe_arena_release_tnom() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimOptions.tnom)
+inline void SimOptions::_internal_set_tnom(double value) {
   
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp = tnom_;
-  tnom_ = nullptr;
-  return temp;
+  tnom_ = value;
 }
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::_internal_mutable_tnom() {
-  
-  if (tnom_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::DoubleValue>(GetArena());
-    tnom_ = p;
-  }
-  return tnom_;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::mutable_tnom() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimOptions.tnom)
-  return _internal_mutable_tnom();
-}
-inline void SimOptions::set_allocated_tnom(PROTOBUF_NAMESPACE_ID::DoubleValue* tnom) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(tnom_);
-  }
-  if (tnom) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tnom)->GetArena();
-    if (message_arena != submessage_arena) {
-      tnom = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, tnom, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  tnom_ = tnom;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.tnom)
+inline void SimOptions::set_tnom(double value) {
+  _internal_set_tnom(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimOptions.tnom)
 }
 
-// .google.protobuf.DoubleValue gmin = 3;
-inline bool SimOptions::_internal_has_gmin() const {
-  return this != internal_default_instance() && gmin_ != nullptr;
+// double gmin = 3;
+inline void SimOptions::clear_gmin() {
+  gmin_ = 0;
 }
-inline bool SimOptions::has_gmin() const {
-  return _internal_has_gmin();
+inline double SimOptions::_internal_gmin() const {
+  return gmin_;
 }
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::_internal_gmin() const {
-  const PROTOBUF_NAMESPACE_ID::DoubleValue* p = gmin_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::DoubleValue*>(
-      &PROTOBUF_NAMESPACE_ID::_DoubleValue_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::gmin() const {
+inline double SimOptions::gmin() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.SimOptions.gmin)
   return _internal_gmin();
 }
-inline void SimOptions::unsafe_arena_set_allocated_gmin(
-    PROTOBUF_NAMESPACE_ID::DoubleValue* gmin) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(gmin_);
-  }
-  gmin_ = gmin;
-  if (gmin) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimOptions.gmin)
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::release_gmin() {
-  auto temp = unsafe_arena_release_gmin();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::unsafe_arena_release_gmin() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimOptions.gmin)
+inline void SimOptions::_internal_set_gmin(double value) {
   
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp = gmin_;
-  gmin_ = nullptr;
-  return temp;
+  gmin_ = value;
 }
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::_internal_mutable_gmin() {
-  
-  if (gmin_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::DoubleValue>(GetArena());
-    gmin_ = p;
-  }
-  return gmin_;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::mutable_gmin() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimOptions.gmin)
-  return _internal_mutable_gmin();
-}
-inline void SimOptions::set_allocated_gmin(PROTOBUF_NAMESPACE_ID::DoubleValue* gmin) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(gmin_);
-  }
-  if (gmin) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(gmin)->GetArena();
-    if (message_arena != submessage_arena) {
-      gmin = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, gmin, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  gmin_ = gmin;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.gmin)
+inline void SimOptions::set_gmin(double value) {
+  _internal_set_gmin(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimOptions.gmin)
 }
 
-// .google.protobuf.DoubleValue iabstol = 4;
-inline bool SimOptions::_internal_has_iabstol() const {
-  return this != internal_default_instance() && iabstol_ != nullptr;
+// double iabstol = 4;
+inline void SimOptions::clear_iabstol() {
+  iabstol_ = 0;
 }
-inline bool SimOptions::has_iabstol() const {
-  return _internal_has_iabstol();
+inline double SimOptions::_internal_iabstol() const {
+  return iabstol_;
 }
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::_internal_iabstol() const {
-  const PROTOBUF_NAMESPACE_ID::DoubleValue* p = iabstol_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::DoubleValue*>(
-      &PROTOBUF_NAMESPACE_ID::_DoubleValue_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::iabstol() const {
+inline double SimOptions::iabstol() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.SimOptions.iabstol)
   return _internal_iabstol();
 }
-inline void SimOptions::unsafe_arena_set_allocated_iabstol(
-    PROTOBUF_NAMESPACE_ID::DoubleValue* iabstol) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(iabstol_);
-  }
-  iabstol_ = iabstol;
-  if (iabstol) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimOptions.iabstol)
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::release_iabstol() {
-  auto temp = unsafe_arena_release_iabstol();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::unsafe_arena_release_iabstol() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimOptions.iabstol)
+inline void SimOptions::_internal_set_iabstol(double value) {
   
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp = iabstol_;
-  iabstol_ = nullptr;
-  return temp;
+  iabstol_ = value;
 }
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::_internal_mutable_iabstol() {
-  
-  if (iabstol_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::DoubleValue>(GetArena());
-    iabstol_ = p;
-  }
-  return iabstol_;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::mutable_iabstol() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimOptions.iabstol)
-  return _internal_mutable_iabstol();
-}
-inline void SimOptions::set_allocated_iabstol(PROTOBUF_NAMESPACE_ID::DoubleValue* iabstol) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(iabstol_);
-  }
-  if (iabstol) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(iabstol)->GetArena();
-    if (message_arena != submessage_arena) {
-      iabstol = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, iabstol, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  iabstol_ = iabstol;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.iabstol)
+inline void SimOptions::set_iabstol(double value) {
+  _internal_set_iabstol(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimOptions.iabstol)
 }
 
-// .google.protobuf.DoubleValue reltol = 5;
-inline bool SimOptions::_internal_has_reltol() const {
-  return this != internal_default_instance() && reltol_ != nullptr;
+// double reltol = 5;
+inline void SimOptions::clear_reltol() {
+  reltol_ = 0;
 }
-inline bool SimOptions::has_reltol() const {
-  return _internal_has_reltol();
+inline double SimOptions::_internal_reltol() const {
+  return reltol_;
 }
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::_internal_reltol() const {
-  const PROTOBUF_NAMESPACE_ID::DoubleValue* p = reltol_;
-  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::DoubleValue*>(
-      &PROTOBUF_NAMESPACE_ID::_DoubleValue_default_instance_);
-}
-inline const PROTOBUF_NAMESPACE_ID::DoubleValue& SimOptions::reltol() const {
+inline double SimOptions::reltol() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.SimOptions.reltol)
   return _internal_reltol();
 }
-inline void SimOptions::unsafe_arena_set_allocated_reltol(
-    PROTOBUF_NAMESPACE_ID::DoubleValue* reltol) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(reltol_);
-  }
-  reltol_ = reltol;
-  if (reltol) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.SimOptions.reltol)
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::release_reltol() {
-  auto temp = unsafe_arena_release_reltol();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::unsafe_arena_release_reltol() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.SimOptions.reltol)
+inline void SimOptions::_internal_set_reltol(double value) {
   
-  PROTOBUF_NAMESPACE_ID::DoubleValue* temp = reltol_;
-  reltol_ = nullptr;
-  return temp;
+  reltol_ = value;
 }
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::_internal_mutable_reltol() {
-  
-  if (reltol_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::DoubleValue>(GetArena());
-    reltol_ = p;
-  }
-  return reltol_;
-}
-inline PROTOBUF_NAMESPACE_ID::DoubleValue* SimOptions::mutable_reltol() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.SimOptions.reltol)
-  return _internal_mutable_reltol();
-}
-inline void SimOptions::set_allocated_reltol(PROTOBUF_NAMESPACE_ID::DoubleValue* reltol) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(reltol_);
-  }
-  if (reltol) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(reltol)->GetArena();
-    if (message_arena != submessage_arena) {
-      reltol = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, reltol, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  reltol_ = reltol;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.SimOptions.reltol)
+inline void SimOptions::set_reltol(double value) {
+  _internal_set_reltol(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.SimOptions.reltol)
 }
 
 // -------------------------------------------------------------------
@@ -8672,43 +8337,43 @@ inline void OpInput::unsafe_arena_set_allocated_analysis_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.OpInput.analysis_name)
 }
 
-// repeated .vlsir.spice.Control ctrl = 5;
-inline int OpInput::_internal_ctrl_size() const {
-  return ctrl_.size();
+// repeated .vlsir.spice.Control ctrls = 5;
+inline int OpInput::_internal_ctrls_size() const {
+  return ctrls_.size();
 }
-inline int OpInput::ctrl_size() const {
-  return _internal_ctrl_size();
+inline int OpInput::ctrls_size() const {
+  return _internal_ctrls_size();
 }
-inline void OpInput::clear_ctrl() {
-  ctrl_.Clear();
+inline void OpInput::clear_ctrls() {
+  ctrls_.Clear();
 }
-inline ::vlsir::spice::Control* OpInput::mutable_ctrl(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpInput.ctrl)
-  return ctrl_.Mutable(index);
+inline ::vlsir::spice::Control* OpInput::mutable_ctrls(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpInput.ctrls)
+  return ctrls_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-OpInput::mutable_ctrl() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.OpInput.ctrl)
-  return &ctrl_;
+OpInput::mutable_ctrls() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.OpInput.ctrls)
+  return &ctrls_;
 }
-inline const ::vlsir::spice::Control& OpInput::_internal_ctrl(int index) const {
-  return ctrl_.Get(index);
+inline const ::vlsir::spice::Control& OpInput::_internal_ctrls(int index) const {
+  return ctrls_.Get(index);
 }
-inline const ::vlsir::spice::Control& OpInput::ctrl(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.OpInput.ctrl)
-  return _internal_ctrl(index);
+inline const ::vlsir::spice::Control& OpInput::ctrls(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.OpInput.ctrls)
+  return _internal_ctrls(index);
 }
-inline ::vlsir::spice::Control* OpInput::_internal_add_ctrl() {
-  return ctrl_.Add();
+inline ::vlsir::spice::Control* OpInput::_internal_add_ctrls() {
+  return ctrls_.Add();
 }
-inline ::vlsir::spice::Control* OpInput::add_ctrl() {
-  // @@protoc_insertion_point(field_add:vlsir.spice.OpInput.ctrl)
-  return _internal_add_ctrl();
+inline ::vlsir::spice::Control* OpInput::add_ctrls() {
+  // @@protoc_insertion_point(field_add:vlsir.spice.OpInput.ctrls)
+  return _internal_add_ctrls();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-OpInput::ctrl() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.OpInput.ctrl)
-  return ctrl_;
+OpInput::ctrls() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.OpInput.ctrls)
+  return ctrls_;
 }
 
 // -------------------------------------------------------------------
@@ -9164,43 +8829,43 @@ inline void DcInput::set_allocated_sweep(::vlsir::spice::Sweep* sweep) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.DcInput.sweep)
 }
 
-// repeated .vlsir.spice.Control ctrl = 5;
-inline int DcInput::_internal_ctrl_size() const {
-  return ctrl_.size();
+// repeated .vlsir.spice.Control ctrls = 5;
+inline int DcInput::_internal_ctrls_size() const {
+  return ctrls_.size();
 }
-inline int DcInput::ctrl_size() const {
-  return _internal_ctrl_size();
+inline int DcInput::ctrls_size() const {
+  return _internal_ctrls_size();
 }
-inline void DcInput::clear_ctrl() {
-  ctrl_.Clear();
+inline void DcInput::clear_ctrls() {
+  ctrls_.Clear();
 }
-inline ::vlsir::spice::Control* DcInput::mutable_ctrl(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.DcInput.ctrl)
-  return ctrl_.Mutable(index);
+inline ::vlsir::spice::Control* DcInput::mutable_ctrls(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.DcInput.ctrls)
+  return ctrls_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-DcInput::mutable_ctrl() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.DcInput.ctrl)
-  return &ctrl_;
+DcInput::mutable_ctrls() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.DcInput.ctrls)
+  return &ctrls_;
 }
-inline const ::vlsir::spice::Control& DcInput::_internal_ctrl(int index) const {
-  return ctrl_.Get(index);
+inline const ::vlsir::spice::Control& DcInput::_internal_ctrls(int index) const {
+  return ctrls_.Get(index);
 }
-inline const ::vlsir::spice::Control& DcInput::ctrl(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.DcInput.ctrl)
-  return _internal_ctrl(index);
+inline const ::vlsir::spice::Control& DcInput::ctrls(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.DcInput.ctrls)
+  return _internal_ctrls(index);
 }
-inline ::vlsir::spice::Control* DcInput::_internal_add_ctrl() {
-  return ctrl_.Add();
+inline ::vlsir::spice::Control* DcInput::_internal_add_ctrls() {
+  return ctrls_.Add();
 }
-inline ::vlsir::spice::Control* DcInput::add_ctrl() {
-  // @@protoc_insertion_point(field_add:vlsir.spice.DcInput.ctrl)
-  return _internal_add_ctrl();
+inline ::vlsir::spice::Control* DcInput::add_ctrls() {
+  // @@protoc_insertion_point(field_add:vlsir.spice.DcInput.ctrls)
+  return _internal_add_ctrls();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-DcInput::ctrl() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.DcInput.ctrl)
-  return ctrl_;
+DcInput::ctrls() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.DcInput.ctrls)
+  return ctrls_;
 }
 
 // -------------------------------------------------------------------
@@ -9677,43 +9342,43 @@ TranInput::mutable_ic() {
   return _internal_mutable_ic();
 }
 
-// repeated .vlsir.spice.Control ctrl = 5;
-inline int TranInput::_internal_ctrl_size() const {
-  return ctrl_.size();
+// repeated .vlsir.spice.Control ctrls = 5;
+inline int TranInput::_internal_ctrls_size() const {
+  return ctrls_.size();
 }
-inline int TranInput::ctrl_size() const {
-  return _internal_ctrl_size();
+inline int TranInput::ctrls_size() const {
+  return _internal_ctrls_size();
 }
-inline void TranInput::clear_ctrl() {
-  ctrl_.Clear();
+inline void TranInput::clear_ctrls() {
+  ctrls_.Clear();
 }
-inline ::vlsir::spice::Control* TranInput::mutable_ctrl(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.TranInput.ctrl)
-  return ctrl_.Mutable(index);
+inline ::vlsir::spice::Control* TranInput::mutable_ctrls(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.TranInput.ctrls)
+  return ctrls_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-TranInput::mutable_ctrl() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.TranInput.ctrl)
-  return &ctrl_;
+TranInput::mutable_ctrls() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.TranInput.ctrls)
+  return &ctrls_;
 }
-inline const ::vlsir::spice::Control& TranInput::_internal_ctrl(int index) const {
-  return ctrl_.Get(index);
+inline const ::vlsir::spice::Control& TranInput::_internal_ctrls(int index) const {
+  return ctrls_.Get(index);
 }
-inline const ::vlsir::spice::Control& TranInput::ctrl(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.TranInput.ctrl)
-  return _internal_ctrl(index);
+inline const ::vlsir::spice::Control& TranInput::ctrls(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.TranInput.ctrls)
+  return _internal_ctrls(index);
 }
-inline ::vlsir::spice::Control* TranInput::_internal_add_ctrl() {
-  return ctrl_.Add();
+inline ::vlsir::spice::Control* TranInput::_internal_add_ctrls() {
+  return ctrls_.Add();
 }
-inline ::vlsir::spice::Control* TranInput::add_ctrl() {
-  // @@protoc_insertion_point(field_add:vlsir.spice.TranInput.ctrl)
-  return _internal_add_ctrl();
+inline ::vlsir::spice::Control* TranInput::add_ctrls() {
+  // @@protoc_insertion_point(field_add:vlsir.spice.TranInput.ctrls)
+  return _internal_add_ctrls();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-TranInput::ctrl() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.TranInput.ctrl)
-  return ctrl_;
+TranInput::ctrls() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.TranInput.ctrls)
+  return ctrls_;
 }
 
 // -------------------------------------------------------------------
@@ -10142,43 +9807,43 @@ inline void AcInput::set_npts(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   // @@protoc_insertion_point(field_set:vlsir.spice.AcInput.npts)
 }
 
-// repeated .vlsir.spice.Control ctrl = 5;
-inline int AcInput::_internal_ctrl_size() const {
-  return ctrl_.size();
+// repeated .vlsir.spice.Control ctrls = 5;
+inline int AcInput::_internal_ctrls_size() const {
+  return ctrls_.size();
 }
-inline int AcInput::ctrl_size() const {
-  return _internal_ctrl_size();
+inline int AcInput::ctrls_size() const {
+  return _internal_ctrls_size();
 }
-inline void AcInput::clear_ctrl() {
-  ctrl_.Clear();
+inline void AcInput::clear_ctrls() {
+  ctrls_.Clear();
 }
-inline ::vlsir::spice::Control* AcInput::mutable_ctrl(int index) {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.AcInput.ctrl)
-  return ctrl_.Mutable(index);
+inline ::vlsir::spice::Control* AcInput::mutable_ctrls(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.AcInput.ctrls)
+  return ctrls_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >*
-AcInput::mutable_ctrl() {
-  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.AcInput.ctrl)
-  return &ctrl_;
+AcInput::mutable_ctrls() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.spice.AcInput.ctrls)
+  return &ctrls_;
 }
-inline const ::vlsir::spice::Control& AcInput::_internal_ctrl(int index) const {
-  return ctrl_.Get(index);
+inline const ::vlsir::spice::Control& AcInput::_internal_ctrls(int index) const {
+  return ctrls_.Get(index);
 }
-inline const ::vlsir::spice::Control& AcInput::ctrl(int index) const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.AcInput.ctrl)
-  return _internal_ctrl(index);
+inline const ::vlsir::spice::Control& AcInput::ctrls(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.AcInput.ctrls)
+  return _internal_ctrls(index);
 }
-inline ::vlsir::spice::Control* AcInput::_internal_add_ctrl() {
-  return ctrl_.Add();
+inline ::vlsir::spice::Control* AcInput::_internal_add_ctrls() {
+  return ctrls_.Add();
 }
-inline ::vlsir::spice::Control* AcInput::add_ctrl() {
-  // @@protoc_insertion_point(field_add:vlsir.spice.AcInput.ctrl)
-  return _internal_add_ctrl();
+inline ::vlsir::spice::Control* AcInput::add_ctrls() {
+  // @@protoc_insertion_point(field_add:vlsir.spice.AcInput.ctrls)
+  return _internal_add_ctrls();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::spice::Control >&
-AcInput::ctrl() const {
-  // @@protoc_insertion_point(field_list:vlsir.spice.AcInput.ctrl)
-  return ctrl_;
+AcInput::ctrls() const {
+  // @@protoc_insertion_point(field_list:vlsir.spice.AcInput.ctrls)
+  return ctrls_;
 }
 
 // -------------------------------------------------------------------
@@ -13148,7 +12813,88 @@ inline void LibInclude::unsafe_arena_set_allocated_section(
 
 // Meas
 
-// string name = 1;
+// string analysis_type = 1;
+inline void Meas::clear_analysis_type() {
+  analysis_type_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& Meas::analysis_type() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.Meas.analysis_type)
+  return _internal_analysis_type();
+}
+inline void Meas::set_analysis_type(const std::string& value) {
+  _internal_set_analysis_type(value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.Meas.analysis_type)
+}
+inline std::string* Meas::mutable_analysis_type() {
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.Meas.analysis_type)
+  return _internal_mutable_analysis_type();
+}
+inline const std::string& Meas::_internal_analysis_type() const {
+  return analysis_type_.Get();
+}
+inline void Meas::_internal_set_analysis_type(const std::string& value) {
+  
+  analysis_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void Meas::set_analysis_type(std::string&& value) {
+  
+  analysis_type_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:vlsir.spice.Meas.analysis_type)
+}
+inline void Meas::set_analysis_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  analysis_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.Meas.analysis_type)
+}
+inline void Meas::set_analysis_type(const char* value,
+    size_t size) {
+  
+  analysis_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.Meas.analysis_type)
+}
+inline std::string* Meas::_internal_mutable_analysis_type() {
+  
+  return analysis_type_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* Meas::release_analysis_type() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.Meas.analysis_type)
+  return analysis_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Meas::set_allocated_analysis_type(std::string* analysis_type) {
+  if (analysis_type != nullptr) {
+    
+  } else {
+    
+  }
+  analysis_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), analysis_type,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Meas.analysis_type)
+}
+inline std::string* Meas::unsafe_arena_release_analysis_type() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Meas.analysis_type)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return analysis_type_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void Meas::unsafe_arena_set_allocated_analysis_type(
+    std::string* analysis_type) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (analysis_type != nullptr) {
+    
+  } else {
+    
+  }
+  analysis_type_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      analysis_type, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Meas.analysis_type)
+}
+
+// string name = 2;
 inline void Meas::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
@@ -13229,7 +12975,7 @@ inline void Meas::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Meas.name)
 }
 
-// string expr = 2;
+// string expr = 3;
 inline void Meas::clear_expr() {
   expr_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
