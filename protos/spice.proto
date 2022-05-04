@@ -392,7 +392,7 @@ message LinearSweep {
 message LogSweep {
   double start = 1;
   double stop = 2;
-  double npts = 3;
+  double npts = 3; // FIXME: move to int
 }
 // # Enumerated (List of Points) Sweep 
 message PointSweep {
@@ -412,6 +412,7 @@ message Control {
     LibInclude lib = 2;
     Save save = 5;
     Meas meas = 6;
+    Param param = 7;
     string literal = 10;
   }
 }
@@ -451,6 +452,13 @@ message Meas {
   string name = 1;
   // Expression to be evaluated
   string expr = 2;
+}
+// # Parameter Declaration 
+message Param {
+  // Parameter name
+  string name = 1;
+  // Parameter value, or default value to be over-ridden
+  string val = 2; // FIXME: some richer types
 }
 
 
