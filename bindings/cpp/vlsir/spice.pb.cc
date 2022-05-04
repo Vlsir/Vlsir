@@ -22,7 +22,7 @@ extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal:
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<7> scc_info_Analysis_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<6> scc_info_AnalysisResult_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ComplexNum_spice_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Control_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<5> scc_info_Control_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_CustomAnalysisInput_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CustomAnalysisResult_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_DcInput_spice_2eproto;
@@ -35,6 +35,7 @@ extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal:
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Meas_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_OpInput_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Param_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PointSweep_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Save_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SimOptions_spice_2eproto;
@@ -181,6 +182,7 @@ class ControlDefaultTypeInternal {
   const ::vlsir::spice::LibInclude* lib_;
   const ::vlsir::spice::Save* save_;
   const ::vlsir::spice::Meas* meas_;
+  const ::vlsir::spice::Param* param_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
 } _Control_default_instance_;
 class SaveDefaultTypeInternal {
@@ -201,6 +203,10 @@ class MeasDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Meas> _instance;
 } _Meas_default_instance_;
+class ParamDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Param> _instance;
+} _Param_default_instance_;
 class SignalDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Signal> _instance;
@@ -341,12 +347,13 @@ static void InitDefaultsscc_info_Control_spice_2eproto() {
   ::vlsir::spice::Control::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Control_spice_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_Control_spice_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<5> scc_info_Control_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 5, 0, InitDefaultsscc_info_Control_spice_2eproto}, {
       &scc_info_Include_spice_2eproto.base,
       &scc_info_LibInclude_spice_2eproto.base,
       &scc_info_Save_spice_2eproto.base,
-      &scc_info_Meas_spice_2eproto.base,}};
+      &scc_info_Meas_spice_2eproto.base,
+      &scc_info_Param_spice_2eproto.base,}};
 
 static void InitDefaultsscc_info_CustomAnalysisInput_spice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -520,6 +527,20 @@ static void InitDefaultsscc_info_OpResult_spice_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_OpResult_spice_2eproto}, {}};
 
+static void InitDefaultsscc_info_Param_spice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::vlsir::spice::_Param_default_instance_;
+    new (ptr) ::vlsir::spice::Param();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::vlsir::spice::Param::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Param_spice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Param_spice_2eproto}, {}};
+
 static void InitDefaultsscc_info_PointSweep_spice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -684,7 +705,7 @@ static void InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2ep
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[34];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[35];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_spice_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spice_2eproto = nullptr;
 
@@ -950,6 +971,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   offsetof(::vlsir::spice::ControlDefaultTypeInternal, lib_),
   offsetof(::vlsir::spice::ControlDefaultTypeInternal, save_),
   offsetof(::vlsir::spice::ControlDefaultTypeInternal, meas_),
+  offsetof(::vlsir::spice::ControlDefaultTypeInternal, param_),
   offsetof(::vlsir::spice::ControlDefaultTypeInternal, literal_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Control, ctrl_),
   ~0u,  // no _has_bits_
@@ -980,6 +1002,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Meas, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Meas, expr_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, name_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, val_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signal, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1018,11 +1047,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 236, -1, sizeof(::vlsir::spice::LogSweep)},
   { 244, -1, sizeof(::vlsir::spice::PointSweep)},
   { 252, -1, sizeof(::vlsir::spice::Control)},
-  { 263, -1, sizeof(::vlsir::spice::Save)},
-  { 271, -1, sizeof(::vlsir::spice::Include)},
-  { 277, -1, sizeof(::vlsir::spice::LibInclude)},
-  { 284, -1, sizeof(::vlsir::spice::Meas)},
-  { 291, -1, sizeof(::vlsir::spice::Signal)},
+  { 264, -1, sizeof(::vlsir::spice::Save)},
+  { 272, -1, sizeof(::vlsir::spice::Include)},
+  { 278, -1, sizeof(::vlsir::spice::LibInclude)},
+  { 285, -1, sizeof(::vlsir::spice::Meas)},
+  { 292, -1, sizeof(::vlsir::spice::Param)},
+  { 299, -1, sizeof(::vlsir::spice::Signal)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1059,6 +1089,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Include_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_LibInclude_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Meas_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Param_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Signal_default_instance_),
 };
 
@@ -1148,28 +1179,29 @@ const char descriptor_table_protodef_spice_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   " \001(\001\022\014\n\004step\030\003 \001(\001\"5\n\010LogSweep\022\r\n\005start\030"
   "\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPoi"
   "ntSweep\022\016\n\006points\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n"
-  "\004npts\030\003 \001(\001\"\273\001\n\007Control\022\'\n\007include\030\001 \001(\013"
+  "\004npts\030\003 \001(\001\"\340\001\n\007Control\022\'\n\007include\030\001 \001(\013"
   "2\024.vlsir.spice.IncludeH\000\022&\n\003lib\030\002 \001(\0132\027."
   "vlsir.spice.LibIncludeH\000\022!\n\004save\030\005 \001(\0132\021"
   ".vlsir.spice.SaveH\000\022!\n\004meas\030\006 \001(\0132\021.vlsi"
-  "r.spice.MeasH\000\022\021\n\007literal\030\n \001(\tH\000B\006\n\004ctr"
-  "l\"k\n\004Save\022*\n\004mode\030\001 \001(\0162\032.vlsir.spice.Sa"
-  "ve.SaveModeH\000\022\020\n\006signal\030\002 \001(\tH\000\"\035\n\010SaveM"
-  "ode\022\010\n\004NONE\020\000\022\007\n\003ALL\020\001B\006\n\004save\"\027\n\007Includ"
-  "e\022\014\n\004path\030\001 \001(\t\"+\n\nLibInclude\022\014\n\004path\030\001 "
-  "\001(\t\022\017\n\007section\030\002 \001(\t\"\"\n\004Meas\022\014\n\004name\030\001 \001"
-  "(\t\022\014\n\004expr\030\002 \001(\t\"v\n\006Signal\022\014\n\004name\030\001 \001(\t"
-  "\022.\n\010quantity\030\002 \001(\0162\034.vlsir.spice.Signal."
-  "Quantity\".\n\010Quantity\022\013\n\007VOLTAGE\020\000\022\013\n\007CUR"
-  "RENT\020\001\022\010\n\004NONE\020\0032=\n\005Spice\0224\n\003Sim\022\025.vlsir"
-  ".spice.SimInput\032\026.vlsir.spice.SimResultb"
-  "\006proto3"
+  "r.spice.MeasH\000\022#\n\005param\030\007 \001(\0132\022.vlsir.sp"
+  "ice.ParamH\000\022\021\n\007literal\030\n \001(\tH\000B\006\n\004ctrl\"k"
+  "\n\004Save\022*\n\004mode\030\001 \001(\0162\032.vlsir.spice.Save."
+  "SaveModeH\000\022\020\n\006signal\030\002 \001(\tH\000\"\035\n\010SaveMode"
+  "\022\010\n\004NONE\020\000\022\007\n\003ALL\020\001B\006\n\004save\"\027\n\007Include\022\014"
+  "\n\004path\030\001 \001(\t\"+\n\nLibInclude\022\014\n\004path\030\001 \001(\t"
+  "\022\017\n\007section\030\002 \001(\t\"\"\n\004Meas\022\014\n\004name\030\001 \001(\t\022"
+  "\014\n\004expr\030\002 \001(\t\"\"\n\005Param\022\014\n\004name\030\001 \001(\t\022\013\n\003"
+  "val\030\002 \001(\t\"v\n\006Signal\022\014\n\004name\030\001 \001(\t\022.\n\010qua"
+  "ntity\030\002 \001(\0162\034.vlsir.spice.Signal.Quantit"
+  "y\".\n\010Quantity\022\013\n\007VOLTAGE\020\000\022\013\n\007CURRENT\020\001\022"
+  "\010\n\004NONE\020\0032=\n\005Spice\0224\n\003Sim\022\025.vlsir.spice."
+  "SimInput\032\026.vlsir.spice.SimResultb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spice_2eproto_deps[2] = {
   &::descriptor_table_circuit_2eproto,
   &::descriptor_table_google_2fprotobuf_2fwrappers_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spice_2eproto_sccs[30] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spice_2eproto_sccs[31] = {
   &scc_info_AcInput_spice_2eproto.base,
   &scc_info_AcResult_spice_2eproto.base,
   &scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,
@@ -1189,6 +1221,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spi
   &scc_info_Meas_spice_2eproto.base,
   &scc_info_OpInput_spice_2eproto.base,
   &scc_info_OpResult_spice_2eproto.base,
+  &scc_info_Param_spice_2eproto.base,
   &scc_info_PointSweep_spice_2eproto.base,
   &scc_info_Save_spice_2eproto.base,
   &scc_info_Signal_spice_2eproto.base,
@@ -1203,10 +1236,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spi
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spice_2eproto = {
-  false, false, descriptor_table_protodef_spice_2eproto, "spice.proto", 4007,
-  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_sccs, descriptor_table_spice_2eproto_deps, 30, 2,
+  false, false, descriptor_table_protodef_spice_2eproto, "spice.proto", 4080,
+  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_sccs, descriptor_table_spice_2eproto_deps, 31, 2,
   schemas, file_default_instances, TableStruct_spice_2eproto::offsets,
-  file_level_metadata_spice_2eproto, 34, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
+  file_level_metadata_spice_2eproto, 35, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -9342,6 +9375,8 @@ void Control::InitAsDefaultInstance() {
       ::vlsir::spice::Save::internal_default_instance());
   ::vlsir::spice::_Control_default_instance_.meas_ = const_cast< ::vlsir::spice::Meas*>(
       ::vlsir::spice::Meas::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.param_ = const_cast< ::vlsir::spice::Param*>(
+      ::vlsir::spice::Param::internal_default_instance());
   ::vlsir::spice::_Control_default_instance_.literal_.UnsafeSetDefault(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -9351,6 +9386,7 @@ class Control::_Internal {
   static const ::vlsir::spice::LibInclude& lib(const Control* msg);
   static const ::vlsir::spice::Save& save(const Control* msg);
   static const ::vlsir::spice::Meas& meas(const Control* msg);
+  static const ::vlsir::spice::Param& param(const Control* msg);
 };
 
 const ::vlsir::spice::Include&
@@ -9368,6 +9404,10 @@ Control::_Internal::save(const Control* msg) {
 const ::vlsir::spice::Meas&
 Control::_Internal::meas(const Control* msg) {
   return *msg->ctrl_.meas_;
+}
+const ::vlsir::spice::Param&
+Control::_Internal::param(const Control* msg) {
+  return *msg->ctrl_.param_;
 }
 void Control::set_allocated_include(::vlsir::spice::Include* include) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
@@ -9429,6 +9469,21 @@ void Control::set_allocated_meas(::vlsir::spice::Meas* meas) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.meas)
 }
+void Control::set_allocated_param(::vlsir::spice::Param* param) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  clear_ctrl();
+  if (param) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(param);
+    if (message_arena != submessage_arena) {
+      param = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, param, submessage_arena);
+    }
+    set_has_param();
+    ctrl_.param_ = param;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.param)
+}
 Control::Control(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
@@ -9454,6 +9509,10 @@ Control::Control(const Control& from)
     }
     case kMeas: {
       _internal_mutable_meas()->::vlsir::spice::Meas::MergeFrom(from._internal_meas());
+      break;
+    }
+    case kParam: {
+      _internal_mutable_param()->::vlsir::spice::Param::MergeFrom(from._internal_param());
       break;
     }
     case kLiteral: {
@@ -9527,6 +9586,12 @@ void Control::clear_ctrl() {
       }
       break;
     }
+    case kParam: {
+      if (GetArena() == nullptr) {
+        delete ctrl_.param_;
+      }
+      break;
+    }
     case kLiteral: {
       ctrl_.literal_.Destroy(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
       break;
@@ -9582,6 +9647,13 @@ const char* Control::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_meas(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .vlsir.spice.Param param = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_param(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -9654,6 +9726,14 @@ failure:
         6, _Internal::meas(this), target, stream);
   }
 
+  // .vlsir.spice.Param param = 7;
+  if (_internal_has_param()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        7, _Internal::param(this), target, stream);
+  }
+
   // string literal = 10;
   if (_internal_has_literal()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -9707,6 +9787,13 @@ size_t Control::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *ctrl_.meas_);
+      break;
+    }
+    // .vlsir.spice.Param param = 7;
+    case kParam: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *ctrl_.param_);
       break;
     }
     // string literal = 10;
@@ -9766,6 +9853,10 @@ void Control::MergeFrom(const Control& from) {
     }
     case kMeas: {
       _internal_mutable_meas()->::vlsir::spice::Meas::MergeFrom(from._internal_meas());
+      break;
+    }
+    case kParam: {
+      _internal_mutable_param()->::vlsir::spice::Param::MergeFrom(from._internal_param());
       break;
     }
     case kLiteral: {
@@ -10792,6 +10883,253 @@ void Meas::InternalSwap(Meas* other) {
 
 // ===================================================================
 
+void Param::InitAsDefaultInstance() {
+}
+class Param::_Internal {
+ public:
+};
+
+Param::Param(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:vlsir.spice.Param)
+}
+Param::Param(const Param& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
+      GetArena());
+  }
+  val_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_val().empty()) {
+    val_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_val(),
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:vlsir.spice.Param)
+}
+
+void Param::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Param_spice_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  val_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+Param::~Param() {
+  // @@protoc_insertion_point(destructor:vlsir.spice.Param)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void Param::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  val_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void Param::ArenaDtor(void* object) {
+  Param* _this = reinterpret_cast< Param* >(object);
+  (void)_this;
+}
+void Param::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Param::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Param& Param::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Param_spice_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Param::Clear() {
+// @@protoc_insertion_point(message_clear_start:vlsir.spice.Param)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  val_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Param::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Param.name"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string val = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_val();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Param.val"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Param::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.Param)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.Param.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string val = 2;
+  if (this->val().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_val().data(), static_cast<int>(this->_internal_val().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.Param.val");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_val(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.Param)
+  return target;
+}
+
+size_t Param::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.Param)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string val = 2;
+  if (this->val().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_val());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Param::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Param)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Param* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Param>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Param)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Param)
+    MergeFrom(*source);
+  }
+}
+
+void Param::MergeFrom(const Param& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Param)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from.val().size() > 0) {
+    _internal_set_val(from._internal_val());
+  }
+}
+
+void Param::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Param)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Param::CopyFrom(const Param& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.Param)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Param::IsInitialized() const {
+  return true;
+}
+
+void Param::InternalSwap(Param* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  val_.Swap(&other->val_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Param::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void Signal::InitAsDefaultInstance() {
 }
 class Signal::_Internal {
@@ -11129,6 +11467,9 @@ template<> PROTOBUF_NOINLINE ::vlsir::spice::LibInclude* Arena::CreateMaybeMessa
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Meas* Arena::CreateMaybeMessage< ::vlsir::spice::Meas >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Meas >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vlsir::spice::Param* Arena::CreateMaybeMessage< ::vlsir::spice::Param >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vlsir::spice::Param >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Signal* Arena::CreateMaybeMessage< ::vlsir::spice::Signal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Signal >(arena);

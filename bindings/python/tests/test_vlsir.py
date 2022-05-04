@@ -75,4 +75,3 @@ def test_primitives1():
     assert isinstance(primitives.diode, vlsir.circuit.ExternalModule)
     assert isinstance(primitives.dct["diode"], vlsir.circuit.ExternalModule)
     assert primitives.diode is primitives.dct["diode"]
-

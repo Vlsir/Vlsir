@@ -17,6 +17,7 @@ goog.require('jspb.Message');
 goog.require('proto.vlsir.spice.Include');
 goog.require('proto.vlsir.spice.LibInclude');
 goog.require('proto.vlsir.spice.Meas');
+goog.require('proto.vlsir.spice.Param');
 goog.require('proto.vlsir.spice.Save');
 
 /**
@@ -49,7 +50,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.vlsir.spice.Control.oneofGroups_ = [[1,2,5,6,10]];
+proto.vlsir.spice.Control.oneofGroups_ = [[1,2,5,6,7,10]];
 
 /**
  * @enum {number}
@@ -60,6 +61,7 @@ proto.vlsir.spice.Control.CtrlCase = {
   LIB: 2,
   SAVE: 5,
   MEAS: 6,
+  PARAM: 7,
   LITERAL: 10
 };
 
@@ -105,6 +107,7 @@ proto.vlsir.spice.Control.toObject = function(includeInstance, msg) {
     lib: (f = msg.getLib()) && proto.vlsir.spice.LibInclude.toObject(includeInstance, f),
     save: (f = msg.getSave()) && proto.vlsir.spice.Save.toObject(includeInstance, f),
     meas: (f = msg.getMeas()) && proto.vlsir.spice.Meas.toObject(includeInstance, f),
+    param: (f = msg.getParam()) && proto.vlsir.spice.Param.toObject(includeInstance, f),
     literal: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
@@ -161,6 +164,11 @@ proto.vlsir.spice.Control.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.vlsir.spice.Meas;
       reader.readMessage(value,proto.vlsir.spice.Meas.deserializeBinaryFromReader);
       msg.setMeas(value);
+      break;
+    case 7:
+      var value = new proto.vlsir.spice.Param;
+      reader.readMessage(value,proto.vlsir.spice.Param.deserializeBinaryFromReader);
+      msg.setParam(value);
       break;
     case 10:
       var value = /** @type {string} */ (reader.readString());
@@ -225,6 +233,14 @@ proto.vlsir.spice.Control.serializeBinaryToWriter = function(message, writer) {
       6,
       f,
       proto.vlsir.spice.Meas.serializeBinaryToWriter
+    );
+  }
+  f = message.getParam();
+  if (f != null) {
+    writer.writeMessage(
+      7,
+      f,
+      proto.vlsir.spice.Param.serializeBinaryToWriter
     );
   }
   f = /** @type {string} */ (jspb.Message.getField(message, 10));
@@ -382,6 +398,43 @@ proto.vlsir.spice.Control.prototype.clearMeas = function() {
  */
 proto.vlsir.spice.Control.prototype.hasMeas = function() {
   return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional Param param = 7;
+ * @return {?proto.vlsir.spice.Param}
+ */
+proto.vlsir.spice.Control.prototype.getParam = function() {
+  return /** @type{?proto.vlsir.spice.Param} */ (
+    jspb.Message.getWrapperField(this, proto.vlsir.spice.Param, 7));
+};
+
+
+/**
+ * @param {?proto.vlsir.spice.Param|undefined} value
+ * @return {!proto.vlsir.spice.Control} returns this
+*/
+proto.vlsir.spice.Control.prototype.setParam = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 7, proto.vlsir.spice.Control.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.vlsir.spice.Control} returns this
+ */
+proto.vlsir.spice.Control.prototype.clearParam = function() {
+  return this.setParam(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.vlsir.spice.Control.prototype.hasParam = function() {
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
