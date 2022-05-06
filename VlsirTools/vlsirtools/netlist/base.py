@@ -200,14 +200,14 @@ class Netlister:
         self.ext_modules[key] = emod
 
     @classmethod
-    def get_param_default(cls, pparam: vlsir.circuit.Parameter) -> Optional[str]:
+    def get_param_default(cls, pparam: vlsir.Param) -> Optional[str]:
         """ Get the default value of `pparam`. Returns `None` for no default. """
         if pparam.default.WhichOneof("value") is None:
             return None
         return cls.get_param_value(pparam.default)
 
     @classmethod
-    def get_param_value(cls, ppval: vlsir.circuit.ParameterValue) -> str:
+    def get_param_value(cls, ppval: vlsir.ParamValue) -> str:
         """ Get a string representation of a parameter-value """
         ptype = ppval.WhichOneof("value")
         if ptype == "integer":
@@ -323,7 +323,7 @@ class Netlister:
                 # FIXME: complete the deprecation of the dependency on `hdl21`.
                 import warnings
 
-                msg = f"Pending Deprecation: `hdl21.ideal` primitives. Move to `vlsir.primitives"
+                msg = f"Pending Deprecation: `hdl21.ideal` primitive {ref}. Move to `vlsir.primitives"
                 warnings.warn(msg)
 
                 # Ideal elements
@@ -421,7 +421,7 @@ class Netlister:
     """
 
     @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.circuit.Parameter) -> str:
+    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
         """ Format a named `Parameter` definition """
         raise NotImplementedError
 

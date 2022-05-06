@@ -52,7 +52,7 @@ struct TableStruct_circuit_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[14]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -88,12 +88,6 @@ extern ModuleDefaultTypeInternal _Module_default_instance_;
 class Package;
 class PackageDefaultTypeInternal;
 extern PackageDefaultTypeInternal _Package_default_instance_;
-class Parameter;
-class ParameterDefaultTypeInternal;
-extern ParameterDefaultTypeInternal _Parameter_default_instance_;
-class ParameterValue;
-class ParameterValueDefaultTypeInternal;
-extern ParameterValueDefaultTypeInternal _ParameterValue_default_instance_;
 class Port;
 class PortDefaultTypeInternal;
 extern PortDefaultTypeInternal _Port_default_instance_;
@@ -115,8 +109,6 @@ template<> ::vlsir::circuit::Instance_ParametersEntry_DoNotUse* Arena::CreateMay
 template<> ::vlsir::circuit::Interface* Arena::CreateMaybeMessage<::vlsir::circuit::Interface>(Arena*);
 template<> ::vlsir::circuit::Module* Arena::CreateMaybeMessage<::vlsir::circuit::Module>(Arena*);
 template<> ::vlsir::circuit::Package* Arena::CreateMaybeMessage<::vlsir::circuit::Package>(Arena*);
-template<> ::vlsir::circuit::Parameter* Arena::CreateMaybeMessage<::vlsir::circuit::Parameter>(Arena*);
-template<> ::vlsir::circuit::ParameterValue* Arena::CreateMaybeMessage<::vlsir::circuit::ParameterValue>(Arena*);
 template<> ::vlsir::circuit::Port* Arena::CreateMaybeMessage<::vlsir::circuit::Port>(Arena*);
 template<> ::vlsir::circuit::Signal* Arena::CreateMaybeMessage<::vlsir::circuit::Signal>(Arena*);
 template<> ::vlsir::circuit::Slice* Arena::CreateMaybeMessage<::vlsir::circuit::Slice>(Arena*);
@@ -373,442 +365,6 @@ class Package PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class ParameterValue PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.circuit.ParameterValue) */ {
- public:
-  inline ParameterValue() : ParameterValue(nullptr) {};
-  virtual ~ParameterValue();
-
-  ParameterValue(const ParameterValue& from);
-  ParameterValue(ParameterValue&& from) noexcept
-    : ParameterValue() {
-    *this = ::std::move(from);
-  }
-
-  inline ParameterValue& operator=(const ParameterValue& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ParameterValue& operator=(ParameterValue&& from) noexcept {
-    if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const ParameterValue& default_instance();
-
-  enum ValueCase {
-    kInteger = 2,
-    kDouble = 3,
-    kString = 4,
-    kLiteral = 5,
-    VALUE_NOT_SET = 0,
-  };
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ParameterValue* internal_default_instance() {
-    return reinterpret_cast<const ParameterValue*>(
-               &_ParameterValue_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(ParameterValue& a, ParameterValue& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(ParameterValue* other) {
-    if (other == this) return;
-    if (GetArena() == other->GetArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(ParameterValue* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline ParameterValue* New() const final {
-    return CreateMaybeMessage<ParameterValue>(nullptr);
-  }
-
-  ParameterValue* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ParameterValue>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ParameterValue& from);
-  void MergeFrom(const ParameterValue& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(ParameterValue* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vlsir.circuit.ParameterValue";
-  }
-  protected:
-  explicit ParameterValue(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_circuit_2eproto);
-    return ::descriptor_table_circuit_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kIntegerFieldNumber = 2,
-    kDoubleFieldNumber = 3,
-    kStringFieldNumber = 4,
-    kLiteralFieldNumber = 5,
-  };
-  // int64 integer = 2;
-  private:
-  bool _internal_has_integer() const;
-  public:
-  void clear_integer();
-  ::PROTOBUF_NAMESPACE_ID::int64 integer() const;
-  void set_integer(::PROTOBUF_NAMESPACE_ID::int64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_integer() const;
-  void _internal_set_integer(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
-  // double double = 3;
-  private:
-  bool _internal_has_double_() const;
-  public:
-  void clear_double_();
-  double double_() const;
-  void set_double_(double value);
-  private:
-  double _internal_double_() const;
-  void _internal_set_double_(double value);
-  public:
-
-  // string string = 4;
-  private:
-  bool _internal_has_string() const;
-  public:
-  void clear_string();
-  const std::string& string() const;
-  void set_string(const std::string& value);
-  void set_string(std::string&& value);
-  void set_string(const char* value);
-  void set_string(const char* value, size_t size);
-  std::string* mutable_string();
-  std::string* release_string();
-  void set_allocated_string(std::string* string);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_string();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_string(
-      std::string* string);
-  private:
-  const std::string& _internal_string() const;
-  void _internal_set_string(const std::string& value);
-  std::string* _internal_mutable_string();
-  public:
-
-  // string literal = 5;
-  private:
-  bool _internal_has_literal() const;
-  public:
-  void clear_literal();
-  const std::string& literal() const;
-  void set_literal(const std::string& value);
-  void set_literal(std::string&& value);
-  void set_literal(const char* value);
-  void set_literal(const char* value, size_t size);
-  std::string* mutable_literal();
-  std::string* release_literal();
-  void set_allocated_literal(std::string* literal);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_literal();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_literal(
-      std::string* literal);
-  private:
-  const std::string& _internal_literal() const;
-  void _internal_set_literal(const std::string& value);
-  std::string* _internal_mutable_literal();
-  public:
-
-  void clear_value();
-  ValueCase value_case() const;
-  // @@protoc_insertion_point(class_scope:vlsir.circuit.ParameterValue)
- private:
-  class _Internal;
-  void set_has_integer();
-  void set_has_double_();
-  void set_has_string();
-  void set_has_literal();
-
-  inline bool has_value() const;
-  inline void clear_has_value();
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  union ValueUnion {
-    ValueUnion() {}
-    ::PROTOBUF_NAMESPACE_ID::int64 integer_;
-    double double__;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
-  } value_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
-
-  friend struct ::TableStruct_circuit_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Parameter PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.circuit.Parameter) */ {
- public:
-  inline Parameter() : Parameter(nullptr) {};
-  virtual ~Parameter();
-
-  Parameter(const Parameter& from);
-  Parameter(Parameter&& from) noexcept
-    : Parameter() {
-    *this = ::std::move(from);
-  }
-
-  inline Parameter& operator=(const Parameter& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Parameter& operator=(Parameter&& from) noexcept {
-    if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const Parameter& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Parameter* internal_default_instance() {
-    return reinterpret_cast<const Parameter*>(
-               &_Parameter_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(Parameter& a, Parameter& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Parameter* other) {
-    if (other == this) return;
-    if (GetArena() == other->GetArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Parameter* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Parameter* New() const final {
-    return CreateMaybeMessage<Parameter>(nullptr);
-  }
-
-  Parameter* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Parameter>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Parameter& from);
-  void MergeFrom(const Parameter& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Parameter* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vlsir.circuit.Parameter";
-  }
-  protected:
-  explicit Parameter(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_circuit_2eproto);
-    return ::descriptor_table_circuit_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kNameFieldNumber = 1,
-    kDescFieldNumber = 3,
-    kDefaultFieldNumber = 2,
-  };
-  // string name = 1;
-  void clear_name();
-  const std::string& name() const;
-  void set_name(const std::string& value);
-  void set_name(std::string&& value);
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  std::string* mutable_name();
-  std::string* release_name();
-  void set_allocated_name(std::string* name);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_name();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_name(
-      std::string* name);
-  private:
-  const std::string& _internal_name() const;
-  void _internal_set_name(const std::string& value);
-  std::string* _internal_mutable_name();
-  public:
-
-  // string desc = 3;
-  void clear_desc();
-  const std::string& desc() const;
-  void set_desc(const std::string& value);
-  void set_desc(std::string&& value);
-  void set_desc(const char* value);
-  void set_desc(const char* value, size_t size);
-  std::string* mutable_desc();
-  std::string* release_desc();
-  void set_allocated_desc(std::string* desc);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_desc();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_desc(
-      std::string* desc);
-  private:
-  const std::string& _internal_desc() const;
-  void _internal_set_desc(const std::string& value);
-  std::string* _internal_mutable_desc();
-  public:
-
-  // .vlsir.circuit.ParameterValue default = 2;
-  bool has_default_() const;
-  private:
-  bool _internal_has_default_() const;
-  public:
-  void clear_default_();
-  const ::vlsir::circuit::ParameterValue& default_() const;
-  ::vlsir::circuit::ParameterValue* release_default_();
-  ::vlsir::circuit::ParameterValue* mutable_default_();
-  void set_allocated_default_(::vlsir::circuit::ParameterValue* default_);
-  private:
-  const ::vlsir::circuit::ParameterValue& _internal_default_() const;
-  ::vlsir::circuit::ParameterValue* _internal_mutable_default_();
-  public:
-  void unsafe_arena_set_allocated_default_(
-      ::vlsir::circuit::ParameterValue* default_);
-  ::vlsir::circuit::ParameterValue* unsafe_arena_release_default_();
-
-  // @@protoc_insertion_point(class_scope:vlsir.circuit.Parameter)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desc_;
-  ::vlsir::circuit::ParameterValue* default__;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_circuit_2eproto;
-};
-// -------------------------------------------------------------------
-
 class Port PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.circuit.Port) */ {
  public:
@@ -851,7 +407,7 @@ class Port PROTOBUF_FINAL :
                &_Port_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    1;
 
   friend void swap(Port& a, Port& b) {
     a.Swap(&b);
@@ -1042,7 +598,7 @@ class Signal PROTOBUF_FINAL :
                &_Signal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    2;
 
   friend void swap(Signal& a, Signal& b) {
     a.Swap(&b);
@@ -1206,7 +762,7 @@ class Slice PROTOBUF_FINAL :
                &_Slice_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    3;
 
   friend void swap(Slice& a, Slice& b) {
     a.Swap(&b);
@@ -1381,7 +937,7 @@ class Concat PROTOBUF_FINAL :
                &_Concat_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    4;
 
   friend void swap(Concat& a, Concat& b) {
     a.Swap(&b);
@@ -1534,7 +1090,7 @@ class Connection PROTOBUF_FINAL :
                &_Connection_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    5;
 
   friend void swap(Connection& a, Connection& b) {
     a.Swap(&b);
@@ -1692,13 +1248,13 @@ class Connection PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class Instance_ParametersEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Instance_ParametersEntry_DoNotUse, 
-    std::string, ::vlsir::circuit::ParameterValue,
+    std::string, ::vlsir::utils::ParamValue,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
     0 > {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Instance_ParametersEntry_DoNotUse, 
-    std::string, ::vlsir::circuit::ParameterValue,
+    std::string, ::vlsir::utils::ParamValue,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
     0 > SuperType;
@@ -1715,7 +1271,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_circuit_2eproto);
-    return ::descriptor_table_circuit_2eproto.file_level_metadata[8];
+    return ::descriptor_table_circuit_2eproto.file_level_metadata[6];
   }
 
   public:
@@ -1747,7 +1303,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_circuit_2eproto);
-    return ::descriptor_table_circuit_2eproto.file_level_metadata[9];
+    return ::descriptor_table_circuit_2eproto.file_level_metadata[7];
   }
 
   public:
@@ -1797,7 +1353,7 @@ class Instance PROTOBUF_FINAL :
                &_Instance_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    8;
 
   friend void swap(Instance& a, Instance& b) {
     a.Swap(&b);
@@ -1874,21 +1430,21 @@ class Instance PROTOBUF_FINAL :
     kNameFieldNumber = 1,
     kModuleFieldNumber = 2,
   };
-  // map<string, .vlsir.circuit.ParameterValue> parameters = 3;
+  // map<string, .vlsir.utils.ParamValue> parameters = 3;
   int parameters_size() const;
   private:
   int _internal_parameters_size() const;
   public:
   void clear_parameters();
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >&
       _internal_parameters() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >*
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >*
       _internal_mutable_parameters();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >&
       parameters() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >*
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >*
       mutable_parameters();
 
   // map<string, .vlsir.circuit.Connection> connections = 4;
@@ -1960,7 +1516,7 @@ class Instance PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       Instance_ParametersEntry_DoNotUse,
-      std::string, ::vlsir::circuit::ParameterValue,
+      std::string, ::vlsir::utils::ParamValue,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
       0 > parameters_;
@@ -2019,7 +1575,7 @@ class Module PROTOBUF_FINAL :
                &_Module_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    9;
 
   friend void swap(Module& a, Module& b) {
     a.Swap(&b);
@@ -2150,22 +1706,22 @@ class Module PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance >&
       instances() const;
 
-  // repeated .vlsir.circuit.Parameter parameters = 5;
+  // repeated .vlsir.utils.Param parameters = 5;
   int parameters_size() const;
   private:
   int _internal_parameters_size() const;
   public:
   void clear_parameters();
-  ::vlsir::circuit::Parameter* mutable_parameters(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >*
+  ::vlsir::utils::Param* mutable_parameters(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >*
       mutable_parameters();
   private:
-  const ::vlsir::circuit::Parameter& _internal_parameters(int index) const;
-  ::vlsir::circuit::Parameter* _internal_add_parameters();
+  const ::vlsir::utils::Param& _internal_parameters(int index) const;
+  ::vlsir::utils::Param* _internal_add_parameters();
   public:
-  const ::vlsir::circuit::Parameter& parameters(int index) const;
-  ::vlsir::circuit::Parameter* add_parameters();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >&
+  const ::vlsir::utils::Param& parameters(int index) const;
+  ::vlsir::utils::Param* add_parameters();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >&
       parameters() const;
 
   // string name = 1;
@@ -2203,7 +1759,7 @@ class Module PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port > ports_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal > signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Instance > instances_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter > parameters_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param > parameters_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_circuit_2eproto;
@@ -2252,7 +1808,7 @@ class ExternalModule PROTOBUF_FINAL :
                &_ExternalModule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    10;
 
   friend void swap(ExternalModule& a, ExternalModule& b) {
     a.Swap(&b);
@@ -2346,22 +1902,22 @@ class ExternalModule PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port >&
       ports() const;
 
-  // repeated .vlsir.circuit.Parameter parameters = 5;
+  // repeated .vlsir.utils.Param parameters = 5;
   int parameters_size() const;
   private:
   int _internal_parameters_size() const;
   public:
   void clear_parameters();
-  ::vlsir::circuit::Parameter* mutable_parameters(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >*
+  ::vlsir::utils::Param* mutable_parameters(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >*
       mutable_parameters();
   private:
-  const ::vlsir::circuit::Parameter& _internal_parameters(int index) const;
-  ::vlsir::circuit::Parameter* _internal_add_parameters();
+  const ::vlsir::utils::Param& _internal_parameters(int index) const;
+  ::vlsir::utils::Param* _internal_add_parameters();
   public:
-  const ::vlsir::circuit::Parameter& parameters(int index) const;
-  ::vlsir::circuit::Parameter* add_parameters();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >&
+  const ::vlsir::utils::Param& parameters(int index) const;
+  ::vlsir::utils::Param* add_parameters();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >&
       parameters() const;
 
   // string desc = 2;
@@ -2415,7 +1971,7 @@ class ExternalModule PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port > ports_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter > parameters_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param > parameters_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desc_;
   ::vlsir::utils::QualifiedName* name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2465,7 +2021,7 @@ class Interface PROTOBUF_FINAL :
                &_Interface_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    11;
 
   friend void swap(Interface& a, Interface& b) {
     a.Swap(&b);
@@ -2843,586 +2399,6 @@ inline void Package::unsafe_arena_set_allocated_desc(
   desc_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       desc, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.Package.desc)
-}
-
-// -------------------------------------------------------------------
-
-// ParameterValue
-
-// int64 integer = 2;
-inline bool ParameterValue::_internal_has_integer() const {
-  return value_case() == kInteger;
-}
-inline void ParameterValue::set_has_integer() {
-  _oneof_case_[0] = kInteger;
-}
-inline void ParameterValue::clear_integer() {
-  if (_internal_has_integer()) {
-    value_.integer_ = PROTOBUF_LONGLONG(0);
-    clear_has_value();
-  }
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 ParameterValue::_internal_integer() const {
-  if (_internal_has_integer()) {
-    return value_.integer_;
-  }
-  return PROTOBUF_LONGLONG(0);
-}
-inline void ParameterValue::_internal_set_integer(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  if (!_internal_has_integer()) {
-    clear_value();
-    set_has_integer();
-  }
-  value_.integer_ = value;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 ParameterValue::integer() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.ParameterValue.integer)
-  return _internal_integer();
-}
-inline void ParameterValue::set_integer(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_integer(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.integer)
-}
-
-// double double = 3;
-inline bool ParameterValue::_internal_has_double_() const {
-  return value_case() == kDouble;
-}
-inline void ParameterValue::set_has_double_() {
-  _oneof_case_[0] = kDouble;
-}
-inline void ParameterValue::clear_double_() {
-  if (_internal_has_double_()) {
-    value_.double__ = 0;
-    clear_has_value();
-  }
-}
-inline double ParameterValue::_internal_double_() const {
-  if (_internal_has_double_()) {
-    return value_.double__;
-  }
-  return 0;
-}
-inline void ParameterValue::_internal_set_double_(double value) {
-  if (!_internal_has_double_()) {
-    clear_value();
-    set_has_double_();
-  }
-  value_.double__ = value;
-}
-inline double ParameterValue::double_() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.ParameterValue.double)
-  return _internal_double_();
-}
-inline void ParameterValue::set_double_(double value) {
-  _internal_set_double_(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.double)
-}
-
-// string string = 4;
-inline bool ParameterValue::_internal_has_string() const {
-  return value_case() == kString;
-}
-inline void ParameterValue::set_has_string() {
-  _oneof_case_[0] = kString;
-}
-inline void ParameterValue::clear_string() {
-  if (_internal_has_string()) {
-    value_.string_.Destroy(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-    clear_has_value();
-  }
-}
-inline const std::string& ParameterValue::string() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.ParameterValue.string)
-  return _internal_string();
-}
-inline void ParameterValue::set_string(const std::string& value) {
-  _internal_set_string(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.string)
-}
-inline std::string* ParameterValue::mutable_string() {
-  // @@protoc_insertion_point(field_mutable:vlsir.circuit.ParameterValue.string)
-  return _internal_mutable_string();
-}
-inline const std::string& ParameterValue::_internal_string() const {
-  if (_internal_has_string()) {
-    return value_.string_.Get();
-  }
-  return *&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
-}
-inline void ParameterValue::_internal_set_string(const std::string& value) {
-  if (!_internal_has_string()) {
-    clear_value();
-    set_has_string();
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.string_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void ParameterValue::set_string(std::string&& value) {
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.string)
-  if (!_internal_has_string()) {
-    clear_value();
-    set_has_string();
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.string_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.circuit.ParameterValue.string)
-}
-inline void ParameterValue::set_string(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  if (!_internal_has_string()) {
-    clear_value();
-    set_has_string();
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.string_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.circuit.ParameterValue.string)
-}
-inline void ParameterValue::set_string(const char* value,
-                             size_t size) {
-  if (!_internal_has_string()) {
-    clear_value();
-    set_has_string();
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.string_.Set(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size),
-      GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.circuit.ParameterValue.string)
-}
-inline std::string* ParameterValue::_internal_mutable_string() {
-  if (!_internal_has_string()) {
-    clear_value();
-    set_has_string();
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  return value_.string_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* ParameterValue::release_string() {
-  // @@protoc_insertion_point(field_release:vlsir.circuit.ParameterValue.string)
-  if (_internal_has_string()) {
-    clear_has_value();
-    return value_.string_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  } else {
-    return nullptr;
-  }
-}
-inline void ParameterValue::set_allocated_string(std::string* string) {
-  if (has_value()) {
-    clear_value();
-  }
-  if (string != nullptr) {
-    set_has_string();
-    value_.string_.UnsafeSetDefault(string);
-  }
-  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.ParameterValue.string)
-}
-inline std::string* ParameterValue::unsafe_arena_release_string() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.circuit.ParameterValue.string)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (_internal_has_string()) {
-    clear_has_value();
-    return value_.string_.UnsafeArenaRelease(
-        &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  } else {
-    return nullptr;
-  }
-}
-inline void ParameterValue::unsafe_arena_set_allocated_string(std::string* string) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (!_internal_has_string()) {
-    value_.string_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  clear_value();
-  if (string) {
-    set_has_string();
-    value_.string_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), string, GetArena());
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.ParameterValue.string)
-}
-
-// string literal = 5;
-inline bool ParameterValue::_internal_has_literal() const {
-  return value_case() == kLiteral;
-}
-inline void ParameterValue::set_has_literal() {
-  _oneof_case_[0] = kLiteral;
-}
-inline void ParameterValue::clear_literal() {
-  if (_internal_has_literal()) {
-    value_.literal_.Destroy(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-    clear_has_value();
-  }
-}
-inline const std::string& ParameterValue::literal() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.ParameterValue.literal)
-  return _internal_literal();
-}
-inline void ParameterValue::set_literal(const std::string& value) {
-  _internal_set_literal(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.literal)
-}
-inline std::string* ParameterValue::mutable_literal() {
-  // @@protoc_insertion_point(field_mutable:vlsir.circuit.ParameterValue.literal)
-  return _internal_mutable_literal();
-}
-inline const std::string& ParameterValue::_internal_literal() const {
-  if (_internal_has_literal()) {
-    return value_.literal_.Get();
-  }
-  return *&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
-}
-inline void ParameterValue::_internal_set_literal(const std::string& value) {
-  if (!_internal_has_literal()) {
-    clear_value();
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.literal_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void ParameterValue::set_literal(std::string&& value) {
-  // @@protoc_insertion_point(field_set:vlsir.circuit.ParameterValue.literal)
-  if (!_internal_has_literal()) {
-    clear_value();
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.literal_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.circuit.ParameterValue.literal)
-}
-inline void ParameterValue::set_literal(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  if (!_internal_has_literal()) {
-    clear_value();
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.literal_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.circuit.ParameterValue.literal)
-}
-inline void ParameterValue::set_literal(const char* value,
-                             size_t size) {
-  if (!_internal_has_literal()) {
-    clear_value();
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  value_.literal_.Set(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size),
-      GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.circuit.ParameterValue.literal)
-}
-inline std::string* ParameterValue::_internal_mutable_literal() {
-  if (!_internal_has_literal()) {
-    clear_value();
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  return value_.literal_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* ParameterValue::release_literal() {
-  // @@protoc_insertion_point(field_release:vlsir.circuit.ParameterValue.literal)
-  if (_internal_has_literal()) {
-    clear_has_value();
-    return value_.literal_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  } else {
-    return nullptr;
-  }
-}
-inline void ParameterValue::set_allocated_literal(std::string* literal) {
-  if (has_value()) {
-    clear_value();
-  }
-  if (literal != nullptr) {
-    set_has_literal();
-    value_.literal_.UnsafeSetDefault(literal);
-  }
-  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.ParameterValue.literal)
-}
-inline std::string* ParameterValue::unsafe_arena_release_literal() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.circuit.ParameterValue.literal)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (_internal_has_literal()) {
-    clear_has_value();
-    return value_.literal_.UnsafeArenaRelease(
-        &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  } else {
-    return nullptr;
-  }
-}
-inline void ParameterValue::unsafe_arena_set_allocated_literal(std::string* literal) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (!_internal_has_literal()) {
-    value_.literal_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  }
-  clear_value();
-  if (literal) {
-    set_has_literal();
-    value_.literal_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), literal, GetArena());
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.ParameterValue.literal)
-}
-
-inline bool ParameterValue::has_value() const {
-  return value_case() != VALUE_NOT_SET;
-}
-inline void ParameterValue::clear_has_value() {
-  _oneof_case_[0] = VALUE_NOT_SET;
-}
-inline ParameterValue::ValueCase ParameterValue::value_case() const {
-  return ParameterValue::ValueCase(_oneof_case_[0]);
-}
-// -------------------------------------------------------------------
-
-// Parameter
-
-// string name = 1;
-inline void Parameter::clear_name() {
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Parameter::name() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.Parameter.name)
-  return _internal_name();
-}
-inline void Parameter::set_name(const std::string& value) {
-  _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.Parameter.name)
-}
-inline std::string* Parameter::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:vlsir.circuit.Parameter.name)
-  return _internal_mutable_name();
-}
-inline const std::string& Parameter::_internal_name() const {
-  return name_.Get();
-}
-inline void Parameter::_internal_set_name(const std::string& value) {
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Parameter::set_name(std::string&& value) {
-  
-  name_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.circuit.Parameter.name)
-}
-inline void Parameter::set_name(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.circuit.Parameter.name)
-}
-inline void Parameter::set_name(const char* value,
-    size_t size) {
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.circuit.Parameter.name)
-}
-inline std::string* Parameter::_internal_mutable_name() {
-  
-  return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Parameter::release_name() {
-  // @@protoc_insertion_point(field_release:vlsir.circuit.Parameter.name)
-  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Parameter::set_allocated_name(std::string* name) {
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Parameter.name)
-}
-inline std::string* Parameter::unsafe_arena_release_name() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.circuit.Parameter.name)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void Parameter::unsafe_arena_set_allocated_name(
-    std::string* name) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      name, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.Parameter.name)
-}
-
-// .vlsir.circuit.ParameterValue default = 2;
-inline bool Parameter::_internal_has_default_() const {
-  return this != internal_default_instance() && default__ != nullptr;
-}
-inline bool Parameter::has_default_() const {
-  return _internal_has_default_();
-}
-inline void Parameter::clear_default_() {
-  if (GetArena() == nullptr && default__ != nullptr) {
-    delete default__;
-  }
-  default__ = nullptr;
-}
-inline const ::vlsir::circuit::ParameterValue& Parameter::_internal_default_() const {
-  const ::vlsir::circuit::ParameterValue* p = default__;
-  return p != nullptr ? *p : *reinterpret_cast<const ::vlsir::circuit::ParameterValue*>(
-      &::vlsir::circuit::_ParameterValue_default_instance_);
-}
-inline const ::vlsir::circuit::ParameterValue& Parameter::default_() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.Parameter.default)
-  return _internal_default_();
-}
-inline void Parameter::unsafe_arena_set_allocated_default_(
-    ::vlsir::circuit::ParameterValue* default_) {
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(default__);
-  }
-  default__ = default_;
-  if (default_) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.Parameter.default)
-}
-inline ::vlsir::circuit::ParameterValue* Parameter::release_default_() {
-  auto temp = unsafe_arena_release_default_();
-  if (GetArena() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline ::vlsir::circuit::ParameterValue* Parameter::unsafe_arena_release_default_() {
-  // @@protoc_insertion_point(field_release:vlsir.circuit.Parameter.default)
-  
-  ::vlsir::circuit::ParameterValue* temp = default__;
-  default__ = nullptr;
-  return temp;
-}
-inline ::vlsir::circuit::ParameterValue* Parameter::_internal_mutable_default_() {
-  
-  if (default__ == nullptr) {
-    auto* p = CreateMaybeMessage<::vlsir::circuit::ParameterValue>(GetArena());
-    default__ = p;
-  }
-  return default__;
-}
-inline ::vlsir::circuit::ParameterValue* Parameter::mutable_default_() {
-  // @@protoc_insertion_point(field_mutable:vlsir.circuit.Parameter.default)
-  return _internal_mutable_default_();
-}
-inline void Parameter::set_allocated_default_(::vlsir::circuit::ParameterValue* default_) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
-  if (message_arena == nullptr) {
-    delete default__;
-  }
-  if (default_) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(default_);
-    if (message_arena != submessage_arena) {
-      default_ = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, default_, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  default__ = default_;
-  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Parameter.default)
-}
-
-// string desc = 3;
-inline void Parameter::clear_desc() {
-  desc_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Parameter::desc() const {
-  // @@protoc_insertion_point(field_get:vlsir.circuit.Parameter.desc)
-  return _internal_desc();
-}
-inline void Parameter::set_desc(const std::string& value) {
-  _internal_set_desc(value);
-  // @@protoc_insertion_point(field_set:vlsir.circuit.Parameter.desc)
-}
-inline std::string* Parameter::mutable_desc() {
-  // @@protoc_insertion_point(field_mutable:vlsir.circuit.Parameter.desc)
-  return _internal_mutable_desc();
-}
-inline const std::string& Parameter::_internal_desc() const {
-  return desc_.Get();
-}
-inline void Parameter::_internal_set_desc(const std::string& value) {
-  
-  desc_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Parameter::set_desc(std::string&& value) {
-  
-  desc_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.circuit.Parameter.desc)
-}
-inline void Parameter::set_desc(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  desc_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.circuit.Parameter.desc)
-}
-inline void Parameter::set_desc(const char* value,
-    size_t size) {
-  
-  desc_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.circuit.Parameter.desc)
-}
-inline std::string* Parameter::_internal_mutable_desc() {
-  
-  return desc_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Parameter::release_desc() {
-  // @@protoc_insertion_point(field_release:vlsir.circuit.Parameter.desc)
-  return desc_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Parameter::set_allocated_desc(std::string* desc) {
-  if (desc != nullptr) {
-    
-  } else {
-    
-  }
-  desc_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), desc,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Parameter.desc)
-}
-inline std::string* Parameter::unsafe_arena_release_desc() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.circuit.Parameter.desc)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return desc_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void Parameter::unsafe_arena_set_allocated_desc(
-    std::string* desc) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (desc != nullptr) {
-    
-  } else {
-    
-  }
-  desc_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      desc, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.circuit.Parameter.desc)
 }
 
 // -------------------------------------------------------------------
@@ -4199,30 +3175,27 @@ inline void Instance::set_allocated_module(::vlsir::utils::Reference* module) {
   // @@protoc_insertion_point(field_set_allocated:vlsir.circuit.Instance.module)
 }
 
-// map<string, .vlsir.circuit.ParameterValue> parameters = 3;
+// map<string, .vlsir.utils.ParamValue> parameters = 3;
 inline int Instance::_internal_parameters_size() const {
   return parameters_.size();
 }
 inline int Instance::parameters_size() const {
   return _internal_parameters_size();
 }
-inline void Instance::clear_parameters() {
-  parameters_.Clear();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >&
 Instance::_internal_parameters() const {
   return parameters_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >&
 Instance::parameters() const {
   // @@protoc_insertion_point(field_map:vlsir.circuit.Instance.parameters)
   return _internal_parameters();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >*
 Instance::_internal_mutable_parameters() {
   return parameters_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::circuit::ParameterValue >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vlsir::utils::ParamValue >*
 Instance::mutable_parameters() {
   // @@protoc_insertion_point(field_mutable_map:vlsir.circuit.Instance.parameters)
   return _internal_mutable_parameters();
@@ -4459,40 +3432,37 @@ Module::instances() const {
   return instances_;
 }
 
-// repeated .vlsir.circuit.Parameter parameters = 5;
+// repeated .vlsir.utils.Param parameters = 5;
 inline int Module::_internal_parameters_size() const {
   return parameters_.size();
 }
 inline int Module::parameters_size() const {
   return _internal_parameters_size();
 }
-inline void Module::clear_parameters() {
-  parameters_.Clear();
-}
-inline ::vlsir::circuit::Parameter* Module::mutable_parameters(int index) {
+inline ::vlsir::utils::Param* Module::mutable_parameters(int index) {
   // @@protoc_insertion_point(field_mutable:vlsir.circuit.Module.parameters)
   return parameters_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >*
 Module::mutable_parameters() {
   // @@protoc_insertion_point(field_mutable_list:vlsir.circuit.Module.parameters)
   return &parameters_;
 }
-inline const ::vlsir::circuit::Parameter& Module::_internal_parameters(int index) const {
+inline const ::vlsir::utils::Param& Module::_internal_parameters(int index) const {
   return parameters_.Get(index);
 }
-inline const ::vlsir::circuit::Parameter& Module::parameters(int index) const {
+inline const ::vlsir::utils::Param& Module::parameters(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.circuit.Module.parameters)
   return _internal_parameters(index);
 }
-inline ::vlsir::circuit::Parameter* Module::_internal_add_parameters() {
+inline ::vlsir::utils::Param* Module::_internal_add_parameters() {
   return parameters_.Add();
 }
-inline ::vlsir::circuit::Parameter* Module::add_parameters() {
+inline ::vlsir::utils::Param* Module::add_parameters() {
   // @@protoc_insertion_point(field_add:vlsir.circuit.Module.parameters)
   return _internal_add_parameters();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >&
 Module::parameters() const {
   // @@protoc_insertion_point(field_list:vlsir.circuit.Module.parameters)
   return parameters_;
@@ -4697,40 +3667,37 @@ ExternalModule::ports() const {
   return ports_;
 }
 
-// repeated .vlsir.circuit.Parameter parameters = 5;
+// repeated .vlsir.utils.Param parameters = 5;
 inline int ExternalModule::_internal_parameters_size() const {
   return parameters_.size();
 }
 inline int ExternalModule::parameters_size() const {
   return _internal_parameters_size();
 }
-inline void ExternalModule::clear_parameters() {
-  parameters_.Clear();
-}
-inline ::vlsir::circuit::Parameter* ExternalModule::mutable_parameters(int index) {
+inline ::vlsir::utils::Param* ExternalModule::mutable_parameters(int index) {
   // @@protoc_insertion_point(field_mutable:vlsir.circuit.ExternalModule.parameters)
   return parameters_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >*
 ExternalModule::mutable_parameters() {
   // @@protoc_insertion_point(field_mutable_list:vlsir.circuit.ExternalModule.parameters)
   return &parameters_;
 }
-inline const ::vlsir::circuit::Parameter& ExternalModule::_internal_parameters(int index) const {
+inline const ::vlsir::utils::Param& ExternalModule::_internal_parameters(int index) const {
   return parameters_.Get(index);
 }
-inline const ::vlsir::circuit::Parameter& ExternalModule::parameters(int index) const {
+inline const ::vlsir::utils::Param& ExternalModule::parameters(int index) const {
   // @@protoc_insertion_point(field_get:vlsir.circuit.ExternalModule.parameters)
   return _internal_parameters(index);
 }
-inline ::vlsir::circuit::Parameter* ExternalModule::_internal_add_parameters() {
+inline ::vlsir::utils::Param* ExternalModule::_internal_add_parameters() {
   return parameters_.Add();
 }
-inline ::vlsir::circuit::Parameter* ExternalModule::add_parameters() {
+inline ::vlsir::utils::Param* ExternalModule::add_parameters() {
   // @@protoc_insertion_point(field_add:vlsir.circuit.ExternalModule.parameters)
   return _internal_add_parameters();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Parameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param >&
 ExternalModule::parameters() const {
   // @@protoc_insertion_point(field_list:vlsir.circuit.ExternalModule.parameters)
   return parameters_;
@@ -4863,10 +3830,6 @@ Interface::ports() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

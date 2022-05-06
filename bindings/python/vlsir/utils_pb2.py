@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     syntax="proto3",
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-    serialized_pb=b'\n\x0butils.proto\x12\x0bvlsir.utils"-\n\rQualifiedName\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t"R\n\tReference\x12\x0f\n\x05local\x18\x01 \x01(\tH\x00\x12.\n\x08\x65xternal\x18\x02 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedNameH\x00\x42\x04\n\x02to"b\n\x0fLibraryMetadata\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x12\n\ncell_names\x18\n \x03(\t\x12+\n\x06\x61uthor\x18\x14 \x01(\x0b\x32\x1b.vlsir.utils.AuthorMetadata"D\n\x0e\x41uthorMetadata\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\x11\n\tcopyright\x18\n \x01(\t\x12\x0f\n\x07license\x18\x0b \x01(\t*\xda\x01\n\x08SIPrefix\x12\t\n\x05YOCTO\x10\x00\x12\t\n\x05ZEPTO\x10\x01\x12\x08\n\x04\x41TTO\x10\x02\x12\t\n\x05\x46\x45MTO\x10\x03\x12\x08\n\x04PICO\x10\x04\x12\x08\n\x04NANO\x10\x05\x12\t\n\x05MICRO\x10\x06\x12\t\n\x05MILLI\x10\x07\x12\t\n\x05\x43\x45NTI\x10\x08\x12\x08\n\x04\x44\x45\x43I\x10\t\x12\x08\n\x04\x44\x45\x43\x41\x10\n\x12\t\n\x05HECTO\x10\x0b\x12\x08\n\x04KILO\x10\x0c\x12\x08\n\x04MEGA\x10\r\x12\x08\n\x04GIGA\x10\x0e\x12\x08\n\x04TERA\x10\x0f\x12\x08\n\x04PETA\x10\x10\x12\x07\n\x03\x45XA\x10\x11\x12\t\n\x05ZETTA\x10\x12\x12\t\n\x05YOTTA\x10\x13\x62\x06proto3',
+    serialized_pb=b'\n\x0butils.proto\x12\x0bvlsir.utils"r\n\x08Prefixed\x12%\n\x06prefix\x18\x01 \x01(\x0e\x32\x15.vlsir.utils.SIPrefix\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x42\x08\n\x06number"\x8a\x01\n\nParamValue\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x12\x11\n\x07literal\x18\x05 \x01(\tH\x00\x12)\n\x08prefixed\x18\x06 \x01(\x0b\x32\x15.vlsir.utils.PrefixedH\x00\x42\x07\n\x05value"K\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t"-\n\rQualifiedName\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t"R\n\tReference\x12\x0f\n\x05local\x18\x01 \x01(\tH\x00\x12.\n\x08\x65xternal\x18\x02 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedNameH\x00\x42\x04\n\x02to"b\n\x0fLibraryMetadata\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x12\n\ncell_names\x18\n \x03(\t\x12+\n\x06\x61uthor\x18\x14 \x01(\x0b\x32\x1b.vlsir.utils.AuthorMetadata"D\n\x0e\x41uthorMetadata\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\x11\n\tcopyright\x18\n \x01(\t\x12\x0f\n\x07license\x18\x0b \x01(\t*\xda\x01\n\x08SIPrefix\x12\t\n\x05YOCTO\x10\x00\x12\t\n\x05ZEPTO\x10\x01\x12\x08\n\x04\x41TTO\x10\x02\x12\t\n\x05\x46\x45MTO\x10\x03\x12\x08\n\x04PICO\x10\x04\x12\x08\n\x04NANO\x10\x05\x12\t\n\x05MICRO\x10\x06\x12\t\n\x05MILLI\x10\x07\x12\t\n\x05\x43\x45NTI\x10\x08\x12\x08\n\x04\x44\x45\x43I\x10\t\x12\x08\n\x04\x44\x45\x43\x41\x10\n\x12\t\n\x05HECTO\x10\x0b\x12\x08\n\x04KILO\x10\x0c\x12\x08\n\x04MEGA\x10\r\x12\x08\n\x04GIGA\x10\x0e\x12\x08\n\x04TERA\x10\x0f\x12\x08\n\x04PETA\x10\x10\x12\x07\n\x03\x45XA\x10\x11\x12\t\n\x05ZETTA\x10\x12\x12\t\n\x05YOTTA\x10\x13\x62\x06proto3',
 )
 
 _SIPREFIX = _descriptor.EnumDescriptor(
@@ -192,8 +192,8 @@ _SIPREFIX = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     serialized_options=None,
-    serialized_start=330,
-    serialized_end=548,
+    serialized_start=664,
+    serialized_end=882,
 )
 _sym_db.RegisterEnumDescriptor(_SIPREFIX)
 
@@ -218,6 +218,318 @@ PETA = 16
 EXA = 17
 ZETTA = 18
 YOTTA = 19
+
+
+_PREFIXED = _descriptor.Descriptor(
+    name="Prefixed",
+    full_name="vlsir.utils.Prefixed",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="prefix",
+            full_name="vlsir.utils.Prefixed.prefix",
+            index=0,
+            number=1,
+            type=14,
+            cpp_type=8,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="integer",
+            full_name="vlsir.utils.Prefixed.integer",
+            index=1,
+            number=2,
+            type=3,
+            cpp_type=2,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="double",
+            full_name="vlsir.utils.Prefixed.double",
+            index=2,
+            number=3,
+            type=1,
+            cpp_type=5,
+            label=1,
+            has_default_value=False,
+            default_value=float(0),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="string",
+            full_name="vlsir.utils.Prefixed.string",
+            index=3,
+            number=4,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[
+        _descriptor.OneofDescriptor(
+            name="number",
+            full_name="vlsir.utils.Prefixed.number",
+            index=0,
+            containing_type=None,
+            create_key=_descriptor._internal_create_key,
+            fields=[],
+        ),
+    ],
+    serialized_start=28,
+    serialized_end=142,
+)
+
+
+_PARAMVALUE = _descriptor.Descriptor(
+    name="ParamValue",
+    full_name="vlsir.utils.ParamValue",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="integer",
+            full_name="vlsir.utils.ParamValue.integer",
+            index=0,
+            number=2,
+            type=3,
+            cpp_type=2,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="double",
+            full_name="vlsir.utils.ParamValue.double",
+            index=1,
+            number=3,
+            type=1,
+            cpp_type=5,
+            label=1,
+            has_default_value=False,
+            default_value=float(0),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="string",
+            full_name="vlsir.utils.ParamValue.string",
+            index=2,
+            number=4,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="literal",
+            full_name="vlsir.utils.ParamValue.literal",
+            index=3,
+            number=5,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="prefixed",
+            full_name="vlsir.utils.ParamValue.prefixed",
+            index=4,
+            number=6,
+            type=11,
+            cpp_type=10,
+            label=1,
+            has_default_value=False,
+            default_value=None,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[
+        _descriptor.OneofDescriptor(
+            name="value",
+            full_name="vlsir.utils.ParamValue.value",
+            index=0,
+            containing_type=None,
+            create_key=_descriptor._internal_create_key,
+            fields=[],
+        ),
+    ],
+    serialized_start=145,
+    serialized_end=283,
+)
+
+
+_PARAM = _descriptor.Descriptor(
+    name="Param",
+    full_name="vlsir.utils.Param",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="name",
+            full_name="vlsir.utils.Param.name",
+            index=0,
+            number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="value",
+            full_name="vlsir.utils.Param.value",
+            index=1,
+            number=2,
+            type=11,
+            cpp_type=10,
+            label=1,
+            has_default_value=False,
+            default_value=None,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="desc",
+            full_name="vlsir.utils.Param.desc",
+            index=2,
+            number=3,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=285,
+    serialized_end=360,
+)
 
 
 _QUALIFIEDNAME = _descriptor.Descriptor(
@@ -275,8 +587,8 @@ _QUALIFIEDNAME = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=28,
-    serialized_end=73,
+    serialized_start=362,
+    serialized_end=407,
 )
 
 
@@ -344,8 +656,8 @@ _REFERENCE = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=75,
-    serialized_end=157,
+    serialized_start=409,
+    serialized_end=491,
 )
 
 
@@ -423,8 +735,8 @@ _LIBRARYMETADATA = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=159,
-    serialized_end=257,
+    serialized_start=493,
+    serialized_end=591,
 )
 
 
@@ -502,22 +814,91 @@ _AUTHORMETADATA = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=259,
-    serialized_end=327,
+    serialized_start=593,
+    serialized_end=661,
 )
 
+_PREFIXED.fields_by_name["prefix"].enum_type = _SIPREFIX
+_PREFIXED.oneofs_by_name["number"].fields.append(_PREFIXED.fields_by_name["integer"])
+_PREFIXED.fields_by_name["integer"].containing_oneof = _PREFIXED.oneofs_by_name[
+    "number"
+]
+_PREFIXED.oneofs_by_name["number"].fields.append(_PREFIXED.fields_by_name["double"])
+_PREFIXED.fields_by_name["double"].containing_oneof = _PREFIXED.oneofs_by_name["number"]
+_PREFIXED.oneofs_by_name["number"].fields.append(_PREFIXED.fields_by_name["string"])
+_PREFIXED.fields_by_name["string"].containing_oneof = _PREFIXED.oneofs_by_name["number"]
+_PARAMVALUE.fields_by_name["prefixed"].message_type = _PREFIXED
+_PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["integer"])
+_PARAMVALUE.fields_by_name["integer"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
+_PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["double"])
+_PARAMVALUE.fields_by_name["double"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
+_PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["string"])
+_PARAMVALUE.fields_by_name["string"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
+_PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["literal"])
+_PARAMVALUE.fields_by_name["literal"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
+_PARAMVALUE.oneofs_by_name["value"].fields.append(
+    _PARAMVALUE.fields_by_name["prefixed"]
+)
+_PARAMVALUE.fields_by_name["prefixed"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
+_PARAM.fields_by_name["value"].message_type = _PARAMVALUE
 _REFERENCE.fields_by_name["external"].message_type = _QUALIFIEDNAME
 _REFERENCE.oneofs_by_name["to"].fields.append(_REFERENCE.fields_by_name["local"])
 _REFERENCE.fields_by_name["local"].containing_oneof = _REFERENCE.oneofs_by_name["to"]
 _REFERENCE.oneofs_by_name["to"].fields.append(_REFERENCE.fields_by_name["external"])
 _REFERENCE.fields_by_name["external"].containing_oneof = _REFERENCE.oneofs_by_name["to"]
 _LIBRARYMETADATA.fields_by_name["author"].message_type = _AUTHORMETADATA
+DESCRIPTOR.message_types_by_name["Prefixed"] = _PREFIXED
+DESCRIPTOR.message_types_by_name["ParamValue"] = _PARAMVALUE
+DESCRIPTOR.message_types_by_name["Param"] = _PARAM
 DESCRIPTOR.message_types_by_name["QualifiedName"] = _QUALIFIEDNAME
 DESCRIPTOR.message_types_by_name["Reference"] = _REFERENCE
 DESCRIPTOR.message_types_by_name["LibraryMetadata"] = _LIBRARYMETADATA
 DESCRIPTOR.message_types_by_name["AuthorMetadata"] = _AUTHORMETADATA
 DESCRIPTOR.enum_types_by_name["SIPrefix"] = _SIPREFIX
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Prefixed = _reflection.GeneratedProtocolMessageType(
+    "Prefixed",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PREFIXED,
+        "__module__": "utils_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.utils.Prefixed)
+    },
+)
+_sym_db.RegisterMessage(Prefixed)
+
+ParamValue = _reflection.GeneratedProtocolMessageType(
+    "ParamValue",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PARAMVALUE,
+        "__module__": "utils_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.utils.ParamValue)
+    },
+)
+_sym_db.RegisterMessage(ParamValue)
+
+Param = _reflection.GeneratedProtocolMessageType(
+    "Param",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PARAM,
+        "__module__": "utils_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.utils.Param)
+    },
+)
+_sym_db.RegisterMessage(Param)
 
 QualifiedName = _reflection.GeneratedProtocolMessageType(
     "QualifiedName",

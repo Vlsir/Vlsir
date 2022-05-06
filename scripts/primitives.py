@@ -26,13 +26,13 @@ pybindings = here / "bindings" / "python"
 sys.path.append(str(pybindings))
 
 # Now importing `vlsir` should work
-from vlsir.utils_pb2 import QualifiedName
+from vlsir.utils_pb2 import (QualifiedName, Param,)
 from vlsir.circuit_pb2 import (
     Package,
     ExternalModule,
     Port,
     Signal,
-    Parameter,
+    
 )
 
 
@@ -89,7 +89,7 @@ primitives = Package(
                 # Ideal Resistor
 
                 Ports: (p, n) 
-                Parameters: `r`, resistance (in Ohms)
+                Params: `r`, resistance (in Ohms)
 
                 Primitive ideal resistor. 
                 Largely corresponds to the "R-prefix" element of Spice-class simulators. 
@@ -98,7 +98,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="r", desc="Resistance (Ohms)"),],
+            parameters=[Param(name="r", desc="Resistance (Ohms)"),],
         ),
         ExternalModule(
             name=_qname("capacitor"),
@@ -107,7 +107,7 @@ primitives = Package(
                 # Ideal Capacitor
 
                 Ports: (p, n) 
-                Parameters: `c`, capacitance (in Farads)
+                Params: `c`, capacitance (in Farads)
 
                 Primitive ideal capacitor. 
                 Largely corresponds to the "C-prefix" element of Spice-class simulators. 
@@ -116,7 +116,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="c", desc="Capacitance (Farads)"),],
+            parameters=[Param(name="c", desc="Capacitance (Farads)"),],
         ),
         ExternalModule(
             name=_qname("inductor"),
@@ -125,7 +125,7 @@ primitives = Package(
                 # Ideal Inductor
 
                 Ports: (p, n) 
-                Parameters: `l`, inductance (in Henries)
+                Params: `l`, inductance (in Henries)
 
                 Primitive ideal inductor. 
                 Largely corresponds to the "L-prefix" element of Spice-class simulators. 
@@ -134,7 +134,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="l", desc="Inductance (Henries)"),],
+            parameters=[Param(name="l", desc="Inductance (Henries)"),],
         ),
         ExternalModule(
             name=_qname("vcvs"),
@@ -143,13 +143,13 @@ primitives = Package(
                 # Voltage-Controlled Voltage Source
 
                 Ports: (p, n, ctrlp, ctrln) 
-                Parameters: `gain`, voltage gain (in Volts/Volt)
+                Params: `gain`, voltage gain (in Volts/Volt)
 
                 Largely corresponds to the "e-prefix" element of Spice-class simulators. 
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Parameter(name="gain", desc="Voltage Gain (Volts/Volt)"),],
+            parameters=[Param(name="gain", desc="Voltage Gain (Volts/Volt)"),],
         ),
         ExternalModule(
             name=_qname("vccs"),
@@ -158,14 +158,14 @@ primitives = Package(
                 # Voltage-Controlled Current Source
 
                 Ports: (p, n, ctrlp, ctrln) 
-                Parameters: `gain`, transconductance gain (in Amps/Volt)
+                Params: `gain`, transconductance gain (in Amps/Volt)
 
                 Largely corresponds to the "g-prefix" element of Spice-class simulators. 
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             parameters=[
-                Parameter(name="gain", desc="Transconductance Gain (Amps/Volt)"),
+                Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
             ],
         ),
         ExternalModule(
@@ -175,13 +175,13 @@ primitives = Package(
                 # Current-Controlled Current Source
 
                 Ports: (p, n, ctrlp, ctrln) 
-                Parameters: `gain`, current gain (in Amps/Amp)
+                Params: `gain`, current gain (in Amps/Amp)
 
                 Largely corresponds to the "f-prefix" element of Spice-class simulators. 
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Parameter(name="gain", desc="Current Gain (Amps/Amp)"),],
+            parameters=[Param(name="gain", desc="Current Gain (Amps/Amp)"),],
         ),
         ExternalModule(
             name=_qname("ccvs"),
@@ -190,14 +190,14 @@ primitives = Package(
                 # Current-Controlled Voltage Source
 
                 Ports: (p, n, ctrlp, ctrln) 
-                Parameters: `gain`, transresistance gain (in Volts/Amp)
+                Params: `gain`, transresistance gain (in Volts/Amp)
 
                 Largely corresponds to the "h-prefix" element of Spice-class simulators. 
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             parameters=[
-                Parameter(name="gain", desc="Transresistance Gain (Volts/Amp)"),
+                Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
             ],
         ),
         ExternalModule(
@@ -207,7 +207,7 @@ primitives = Package(
                 # Independent Current Source
 
                 Ports: (p, n) 
-                Parameters: `dc`, dc current (in Amps)
+                Params: `dc`, dc current (in Amps)
 
                 Largely corresponds to the "i-prefix" element of Spice-class simulators. 
                 Sole required parameter `dc` sets the DC value. 
@@ -215,7 +215,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="dc", desc="DC Current (Amps)"),],
+            parameters=[Param(name="dc", desc="DC Current (Amps)"),],
         ),
         ExternalModule(
             name=_qname("vdc"),
@@ -224,13 +224,13 @@ primitives = Package(
                 # Independent Voltage Source
 
                 Ports: (p, n) 
-                Parameters: `dc`, dc voltage (in Volts)
+                Params: `dc`, dc voltage (in Volts)
 
                 All other parameters are passed unmodifed to netlist-level formats. 
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="dc", desc="DC Voltage (Volts)"),],
+            parameters=[Param(name="dc", desc="DC Voltage (Volts)"),],
         ),
         ExternalModule(
             name=_qname("vpulse"),
@@ -240,20 +240,20 @@ primitives = Package(
                 Two-value time-alternating voltage, with parametrizable rise and fall times and delays.
 
                 Ports: (p, n) 
-                Parameters: FIXME!
+                Params: FIXME!
 
                 All other parameters are passed unmodifed to netlist-level formats. 
                 """
             ),
             ports=_ports(("p", "n")),
             parameters=[
-                Parameter(name="v1", desc="Initial Value (V)"),
-                Parameter(name="v2", desc="Pulse Value (V)"),
-                Parameter(name="td", desc="Delay Time (s)"),
-                Parameter(name="tr", desc="Rise Time (s)"),
-                Parameter(name="tf", desc="Fall Time (s)"),
-                Parameter(name="tpw", desc="Pulse Width (s)"),
-                Parameter(name="tper", desc="Period (s)"),
+                Param(name="v1", desc="Initial Value (V)"),
+                Param(name="v2", desc="Pulse Value (V)"),
+                Param(name="td", desc="Delay Time (s)"),
+                Param(name="tr", desc="Rise Time (s)"),
+                Param(name="tf", desc="Fall Time (s)"),
+                Param(name="tpw", desc="Pulse Width (s)"),
+                Param(name="tper", desc="Period (s)"),
             ],
         ),
         ExternalModule(
@@ -263,18 +263,18 @@ primitives = Package(
                 # Sinusoidal Voltage Source
 
                 Ports: (p, n) 
-                Parameters: FIXME!
+                Params: FIXME!
 
                 All other parameters are passed unmodifed to netlist-level formats. 
                 """
             ),
             ports=_ports(("p", "n")),
             parameters=[
-                Parameter(name="voff", desc="Offset voltage (V)"),
-                Parameter(name="vamp", desc="Amplitude (V)"),
-                Parameter(name="freq", desc="Frequency (Hz)"),
-                Parameter(name="td", desc="Delay Time (s)"),
-                Parameter(name="phase", desc="Phase when t=td (degrees)"),
+                Param(name="voff", desc="Offset voltage (V)"),
+                Param(name="vamp", desc="Amplitude (V)"),
+                Param(name="freq", desc="Frequency (Hz)"),
+                Param(name="td", desc="Delay Time (s)"),
+                Param(name="phase", desc="Phase when t=td (degrees)"),
             ],
         ),
         # FIXME: there's no straightforward way to implement "pwl", without list-valued parameters
@@ -286,7 +286,7 @@ primitives = Package(
         #         Driven by a set of (time, voltage) pairs.
         #
         #         Ports: (p, n)
-        #         Parameters: FIXME
+        #         Params: FIXME
         #
         #         All other parameters are passed unmodifed to netlist-level formats.
         #         """
@@ -301,7 +301,7 @@ primitives = Package(
                 # Mosfet Transistor
 
                 Ports: (d, g, s, b), in identical order to SPICE convention 
-                Parameters: string modelname
+                Params: string modelname
 
                 `vlsir.primitives.mos` Largely corresponds to the "M-prefix" element of Spice-class simulators. 
                 Each instance maps to a *spice model* instance ("`m1`"), *not* to sub-circuit instance ("`x1`"). 
@@ -341,7 +341,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(["d", "g", "s", "b"]),
-            parameters=[Parameter(name="modelname", desc="Model Name (string)"),],
+            parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
             name=_qname("bipolar"),
@@ -350,7 +350,7 @@ primitives = Package(
                 # Bipolar Junction Transistor (BJT)
 
                 Ports: (c, b, e), in identical order to SPICE convention 
-                Parameters: string modelname
+                Params: string modelname
 
                 `vlsir.primitives.bipolar` Largely corresponds to the "Q-prefix" element of Spice-class simulators. 
                 Each instance maps to a *spice model* instance ("`q1`"), *not* to sub-circuit instance ("`x1`"). 
@@ -365,7 +365,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("c", "b", "e")),
-            parameters=[Parameter(name="modelname", desc="Model Name (string)"),],
+            parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
             name=_qname("diode"),
@@ -374,7 +374,7 @@ primitives = Package(
                 # Diode
 
                 Ports: (p (anode), n (cathode)), in identical order to SPICE convention 
-                Parameters: string modelname
+                Params: string modelname
 
                 `vlsir.primitives.diode` largely corresponds to the "D-prefix" element of Spice-class simulators. 
                 Each instance maps to a *spice model* instance ("`d1`"), *not* to sub-circuit instance ("`x1`"). 
@@ -387,7 +387,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            parameters=[Parameter(name="modelname", desc="Model Name (string)"),],
+            parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
             name=_qname("tline"),
@@ -396,7 +396,7 @@ primitives = Package(
                 # Transmission Line
 
                 Ports: (p1p, p1n, (port 1), p2p, p2n (port 2)), in identical order to SPICE convention 
-                Parameters: string modelname
+                Params: string modelname
 
                 The *sole* required parameter is the string-valued `modelname`. 
                 All other parameters are passed unmodified to netlist-level formats. 
@@ -407,7 +407,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p1p", "p1n", "p2p", "p2n",)),
-            parameters=[Parameter(name="modelname", desc="Model Name (string)"),],
+            parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
     ],
 )

@@ -19,7 +19,7 @@
 // Fully-formed Spice-class simulators essentially have a third interface  
 // (or much more elaborate version of the first), for defining device-models and process technologies. 
 // These features are typically provided as elaborate netlist "programming" constructs, 
-// including function-definitions, conditional parameter-values, and the like. 
+// including function-definitions, conditional Param-values, and the like. 
 // This "device-model interface" is *not* a facet of `vlsir.spice`. 
 // 
 // The schema defined here instead focuses on the two *circuit-designer*-visible interfaces: 
@@ -32,6 +32,7 @@ package vlsir.spice;
 // Google-Defined Extra Types
 import "google/protobuf/wrappers.proto";
 // Local Imports
+import "utils.proto";
 import "circuit.proto";
 
 
@@ -92,7 +93,7 @@ message SimOptions {
 // 
 // The top-level "testbench" circuit. 
 // Essentially identical to `vlsir.circuit.Module`, 
-// except for the lack of externally-facing `ports` and `parameters`. 
+// except for the lack of externally-facing `ports` and `Params`. 
 //
 // message Circuit {
 //   // Module Name 
@@ -103,7 +104,7 @@ message SimOptions {
 //   repeated vlsir.circuit.Signal signals = 3;
 //   // Module Instances
 //   repeated vlsir.circuit.Instance instances = 4;
-//   // Reserved: Module.default_parameters
+//   // Reserved: Module.default_Params
 //   reserved 5;
 // }
 
@@ -413,7 +414,7 @@ message Control {
     LibInclude lib = 2;
     Save save = 5;
     Meas meas = 6;
-    Param param = 7;
+    vlsir.utils.Param param = 7;
     string literal = 10;
   }
 }
@@ -455,13 +456,6 @@ message Meas {
   string name = 2;
   // Expression to be evaluated
   string expr = 3;
-}
-// # Parameter Declaration 
-message Param {
-  // Parameter name
-  string name = 1;
-  // Parameter value, or default value to be over-ridden
-  string val = 2; // FIXME: some richer types
 }
 
 

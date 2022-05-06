@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     syntax="proto3",
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-    serialized_pb=b'\n\rcircuit.proto\x12\rvlsir.circuit\x1a\x0butils.proto"\x83\x01\n\x07Package\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12&\n\x07modules\x18\x02 \x03(\x0b\x32\x15.vlsir.circuit.Module\x12\x32\n\x0b\x65xt_modules\x18\x03 \x03(\x0b\x32\x1d.vlsir.circuit.ExternalModule\x12\x0c\n\x04\x64\x65sc\x18\n \x01(\t"c\n\x0eParameterValue\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x12\x11\n\x07literal\x18\x05 \x01(\tH\x00\x42\x07\n\x05value"W\n\tParameter\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x07\x64\x65\x66\x61ult\x18\x02 \x01(\x0b\x32\x1d.vlsir.circuit.ParameterValue\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t"\x98\x01\n\x04Port\x12%\n\x06signal\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.Signal\x12\x30\n\tdirection\x18\x02 \x01(\x0e\x32\x1d.vlsir.circuit.Port.Direction"7\n\tDirection\x12\t\n\x05INPUT\x10\x00\x12\n\n\x06OUTPUT\x10\x01\x12\t\n\x05INOUT\x10\x02\x12\x08\n\x04NONE\x10\x03"%\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x03"1\n\x05Slice\x12\x0e\n\x06signal\x18\x01 \x01(\t\x12\x0b\n\x03top\x18\x02 \x01(\x03\x12\x0b\n\x03\x62ot\x18\x03 \x01(\x03"2\n\x06\x43oncat\x12(\n\x05parts\x18\x01 \x03(\x0b\x32\x19.vlsir.circuit.Connection"\x8b\x01\n\nConnection\x12$\n\x03sig\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.SignalH\x00\x12%\n\x05slice\x18\x02 \x01(\x0b\x32\x14.vlsir.circuit.SliceH\x00\x12\'\n\x06\x63oncat\x18\x03 \x01(\x0b\x32\x15.vlsir.circuit.ConcatH\x00\x42\x07\n\x05stype"\xdd\x02\n\x08Instance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x06module\x18\x02 \x01(\x0b\x32\x16.vlsir.utils.Reference\x12;\n\nparameters\x18\x03 \x03(\x0b\x32\'.vlsir.circuit.Instance.ParametersEntry\x12=\n\x0b\x63onnections\x18\x04 \x03(\x0b\x32(.vlsir.circuit.Instance.ConnectionsEntry\x1aP\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12,\n\x05value\x18\x02 \x01(\x0b\x32\x1d.vlsir.circuit.ParameterValue:\x02\x38\x01\x1aM\n\x10\x43onnectionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.vlsir.circuit.Connection:\x02\x38\x01"\xbc\x01\n\x06Module\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\x02 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\x07signals\x18\x03 \x03(\x0b\x32\x15.vlsir.circuit.Signal\x12*\n\tinstances\x18\x04 \x03(\x0b\x32\x17.vlsir.circuit.Instance\x12,\n\nparameters\x18\x05 \x03(\x0b\x32\x18.vlsir.circuit.Parameter"\x9a\x01\n\x0e\x45xternalModule\x12(\n\x04name\x18\x01 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedName\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12"\n\x05ports\x18\x03 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12,\n\nparameters\x18\x05 \x03(\x0b\x32\x18.vlsir.circuit.Parameter"=\n\tInterface\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\n \x03(\x0b\x32\x13.vlsir.circuit.Portb\x06proto3',
+    serialized_pb=b'\n\rcircuit.proto\x12\rvlsir.circuit\x1a\x0butils.proto"\x83\x01\n\x07Package\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12&\n\x07modules\x18\x02 \x03(\x0b\x32\x15.vlsir.circuit.Module\x12\x32\n\x0b\x65xt_modules\x18\x03 \x03(\x0b\x32\x1d.vlsir.circuit.ExternalModule\x12\x0c\n\x04\x64\x65sc\x18\n \x01(\t"\x98\x01\n\x04Port\x12%\n\x06signal\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.Signal\x12\x30\n\tdirection\x18\x02 \x01(\x0e\x32\x1d.vlsir.circuit.Port.Direction"7\n\tDirection\x12\t\n\x05INPUT\x10\x00\x12\n\n\x06OUTPUT\x10\x01\x12\t\n\x05INOUT\x10\x02\x12\x08\n\x04NONE\x10\x03"%\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x03"1\n\x05Slice\x12\x0e\n\x06signal\x18\x01 \x01(\t\x12\x0b\n\x03top\x18\x02 \x01(\x03\x12\x0b\n\x03\x62ot\x18\x03 \x01(\x03"2\n\x06\x43oncat\x12(\n\x05parts\x18\x01 \x03(\x0b\x32\x19.vlsir.circuit.Connection"\x8b\x01\n\nConnection\x12$\n\x03sig\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.SignalH\x00\x12%\n\x05slice\x18\x02 \x01(\x0b\x32\x14.vlsir.circuit.SliceH\x00\x12\'\n\x06\x63oncat\x18\x03 \x01(\x0b\x32\x15.vlsir.circuit.ConcatH\x00\x42\x07\n\x05stype"\xd7\x02\n\x08Instance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x06module\x18\x02 \x01(\x0b\x32\x16.vlsir.utils.Reference\x12;\n\nparameters\x18\x03 \x03(\x0b\x32\'.vlsir.circuit.Instance.ParametersEntry\x12=\n\x0b\x63onnections\x18\x04 \x03(\x0b\x32(.vlsir.circuit.Instance.ConnectionsEntry\x1aJ\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue:\x02\x38\x01\x1aM\n\x10\x43onnectionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.vlsir.circuit.Connection:\x02\x38\x01"\xb6\x01\n\x06Module\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\x02 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\x07signals\x18\x03 \x03(\x0b\x32\x15.vlsir.circuit.Signal\x12*\n\tinstances\x18\x04 \x03(\x0b\x32\x17.vlsir.circuit.Instance\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param"\x94\x01\n\x0e\x45xternalModule\x12(\n\x04name\x18\x01 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedName\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12"\n\x05ports\x18\x03 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param"=\n\tInterface\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\n \x03(\x0b\x32\x13.vlsir.circuit.Portb\x06proto3',
     dependencies=[utils__pb2.DESCRIPTOR,],
 )
 
@@ -68,8 +68,8 @@ _PORT_DIRECTION = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     serialized_options=None,
-    serialized_start=467,
-    serialized_end=522,
+    serialized_start=277,
+    serialized_end=332,
 )
 _sym_db.RegisterEnumDescriptor(_PORT_DIRECTION)
 
@@ -172,192 +172,6 @@ _PACKAGE = _descriptor.Descriptor(
 )
 
 
-_PARAMETERVALUE = _descriptor.Descriptor(
-    name="ParameterValue",
-    full_name="vlsir.circuit.ParameterValue",
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    create_key=_descriptor._internal_create_key,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name="integer",
-            full_name="vlsir.circuit.ParameterValue.integer",
-            index=0,
-            number=2,
-            type=3,
-            cpp_type=2,
-            label=1,
-            has_default_value=False,
-            default_value=0,
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-        _descriptor.FieldDescriptor(
-            name="double",
-            full_name="vlsir.circuit.ParameterValue.double",
-            index=1,
-            number=3,
-            type=1,
-            cpp_type=5,
-            label=1,
-            has_default_value=False,
-            default_value=float(0),
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-        _descriptor.FieldDescriptor(
-            name="string",
-            full_name="vlsir.circuit.ParameterValue.string",
-            index=2,
-            number=4,
-            type=9,
-            cpp_type=9,
-            label=1,
-            has_default_value=False,
-            default_value=b"".decode("utf-8"),
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-        _descriptor.FieldDescriptor(
-            name="literal",
-            full_name="vlsir.circuit.ParameterValue.literal",
-            index=3,
-            number=5,
-            type=9,
-            cpp_type=9,
-            label=1,
-            has_default_value=False,
-            default_value=b"".decode("utf-8"),
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-    ],
-    extensions=[],
-    nested_types=[],
-    enum_types=[],
-    serialized_options=None,
-    is_extendable=False,
-    syntax="proto3",
-    extension_ranges=[],
-    oneofs=[
-        _descriptor.OneofDescriptor(
-            name="value",
-            full_name="vlsir.circuit.ParameterValue.value",
-            index=0,
-            containing_type=None,
-            create_key=_descriptor._internal_create_key,
-            fields=[],
-        ),
-    ],
-    serialized_start=179,
-    serialized_end=278,
-)
-
-
-_PARAMETER = _descriptor.Descriptor(
-    name="Parameter",
-    full_name="vlsir.circuit.Parameter",
-    filename=None,
-    file=DESCRIPTOR,
-    containing_type=None,
-    create_key=_descriptor._internal_create_key,
-    fields=[
-        _descriptor.FieldDescriptor(
-            name="name",
-            full_name="vlsir.circuit.Parameter.name",
-            index=0,
-            number=1,
-            type=9,
-            cpp_type=9,
-            label=1,
-            has_default_value=False,
-            default_value=b"".decode("utf-8"),
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-        _descriptor.FieldDescriptor(
-            name="default",
-            full_name="vlsir.circuit.Parameter.default",
-            index=1,
-            number=2,
-            type=11,
-            cpp_type=10,
-            label=1,
-            has_default_value=False,
-            default_value=None,
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-        _descriptor.FieldDescriptor(
-            name="desc",
-            full_name="vlsir.circuit.Parameter.desc",
-            index=2,
-            number=3,
-            type=9,
-            cpp_type=9,
-            label=1,
-            has_default_value=False,
-            default_value=b"".decode("utf-8"),
-            message_type=None,
-            enum_type=None,
-            containing_type=None,
-            is_extension=False,
-            extension_scope=None,
-            serialized_options=None,
-            file=DESCRIPTOR,
-            create_key=_descriptor._internal_create_key,
-        ),
-    ],
-    extensions=[],
-    nested_types=[],
-    enum_types=[],
-    serialized_options=None,
-    is_extendable=False,
-    syntax="proto3",
-    extension_ranges=[],
-    oneofs=[],
-    serialized_start=280,
-    serialized_end=367,
-)
-
-
 _PORT = _descriptor.Descriptor(
     name="Port",
     full_name="vlsir.circuit.Port",
@@ -413,8 +227,8 @@ _PORT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=370,
-    serialized_end=522,
+    serialized_start=180,
+    serialized_end=332,
 )
 
 
@@ -473,8 +287,8 @@ _SIGNAL = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=524,
-    serialized_end=561,
+    serialized_start=334,
+    serialized_end=371,
 )
 
 
@@ -552,8 +366,8 @@ _SLICE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=563,
-    serialized_end=612,
+    serialized_start=373,
+    serialized_end=422,
 )
 
 
@@ -593,8 +407,8 @@ _CONCAT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=614,
-    serialized_end=664,
+    serialized_start=424,
+    serialized_end=474,
 )
 
 
@@ -681,8 +495,8 @@ _CONNECTION = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=667,
-    serialized_end=806,
+    serialized_start=477,
+    serialized_end=616,
 )
 
 
@@ -741,8 +555,8 @@ _INSTANCE_PARAMETERSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=999,
-    serialized_end=1079,
+    serialized_start=809,
+    serialized_end=883,
 )
 
 _INSTANCE_CONNECTIONSENTRY = _descriptor.Descriptor(
@@ -800,8 +614,8 @@ _INSTANCE_CONNECTIONSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1081,
-    serialized_end=1158,
+    serialized_start=885,
+    serialized_end=962,
 )
 
 _INSTANCE = _descriptor.Descriptor(
@@ -897,8 +711,8 @@ _INSTANCE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=809,
-    serialized_end=1158,
+    serialized_start=619,
+    serialized_end=962,
 )
 
 
@@ -1014,8 +828,8 @@ _MODULE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1161,
-    serialized_end=1349,
+    serialized_start=965,
+    serialized_end=1147,
 )
 
 
@@ -1112,8 +926,8 @@ _EXTERNALMODULE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1352,
-    serialized_end=1506,
+    serialized_start=1150,
+    serialized_end=1298,
 )
 
 
@@ -1172,37 +986,12 @@ _INTERFACE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1508,
-    serialized_end=1569,
+    serialized_start=1300,
+    serialized_end=1361,
 )
 
 _PACKAGE.fields_by_name["modules"].message_type = _MODULE
 _PACKAGE.fields_by_name["ext_modules"].message_type = _EXTERNALMODULE
-_PARAMETERVALUE.oneofs_by_name["value"].fields.append(
-    _PARAMETERVALUE.fields_by_name["integer"]
-)
-_PARAMETERVALUE.fields_by_name[
-    "integer"
-].containing_oneof = _PARAMETERVALUE.oneofs_by_name["value"]
-_PARAMETERVALUE.oneofs_by_name["value"].fields.append(
-    _PARAMETERVALUE.fields_by_name["double"]
-)
-_PARAMETERVALUE.fields_by_name[
-    "double"
-].containing_oneof = _PARAMETERVALUE.oneofs_by_name["value"]
-_PARAMETERVALUE.oneofs_by_name["value"].fields.append(
-    _PARAMETERVALUE.fields_by_name["string"]
-)
-_PARAMETERVALUE.fields_by_name[
-    "string"
-].containing_oneof = _PARAMETERVALUE.oneofs_by_name["value"]
-_PARAMETERVALUE.oneofs_by_name["value"].fields.append(
-    _PARAMETERVALUE.fields_by_name["literal"]
-)
-_PARAMETERVALUE.fields_by_name[
-    "literal"
-].containing_oneof = _PARAMETERVALUE.oneofs_by_name["value"]
-_PARAMETER.fields_by_name["default"].message_type = _PARAMETERVALUE
 _PORT.fields_by_name["signal"].message_type = _SIGNAL
 _PORT.fields_by_name["direction"].enum_type = _PORT_DIRECTION
 _PORT_DIRECTION.containing_type = _PORT
@@ -1220,7 +1009,7 @@ _CONNECTION.oneofs_by_name["stype"].fields.append(_CONNECTION.fields_by_name["co
 _CONNECTION.fields_by_name["concat"].containing_oneof = _CONNECTION.oneofs_by_name[
     "stype"
 ]
-_INSTANCE_PARAMETERSENTRY.fields_by_name["value"].message_type = _PARAMETERVALUE
+_INSTANCE_PARAMETERSENTRY.fields_by_name["value"].message_type = utils__pb2._PARAMVALUE
 _INSTANCE_PARAMETERSENTRY.containing_type = _INSTANCE
 _INSTANCE_CONNECTIONSENTRY.fields_by_name["value"].message_type = _CONNECTION
 _INSTANCE_CONNECTIONSENTRY.containing_type = _INSTANCE
@@ -1230,14 +1019,12 @@ _INSTANCE.fields_by_name["connections"].message_type = _INSTANCE_CONNECTIONSENTR
 _MODULE.fields_by_name["ports"].message_type = _PORT
 _MODULE.fields_by_name["signals"].message_type = _SIGNAL
 _MODULE.fields_by_name["instances"].message_type = _INSTANCE
-_MODULE.fields_by_name["parameters"].message_type = _PARAMETER
+_MODULE.fields_by_name["parameters"].message_type = utils__pb2._PARAM
 _EXTERNALMODULE.fields_by_name["name"].message_type = utils__pb2._QUALIFIEDNAME
 _EXTERNALMODULE.fields_by_name["ports"].message_type = _PORT
-_EXTERNALMODULE.fields_by_name["parameters"].message_type = _PARAMETER
+_EXTERNALMODULE.fields_by_name["parameters"].message_type = utils__pb2._PARAM
 _INTERFACE.fields_by_name["ports"].message_type = _PORT
 DESCRIPTOR.message_types_by_name["Package"] = _PACKAGE
-DESCRIPTOR.message_types_by_name["ParameterValue"] = _PARAMETERVALUE
-DESCRIPTOR.message_types_by_name["Parameter"] = _PARAMETER
 DESCRIPTOR.message_types_by_name["Port"] = _PORT
 DESCRIPTOR.message_types_by_name["Signal"] = _SIGNAL
 DESCRIPTOR.message_types_by_name["Slice"] = _SLICE
@@ -1259,28 +1046,6 @@ Package = _reflection.GeneratedProtocolMessageType(
     },
 )
 _sym_db.RegisterMessage(Package)
-
-ParameterValue = _reflection.GeneratedProtocolMessageType(
-    "ParameterValue",
-    (_message.Message,),
-    {
-        "DESCRIPTOR": _PARAMETERVALUE,
-        "__module__": "circuit_pb2"
-        # @@protoc_insertion_point(class_scope:vlsir.circuit.ParameterValue)
-    },
-)
-_sym_db.RegisterMessage(ParameterValue)
-
-Parameter = _reflection.GeneratedProtocolMessageType(
-    "Parameter",
-    (_message.Message,),
-    {
-        "DESCRIPTOR": _PARAMETER,
-        "__module__": "circuit_pb2"
-        # @@protoc_insertion_point(class_scope:vlsir.circuit.Parameter)
-    },
-)
-_sym_db.RegisterMessage(Parameter)
 
 Port = _reflection.GeneratedProtocolMessageType(
     "Port",

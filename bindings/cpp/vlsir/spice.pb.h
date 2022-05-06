@@ -37,6 +37,7 @@
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include <google/protobuf/wrappers.pb.h>
+#include "utils.pb.h"
 #include "circuit.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -53,7 +54,7 @@ struct TableStruct_spice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[34]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -125,9 +126,6 @@ extern OpInputDefaultTypeInternal _OpInput_default_instance_;
 class OpResult;
 class OpResultDefaultTypeInternal;
 extern OpResultDefaultTypeInternal _OpResult_default_instance_;
-class Param;
-class ParamDefaultTypeInternal;
-extern ParamDefaultTypeInternal _Param_default_instance_;
 class PointSweep;
 class PointSweepDefaultTypeInternal;
 extern PointSweepDefaultTypeInternal _PointSweep_default_instance_;
@@ -191,7 +189,6 @@ template<> ::vlsir::spice::MonteInput* Arena::CreateMaybeMessage<::vlsir::spice:
 template<> ::vlsir::spice::MonteResult* Arena::CreateMaybeMessage<::vlsir::spice::MonteResult>(Arena*);
 template<> ::vlsir::spice::OpInput* Arena::CreateMaybeMessage<::vlsir::spice::OpInput>(Arena*);
 template<> ::vlsir::spice::OpResult* Arena::CreateMaybeMessage<::vlsir::spice::OpResult>(Arena*);
-template<> ::vlsir::spice::Param* Arena::CreateMaybeMessage<::vlsir::spice::Param>(Arena*);
 template<> ::vlsir::spice::PointSweep* Arena::CreateMaybeMessage<::vlsir::spice::PointSweep>(Arena*);
 template<> ::vlsir::spice::Save* Arena::CreateMaybeMessage<::vlsir::spice::Save>(Arena*);
 template<> ::vlsir::spice::Signal* Arena::CreateMaybeMessage<::vlsir::spice::Signal>(Arena*);
@@ -5561,23 +5558,23 @@ class Control PROTOBUF_FINAL :
       ::vlsir::spice::Meas* meas);
   ::vlsir::spice::Meas* unsafe_arena_release_meas();
 
-  // .vlsir.spice.Param param = 7;
+  // .vlsir.utils.Param param = 7;
   bool has_param() const;
   private:
   bool _internal_has_param() const;
   public:
   void clear_param();
-  const ::vlsir::spice::Param& param() const;
-  ::vlsir::spice::Param* release_param();
-  ::vlsir::spice::Param* mutable_param();
-  void set_allocated_param(::vlsir::spice::Param* param);
+  const ::vlsir::utils::Param& param() const;
+  ::vlsir::utils::Param* release_param();
+  ::vlsir::utils::Param* mutable_param();
+  void set_allocated_param(::vlsir::utils::Param* param);
   private:
-  const ::vlsir::spice::Param& _internal_param() const;
-  ::vlsir::spice::Param* _internal_mutable_param();
+  const ::vlsir::utils::Param& _internal_param() const;
+  ::vlsir::utils::Param* _internal_mutable_param();
   public:
   void unsafe_arena_set_allocated_param(
-      ::vlsir::spice::Param* param);
-  ::vlsir::spice::Param* unsafe_arena_release_param();
+      ::vlsir::utils::Param* param);
+  ::vlsir::utils::Param* unsafe_arena_release_param();
 
   // string literal = 10;
   private:
@@ -5631,7 +5628,7 @@ class Control PROTOBUF_FINAL :
     ::vlsir::spice::LibInclude* lib_;
     ::vlsir::spice::Save* save_;
     ::vlsir::spice::Meas* meas_;
-    ::vlsir::spice::Param* param_;
+    ::vlsir::utils::Param* param_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
   } ctrl_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -6399,186 +6396,6 @@ class Meas PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class Param PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.spice.Param) */ {
- public:
-  inline Param() : Param(nullptr) {};
-  virtual ~Param();
-
-  Param(const Param& from);
-  Param(Param&& from) noexcept
-    : Param() {
-    *this = ::std::move(from);
-  }
-
-  inline Param& operator=(const Param& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Param& operator=(Param&& from) noexcept {
-    if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const Param& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Param* internal_default_instance() {
-    return reinterpret_cast<const Param*>(
-               &_Param_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    33;
-
-  friend void swap(Param& a, Param& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Param* other) {
-    if (other == this) return;
-    if (GetArena() == other->GetArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Param* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Param* New() const final {
-    return CreateMaybeMessage<Param>(nullptr);
-  }
-
-  Param* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Param>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Param& from);
-  void MergeFrom(const Param& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Param* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vlsir.spice.Param";
-  }
-  protected:
-  explicit Param(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_spice_2eproto);
-    return ::descriptor_table_spice_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kNameFieldNumber = 1,
-    kValFieldNumber = 2,
-  };
-  // string name = 1;
-  void clear_name();
-  const std::string& name() const;
-  void set_name(const std::string& value);
-  void set_name(std::string&& value);
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  std::string* mutable_name();
-  std::string* release_name();
-  void set_allocated_name(std::string* name);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_name();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_name(
-      std::string* name);
-  private:
-  const std::string& _internal_name() const;
-  void _internal_set_name(const std::string& value);
-  std::string* _internal_mutable_name();
-  public:
-
-  // string val = 2;
-  void clear_val();
-  const std::string& val() const;
-  void set_val(const std::string& value);
-  void set_val(std::string&& value);
-  void set_val(const char* value);
-  void set_val(const char* value, size_t size);
-  std::string* mutable_val();
-  std::string* release_val();
-  void set_allocated_val(std::string* val);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_val();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_val(
-      std::string* val);
-  private:
-  const std::string& _internal_val() const;
-  void _internal_set_val(const std::string& value);
-  std::string* _internal_mutable_val();
-  public:
-
-  // @@protoc_insertion_point(class_scope:vlsir.spice.Param)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr val_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_spice_2eproto;
-};
-// -------------------------------------------------------------------
-
 class Signal PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vlsir.spice.Signal) */ {
  public:
@@ -6621,7 +6438,7 @@ class Signal PROTOBUF_FINAL :
                &_Signal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    33;
 
   friend void swap(Signal& a, Signal& b) {
     a.Swap(&b);
@@ -12178,7 +11995,7 @@ inline ::vlsir::spice::Meas* Control::mutable_meas() {
   return _internal_mutable_meas();
 }
 
-// .vlsir.spice.Param param = 7;
+// .vlsir.utils.Param param = 7;
 inline bool Control::_internal_has_param() const {
   return ctrl_case() == kParam;
 }
@@ -12188,19 +12005,11 @@ inline bool Control::has_param() const {
 inline void Control::set_has_param() {
   _oneof_case_[0] = kParam;
 }
-inline void Control::clear_param() {
-  if (_internal_has_param()) {
-    if (GetArena() == nullptr) {
-      delete ctrl_.param_;
-    }
-    clear_has_ctrl();
-  }
-}
-inline ::vlsir::spice::Param* Control::release_param() {
+inline ::vlsir::utils::Param* Control::release_param() {
   // @@protoc_insertion_point(field_release:vlsir.spice.Control.param)
   if (_internal_has_param()) {
     clear_has_ctrl();
-      ::vlsir::spice::Param* temp = ctrl_.param_;
+      ::vlsir::utils::Param* temp = ctrl_.param_;
     if (GetArena() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -12210,27 +12019,27 @@ inline ::vlsir::spice::Param* Control::release_param() {
     return nullptr;
   }
 }
-inline const ::vlsir::spice::Param& Control::_internal_param() const {
+inline const ::vlsir::utils::Param& Control::_internal_param() const {
   return _internal_has_param()
       ? *ctrl_.param_
-      : *reinterpret_cast< ::vlsir::spice::Param*>(&::vlsir::spice::_Param_default_instance_);
+      : *reinterpret_cast< ::vlsir::utils::Param*>(&::vlsir::utils::_Param_default_instance_);
 }
-inline const ::vlsir::spice::Param& Control::param() const {
+inline const ::vlsir::utils::Param& Control::param() const {
   // @@protoc_insertion_point(field_get:vlsir.spice.Control.param)
   return _internal_param();
 }
-inline ::vlsir::spice::Param* Control::unsafe_arena_release_param() {
+inline ::vlsir::utils::Param* Control::unsafe_arena_release_param() {
   // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Control.param)
   if (_internal_has_param()) {
     clear_has_ctrl();
-    ::vlsir::spice::Param* temp = ctrl_.param_;
+    ::vlsir::utils::Param* temp = ctrl_.param_;
     ctrl_.param_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void Control::unsafe_arena_set_allocated_param(::vlsir::spice::Param* param) {
+inline void Control::unsafe_arena_set_allocated_param(::vlsir::utils::Param* param) {
   clear_ctrl();
   if (param) {
     set_has_param();
@@ -12238,15 +12047,15 @@ inline void Control::unsafe_arena_set_allocated_param(::vlsir::spice::Param* par
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Control.param)
 }
-inline ::vlsir::spice::Param* Control::_internal_mutable_param() {
+inline ::vlsir::utils::Param* Control::_internal_mutable_param() {
   if (!_internal_has_param()) {
     clear_ctrl();
     set_has_param();
-    ctrl_.param_ = CreateMaybeMessage< ::vlsir::spice::Param >(GetArena());
+    ctrl_.param_ = CreateMaybeMessage< ::vlsir::utils::Param >(GetArena());
   }
   return ctrl_.param_;
 }
-inline ::vlsir::spice::Param* Control::mutable_param() {
+inline ::vlsir::utils::Param* Control::mutable_param() {
   // @@protoc_insertion_point(field_mutable:vlsir.spice.Control.param)
   return _internal_mutable_param();
 }
@@ -13058,172 +12867,6 @@ inline void Meas::unsafe_arena_set_allocated_expr(
 
 // -------------------------------------------------------------------
 
-// Param
-
-// string name = 1;
-inline void Param::clear_name() {
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Param::name() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Param.name)
-  return _internal_name();
-}
-inline void Param::set_name(const std::string& value) {
-  _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.Param.name)
-}
-inline std::string* Param::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Param.name)
-  return _internal_mutable_name();
-}
-inline const std::string& Param::_internal_name() const {
-  return name_.Get();
-}
-inline void Param::_internal_set_name(const std::string& value) {
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Param::set_name(std::string&& value) {
-  
-  name_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.spice.Param.name)
-}
-inline void Param::set_name(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.spice.Param.name)
-}
-inline void Param::set_name(const char* value,
-    size_t size) {
-  
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.Param.name)
-}
-inline std::string* Param::_internal_mutable_name() {
-  
-  return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Param::release_name() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.Param.name)
-  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Param::set_allocated_name(std::string* name) {
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Param.name)
-}
-inline std::string* Param::unsafe_arena_release_name() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Param.name)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void Param::unsafe_arena_set_allocated_name(
-    std::string* name) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      name, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Param.name)
-}
-
-// string val = 2;
-inline void Param::clear_val() {
-  val_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Param::val() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.Param.val)
-  return _internal_val();
-}
-inline void Param::set_val(const std::string& value) {
-  _internal_set_val(value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.Param.val)
-}
-inline std::string* Param::mutable_val() {
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.Param.val)
-  return _internal_mutable_val();
-}
-inline const std::string& Param::_internal_val() const {
-  return val_.Get();
-}
-inline void Param::_internal_set_val(const std::string& value) {
-  
-  val_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Param::set_val(std::string&& value) {
-  
-  val_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.spice.Param.val)
-}
-inline void Param::set_val(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  val_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:vlsir.spice.Param.val)
-}
-inline void Param::set_val(const char* value,
-    size_t size) {
-  
-  val_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.Param.val)
-}
-inline std::string* Param::_internal_mutable_val() {
-  
-  return val_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Param::release_val() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.Param.val)
-  return val_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Param::set_allocated_val(std::string* val) {
-  if (val != nullptr) {
-    
-  } else {
-    
-  }
-  val_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), val,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Param.val)
-}
-inline std::string* Param::unsafe_arena_release_val() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:vlsir.spice.Param.val)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return val_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void Param::unsafe_arena_set_allocated_val(
-    std::string* val) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (val != nullptr) {
-    
-  } else {
-    
-  }
-  val_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      val, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vlsir.spice.Param.val)
-}
-
-// -------------------------------------------------------------------
-
 // Signal
 
 // string name = 1;
@@ -13330,8 +12973,6 @@ inline void Signal::set_quantity(::vlsir::spice::Signal_Quantity value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

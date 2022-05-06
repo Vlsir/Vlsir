@@ -34,7 +34,6 @@ extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal:
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Meas_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_OpInput_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Param_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PointSweep_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Save_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SimOptions_spice_2eproto;
@@ -43,6 +42,7 @@ extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal:
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranInput_IcEntry_DoNotUse_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TranResult_spice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_spice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_utils_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Param_utils_2eproto;
 namespace vlsir {
 namespace spice {
 class SimInputDefaultTypeInternal {
@@ -181,7 +181,7 @@ class ControlDefaultTypeInternal {
   const ::vlsir::spice::LibInclude* lib_;
   const ::vlsir::spice::Save* save_;
   const ::vlsir::spice::Meas* meas_;
-  const ::vlsir::spice::Param* param_;
+  const ::vlsir::utils::Param* param_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr literal_;
 } _Control_default_instance_;
 class SaveDefaultTypeInternal {
@@ -202,10 +202,6 @@ class MeasDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Meas> _instance;
 } _Meas_default_instance_;
-class ParamDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Param> _instance;
-} _Param_default_instance_;
 class SignalDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Signal> _instance;
@@ -352,7 +348,7 @@ static void InitDefaultsscc_info_Control_spice_2eproto() {
       &scc_info_LibInclude_spice_2eproto.base,
       &scc_info_Save_spice_2eproto.base,
       &scc_info_Meas_spice_2eproto.base,
-      &scc_info_Param_spice_2eproto.base,}};
+      &scc_info_Param_utils_2eproto.base,}};
 
 static void InitDefaultsscc_info_CustomAnalysisInput_spice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -526,20 +522,6 @@ static void InitDefaultsscc_info_OpResult_spice_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OpResult_spice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_OpResult_spice_2eproto}, {}};
 
-static void InitDefaultsscc_info_Param_spice_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::spice::_Param_default_instance_;
-    new (ptr) ::vlsir::spice::Param();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::spice::Param::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Param_spice_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Param_spice_2eproto}, {}};
-
 static void InitDefaultsscc_info_PointSweep_spice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -703,7 +685,7 @@ static void InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2ep
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TranResult_MeasurementsEntry_DoNotUse_spice_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[35];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[34];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_spice_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spice_2eproto = nullptr;
 
@@ -1002,13 +984,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spice_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Meas, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Meas, expr_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, name_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::spice::Param, val_),
-  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Signal, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -1050,8 +1025,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 272, -1, sizeof(::vlsir::spice::Include)},
   { 278, -1, sizeof(::vlsir::spice::LibInclude)},
   { 285, -1, sizeof(::vlsir::spice::Meas)},
-  { 293, -1, sizeof(::vlsir::spice::Param)},
-  { 300, -1, sizeof(::vlsir::spice::Signal)},
+  { 293, -1, sizeof(::vlsir::spice::Signal)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1088,116 +1062,116 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Include_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_LibInclude_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Meas_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Param_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_Signal_default_instance_),
 };
 
 const char descriptor_table_protodef_spice_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\013spice.proto\022\013vlsir.spice\032\036google/proto"
-  "buf/wrappers.proto\032\rcircuit.proto\"\253\001\n\010Si"
-  "mInput\022#\n\003pkg\030\001 \001(\0132\026.vlsir.circuit.Pack"
-  "age\022\013\n\003top\030\002 \001(\t\022%\n\004opts\030\n \003(\0132\027.vlsir.s"
-  "pice.SimOptions\022!\n\002an\030\013 \003(\0132\025.vlsir.spic"
-  "e.Analysis\022#\n\005ctrls\030\014 \003(\0132\024.vlsir.spice."
-  "Control\"4\n\tSimResult\022\'\n\002an\030\001 \003(\0132\033.vlsir"
-  ".spice.AnalysisResult\"W\n\nSimOptions\022\014\n\004t"
-  "emp\030\001 \001(\001\022\014\n\004tnom\030\002 \001(\001\022\014\n\004gmin\030\003 \001(\001\022\017\n"
-  "\007iabstol\030\004 \001(\001\022\016\n\006reltol\030\005 \001(\001\"\254\002\n\010Analy"
-  "sis\022\"\n\002op\030\001 \001(\0132\024.vlsir.spice.OpInputH\000\022"
-  "\"\n\002dc\030\002 \001(\0132\024.vlsir.spice.DcInputH\000\022&\n\004t"
-  "ran\030\003 \001(\0132\026.vlsir.spice.TranInputH\000\022\"\n\002a"
-  "c\030\004 \001(\0132\024.vlsir.spice.AcInputH\000\022(\n\005sweep"
-  "\030\n \001(\0132\027.vlsir.spice.SweepInputH\000\022(\n\005mon"
-  "te\030\013 \001(\0132\027.vlsir.spice.MonteInputH\000\0222\n\006c"
-  "ustom\030\024 \001(\0132 .vlsir.spice.CustomAnalysis"
-  "InputH\000B\004\n\002an\"\271\002\n\016AnalysisResult\022#\n\002op\030\001"
-  " \001(\0132\025.vlsir.spice.OpResultH\000\022#\n\002dc\030\002 \001("
-  "\0132\025.vlsir.spice.DcResultH\000\022\'\n\004tran\030\003 \001(\013"
-  "2\027.vlsir.spice.TranResultH\000\022#\n\002ac\030\004 \001(\0132"
-  "\025.vlsir.spice.AcResultH\000\022)\n\005sweep\030\n \001(\0132"
-  "\030.vlsir.spice.SweepResultH\000\022)\n\005monte\030\013 \001"
-  "(\0132\030.vlsir.spice.MonteResultH\000\0223\n\006custom"
-  "\030\024 \001(\0132!.vlsir.spice.CustomAnalysisResul"
-  "tH\000B\004\n\002an\"E\n\007OpInput\022\025\n\ranalysis_name\030\001 "
-  "\001(\t\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Control"
-  "\"L\n\010OpResult\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007s"
-  "ignals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"|"
-  "\n\007DcInput\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n\ninde"
-  "p_name\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spic"
-  "e.Sweep\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Con"
-  "trol\"\316\001\n\010DcResult\022\025\n\ranalysis_name\030\001 \001(\t"
-  "\022\022\n\nindep_name\030\002 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n"
-  "\004data\030\005 \003(\001\022=\n\014measurements\030\n \003(\0132\'.vlsi"
-  "r.spice.DcResult.MeasurementsEntry\0323\n\021Me"
-  "asurementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
-  "\001(\001:\0028\001J\004\010\004\020\005\"\274\001\n\tTranInput\022\025\n\ranalysis_"
-  "name\030\001 \001(\t\022\r\n\005tstop\030\002 \001(\001\022\r\n\005tstep\030\003 \001(\001"
-  "\022*\n\002ic\030\004 \003(\0132\036.vlsir.spice.TranInput.IcE"
-  "ntry\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Contro"
-  "l\032)\n\007IcEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001"
-  ":\0028\001\"\304\001\n\nTranResult\022\025\n\ranalysis_name\030\001 \001"
-  "(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001\022\?\n\014mea"
-  "surements\030\n \003(\0132).vlsir.spice.TranResult"
-  ".MeasurementsEntry\0323\n\021MeasurementsEntry\022"
-  "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\002\020\003J\004\010"
-  "\004\020\005\"$\n\nComplexNum\022\n\n\002re\030\001 \001(\001\022\n\n\002im\030\002 \001("
-  "\001\"r\n\007AcInput\022\025\n\ranalysis_name\030\001 \001(\t\022\016\n\006f"
-  "start\030\002 \001(\001\022\r\n\005fstop\030\003 \001(\001\022\014\n\004npts\030\004 \001(\004"
-  "\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Control\"\341\001"
-  "\n\010AcResult\022\025\n\ranalysis_name\030\001 \001(\t\022\014\n\004fre"
-  "q\030\002 \003(\001\022\017\n\007signals\030\003 \003(\t\022%\n\004data\030\005 \003(\0132\027"
-  ".vlsir.spice.ComplexNum\022=\n\014measurements\030"
-  "\n \003(\0132\'.vlsir.spice.AcResult.Measurement"
-  "sEntry\0323\n\021MeasurementsEntry\022\013\n\003key\030\001 \001(\t"
-  "\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004\020\005\"\240\001\n\nSweepInput"
-  "\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n\010variable\030\002 \001("
-  "\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice.Sweep\022!\n\002"
-  "an\030\004 \003(\0132\025.vlsir.spice.Analysis\022#\n\005ctrls"
-  "\030\005 \003(\0132\024.vlsir.spice.Control\"\202\001\n\013SweepRe"
-  "sult\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n\010variable\030"
-  "\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice.Sweep"
-  "\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice.AnalysisResul"
-  "t\"\207\001\n\nMonteInput\022\025\n\ranalysis_name\030\001 \001(\t\022"
-  "\014\n\004npts\030\002 \001(\003\022\014\n\004seed\030\003 \001(\003\022!\n\002an\030\004 \003(\0132"
-  "\025.vlsir.spice.Analysis\022#\n\005ctrls\030\005 \003(\0132\024."
-  "vlsir.spice.Control\"\202\001\n\013MonteResult\022\025\n\ra"
-  "nalysis_name\030\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005"
-  "sweep\030\003 \001(\0132\022.vlsir.spice.Sweep\022\'\n\002an\030\004 "
-  "\003(\0132\033.vlsir.spice.AnalysisResult\"^\n\023Cust"
-  "omAnalysisInput\022\025\n\ranalysis_name\030\001 \001(\t\022\013"
-  "\n\003cmd\030\002 \001(\t\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice"
-  ".Control\"\026\n\024CustomAnalysisResult\"\212\001\n\005Swe"
-  "ep\022*\n\006linear\030\001 \001(\0132\030.vlsir.spice.LinearS"
-  "weepH\000\022$\n\003log\030\002 \001(\0132\025.vlsir.spice.LogSwe"
-  "epH\000\022)\n\006points\030\003 \001(\0132\027.vlsir.spice.Point"
-  "SweepH\000B\004\n\002tp\"8\n\013LinearSweep\022\r\n\005start\030\001 "
-  "\001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004step\030\003 \001(\001\"5\n\010LogSw"
-  "eep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts"
-  "\030\003 \001(\001\"8\n\nPointSweep\022\016\n\006points\030\001 \003(\001\022\014\n\004"
-  "stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"\340\001\n\007Control\022\'\n\007"
-  "include\030\001 \001(\0132\024.vlsir.spice.IncludeH\000\022&\n"
-  "\003lib\030\002 \001(\0132\027.vlsir.spice.LibIncludeH\000\022!\n"
-  "\004save\030\005 \001(\0132\021.vlsir.spice.SaveH\000\022!\n\004meas"
-  "\030\006 \001(\0132\021.vlsir.spice.MeasH\000\022#\n\005param\030\007 \001"
-  "(\0132\022.vlsir.spice.ParamH\000\022\021\n\007literal\030\n \001("
-  "\tH\000B\006\n\004ctrl\"k\n\004Save\022*\n\004mode\030\001 \001(\0162\032.vlsi"
-  "r.spice.Save.SaveModeH\000\022\020\n\006signal\030\002 \001(\tH"
-  "\000\"\035\n\010SaveMode\022\010\n\004NONE\020\000\022\007\n\003ALL\020\001B\006\n\004save"
-  "\"\027\n\007Include\022\014\n\004path\030\001 \001(\t\"+\n\nLibInclude\022"
-  "\014\n\004path\030\001 \001(\t\022\017\n\007section\030\002 \001(\t\"9\n\004Meas\022\025"
-  "\n\ranalysis_type\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004e"
-  "xpr\030\003 \001(\t\"\"\n\005Param\022\014\n\004name\030\001 \001(\t\022\013\n\003val\030"
-  "\002 \001(\t\"v\n\006Signal\022\014\n\004name\030\001 \001(\t\022.\n\010quantit"
-  "y\030\002 \001(\0162\034.vlsir.spice.Signal.Quantity\".\n"
-  "\010Quantity\022\013\n\007VOLTAGE\020\000\022\013\n\007CURRENT\020\001\022\010\n\004N"
-  "ONE\020\0032=\n\005Spice\0224\n\003Sim\022\025.vlsir.spice.SimI"
-  "nput\032\026.vlsir.spice.SimResultb\006proto3"
+  "buf/wrappers.proto\032\013utils.proto\032\rcircuit"
+  ".proto\"\253\001\n\010SimInput\022#\n\003pkg\030\001 \001(\0132\026.vlsir"
+  ".circuit.Package\022\013\n\003top\030\002 \001(\t\022%\n\004opts\030\n "
+  "\003(\0132\027.vlsir.spice.SimOptions\022!\n\002an\030\013 \003(\013"
+  "2\025.vlsir.spice.Analysis\022#\n\005ctrls\030\014 \003(\0132\024"
+  ".vlsir.spice.Control\"4\n\tSimResult\022\'\n\002an\030"
+  "\001 \003(\0132\033.vlsir.spice.AnalysisResult\"W\n\nSi"
+  "mOptions\022\014\n\004temp\030\001 \001(\001\022\014\n\004tnom\030\002 \001(\001\022\014\n\004"
+  "gmin\030\003 \001(\001\022\017\n\007iabstol\030\004 \001(\001\022\016\n\006reltol\030\005 "
+  "\001(\001\"\254\002\n\010Analysis\022\"\n\002op\030\001 \001(\0132\024.vlsir.spi"
+  "ce.OpInputH\000\022\"\n\002dc\030\002 \001(\0132\024.vlsir.spice.D"
+  "cInputH\000\022&\n\004tran\030\003 \001(\0132\026.vlsir.spice.Tra"
+  "nInputH\000\022\"\n\002ac\030\004 \001(\0132\024.vlsir.spice.AcInp"
+  "utH\000\022(\n\005sweep\030\n \001(\0132\027.vlsir.spice.SweepI"
+  "nputH\000\022(\n\005monte\030\013 \001(\0132\027.vlsir.spice.Mont"
+  "eInputH\000\0222\n\006custom\030\024 \001(\0132 .vlsir.spice.C"
+  "ustomAnalysisInputH\000B\004\n\002an\"\271\002\n\016AnalysisR"
+  "esult\022#\n\002op\030\001 \001(\0132\025.vlsir.spice.OpResult"
+  "H\000\022#\n\002dc\030\002 \001(\0132\025.vlsir.spice.DcResultH\000\022"
+  "\'\n\004tran\030\003 \001(\0132\027.vlsir.spice.TranResultH\000"
+  "\022#\n\002ac\030\004 \001(\0132\025.vlsir.spice.AcResultH\000\022)\n"
+  "\005sweep\030\n \001(\0132\030.vlsir.spice.SweepResultH\000"
+  "\022)\n\005monte\030\013 \001(\0132\030.vlsir.spice.MonteResul"
+  "tH\000\0223\n\006custom\030\024 \001(\0132!.vlsir.spice.Custom"
+  "AnalysisResultH\000B\004\n\002an\"E\n\007OpInput\022\025\n\rana"
+  "lysis_name\030\001 \001(\t\022#\n\005ctrls\030\005 \003(\0132\024.vlsir."
+  "spice.Control\"L\n\010OpResult\022\025\n\ranalysis_na"
+  "me\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001J"
+  "\004\010\002\020\003J\004\010\004\020\005\"|\n\007DcInput\022\025\n\ranalysis_name\030"
+  "\001 \001(\t\022\022\n\nindep_name\030\002 \001(\t\022!\n\005sweep\030\003 \001(\013"
+  "2\022.vlsir.spice.Sweep\022#\n\005ctrls\030\005 \003(\0132\024.vl"
+  "sir.spice.Control\"\316\001\n\010DcResult\022\025\n\ranalys"
+  "is_name\030\001 \001(\t\022\022\n\nindep_name\030\002 \001(\t\022\017\n\007sig"
+  "nals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001\022=\n\014measurements"
+  "\030\n \003(\0132\'.vlsir.spice.DcResult.Measuremen"
+  "tsEntry\0323\n\021MeasurementsEntry\022\013\n\003key\030\001 \001("
+  "\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004\020\005\"\274\001\n\tTranInput"
+  "\022\025\n\ranalysis_name\030\001 \001(\t\022\r\n\005tstop\030\002 \001(\001\022\r"
+  "\n\005tstep\030\003 \001(\001\022*\n\002ic\030\004 \003(\0132\036.vlsir.spice."
+  "TranInput.IcEntry\022#\n\005ctrls\030\005 \003(\0132\024.vlsir"
+  ".spice.Control\032)\n\007IcEntry\022\013\n\003key\030\001 \001(\t\022\r"
+  "\n\005value\030\002 \001(\001:\0028\001\"\304\001\n\nTranResult\022\025\n\ranal"
+  "ysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data"
+  "\030\005 \003(\001\022\?\n\014measurements\030\n \003(\0132).vlsir.spi"
+  "ce.TranResult.MeasurementsEntry\0323\n\021Measu"
+  "rementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001"
+  ":\0028\001J\004\010\002\020\003J\004\010\004\020\005\"$\n\nComplexNum\022\n\n\002re\030\001 \001"
+  "(\001\022\n\n\002im\030\002 \001(\001\"r\n\007AcInput\022\025\n\ranalysis_na"
+  "me\030\001 \001(\t\022\016\n\006fstart\030\002 \001(\001\022\r\n\005fstop\030\003 \001(\001\022"
+  "\014\n\004npts\030\004 \001(\004\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spi"
+  "ce.Control\"\341\001\n\010AcResult\022\025\n\ranalysis_name"
+  "\030\001 \001(\t\022\014\n\004freq\030\002 \003(\001\022\017\n\007signals\030\003 \003(\t\022%\n"
+  "\004data\030\005 \003(\0132\027.vlsir.spice.ComplexNum\022=\n\014"
+  "measurements\030\n \003(\0132\'.vlsir.spice.AcResul"
+  "t.MeasurementsEntry\0323\n\021MeasurementsEntry"
+  "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004\020\005\"\240"
+  "\001\n\nSweepInput\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n\010"
+  "variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.sp"
+  "ice.Sweep\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Anal"
+  "ysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Contro"
+  "l\"\202\001\n\013SweepResult\022\025\n\ranalysis_name\030\001 \001(\t"
+  "\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsi"
+  "r.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice."
+  "AnalysisResult\"\207\001\n\nMonteInput\022\025\n\ranalysi"
+  "s_name\030\001 \001(\t\022\014\n\004npts\030\002 \001(\003\022\014\n\004seed\030\003 \001(\003"
+  "\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Analysis\022#\n\005c"
+  "trls\030\005 \003(\0132\024.vlsir.spice.Control\"\202\001\n\013Mon"
+  "teResult\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n\010varia"
+  "ble\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice.S"
+  "weep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice.AnalysisR"
+  "esult\"^\n\023CustomAnalysisInput\022\025\n\ranalysis"
+  "_name\030\001 \001(\t\022\013\n\003cmd\030\002 \001(\t\022#\n\005ctrls\030\005 \003(\0132"
+  "\024.vlsir.spice.Control\"\026\n\024CustomAnalysisR"
+  "esult\"\212\001\n\005Sweep\022*\n\006linear\030\001 \001(\0132\030.vlsir."
+  "spice.LinearSweepH\000\022$\n\003log\030\002 \001(\0132\025.vlsir"
+  ".spice.LogSweepH\000\022)\n\006points\030\003 \001(\0132\027.vlsi"
+  "r.spice.PointSweepH\000B\004\n\002tp\"8\n\013LinearSwee"
+  "p\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004step\030\003"
+  " \001(\001\"5\n\010LogSweep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030"
+  "\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPointSweep\022\016\n\006poi"
+  "nts\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"\340\001"
+  "\n\007Control\022\'\n\007include\030\001 \001(\0132\024.vlsir.spice"
+  ".IncludeH\000\022&\n\003lib\030\002 \001(\0132\027.vlsir.spice.Li"
+  "bIncludeH\000\022!\n\004save\030\005 \001(\0132\021.vlsir.spice.S"
+  "aveH\000\022!\n\004meas\030\006 \001(\0132\021.vlsir.spice.MeasH\000"
+  "\022#\n\005param\030\007 \001(\0132\022.vlsir.utils.ParamH\000\022\021\n"
+  "\007literal\030\n \001(\tH\000B\006\n\004ctrl\"k\n\004Save\022*\n\004mode"
+  "\030\001 \001(\0162\032.vlsir.spice.Save.SaveModeH\000\022\020\n\006"
+  "signal\030\002 \001(\tH\000\"\035\n\010SaveMode\022\010\n\004NONE\020\000\022\007\n\003"
+  "ALL\020\001B\006\n\004save\"\027\n\007Include\022\014\n\004path\030\001 \001(\t\"+"
+  "\n\nLibInclude\022\014\n\004path\030\001 \001(\t\022\017\n\007section\030\002 "
+  "\001(\t\"9\n\004Meas\022\025\n\ranalysis_type\030\001 \001(\t\022\014\n\004na"
+  "me\030\002 \001(\t\022\014\n\004expr\030\003 \001(\t\"v\n\006Signal\022\014\n\004name"
+  "\030\001 \001(\t\022.\n\010quantity\030\002 \001(\0162\034.vlsir.spice.S"
+  "ignal.Quantity\".\n\010Quantity\022\013\n\007VOLTAGE\020\000\022"
+  "\013\n\007CURRENT\020\001\022\010\n\004NONE\020\0032=\n\005Spice\0224\n\003Sim\022\025"
+  ".vlsir.spice.SimInput\032\026.vlsir.spice.SimR"
+  "esultb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spice_2eproto_deps[2] = {
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spice_2eproto_deps[3] = {
   &::descriptor_table_circuit_2eproto,
   &::descriptor_table_google_2fprotobuf_2fwrappers_2eproto,
+  &::descriptor_table_utils_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spice_2eproto_sccs[31] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spice_2eproto_sccs[30] = {
   &scc_info_AcInput_spice_2eproto.base,
   &scc_info_AcResult_spice_2eproto.base,
   &scc_info_AcResult_MeasurementsEntry_DoNotUse_spice_2eproto.base,
@@ -1217,7 +1191,6 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spi
   &scc_info_Meas_spice_2eproto.base,
   &scc_info_OpInput_spice_2eproto.base,
   &scc_info_OpResult_spice_2eproto.base,
-  &scc_info_Param_spice_2eproto.base,
   &scc_info_PointSweep_spice_2eproto.base,
   &scc_info_Save_spice_2eproto.base,
   &scc_info_Signal_spice_2eproto.base,
@@ -1232,10 +1205,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_spi
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spice_2eproto = {
-  false, false, descriptor_table_protodef_spice_2eproto, "spice.proto", 3956,
-  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_sccs, descriptor_table_spice_2eproto_deps, 31, 2,
+  false, false, descriptor_table_protodef_spice_2eproto, "spice.proto", 3933,
+  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_sccs, descriptor_table_spice_2eproto_deps, 30, 3,
   schemas, file_default_instances, TableStruct_spice_2eproto::offsets,
-  file_level_metadata_spice_2eproto, 35, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
+  file_level_metadata_spice_2eproto, 34, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -9224,8 +9197,8 @@ void Control::InitAsDefaultInstance() {
       ::vlsir::spice::Save::internal_default_instance());
   ::vlsir::spice::_Control_default_instance_.meas_ = const_cast< ::vlsir::spice::Meas*>(
       ::vlsir::spice::Meas::internal_default_instance());
-  ::vlsir::spice::_Control_default_instance_.param_ = const_cast< ::vlsir::spice::Param*>(
-      ::vlsir::spice::Param::internal_default_instance());
+  ::vlsir::spice::_Control_default_instance_.param_ = const_cast< ::vlsir::utils::Param*>(
+      ::vlsir::utils::Param::internal_default_instance());
   ::vlsir::spice::_Control_default_instance_.literal_.UnsafeSetDefault(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -9235,7 +9208,7 @@ class Control::_Internal {
   static const ::vlsir::spice::LibInclude& lib(const Control* msg);
   static const ::vlsir::spice::Save& save(const Control* msg);
   static const ::vlsir::spice::Meas& meas(const Control* msg);
-  static const ::vlsir::spice::Param& param(const Control* msg);
+  static const ::vlsir::utils::Param& param(const Control* msg);
 };
 
 const ::vlsir::spice::Include&
@@ -9254,7 +9227,7 @@ const ::vlsir::spice::Meas&
 Control::_Internal::meas(const Control* msg) {
   return *msg->ctrl_.meas_;
 }
-const ::vlsir::spice::Param&
+const ::vlsir::utils::Param&
 Control::_Internal::param(const Control* msg) {
   return *msg->ctrl_.param_;
 }
@@ -9318,12 +9291,12 @@ void Control::set_allocated_meas(::vlsir::spice::Meas* meas) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.meas)
 }
-void Control::set_allocated_param(::vlsir::spice::Param* param) {
+void Control::set_allocated_param(::vlsir::utils::Param* param) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   clear_ctrl();
   if (param) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(param);
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(param)->GetArena();
     if (message_arena != submessage_arena) {
       param = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, param, submessage_arena);
@@ -9332,6 +9305,14 @@ void Control::set_allocated_param(::vlsir::spice::Param* param) {
     ctrl_.param_ = param;
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Control.param)
+}
+void Control::clear_param() {
+  if (_internal_has_param()) {
+    if (GetArena() == nullptr) {
+      delete ctrl_.param_;
+    }
+    clear_has_ctrl();
+  }
 }
 Control::Control(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -9361,7 +9342,7 @@ Control::Control(const Control& from)
       break;
     }
     case kParam: {
-      _internal_mutable_param()->::vlsir::spice::Param::MergeFrom(from._internal_param());
+      _internal_mutable_param()->::vlsir::utils::Param::MergeFrom(from._internal_param());
       break;
     }
     case kLiteral: {
@@ -9499,7 +9480,7 @@ const char* Control::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .vlsir.spice.Param param = 7;
+      // .vlsir.utils.Param param = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_param(), ptr);
@@ -9575,7 +9556,7 @@ failure:
         6, _Internal::meas(this), target, stream);
   }
 
-  // .vlsir.spice.Param param = 7;
+  // .vlsir.utils.Param param = 7;
   if (_internal_has_param()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -9638,7 +9619,7 @@ size_t Control::ByteSizeLong() const {
           *ctrl_.meas_);
       break;
     }
-    // .vlsir.spice.Param param = 7;
+    // .vlsir.utils.Param param = 7;
     case kParam: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -9705,7 +9686,7 @@ void Control::MergeFrom(const Control& from) {
       break;
     }
     case kParam: {
-      _internal_mutable_param()->::vlsir::spice::Param::MergeFrom(from._internal_param());
+      _internal_mutable_param()->::vlsir::utils::Param::MergeFrom(from._internal_param());
       break;
     }
     case kLiteral: {
@@ -10770,253 +10751,6 @@ void Meas::InternalSwap(Meas* other) {
 
 // ===================================================================
 
-void Param::InitAsDefaultInstance() {
-}
-class Param::_Internal {
- public:
-};
-
-Param::Param(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:vlsir.spice.Param)
-}
-Param::Param(const Param& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
-  }
-  val_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_val().empty()) {
-    val_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_val(),
-      GetArena());
-  }
-  // @@protoc_insertion_point(copy_constructor:vlsir.spice.Param)
-}
-
-void Param::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Param_spice_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  val_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-Param::~Param() {
-  // @@protoc_insertion_point(destructor:vlsir.spice.Param)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void Param::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  val_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void Param::ArenaDtor(void* object) {
-  Param* _this = reinterpret_cast< Param* >(object);
-  (void)_this;
-}
-void Param::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void Param::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const Param& Param::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Param_spice_2eproto.base);
-  return *internal_default_instance();
-}
-
-
-void Param::Clear() {
-// @@protoc_insertion_point(message_clear_start:vlsir.spice.Param)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  val_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* Param::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Param.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string val = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_val();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.Param.val"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* Param::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.Param)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vlsir.spice.Param.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // string val = 2;
-  if (this->val().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_val().data(), static_cast<int>(this->_internal_val().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vlsir.spice.Param.val");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_val(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.Param)
-  return target;
-}
-
-size_t Param::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.Param)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  // string val = 2;
-  if (this->val().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_val());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void Param::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.spice.Param)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Param* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Param>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.spice.Param)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.spice.Param)
-    MergeFrom(*source);
-  }
-}
-
-void Param::MergeFrom(const Param& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.Param)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-  if (from.val().size() > 0) {
-    _internal_set_val(from._internal_val());
-  }
-}
-
-void Param::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.spice.Param)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Param::CopyFrom(const Param& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.Param)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Param::IsInitialized() const {
-  return true;
-}
-
-void Param::InternalSwap(Param* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  val_.Swap(&other->val_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata Param::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
 void Signal::InitAsDefaultInstance() {
 }
 class Signal::_Internal {
@@ -11354,9 +11088,6 @@ template<> PROTOBUF_NOINLINE ::vlsir::spice::LibInclude* Arena::CreateMaybeMessa
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Meas* Arena::CreateMaybeMessage< ::vlsir::spice::Meas >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Meas >(arena);
-}
-template<> PROTOBUF_NOINLINE ::vlsir::spice::Param* Arena::CreateMaybeMessage< ::vlsir::spice::Param >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vlsir::spice::Param >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::Signal* Arena::CreateMaybeMessage< ::vlsir::spice::Signal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::Signal >(arena);
