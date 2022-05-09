@@ -6,42 +6,103 @@ Base class(es), utilities, and shared functionality for simulators.
 
 # Std-Lib Imports
 import os, tempfile, subprocess
-from typing import Union, Callable, Optional 
+from typing import Union, Optional
 from enum import Enum, auto
-from pathlib import Path 
+from pathlib import Path
+from textwrap import dedent
+from dataclasses import dataclass, field
 
 # Local/ Project Dependencies
-import vlsir
-from vlsir.spice_pb2 import * 
-from .sim_data import SimResult
+import vlsir.spice_pb2 as vsp
+from vlsir.spice_pb2 import *  # Not used here intentionally, but "re-exported"
+from . import sim_data as sd
+
+
+class ResultFormat(Enum):
+    """ Enumerated Result Formats """
+
+    SIM_DATA = "sim_data"  # Types defined in the `sim_data` module
+    VLSIR_PROTO = "vlsir_proto"  # `vsp.SimResults` and related protobuf-defined types
+
+
+# Union of the two result-types, returned by many simulation methods
+SimResultUnion = Union[vsp.SimResult, sd.SimResult]
+
+
+class AnalysisType(Enum):
+    """ Enumerated Analysis-Types 
+    Corresponding to the entries in the `Analysis` type-union. """
+
+    DC = "dc"
+    AC = "ac"
+    TRAN = "tran"
+    MONTE = "monte"
+    SWEEP = "sweep"
+    CUSTOM = "custom"
 
 
 class SupportedSimulators(Enum):
     """ Enumerated, Internally-Defined Spice-Class Simulators """
 
-    XYCE = auto()
-    SPECTRE = auto()
+    SPECTRE = "spectre"
+    XYCE = "xyce"
 
 
-def sim(simulator: SupportedSimulators) -> Callable:
-    """ Get the `sim` method for `simulator`. 
-    Returns its function-object, callable with its own signature. 
-    Example: 
-    
-    ```python
-    from vlsirtools.spice import sim, SupportedSimulators
+def default() -> Optional[SupportedSimulators]:
+    """ Get the default simulator, for this Python-process and its environment. 
+    This largely consists of a priority-ordered walk through `SupportedSimulators`, 
+    returning the first whose `available()` method indicates its availability. 
+    Returns `None` if no such simulator appears available. """
 
-    inp = vlsir.spice.SimInput()
-    results = sim(SupportedSimulators.SPECTRE)(inp)
-    ```
+    from .spectre import available as spectre_available
+    from .xyce import available as xyce_available
+
+    if spectre_available():
+        return SupportedSimulators.SPECTRE
+    if xyce_available():
+        return SupportedSimulators.XYCE
+    return None  # Nothing found
+
+
+@dataclass
+class SimOptions:
+    """ Options to `vsp.Sim` which are *not* passed along to the simulator. 
+    I.e. options which effect the Python-process invoking simulation, 
+    but not the internals of the simulation itself. """
+
+    # Simulator. FIXME: debatable whether to include this.
+    simulator: Optional[SupportedSimulators] = field(default_factory=default)
+
+    # In-memory results format
+    fmt: ResultFormat = ResultFormat.VLSIR_PROTO
+
+    # Simulation run-directory. Uses a `tempdir` if unspecified.
+    rundir: Optional[os.PathLike] = None
+
+
+def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> SimResultUnion:
     """
-    if simulator == SupportedSimulators.XYCE:
+    Execute a `vlir.spice.Sim`. 
+    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`. 
+    Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
+    """
+    if opts is None:  # Create the default `SimOptions`
+        opts = SimOptions()
+
+    if opts.simulator is None:  # If we didn't specify or find a simulator, fail.
+        msg = f"vlsirtools.spice: No Supported Simulators available for call to `sim()`"
+        raise RuntimeError(msg)
+
+    # Get the per-simulator callable
+    if opts.simulator == SupportedSimulators.XYCE:
         from .xyce import sim
-    elif simulator == SupportedSimulators.SPECTRE:
+    elif opts.simulator == SupportedSimulators.SPECTRE:
         from .spectre import sim
     else:
-        raise ValueError(f"Unsupported simulator: {simulator}")
-    return sim
+        raise ValueError(f"Unsupported simulator: {opts.simulator}")
+
+    # And do the real work, invoking the target simulator
+    return sim(inp, opts)
 
 
 class Sim:
@@ -49,20 +110,17 @@ class Sim:
     # Simulator State Base-Class 
 
     Shared basic functionality for simulators, including: 
-    * Creating temporary run-directories, and named files within them 
+    * Creating run-directories, and named files within them 
     * Finding a valid top-level module 
     * Exception/ Error types for common simulator errors
 
-    Typical usage is within a `sim` function, and particularly within a `with` block 
-    dictating its lifetime. For example, using the theoretical sub-class `SomeSimClass`: 
+    Each `SupportedSimulator` is generally implemented as a (python) module including:
 
-    ```python
-    def sim(inp: vlsir.spice.SimInput) -> vlsir.spice.SimResult:
-        with SomeSimClass(inp) as sim:
-            return sim.run()
-    ```
+    * A `sim` free-standing function, and 
+    * An implementation sub-class of `Sim` which manages run-state and simulator-specific behavior 
 
-    The `Sim` context manager creates and navigates to a temporary directory in the OS-conventional locations, 
+    The latter generally should (and generally does) call the classmethod `Sim.sim`, 
+    which creates and navigates to a specified or temporary directory, 
     and cleans up all simulation files after itself. 
 
     The interface between the `Sim` base-class and its implementing sub-class is such that:
@@ -78,7 +136,31 @@ class Sim:
       * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
     """
 
-    def __init__(self, inp: vlsir.spice.SimInput, rundir:Optional[os.PathLike]=None) -> None:
+    @classmethod
+    def enum(cls) -> SupportedSimulators:
+        raise NotImplementedError
+
+    @classmethod
+    def sim(
+        cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
+    ) -> SimResultUnion:
+        """ Sim-invoking class method. 
+        Creates an instance of `cls` as a context manager, run in its simulation directory. 
+        This should be invoked by typical implementations of a free-standing `sim` function. """
+
+        if opts is None:  # Create the default `SimOptions`
+            opts = SimOptions(simulator=cls.enum())
+
+        # Create the simulation class, and execute its main `run` method in `rundir`
+        with cls(inp=inp, rundir=opts.rundir) as sim:
+            results = sim.run()
+
+        # FIXME: And handle output formatting, when these `Sim` classes are actually compatible
+        # if opts.fmt == ResultFormat.VLSIR_PROTO:
+        #     return results.to_proto()
+        return results
+
+    def __init__(self, inp: vsp.SimInput, rundir: Optional[os.PathLike] = None) -> None:
         self.inp = inp
         self.rundir = rundir
         self.prevdir = os.getcwd()
@@ -91,7 +173,7 @@ class Sim:
             if not self.rundir.exists():
                 os.makedirs(self.rundir)
             os.chdir(self.rundir)
-        else: # Create a new temp directory
+        else:  # Create a new temp directory
             self.rundir = tempfile.TemporaryDirectory()
             os.chdir(self.rundir.name)
         return self
@@ -100,7 +182,7 @@ class Sim:
         """ On exit, clean up our temporary directory, and navigate back to its predecessor.  """
         os.chdir(self.prevdir)
         if isinstance(self.rundir, tempfile.TemporaryDirectory):
-            self.rundir.cleanup()   
+            self.rundir.cleanup()
 
     def validate_top(self) -> None:
         """ Ensure that the `top` module exists,
@@ -122,9 +204,11 @@ class Sim:
 
         if not found:
             names = [m.name for m in self.inp.pkg.modules]
-            raise RuntimeError(f"Top-level module `{self.inp.top}` not found among Modules {names}")
+            raise RuntimeError(
+                f"Top-level module `{self.inp.top}` not found among Modules {names}"
+            )
 
-    def run(self) -> Union[SimResult, vlsir.spice.SimResult]:
+    def run(self) -> SimResultUnion:
         """ Primary invocation method. 
         Run the specified `SimInput` in directory `self.rundir`, returning its results. 
         Performs initial setup, then hands off to the simulator-specific sub-class's `_run` method. """
@@ -135,8 +219,8 @@ class Sim:
         # And hand off to the simulator-specific sub-class's `_run` method.
         return self._run()
 
-    def _run(self) -> Union[SimResult, vlsir.spice.SimResult]:
-        raise NotImplementedError("Sub-classes must implement `_run`")
+    def _run(self) -> SimResultUnion:
+        raise NotImplementedError("`Sim` subclasses must implement `_run`")
 
 
 class SimError(Exception):
@@ -148,8 +232,16 @@ class SimError(Exception):
 class SimProcessError(SimError):
     """ Exception raised when an external simulator process fails. """
 
-    def __init__(self, e: subprocess.CalledProcessError) -> None:
-        super().__init__(str(e.stderr) + str(e.stdout))
+    def __init__(self, sim: Sim, e: subprocess.CalledProcessError) -> None:
+        s = dedent(
+            f"""
+            rundir: {str(sim.rundir)}
+            stdout: {str(e.stdout)}
+            stderr: {str(e.stderr)}
+        """
+        )
+        super().__init__(s)
+        self.rundir = str(sim.rundir)
         self.stdout = e.stdout
         self.stderr = e.stderr
 

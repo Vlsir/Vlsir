@@ -202,9 +202,9 @@ class Netlister:
     @classmethod
     def get_param_default(cls, pparam: vlsir.Param) -> Optional[str]:
         """ Get the default value of `pparam`. Returns `None` for no default. """
-        if pparam.default.WhichOneof("value") is None:
+        if pparam.value.WhichOneof("value") is None:
             return None
-        return cls.get_param_value(pparam.default)
+        return cls.get_param_value(pparam.value)
 
     @classmethod
     def get_param_value(cls, ppval: vlsir.ParamValue) -> str:
@@ -218,7 +218,64 @@ class Netlister:
             return str(ppval.string)
         if ptype == "literal":
             return str(ppval.literal)
-        raise ValueError
+        if ptype == "prefixed":
+            return cls.format_prefixed(ppval.prefixed)
+        raise ValueError(f"Invalid Param type {ptype}")
+
+    @classmethod
+    def format_prefixed(cls, pre: vlsir.Prefixed) -> str:
+        prefix = cls.format_prefix(pre.prefix)
+        numtp = pre.WhichOneof("number")
+        if numtp == "integer":
+            num = str(int(pre.integer))
+        elif numtp == "double":
+            num = str(float(pre.double))
+        elif numtp == "string":
+            num = str(pre.string)
+        else:
+            raise ValueError(f"Invalid `Prefixed` number type {numtp}")
+
+        # Note the "prefix" is in fact at the *end*,
+        # e.g. "5u", "11K".
+        # (Calling it a *pre*-fix refers to *units*, not to numeric values)
+        return f"{num}{prefix}"
+
+    @classmethod
+    def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
+        """ Format a `SIPrefix` to a string """
+        # Some of these are valid in principle, but wedunno whether netlist languages support them.
+        # Eventually convert these to other prefixes, e.g. EXA => 1000 * PETA
+        unsupported = {
+            vlsir.SIPrefix.YOCTO,
+            vlsir.SIPrefix.ZEPTO,
+            vlsir.SIPrefix.ZETTA,
+            vlsir.SIPrefix.YOTTA,
+            vlsir.SIPrefix.CENTI,
+            vlsir.SIPrefix.DECI,
+            vlsir.SIPrefix.DECA,
+            vlsir.SIPrefix.HECTO,
+            vlsir.SIPrefix.EXA,
+        }
+        if pre in unsupported:
+            raise RuntimeError(f"Unsupported SIPrefix for netlisting: {pre}")
+
+        map = {
+            vlsir.SIPrefix.ATTO: "a",
+            vlsir.SIPrefix.FEMTO: "f",
+            vlsir.SIPrefix.PICO: "p",
+            vlsir.SIPrefix.NANO: "n",
+            vlsir.SIPrefix.MICRO: "u",
+            vlsir.SIPrefix.MILLI: "m",
+            vlsir.SIPrefix.KILO: "K",
+            vlsir.SIPrefix.MEGA: "M",
+            vlsir.SIPrefix.GIGA: "G",
+            vlsir.SIPrefix.TERA: "T",
+            vlsir.SIPrefix.PETA: "P",
+        }
+        if pre not in map:
+            raise ValueError(f"Invalid or Unsupported SIPrefix {pre}")
+
+        return map[pre]
 
     @classmethod
     def get_instance_params(

@@ -4,20 +4,21 @@ from enum import Enum
 from pathlib import Path
 from typing import List, Dict
 from dataclasses import dataclass
-from warnings import warn 
+from warnings import warn
 
-# Some "Friendly" Imports 
+# Some "Friendly" Imports
 import hdl21 as h
-import vlsirtools.spice as vsp 
-
+import vlsirtools.spice as vsp
 
 # Local Imports
 from .testcase import Test, TestCase
 from .pdk import Pdk, MosModel
 from .simulator import Simulator
 
+
 class ErrorMode(Enum):
     """ Enumerated error-handling strategies """
+
     RAISE = "raise"
     WARN = "warn"
 
@@ -34,7 +35,9 @@ class DcIvParams:
     )
     vdd = h.Param(dtype=str, desc="Supply Voltage (V), in string form")
     temper = h.Param(dtype=int, desc="Simulation Temperature")
-    errormode = h.Param(dtype=ErrorMode, default=ErrorMode.WARN, desc="Error handling strategy")
+    errormode = h.Param(
+        dtype=ErrorMode, default=ErrorMode.WARN, desc="Error handling strategy"
+    )
 
 
 def dc_iv(params: DcIvParams) -> None:
@@ -52,27 +55,26 @@ def dc_iv(params: DcIvParams) -> None:
         vd = h.V(h.V.Params(dc="polarity*vds"))(p=d, n=vss)
 
     polarity = -1 if params.mos_type == h.MosType.PMOS else 1
-    
-    from hdl21.sim import Sim 
 
-    # Create some simulation input 
+    from hdl21.sim import Sim
+
+    # Create some simulation input
     sim = Sim(tb=DcIvTestbench)
-    sim.param("polarity", polarity)  
-    sim.param ("vds", params.vdd)
-    sim.param ("vgs", params.vdd)
+    sim.param("polarity", polarity)
+    sim.param("vds", params.vdd)
+    sim.param("vgs", params.vdd)
     # sim.options(temper=params.temper) # FIXME!
 
     sim.dc(
-        var="vgs",
-        sweep=h.sim.LinearSweep(start=0.0, stop=float(params.vdd), step=0.01)
+        var="vgs", sweep=h.sim.LinearSweep(start=0.0, stop=float(params.vdd), step=0.01)
     )
 
-    # Add the measurement, which requires a hierarchical path we sadly cannot yet distinguish per simulator. 
-    # And the temperature option, sadly. 
+    # Add the measurement, which requires a hierarchical path we sadly cannot yet distinguish per simulator.
+    # And the temperature option, sadly.
     if params.vlsirtools_simulator == vsp.SupportedSimulators.XYCE:
         sim.literal(f".options device temp={params.temper}")
         sim.meas(name="idsat", expr=f"find i(xtop:vvd) at={params.vdd}", analysis="dc")
-    else: 
+    else:
         sim.literal(f"options options temp={params.temper}")
         sim.meas(name="idsat", expr=f"find i(xtop.vd) at='{params.vdd}'", analysis="dc")
 
@@ -81,16 +83,15 @@ def dc_iv(params: DcIvParams) -> None:
     sim_input.ctrls.extend(params.ctrls)
 
     try:
-        vsp.sim(params.vlsirtools_simulator)(
-            sim_input, rundir=params.rundir
+        results = vsp.sim(
+            sim_input,
+            vsp.SimOptions(simulator=params.vlsirtools_simulator, rundir=params.rundir),
         )
     except Exception as e:
         if params.errormode == ErrorMode.WARN:
             warn(str(e))
         else:
             raise e
-    else:
-        print(f"ran {params}")
 
 
 @dataclass
@@ -208,7 +209,9 @@ class StdCellRoParams:
     )
     vdd = h.Param(dtype=str, desc="Supply Voltage (V), in string form")
     temper = h.Param(dtype=int, desc="Simulation Temperature")
-    errormode = h.Param(dtype=ErrorMode, default=ErrorMode.RAISE, desc="Error handling strategy")
+    errormode = h.Param(
+        dtype=ErrorMode, default=ErrorMode.RAISE, desc="Error handling strategy"
+    )
 
 
 def std_cell_ro(params: StdCellRoParams) -> None:
@@ -240,32 +243,35 @@ def std_cell_ro(params: StdCellRoParams) -> None:
         )
         RoTb.add(name=f"stg{stgnum}", val=inst)
 
-    from hdl21.sim import Sim 
+    from hdl21.sim import Sim
 
     # Create some simulation input
     sim = Sim(tb=RoTb)
     sim.param(name="vdd", val=params.vdd)
     sim.tran(tstop=50e-9, tstep=1e-12)
-    # sim.options(temper=params.temper) # FIXME! 
+    # sim.options(temper=params.temper) # FIXME!
 
     # An ugly part: the not-totally-supported input-differences, including
-    # * (a) initial conditions, 
-    # * (b) hierarchical paths, 
+    # * (a) initial conditions,
+    # * (b) hierarchical paths,
     # * (c) non-first-class spice-format `options`, e.g. `autostop`
-    # # (d) options, particular the categorized xyce variety 
+    # # (d) options, particular the categorized xyce variety
 
     if params.vlsirtools_simulator == vsp.SupportedSimulators.XYCE:
-         sim.literal(dedent(
-            f"""
+        sim.literal(
+            dedent(
+                f"""
             .options device temp={params.temper}
             .ic xtop:osc_0 0 
             .measure tran trise5  when V(xtop:osc_0)={{vdd/2}} rise=5
             .measure tran trise15 when V(xtop:osc_0)={{vdd/2}} rise=15
         """
-        ))
-    else: 
-        sim.literal(dedent(
-            f"""
+            )
+        )
+    else:
+        sim.literal(
+            dedent(
+                f"""
             options options temp={params.temper}
 
             simulator lang=spice
@@ -275,25 +281,25 @@ def std_cell_ro(params: StdCellRoParams) -> None:
             .option autostop
             simulator lang=spectre
         """
-        ))
+            )
+        )
 
-    # Convert all that to VLSIR protobuf 
+    # Convert all that to VLSIR protobuf
     sim_input = h.sim.to_proto(sim)
 
     # Add any control-cards from `params`
     sim_input.ctrls.extend(params.ctrls)
 
     try:
-        vsp.sim(params.vlsirtools_simulator)(
-            sim_input, rundir=params.rundir
+        results = vsp.sim(
+            sim_input,
+            vsp.SimOptions(simulator=params.vlsirtools_simulator, rundir=params.rundir),
         )
     except Exception as e:
         if params.errormode == ErrorMode.WARN:
             warn(str(e))
         else:
             raise e
-    else:
-        print(f"ran {params}")
 
 
 def ro_test(

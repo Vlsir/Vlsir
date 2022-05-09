@@ -3,24 +3,40 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, os
-from typing import Tuple, Any, Mapping, Union, Optional, IO , Dict 
+import subprocess, re, shutil
+from typing import Tuple, Any, Mapping, Optional, IO, Dict
 import numpy as np
 
 # Local/ Project Dependencies
 import vlsir
 from .netlist import netlist
 from .netlist.spectre import SpectreNetlister
-from .sim_data import TranResult, AcResult, DcResult, OpResult, SimResult, ResultFormat
-from .spice import Sim, SimProcessError
+from .sim_data import TranResult, OpResult, SimResult  ##, AcResult, DcResult,
+from .spice import (
+    Sim,
+    SimProcessError,
+    ResultFormat,
+    SimOptions,
+    SupportedSimulators,
+    SimResultUnion,
+)
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
 
 
 def available() -> bool:
-    """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
-    return shutil.which(SPECTRE_EXECUTABLE) is not None
+    """ Boolean indication of whether the current running environment includes the simulator executable. """
+    if shutil.which(SPECTRE_EXECUTABLE) is None:
+        return False
+    try:
+        # And if it's set, check that we can get its version without croaking.
+        # This can often happen because of an inaccessible license server, or just a badly-linked installation.
+        subprocess.run(f"{SPECTRE_EXECUTABLE} -V", shell=True, check=True)
+    except Exception:
+        # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
+        return False
+    return True  # Otherwise, installation looks good.
 
 
 def _read_var_spec(line: str) -> Tuple[str, str]:
@@ -33,24 +49,16 @@ def _read_var_spec(line: str) -> Tuple[str, str]:
 
 
 def sim(
-    inp: vlsir.spice.SimInput,
-    fmt: ResultFormat = ResultFormat.SIM_DATA,
-    rundir: Optional[os.PathLike] = None,
-) -> Union[SimResult, vlsir.spice.SimResult]:
-    """
-    # Primary Simulation Method
-    Implements the `vlsir.spice.Sim` RPC interface.
+    inp: vlsir.spice.SimInput, opts: Optional[SimOptions] = None,
+) -> SimResultUnion:
+    """ # Primary Simulation Method """
 
-    Returns resultant data in a format dictated by argument `fmt`,
-    generally either the `vlsir` protobuf-schema, or the pythonic `SimResult`.
-    """
-    if not isinstance(fmt, ResultFormat):
-        raise TypeError(f"Invalid ResultFormat: {fmt}")
+    if opts is None:  # Create the default options
+        opts = SimOptions(simulator=SupportedSimulators.SPECTRE)
 
-    with SpectreSim(inp=inp, rundir=rundir) as sim:
-        results: SimResult = sim.run()
+    results = SpectreSim.sim(inp, opts)
 
-    if fmt == ResultFormat.VLSIR_PROTO:
+    if opts.fmt == ResultFormat.VLSIR_PROTO:
         return results.to_proto()
     return results
 
@@ -59,6 +67,10 @@ class SpectreSim(Sim):
     """
     State and execution logic for a Spectre-call to `vlsir.spice.Sim`.
     """
+
+    @classmethod
+    def enum(cls) -> SupportedSimulators:
+        return SupportedSimulators.SPECTRE
 
     def _run(self) -> SimResult:
         """ Run the specified `SimInput` in directory `self.tmpdir`, returning its results. """
@@ -113,10 +125,14 @@ class SpectreSim(Sim):
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
             elif inner == "param":
-                netlist_file.write(f"parameters {ctrl.param.name}={str(ctrl.param.val)} \n")
+                netlist_file.write(
+                    f"parameters {ctrl.param.name}={str(ctrl.param.val)} \n"
+                )
             elif inner == "meas":
                 netlist_file.write(f"simulator lang=spice \n")
-                netlist_file.write(f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n")
+                netlist_file.write(
+                    f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                )
                 netlist_file.write(f"simulator lang=spectre \n")
             elif inner in ("save"):
                 raise NotImplementedError(
@@ -222,6 +238,10 @@ class SpectreSim(Sim):
 
 
 def parse(filename: str) -> Mapping[str, Any]:
+    """ 
+    Parse a... what now? PSF Directory? In what format? 
+    FIXME: @avi 
+    """
     data = {}
     with open(filename, "rb") as f:
         # First 2 lines are ascii one line statements
@@ -272,12 +292,14 @@ def parse(filename: str) -> Mapping[str, Any]:
 
         return data
 
+
 def parse_mt0(file: IO) -> Dict[str, float]:
-    """ Parse (open) measurement-file into a set of name: value pairs. """
-    file.readline() # Header
-    file.readline() # Netlist Title 
-    keys = file.readline() # Measurement Names Line 
+    """ Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs. """
+
+    file.readline()  # Header
+    file.readline()  # Netlist Title
+    keys = file.readline()  # Measurement Names Line
     keys = keys.split()
-    values = file.readline() # Measurement Values Line
+    values = file.readline()  # Measurement Values Line
     values = [float(s) for s in values.split()]
     return dict(zip(keys, values))
