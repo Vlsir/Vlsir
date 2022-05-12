@@ -7,7 +7,7 @@ Base class(es), utilities, and shared functionality for simulators.
 # Std-Lib Imports
 import os, tempfile, subprocess
 from typing import Union, Optional
-from enum import Enum, auto
+from enum import Enum
 from pathlib import Path
 from textwrap import dedent
 from dataclasses import dataclass, field
@@ -71,7 +71,7 @@ class SimOptions:
     but not the internals of the simulation itself. """
 
     # Simulator. FIXME: debatable whether to include this.
-    simulator: Optional[SupportedSimulators] = field(default_factory=default)
+    simulator: SupportedSimulators = field(default_factory=default)
 
     # In-memory results format
     fmt: ResultFormat = ResultFormat.VLSIR_PROTO

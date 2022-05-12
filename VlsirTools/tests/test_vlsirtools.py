@@ -88,9 +88,7 @@ def test_netlist1():
                             s=Connection(sig=Signal(name="VSS", width=1)),
                             b=Connection(sig=Signal(name="VSS", width=1)),
                         ),
-                        parameters=dict(
-                            modelname=ParamValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                     Instance(
                         name="q",
@@ -100,17 +98,13 @@ def test_netlist1():
                             b=Connection(sig=Signal(name="VSS", width=1)),
                             e=Connection(sig=Signal(name="VSS", width=1)),
                         ),
-                        parameters=dict(
-                            modelname=ParamValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                     Instance(
                         name="d",
                         module=_prim("diode"),
                         connections=_conns(),
-                        parameters=dict(
-                            modelname=ParamValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                 ],
             ),
@@ -238,4 +232,14 @@ def test_xyce1():
 
     results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
     assert isinstance(results, SimResult)
+
+
+def test_xyce_import():
+    # Just test importing from the `vlsirtools.xyce` path
+    from vlsirtools.xyce import sim
+
+
+def test_spectre_import():
+    # Just test importing from the `vlsirtools.spectre` path
+    from vlsirtools.spectre import sim
 

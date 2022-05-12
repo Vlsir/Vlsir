@@ -9,7 +9,7 @@ from glob import glob
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
-from .netlist import netlist, XyceNetlister
+from ..netlist import netlist, XyceNetlister
 from .spice import (
     Sim,
     SimProcessError,
@@ -70,9 +70,21 @@ class XyceSim(Sim):
         )
 
         if self.inp.opts:
-            raise NotImplementedError
+            raise NotImplementedError(f"SimInput Options")
 
         # Write each control element
+        self.write_control_elements(netlist_file)
+
+        # Flush the netlist to disk before handing off to analyses
+        netlist_file.flush()
+
+        # Run each analysis in the input
+        results = vsp.SimResult()
+        for an in self.inp.an:
+            results.an.append(self.analysis(an))
+        return results
+
+    def write_control_elements(self, netlist_file: IO) -> None:
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
@@ -94,15 +106,6 @@ class XyceSim(Sim):
                 )  # FIXME!
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
-
-        # Flush the netlist to disk before handing off to analyses
-        netlist_file.flush()
-
-        # Run each analysis in the input
-        results = vsp.SimResult()
-        for an in self.inp.an:
-            results.an.append(self.analysis(an))
-        return results
 
     def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
         """ Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`. """
@@ -360,7 +363,7 @@ def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
 
 
 def parse_meas(file: IO) -> Dict[str, float]:
-    """ Parse an (open) measurement-file to a name: value dictionary. """
+    """ Parse an (open) measurement-file to a {name: value} dictionary. """
     rv = {}
     for line in file.readlines():
         contents = line.split()
