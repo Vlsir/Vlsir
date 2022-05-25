@@ -215,8 +215,8 @@ def empty_testbench_package():
 )
 def test_spectre1():
     """ Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`. """
-    from vlsir.spice_pb2 import SimInput
-    from vlsirtools.spectre import sim, SimResult
+    from vlsir.spice_pb2 import SimInput, SimResult
+    from vlsirtools.spectre import sim
 
     results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
     assert isinstance(results, SimResult)

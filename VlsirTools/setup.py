@@ -1,5 +1,5 @@
 """
-# VlsirTools Setup Script
+# Setup Script
 
 Derived from the setuptools sample project at
 https://github.com/pypa/sampleproject/blob/main/setup.py
@@ -19,7 +19,7 @@ _VLSIR_VERSION = "1.0.0.dev0"
 
 setup(
     name="vlsirtools",
-    version=f"{_VLSIR_VERSION}",
+    version=_VLSIR_VERSION,
     description="Tools for the Vlsir IC Design Schema",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,7 +28,7 @@ setup(
     packages=find_packages(),
     python_requires=">=3.7, <4",
     install_requires=[
-        "vlsir==f{_VLSIR_VERSION}", 
+        f"vlsir=={_VLSIR_VERSION}", 
         "numpy==1.21.5"
     ],
     extras_require={

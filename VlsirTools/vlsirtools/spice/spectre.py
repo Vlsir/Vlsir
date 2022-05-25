@@ -221,7 +221,7 @@ class SpectreSim(Sim):
                 check=True,
             )
         except subprocess.CalledProcessError as e:
-            raise SimProcessError(e)
+            raise SimProcessError(self, e)
         except Exception as e:
             raise
 

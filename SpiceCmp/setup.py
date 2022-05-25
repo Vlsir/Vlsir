@@ -19,7 +19,7 @@ _VLSIR_VERSION = "1.0.0.dev0"
 
 setup(
     name="spicecmp",
-    version=f"{_VLSIR_VERSION}",
+    version=_VLSIR_VERSION,
     description="Spice Models and Results Comparisons",
     long_description=long_description,
     long_description_content_type="text/markdown",
