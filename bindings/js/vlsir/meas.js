@@ -67,8 +67,9 @@ proto.vlsir.spice.Meas.prototype.toObject = function(opt_includeInstance) {
  */
 proto.vlsir.spice.Meas.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    expr: jspb.Message.getFieldWithDefault(msg, 2, "")
+    analysisType: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    expr: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -107,9 +108,13 @@ proto.vlsir.spice.Meas.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setAnalysisType(value);
       break;
     case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setName(value);
+      break;
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setExpr(value);
       break;
@@ -142,17 +147,24 @@ proto.vlsir.spice.Meas.prototype.serializeBinary = function() {
  */
 proto.vlsir.spice.Meas.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getName();
+  f = message.getAnalysisType();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getExpr();
+  f = message.getName();
   if (f.length > 0) {
     writer.writeString(
       2,
+      f
+    );
+  }
+  f = message.getExpr();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
       f
     );
   }
@@ -160,10 +172,10 @@ proto.vlsir.spice.Meas.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string name = 1;
+ * optional string analysis_type = 1;
  * @return {string}
  */
-proto.vlsir.spice.Meas.prototype.getName = function() {
+proto.vlsir.spice.Meas.prototype.getAnalysisType = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -172,16 +184,16 @@ proto.vlsir.spice.Meas.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.vlsir.spice.Meas} returns this
  */
-proto.vlsir.spice.Meas.prototype.setName = function(value) {
+proto.vlsir.spice.Meas.prototype.setAnalysisType = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string expr = 2;
+ * optional string name = 2;
  * @return {string}
  */
-proto.vlsir.spice.Meas.prototype.getExpr = function() {
+proto.vlsir.spice.Meas.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -190,8 +202,26 @@ proto.vlsir.spice.Meas.prototype.getExpr = function() {
  * @param {string} value
  * @return {!proto.vlsir.spice.Meas} returns this
  */
-proto.vlsir.spice.Meas.prototype.setExpr = function(value) {
+proto.vlsir.spice.Meas.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string expr = 3;
+ * @return {string}
+ */
+proto.vlsir.spice.Meas.prototype.getExpr = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.vlsir.spice.Meas} returns this
+ */
+proto.vlsir.spice.Meas.prototype.setExpr = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

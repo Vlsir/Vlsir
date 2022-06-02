@@ -13,8 +13,8 @@ goog.provide('proto.vlsir.circuit.ExternalModule');
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
 goog.require('jspb.Message');
-goog.require('proto.vlsir.circuit.Parameter');
 goog.require('proto.vlsir.circuit.Port');
+goog.require('proto.vlsir.utils.Param');
 goog.require('proto.vlsir.utils.QualifiedName');
 
 /**
@@ -82,7 +82,7 @@ proto.vlsir.circuit.ExternalModule.toObject = function(includeInstance, msg) {
     portsList: jspb.Message.toObjectList(msg.getPortsList(),
     proto.vlsir.circuit.Port.toObject, includeInstance),
     parametersList: jspb.Message.toObjectList(msg.getParametersList(),
-    proto.vlsir.circuit.Parameter.toObject, includeInstance)
+    proto.vlsir.utils.Param.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -134,8 +134,8 @@ proto.vlsir.circuit.ExternalModule.deserializeBinaryFromReader = function(msg, r
       msg.addPorts(value);
       break;
     case 5:
-      var value = new proto.vlsir.circuit.Parameter;
-      reader.readMessage(value,proto.vlsir.circuit.Parameter.deserializeBinaryFromReader);
+      var value = new proto.vlsir.utils.Param;
+      reader.readMessage(value,proto.vlsir.utils.Param.deserializeBinaryFromReader);
       msg.addParameters(value);
       break;
     default:
@@ -195,7 +195,7 @@ proto.vlsir.circuit.ExternalModule.serializeBinaryToWriter = function(message, w
     writer.writeRepeatedMessage(
       5,
       f,
-      proto.vlsir.circuit.Parameter.serializeBinaryToWriter
+      proto.vlsir.utils.Param.serializeBinaryToWriter
     );
   }
 };
@@ -295,17 +295,17 @@ proto.vlsir.circuit.ExternalModule.prototype.clearPortsList = function() {
 
 
 /**
- * repeated Parameter parameters = 5;
- * @return {!Array<!proto.vlsir.circuit.Parameter>}
+ * repeated vlsir.utils.Param parameters = 5;
+ * @return {!Array<!proto.vlsir.utils.Param>}
  */
 proto.vlsir.circuit.ExternalModule.prototype.getParametersList = function() {
-  return /** @type{!Array<!proto.vlsir.circuit.Parameter>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.Parameter, 5));
+  return /** @type{!Array<!proto.vlsir.utils.Param>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.utils.Param, 5));
 };
 
 
 /**
- * @param {!Array<!proto.vlsir.circuit.Parameter>} value
+ * @param {!Array<!proto.vlsir.utils.Param>} value
  * @return {!proto.vlsir.circuit.ExternalModule} returns this
 */
 proto.vlsir.circuit.ExternalModule.prototype.setParametersList = function(value) {
@@ -314,12 +314,12 @@ proto.vlsir.circuit.ExternalModule.prototype.setParametersList = function(value)
 
 
 /**
- * @param {!proto.vlsir.circuit.Parameter=} opt_value
+ * @param {!proto.vlsir.utils.Param=} opt_value
  * @param {number=} opt_index
- * @return {!proto.vlsir.circuit.Parameter}
+ * @return {!proto.vlsir.utils.Param}
  */
 proto.vlsir.circuit.ExternalModule.prototype.addParameters = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.vlsir.circuit.Parameter, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.vlsir.utils.Param, opt_index);
 };
 
 

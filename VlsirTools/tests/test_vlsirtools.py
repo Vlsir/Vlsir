@@ -11,12 +11,13 @@ from typing import Dict
 
 
 def test_version():
-    assert vlsirtools.__version__ == "0.2.0"
+    assert vlsirtools.__version__ == "1.0.0.dev0"
 
 
 def test_netlist1():
     # Test netlisting, including instantiating primitives
 
+    from vlsir import Reference, QualifiedName, ParamValue
     from vlsir.circuit_pb2 import (
         Module,
         Signal,
@@ -24,9 +25,7 @@ def test_netlist1():
         Port,
         Instance,
         Package,
-        ParameterValue,
     )
-    from vlsir.utils_pb2 import Reference, QualifiedName
 
     def _prim(name: str) -> Reference:
         # Shorthand for a `Reference` to primitive `name`
@@ -54,31 +53,31 @@ def test_netlist1():
                         name="r",
                         module=_prim("resistor"),
                         connections=_conns(),
-                        parameters=dict(r=ParameterValue(double=1e3)),
+                        parameters=dict(r=ParamValue(double=1e3)),
                     ),
                     Instance(
                         name="c",
                         module=_prim("capacitor"),
                         connections=_conns(),
-                        parameters=dict(c=ParameterValue(double=1e-15)),
+                        parameters=dict(c=ParamValue(double=1e-15)),
                     ),
                     Instance(
                         name="l",
                         module=_prim("inductor"),
                         connections=_conns(),
-                        parameters=dict(l=ParameterValue(double=1e-9)),
+                        parameters=dict(l=ParamValue(double=1e-9)),
                     ),
                     Instance(
                         name="v",
                         module=_prim("vdc"),
                         connections=_conns(),
-                        parameters=dict(dc=ParameterValue(double=1.1)),
+                        parameters=dict(dc=ParamValue(double=1.1)),
                     ),
                     Instance(
                         name="i",
                         module=_prim("isource"),
                         connections=_conns(),
-                        parameters=dict(dc=ParameterValue(double=1e-6)),
+                        parameters=dict(dc=ParamValue(double=1e-6)),
                     ),
                     Instance(
                         name="m",
@@ -89,9 +88,7 @@ def test_netlist1():
                             s=Connection(sig=Signal(name="VSS", width=1)),
                             b=Connection(sig=Signal(name="VSS", width=1)),
                         ),
-                        parameters=dict(
-                            modelname=ParameterValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                     Instance(
                         name="q",
@@ -101,17 +98,13 @@ def test_netlist1():
                             b=Connection(sig=Signal(name="VSS", width=1)),
                             e=Connection(sig=Signal(name="VSS", width=1)),
                         ),
-                        parameters=dict(
-                            modelname=ParameterValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                     Instance(
                         name="d",
                         module=_prim("diode"),
                         connections=_conns(),
-                        parameters=dict(
-                            modelname=ParameterValue(string="some_model_name")
-                        ),
+                        parameters=dict(modelname=ParamValue(string="some_model_name")),
                     ),
                 ],
             ),
@@ -180,6 +173,7 @@ def empty_testbench_package():
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes. 
     So the simplest test-bench is two resistors, in parallel, between ground and a single "other node". """
 
+    from vlsir import Reference, QualifiedName, ParamValue
     from vlsir.circuit_pb2 import (
         Module,
         Signal,
@@ -187,9 +181,7 @@ def empty_testbench_package():
         Port,
         Instance,
         Package,
-        ParameterValue,
     )
-    from vlsir.utils_pb2 import Reference, QualifiedName
 
     def _r(name: str) -> Instance:
         # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
@@ -202,7 +194,7 @@ def empty_testbench_package():
                 p=Connection(sig=Signal(name="the_other_node", width=1)),
                 n=Connection(sig=Signal(name="VSS", width=1)),
             ),
-            parameters=dict(r=ParameterValue(double=1e3)),
+            parameters=dict(r=ParamValue(double=1e3)),
         )
 
     return Package(
@@ -223,8 +215,8 @@ def empty_testbench_package():
 )
 def test_spectre1():
     """ Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`. """
-    from vlsir.spice_pb2 import SimInput
-    from vlsirtools.spectre import sim, SimResult
+    from vlsir.spice_pb2 import SimInput, SimResult
+    from vlsirtools.spectre import sim
 
     results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
     assert isinstance(results, SimResult)
@@ -240,4 +232,14 @@ def test_xyce1():
 
     results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
     assert isinstance(results, SimResult)
+
+
+def test_xyce_import():
+    # Just test importing from the `vlsirtools.xyce` path
+    from vlsirtools.xyce import sim
+
+
+def test_spectre_import():
+    # Just test importing from the `vlsirtools.spectre` path
+    from vlsirtools.spectre import sim
 

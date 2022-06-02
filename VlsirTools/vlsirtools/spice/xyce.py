@@ -1,16 +1,23 @@
 """
-Xyce Implementation of `vlsir.spice.Sim`
+Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, random, shutil, csv, os
-from typing import List, Tuple, IO, Optional, Dict 
+import subprocess, random, shutil, csv
+from typing import List, Tuple, IO, Optional, Dict
+from glob import glob
 
 # Local/ Project Dependencies
-import vlsir
-from .netlist import netlist, XyceNetlister
-from .spice import Sim, SimProcessError
-from .sim_data import ResultFormat
+import vlsir.spice_pb2 as vsp
+from ..netlist import netlist, XyceNetlister
+from .spice import (
+    Sim,
+    SimProcessError,
+    ResultFormat,
+    SimOptions,
+    SupportedSimulators,
+    SimResultUnion,
+)
 
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -22,27 +29,21 @@ def available() -> bool:
     return shutil.which(XYCE_EXECUTABLE) is not None
 
 
-def sim(
-    inp: vlsir.spice.SimInput,
-    *,
-    fmt: ResultFormat = ResultFormat.VLSIR_PROTO,
-    rundir: Optional[os.PathLike] = None,
-) -> vlsir.spice.SimResult:
-    """ 
-    # Primary Simulation Method 
-    Implements the `vlsir.spice.Sim` RPC interface. 
-    """
+def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> SimResultUnion:
+    """ # Primary Simulation Method """
 
-    if fmt != ResultFormat.VLSIR_PROTO:
-        raise RuntimeError(f"Unsupported ResultFormat: {fmt} for Xyce")
+    if opts is None:  # Create the default options
+        opts = SimOptions(simulator=SupportedSimulators.XYCE)
 
-    with XyceSim(inp=inp, rundir=rundir) as sim:
-        return sim.run()
+    if opts.fmt != ResultFormat.VLSIR_PROTO:
+        raise RuntimeError(f"Unsupported ResultFormat: {opts.fmt} for Xyce")
+
+    return XyceSim.sim(inp, opts)
 
 
 class XyceSim(Sim):
     """ 
-    State and execution logic for a Xyce-call to `vlsir.spice.Sim`. 
+    State and execution logic for a Xyce-call to `vsp.Sim`. 
     
     Xyce can, in principle, run multiple analyses per process, 
     but seems to commonly confuse outputs or disallow saving them
@@ -52,7 +53,11 @@ class XyceSim(Sim):
     Results from each analysis-process are collated into a single `SimResult`. 
     """
 
-    def _run(self) -> vlsir.spice.SimResult:
+    @classmethod
+    def enum(cls) -> SupportedSimulators:
+        return SupportedSimulators.XYCE
+
+    def _run(self) -> vsp.SimResult:
         """ Run the specified `SimInput` in directory `self.rundir`, 
         returning its results. """
 
@@ -64,37 +69,50 @@ class XyceSim(Sim):
             f"xtop 0 {XyceNetlister.get_module_name(self.top)} ; Top-Level DUT \n\n"
         )
 
+        if self.inp.opts:
+            raise NotImplementedError(f"SimInput Options")
+
         # Write each control element
+        self.write_control_elements(netlist_file)
+
+        # Flush the netlist to disk before handing off to analyses
+        netlist_file.flush()
+
+        # Run each analysis in the input
+        results = vsp.SimResult()
+        for an in self.inp.an:
+            results.an.append(self.analysis(an))
+        return results
+
+    def write_control_elements(self, netlist_file: IO) -> None:
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
                 netlist_file.write(f".include '{ctrl.include.path}' \n")
             elif inner == "lib":
                 netlist_file.write(f".lib {ctrl.lib.path} {ctrl.lib.section} \n")
+            elif inner == "param":
+                line = f".param {ctrl.param.name}={XyceNetlister.get_param_value(ctrl.param.value)} \n"
+                netlist_file.write(line)
+            elif inner == "meas":
+                netlist_file.write(
+                    f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                )
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
-            elif inner in ("save", "meas"):
+            elif inner in ("save"):
                 raise NotImplementedError(
                     f"Unimplemented control card {ctrl} for {self}"
                 )  # FIXME!
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
-        # Flush the netlist to disk before handing off to analyses
-        netlist_file.flush()
-
-        # Run each analysis in the input
-        results = vlsir.spice.SimResult()
-        for an in self.inp.an:
-            results.an.append(self.analysis(an))
-        return results
-
-    def analysis(self, an: vlsir.spice.Analysis) -> vlsir.spice.AnalysisResult:
-        """ Execute a `vlsir.spice.Analysis`, returning its `vlsir.spice.AnalysisResult`. """
+    def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
+        """ Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`. """
 
         # `Analysis` is a Union (protobuf `oneof`) of the analysis-types.
         # Unwrap it, and dispatch based on the type.
-        AR = vlsir.spice.AnalysisResult  # Quick shorthand
+        AR = vsp.AnalysisResult  # Quick shorthand
         inner = an.WhichOneof("an")
 
         if inner == "op":
@@ -109,12 +127,12 @@ class XyceSim(Sim):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
 
-    def ac(self, an: vlsir.spice.AcInput) -> vlsir.spice.AcResult:
+    def ac(self, an: vsp.AcInput) -> vsp.AcResult:
         """ Run an AC analysis. """
 
         # Unpack the `AcInput`
         analysis_name = an.analysis_name or "ac"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -140,7 +158,7 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
-            (signals, data) = self.read_csv(csv_handle)
+            (signals, data) = read_csv(csv_handle)
 
         # Separate Frequency vector
         n_sigs = len(signals)  # Get length of signals vector because...
@@ -154,19 +172,24 @@ class XyceSim(Sim):
         if not len(reals) == len(imags):  # Sanity check
             raise RuntimeError("Unpaired complex number in data")
         cplx_data = [
-            vlsir.spice.ComplexNum(re=real, im=imag) for real, imag in zip(reals, imags)
+            vsp.ComplexNum(re=real, im=imag) for real, imag in zip(reals, imags)
         ]
 
-        # And arrange them in an `AcResult`
-        return vlsir.spice.AcResult(freq=freq, signals=signals, data=cplx_data)
+        # Parse any scalar measurement results
+        measurements = parse_measurements(analysis_name)
 
-    def dc(self, an: vlsir.spice.DcInput) -> vlsir.spice.DcResult:
+        # And arrange them in an `AcResult`
+        return vsp.AcResult(
+            freq=freq, signals=signals, data=cplx_data, measurements=measurements
+        )
+
+    def dc(self, an: vsp.DcInput) -> vsp.DcResult:
         """ Run a DC analysis. """
 
         # Unpack the `DcInput`
         analysis_name = an.analysis_name or "dc"
 
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -208,19 +231,22 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = self.read_csv(csv_handle)
+            (signals, data) = read_csv(csv_handle)
+
+        # Parse any scalar measurement results
+        measurements = parse_measurements(analysis_name)
 
         # And arrange them in an `OpResult`
-        return vlsir.spice.DcResult(signals=signals, data=data)
+        return vsp.DcResult(signals=signals, data=data, measurements=measurements)
 
-    def op(self, an: vlsir.spice.OpInput) -> vlsir.spice.OpResult:
+    def op(self, an: vsp.OpInput) -> vsp.OpResult:
         """ Run an operating-point analysis. 
         Xyce describes the `.op` analysis as "partially supported". 
-        Here the `vlsir.spice.Op` analysis is mapped to DC, with a dummy sweep. """
+        Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep. """
 
         # Unpack the `OpInput`
         analysis_name = an.analysis_name or "op"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
@@ -247,12 +273,12 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = self.read_csv(csv_handle)
+            (signals, data) = read_csv(csv_handle)
 
         # And arrange them in an `OpResult`
-        return vlsir.spice.OpResult(signals=signals, data=data)
+        return vsp.OpResult(signals=signals, data=data)
 
-    def tran(self, an: vlsir.spice.TranInput) -> vlsir.spice.TranResult:
+    def tran(self, an: vsp.TranInput) -> vsp.TranResult:
         """ Run a transient analysis. """
 
         # Extract fields from our `TranInput`
@@ -265,17 +291,12 @@ class XyceSim(Sim):
         tstep = an.tstep
         if len(an.ic):
             raise NotImplementedError
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-
         netlist = open(f"{analysis_name}.sp", "a")
-
-        # FIXME: add a few fake components!
-        # netlist.write("r1 1 0 1k \n\n")
-        # netlist.write("i1 1 0 -1e-3 \n\n")
 
         # Write the analysis command
         netlist.write(f".tran {tstep} {tstop} \n\n")
@@ -294,10 +315,18 @@ class XyceSim(Sim):
         # Parse and organize our results
         # First pull them in from CSV
         with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = self.read_csv(csv_handle)
+            (signals, data) = read_csv(csv_handle)
+
+        # Parse any scalar measurement results
+        measurements = parse_measurements(analysis_name)
 
         # And organize them into a `TranResult` message
-        return vlsir.spice.TranResult(signals=signals, data=data)
+        return vsp.TranResult(
+            analysis_name=analysis_name,
+            signals=signals,
+            data=data,
+            measurements=measurements,
+        )
 
     def run_xyce_process(self, name: str):
         """ Run a `Xyce` sub-process, collecting terminal output. """
@@ -311,35 +340,49 @@ class XyceSim(Sim):
                 check=True,
             )
         except subprocess.CalledProcessError as e:
-            raise SimProcessError(e)
+            raise SimProcessError(self, e)
         except Exception as e:
             raise
 
-    def read_csv(self, handle: IO) -> Tuple[List[str], List[float]]:
-        """ Read a text-header + float CSV from file-handle `handle`. """
 
-        # Get the header-list of strings
-        header_line = handle.readline().strip()
-        headers = header_line.split(",")
+def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
+    """ Read a text-header + float CSV from file-handle `handle`. """
 
-        # The remaining rows are data-values. Append them to the (single-dimension) list of results.
-        data = []
-        results_csv = csv.reader(handle, quoting=csv.QUOTE_NONNUMERIC)
-        for row in results_csv:
-            data.extend(row)
+    # Get the header-list of strings
+    header_line = handle.readline().strip()
+    headers = header_line.split(",")
 
-        # And return the two as a tuple
-        return (headers, data)
+    # The remaining rows are data-values. Append them to the (single-dimension) list of results.
+    data = []
+    results_csv = csv.reader(handle, quoting=csv.QUOTE_NONNUMERIC)
+    for row in results_csv:
+        data.extend(row)
+
+    # And return the two as a tuple
+    return (headers, data)
 
 
 def parse_meas(file: IO) -> Dict[str, float]:
-    """ Parse an (open) measurement-file to a name: value dictionary. """
+    """ Parse an (open) measurement-file to a {name: value} dictionary. """
     rv = {}
     for line in file.readlines():
         contents = line.split()
         if len(contents) != 3 or contents[1] != "=":
-            raise RuntimeError
+            raise RuntimeError(f"Invalid line in Xyce measurements: {line}")
         name, val = contents[0], float(contents[2])
         rv[name] = val
     return rv
+
+
+def parse_measurements(analysis_name: str) -> Dict[str, float]:
+    # FIXME: the *input* should really be dictating whether we have measurements.
+    # For now, we just search for any matching filenames via `glob`
+    meas_glob = glob(f"*{analysis_name}*.m*0")
+    if len(meas_glob) > 1:
+        raise RuntimeError(f"Unsupported multiple measurement results for {self}")
+    if len(meas_glob) == 1:
+        measurements = parse_meas(open(meas_glob[0], "r"))
+        return {k.lower(): v for k, v in measurements.items()}
+    # No measurement-file, return an empty result
+    return {}
 

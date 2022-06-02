@@ -3,62 +3,69 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, os
-from typing import Tuple, Any, Mapping, Union, Optional, IO , Dict 
+import subprocess, re, shutil
+from typing import Tuple, Any, Mapping, Optional, IO, Dict
 import numpy as np
 
 # Local/ Project Dependencies
-import vlsir
-from .netlist import netlist
-from .netlist.spectre import SpectreNetlister
-from .sim_data import TranResult, AcResult, DcResult, OpResult, SimResult, ResultFormat
-from .spice import Sim, SimProcessError
+import vlsir.spice_pb2 as vsp
+from ..netlist import netlist
+from ..netlist.spectre import SpectreNetlister
+from .sim_data import TranResult, OpResult, SimResult  ##, AcResult, DcResult,
+from .spice import (
+    Sim,
+    SimProcessError,
+    ResultFormat,
+    SimOptions,
+    SupportedSimulators,
+    SimResultUnion,
+)
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
 
 
 def available() -> bool:
-    """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
-    return shutil.which(SPECTRE_EXECUTABLE) is not None
+    """ Boolean indication of whether the current running environment includes the simulator executable. """
+    if shutil.which(SPECTRE_EXECUTABLE) is None:
+        return False
+    try:
+        # And if it's set, check that we can get its version without croaking.
+        # This can often happen because of an inaccessible license server, or just a badly-linked installation.
+        subprocess.run(
+            f"{SPECTRE_EXECUTABLE} -V",  # Yes, "version" gets a capital "V" for this program (ascii shrug)
+            shell=True,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+    except Exception:
+        # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
+        return False
+    return True  # Otherwise, installation looks good.
 
 
-def _read_var_spec(line: str) -> Tuple[str, str]:
-    """Read a Variable spec line from the input
-    and return the name and the units."""
-    m = re.match(
-        r"\s+(?P<idx>\d+)\s+(?P<name>\S+)\s+(?P<units>\S+)(?P<rest>.*)\n", line
-    )
-    return (m.group("name"), m.group("units"))
+def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None,) -> SimResultUnion:
+    """ # Primary Simulation Method """
 
+    if opts is None:  # Create the default options
+        opts = SimOptions(simulator=SupportedSimulators.SPECTRE)
 
-def sim(
-    inp: vlsir.spice.SimInput,
-    fmt: ResultFormat = ResultFormat.SIM_DATA,
-    rundir: Optional[os.PathLike] = None,
-) -> Union[SimResult, vlsir.spice.SimResult]:
-    """
-    # Primary Simulation Method
-    Implements the `vlsir.spice.Sim` RPC interface.
+    results = SpectreSim.sim(inp, opts)
 
-    Returns resultant data in a format dictated by argument `fmt`,
-    generally either the `vlsir` protobuf-schema, or the pythonic `SimResult`.
-    """
-    if not isinstance(fmt, ResultFormat):
-        raise TypeError(f"Invalid ResultFormat: {fmt}")
-
-    with SpectreSim(inp=inp, rundir=rundir) as sim:
-        results: SimResult = sim.run()
-
-    if fmt == ResultFormat.VLSIR_PROTO:
+    if opts.fmt == ResultFormat.VLSIR_PROTO:
         return results.to_proto()
     return results
 
 
 class SpectreSim(Sim):
     """
-    State and execution logic for a Spectre-call to `vlsir.spice.Sim`.
+    State and execution logic for a Spectre-call to `vsp.Sim`.
     """
+
+    @classmethod
+    def enum(cls) -> SupportedSimulators:
+        return SupportedSimulators.SPECTRE
 
     def _run(self) -> SimResult:
         """ Run the specified `SimInput` in directory `self.tmpdir`, returning its results. """
@@ -72,6 +79,9 @@ class SpectreSim(Sim):
         # Write the top-level instance
         top_name = SpectreNetlister.get_module_name(self.top)
         netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
+
+        if self.inp.opts:
+            raise NotImplementedError(f"SimInput Options")
 
         # Write each control element
         self.write_control_elements(netlist_file)
@@ -97,7 +107,7 @@ class SpectreSim(Sim):
             results.append(an_type_dispatch[an_type](inner, data[inner.analysis_name]))
         return SimResult(an=results)
 
-    def write_control_elements(self, netlist_file) -> None:
+    def write_control_elements(self, netlist_file: IO) -> None:
         """ Write control elements to the netlist """
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
@@ -109,14 +119,24 @@ class SpectreSim(Sim):
                 )
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
-            elif inner in ("save", "meas"):
+            elif inner == "param":
+                netlist_file.write(
+                    f"parameters {ctrl.param.name}={str(ctrl.param.val)} \n"
+                )
+            elif inner == "meas":
+                netlist_file.write(f"simulator lang=spice \n")
+                netlist_file.write(
+                    f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                )
+                netlist_file.write(f"simulator lang=spectre \n")
+            elif inner in ("save"):
                 raise NotImplementedError(
                     f"Unimplemented control card {ctrl} for {self}"
                 )  # FIXME!
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
-    def netlist_analysis(self, an: vlsir.spice.Analysis, netlist_file) -> None:
+    def netlist_analysis(self, an: vsp.Analysis, netlist_file) -> None:
         inner = an.WhichOneof("an")
         inner_dispatch = dict(
             ac=self.netlist_ac,
@@ -127,16 +147,16 @@ class SpectreSim(Sim):
 
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
-    def netlist_ac(self, an: vlsir.spice.AcInput, netlist_file) -> None:
+    def netlist_ac(self, an: vsp.AcInput, netlist_file) -> None:
         """ Run an AC analysis. """
         raise NotImplementedError
 
-    def netlist_dc(self, an: vlsir.spice.DcInput, netlist_file) -> None:
+    def netlist_dc(self, an: vsp.DcInput, netlist_file) -> None:
         """ Run a DC analysis. """
         # Unpack the `DcInput`
         analysis_name = an.analysis_name or "dc"
 
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Write the analysis command
@@ -153,45 +173,39 @@ class SpectreSim(Sim):
         else:
             raise ValueError("Invalid sweep type")
 
-    def netlist_op(self, an: vlsir.spice.OpInput, netlist_file) -> None:
+    def netlist_op(self, an: vsp.OpInput, netlist_file) -> None:
         """
         This netlists as a single point DC analysis
         """
         # Unpack the `OpInput`
         analysis_name = an.analysis_name or "op"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         netlist_file.write(f"{analysis_name} dc oppoint=rawfile\n\n")
 
-    def netlist_tran(self, an: vlsir.spice.TranInput, netlist_file) -> None:
+    def netlist_tran(self, an: vsp.TranInput, netlist_file) -> None:
         analysis_name = an.analysis_name or "tran"
-        if len(an.ctrl):
+        if len(an.ctrls):
             raise NotImplementedError
         if len(an.ic):
             raise NotImplementedError
 
         netlist_file.write(f"{analysis_name} tran stop={an.tstop} \n\n")
 
-    def parse_ac(
-        self, an: vlsir.spice.AcInput, data: Mapping[str, Any]
-    ) -> vlsir.spice.AcResult:
+    def parse_ac(self, an: vsp.AcInput, data: Mapping[str, Any]) -> vsp.AcResult:
         raise NotImplementedError
 
-    def parse_dc(
-        self, an: vlsir.spice.DcInput, data: Mapping[str, Any]
-    ) -> vlsir.spice.DcResult:
+    def parse_dc(self, an: vsp.DcInput, data: Mapping[str, Any]) -> vsp.DcResult:
         raise NotImplementedError
 
-    def parse_op(self, an: vlsir.spice.OpInput, data: Mapping[str, Any]) -> OpResult:
+    def parse_op(self, an: vsp.OpInput, data: Mapping[str, Any]) -> OpResult:
         return OpResult(
             analysis_name=an.analysis_name,
             data={k: v[0] for k, v in data["data"].items()},
         )
 
-    def parse_tran(
-        self, an: vlsir.spice.TranInput, data: Mapping[str, Any]
-    ) -> TranResult:
+    def parse_tran(self, an: vsp.TranInput, data: Mapping[str, Any]) -> TranResult:
         return TranResult(analysis_name=an.analysis_name, data=data["data"])
 
     def run_simulation(self):
@@ -207,12 +221,16 @@ class SpectreSim(Sim):
                 check=True,
             )
         except subprocess.CalledProcessError as e:
-            raise SimProcessError(e)
+            raise SimProcessError(self, e)
         except Exception as e:
             raise
 
 
 def parse(filename: str) -> Mapping[str, Any]:
+    """ 
+    Parse a... what now? PSF Directory? In what format? 
+    FIXME: @avi 
+    """
     data = {}
     with open(filename, "rb") as f:
         # First 2 lines are ascii one line statements
@@ -263,12 +281,23 @@ def parse(filename: str) -> Mapping[str, Any]:
 
         return data
 
+
+def _read_var_spec(line: str) -> Tuple[str, str]:
+    """Read a Variable spec line from the input
+    and return the name and the units."""
+    m = re.match(
+        r"\s+(?P<idx>\d+)\s+(?P<name>\S+)\s+(?P<units>\S+)(?P<rest>.*)\n", line
+    )
+    return (m.group("name"), m.group("units"))
+
+
 def parse_mt0(file: IO) -> Dict[str, float]:
-    """ Parse (open) measurement-file into a set of name: value pairs. """
-    file.readline() # Header
-    file.readline() # Netlist Title 
-    keys = file.readline() # Measurement Names Line 
+    """ Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs. """
+
+    file.readline()  # Header
+    file.readline()  # Netlist Title
+    keys = file.readline()  # Measurement Names Line
     keys = keys.split()
-    values = file.readline() # Measurement Values Line
+    values = file.readline()  # Measurement Values Line
     values = [float(s) for s in values.split()]
     return dict(zip(keys, values))

@@ -343,7 +343,7 @@ class SpiceNetlister(Netlister):
         return "_" + str(index)
 
     @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.circuit.Parameter) -> str:
+    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
         """ Format a parameter-declaration """
         default = cls.get_param_default(param)
         if default is None:

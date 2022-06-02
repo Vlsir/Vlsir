@@ -133,7 +133,7 @@ class VerilogNetlister(Netlister):
         self.writeln("")  # Post-Instance blank line
 
     @classmethod
-    def format_param_type(cls, pparam: vlsir.circuit.Parameter) -> str:
+    def format_param_type(cls, pparam: vlsir.Param) -> str:
         """ Verilog type-string for `Parameter` `param`. """
         ptype = pparam.WhichOneof("value")
         if ptype == "integer":
@@ -145,7 +145,7 @@ class VerilogNetlister(Netlister):
         raise ValueError
 
     @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.circuit.Parameter) -> str:
+    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
         """ Format a parameter-declaration """
         rv = f"parameter {name}"
         # FIXME: whether to include datatype

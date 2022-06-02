@@ -1,16 +1,15 @@
-//! 
-//! # vlsir Circuit Schema 
-//! 
+//!
+//! # vlsir Circuit Schema
+//!
 
 syntax = "proto3";
 package vlsir.circuit;
 import "utils.proto";
 
-
 // # Package
 // A Collection of Modules and ExternalModules
 message Package {
-  // Domain Name 
+  // Domain Name
   string domain = 1;
   // `Module` Definitions
   repeated Module modules = 2;
@@ -20,29 +19,8 @@ message Package {
   string desc = 10;
 }
 
-// # Parameter-Value Enumeration 
-// Supports the common param-types supported in legacy HDLs such as Verilog and SPICE. 
-message ParameterValue {
-  oneof value {
-    int64 integer = 2;  // Int 
-    double double = 3;  // Float 
-    string string = 4;  // String-valued parameter 
-    string literal = 5; // Literal expressions, e.g. "my_param1 * 5 + sin(your_param3)"
-  }
-}
-// # Parameter Declaration 
-// Named parameter with an optional default value
-message Parameter {
-  // Parameter name
-  string name = 1;
-  // Default value
-  ParameterValue default = 2;
-  // Description 
-  string desc = 3;
-}
-
-// # Port 
-// An externally-visible `Signal` with a `Direction`. 
+// # Port
+// An externally-visible `Signal` with a `Direction`.
 message Port {
   enum Direction {
     INPUT = 0;
@@ -54,18 +32,18 @@ message Port {
   Direction direction = 2;
 }
 
-// # Signal 
-// A named connection element, potentially with non-unit `width`. 
+// # Signal
+// A named connection element, potentially with non-unit `width`.
 message Signal {
   // Signal Name
   string name = 1;
-  // Bus Width 
+  // Bus Width
   int64 width = 2;
 }
 
 // # Signal Slice
-// Reference to a subset of bits of `signal`. 
-// Indices `top` and `bot` are both inclusive, similar to popular HDLs. 
+// Reference to a subset of bits of `signal`.
+// Indices `top` and `bot` are both inclusive, similar to popular HDLs.
 message Slice {
   // Parent Signal Name
   string signal = 1;
@@ -75,67 +53,69 @@ message Slice {
   int64 bot = 3;
 }
 
-// Signal Concatenation 
-// FIXME: documentation of ordering, MSB-LSB 
+// Signal Concatenation
+// FIXME: documentation of ordering, MSB-LSB
 message Concat {
   repeated Connection parts = 1;
 }
 
-// Connection Union
-// Enumerates all types that can be 
-// (a) Connected to Ports, and 
-// (b) Concatenated 
+// # Connection Union
+// Enumerates all types that can be
+// (a) Connected to Ports, and
+// (b) Concatenated
 message Connection {
   oneof stype {
-    Signal sig = 1; // FIXME: can become just string-valued reference to signal-name
+    // FIXME: `sig` can become just string-valued reference to signal-name
+    Signal sig = 1;
     Slice slice = 2;
     Concat concat = 3;
   }
 }
-// Module Instance 
+// Module Instance
 message Instance {
-  // Instance Name 
+  // Instance Name
   string name = 1;
   // vlsir.utils.Reference to Module instantiated
   vlsir.utils.Reference module = 2;
-  // Parameter Values 
-  map<string, ParameterValue> parameters = 3;
+  // Param Values
+  map<string, vlsir.utils.ParamValue> parameters = 3;
   // Map internal to external signals by name.
   map<string, Connection> connections = 4;
 }
 
 // Module - the primary unit of hardware re-use
 message Module {
-  // Module Name 
+  // Module Name
   string name = 1;
-  // Port Definitions 
+  // Port Definitions
   repeated Port ports = 2;
   // Internal Signals
   repeated Signal signals = 3;
   // Module Instances
   repeated Instance instances = 4;
   // Parameters
-  repeated Parameter parameters = 5;
+  repeated vlsir.utils.Param parameters = 5;
 }
 
-// # Externally Defined Module 
-// Primarily for sake of port-ordering, for translation with connect-by-position formats. 
+// # Externally Defined Module
+// Primarily for sake of port-ordering, for translation with connect-by-position
+// formats.
 message ExternalModule {
-  // Qualified External Module Name 
+  // Qualified External Module Name
   vlsir.utils.QualifiedName name = 1;
   // Description
   string desc = 2;
-  // Port Definitions 
+  // Port Definitions
   repeated Port ports = 3;
-  // Parameters
-  repeated Parameter parameters = 5;
+  // Params
+  repeated vlsir.utils.Param parameters = 5;
 }
 
-// # Interface 
-// Defines the logical IO of a `Module` 
+// # Interface
+// Defines the logical IO of a `Module`
 message Interface {
   // Cell Name
   string name = 1;
-  // Port List 
+  // Port List
   repeated Port ports = 10;
 }

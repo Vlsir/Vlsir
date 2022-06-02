@@ -7,7 +7,7 @@ import vlsir
 
 
 def test_version():
-    assert vlsir.__version__ == "0.2.0"
+    assert vlsir.__version__ == "1.0.0.dev0"
 
 
 def test_sim():
@@ -75,4 +75,3 @@ def test_primitives1():
     assert isinstance(primitives.diode, vlsir.circuit.ExternalModule)
     assert isinstance(primitives.dct["diode"], vlsir.circuit.ExternalModule)
     assert primitives.diode is primitives.dct["diode"]
-

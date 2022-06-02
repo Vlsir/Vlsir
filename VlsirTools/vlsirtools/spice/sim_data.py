@@ -7,19 +7,12 @@ TODO: Go from proto -> sim_result
 """
 
 
-from enum import Enum, auto
 from dataclasses import dataclass
 import numpy as np
 from typing import List, Mapping, Union
 
+
 import vlsir
-
-
-class ResultFormat(Enum):
-    """ Enumerated Result Formats """
-
-    SIM_DATA = auto()  # The `SimData` classes defined below
-    VLSIR_PROTO = auto()  # `vlsir.spice.SimResults` and related protobuf-defined types
 
 
 @dataclass
@@ -60,6 +53,7 @@ class DcResult:
 class TranResult:
     analysis_name: str
     data: Mapping[str, np.ndarray]
+    measurements: Mapping[str, float]
     vlsir_type: str = "tran"
 
     def to_proto(self) -> vlsir.spice.TranResult:
@@ -77,6 +71,7 @@ class AcResult:
     analysis_name: str
     freq: np.ndarray
     data: Mapping[str, np.ndarray]
+    measurements: Mapping[str, float]
     vlsir_type: str = "ac"
 
     def to_proto(self) -> vlsir.spice.AcResult:

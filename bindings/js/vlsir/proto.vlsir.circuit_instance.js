@@ -15,7 +15,7 @@ goog.require('jspb.BinaryWriter');
 goog.require('jspb.Map');
 goog.require('jspb.Message');
 goog.require('proto.vlsir.circuit.Connection');
-goog.require('proto.vlsir.circuit.ParameterValue');
+goog.require('proto.vlsir.utils.ParamValue');
 goog.require('proto.vlsir.utils.Reference');
 
 /**
@@ -73,7 +73,7 @@ proto.vlsir.circuit.Instance.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
     module: (f = msg.getModule()) && proto.vlsir.utils.Reference.toObject(includeInstance, f),
-    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, proto.vlsir.circuit.ParameterValue.toObject) : [],
+    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, proto.vlsir.utils.ParamValue.toObject) : [],
     connectionsMap: (f = msg.getConnectionsMap()) ? f.toObject(includeInstance, proto.vlsir.circuit.Connection.toObject) : []
   };
 
@@ -123,7 +123,7 @@ proto.vlsir.circuit.Instance.deserializeBinaryFromReader = function(msg, reader)
     case 3:
       var value = msg.getParametersMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.vlsir.circuit.ParameterValue.deserializeBinaryFromReader, "", new proto.vlsir.circuit.ParameterValue());
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.vlsir.utils.ParamValue.deserializeBinaryFromReader, "", new proto.vlsir.utils.ParamValue());
          });
       break;
     case 4:
@@ -178,7 +178,7 @@ proto.vlsir.circuit.Instance.serializeBinaryToWriter = function(message, writer)
   }
   f = message.getParametersMap(true);
   if (f && f.getLength() > 0) {
-    f.serializeBinary(3, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeMessage, proto.vlsir.circuit.ParameterValue.serializeBinaryToWriter);
+    f.serializeBinary(3, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeMessage, proto.vlsir.utils.ParamValue.serializeBinaryToWriter);
   }
   f = message.getConnectionsMap(true);
   if (f && f.getLength() > 0) {
@@ -243,15 +243,15 @@ proto.vlsir.circuit.Instance.prototype.hasModule = function() {
 
 
 /**
- * map<string, ParameterValue> parameters = 3;
+ * map<string, vlsir.utils.ParamValue> parameters = 3;
  * @param {boolean=} opt_noLazyCreate Do not create the map if
  * empty, instead returning `undefined`
- * @return {!jspb.Map<string,!proto.vlsir.circuit.ParameterValue>}
+ * @return {!jspb.Map<string,!proto.vlsir.utils.ParamValue>}
  */
 proto.vlsir.circuit.Instance.prototype.getParametersMap = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,!proto.vlsir.circuit.ParameterValue>} */ (
+  return /** @type {!jspb.Map<string,!proto.vlsir.utils.ParamValue>} */ (
       jspb.Message.getMapField(this, 3, opt_noLazyCreate,
-      proto.vlsir.circuit.ParameterValue));
+      proto.vlsir.utils.ParamValue));
 };
 
 
