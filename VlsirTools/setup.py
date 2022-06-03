@@ -23,7 +23,7 @@ setup(
     description="Tools for the Vlsir IC Design Schema",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dan-fritchman/Vlsir",
+    url="https://github.com/Vlsir/Vlsir",
     author="Dan Fritchman",
     packages=find_packages(),
     python_requires=">=3.7, <4",

@@ -23,7 +23,7 @@ setup(
     description="Data Schemas for Chip Design",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dan-fritchman/Vlsir",
+    url="https://github.com/Vlsir/Vlsir",
     author="Dan Fritchman",
     packages=find_packages(),
     package_data={

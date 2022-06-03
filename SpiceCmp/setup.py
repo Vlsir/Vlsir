@@ -23,7 +23,7 @@ setup(
     description="Spice Models and Results Comparisons",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dan-fritchman/Vlsir",
+    url="https://github.com/Vlsir/Vlsir",
     author="Dan Fritchman",
     author_email="dan@fritch.mn",
     packages=find_packages(),

@@ -4,7 +4,7 @@ description = "Rust Bindings to the VLSIR Chip-Design Data Schemas"
 authors = ["Dan Fritchman <dan@fritch.mn>"]
 edition = "2018"
 license = "BSD-3-Clause"
-repository = "https://github.com/dan-fritchman/Vlsir"
+repository = "https://github.com/Vlsir/Vlsir"
 version = "1.0.0" # FIXME: Rust / Cargo do not support "dev versions" such as the "1.0.0.dev0" used elsewhere
 
 
