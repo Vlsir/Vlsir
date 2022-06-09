@@ -51,4 +51,4 @@ Ongoing, co-developed projects which use `vlsir`:
 | -------- | ----------- | -------- |
 | [Hdl21](https://github.com/dan-fritchman/Hdl21)        | Generator-Based Hardware Description Library | Python |
 | [Layout21](https://github.com/dan-fritchman/Layout21)  | Multi-Layered Layout-Programming | Rust |
-| [Boralago](https://github.com/growly/boralago)         | Layout Generation for Open-Source FPGAs (and other cool stuff too) | C++ |
+| [BFG](https://github.com/growly/bfg)         | Layout Generation for Open-Source FPGAs (and other cool stuff too) | C++ |
