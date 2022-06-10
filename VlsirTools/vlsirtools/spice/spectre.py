@@ -3,9 +3,10 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil
-from typing import Tuple, Any, Mapping, Optional, IO, Dict
+import subprocess, re, shutil, glob
 import numpy as np
+from typing import Tuple, Any, Mapping, Optional, IO, Dict
+from warnings import warn
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -104,7 +105,17 @@ class SpectreSim(Sim):
         for an in self.inp.an:
             an_type = an.WhichOneof("an")
             inner = getattr(an, an_type)
-            results.append(an_type_dispatch[an_type](inner, data[inner.analysis_name]))
+            if an_type not in an_type_dispatch:
+                msg = f"Invalid or Unsupported analysis {an} with type {an_type}"
+                raise RuntimeError(msg)
+            func = an_type_dispatch[an_type]
+            if inner.analysis_name not in data:
+                msg = f"Cannot read results for analysis {an}"
+                raise RuntimeError(msg)
+            inner_data = data[inner.analysis_name]
+            an_results = func(inner, inner_data)
+            results.append(an_results)
+
         return SimResult(an=results)
 
     def write_control_elements(self, netlist_file: IO) -> None:
@@ -114,20 +125,19 @@ class SpectreSim(Sim):
             if inner == "include":
                 netlist_file.write(f'include "{ctrl.include.path}" \n')
             elif inner == "lib":
-                netlist_file.write(
-                    f'include "{ctrl.lib.path}" section={ctrl.lib.section} \n'
-                )
+                txt = f'include "{ctrl.lib.path}" section={ctrl.lib.section} \n'
+                netlist_file.write(txt)
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
             elif inner == "param":
-                netlist_file.write(
-                    f"parameters {ctrl.param.name}={str(ctrl.param.val)} \n"
-                )
+                # txt = f"parameters {ctrl.param.name}={str(ctrl.param.value)} \n"
+                txt = f"parameters  {ctrl.param.name}={SpectreNetlister.get_param_value(ctrl.param.value)} \n"
+                netlist_file.write(txt)
             elif inner == "meas":
+                # Measurements are written in Spice syntax; wrap them in "simulator lang".
                 netlist_file.write(f"simulator lang=spice \n")
-                netlist_file.write(
-                    f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
-                )
+                txt = f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                netlist_file.write(txt)
                 netlist_file.write(f"simulator lang=spectre \n")
             elif inner in ("save"):
                 raise NotImplementedError(
@@ -206,7 +216,18 @@ class SpectreSim(Sim):
         )
 
     def parse_tran(self, an: vsp.TranInput, data: Mapping[str, Any]) -> TranResult:
-        return TranResult(analysis_name=an.analysis_name, data=data["data"])
+        meas_files = glob.glob("*.mt*")
+        if len(meas_files) > 1:
+            msg = f"Unsupported: more than one measurement-file generated. Only the first will be read"
+            warn(msg)
+        elif len(meas_files) == 1:
+            measurements = parse_mt0(open(meas_files[0], "r"))
+        else:
+            measurements = dict()
+
+        return TranResult(
+            analysis_name=an.analysis_name, data=data["data"], measurements=measurements
+        )
 
     def run_simulation(self):
         """ Run a Spectre simulation """

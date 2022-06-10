@@ -3,13 +3,71 @@
 """
 
 # Std-Lib Imports
-from typing import Union, Dict
+from typing import Union, List
 
 # Local Imports
 import vlsir
 
 # Import the base-class
 from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
+
+
+def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
+    """ Map a primitive into Spectre's supported names and parameters. 
+    Returns the "apparent module name" for instances of the primitive. 
+    Argument `paramvals` is often modified along the way. 
+
+    Note spectre syntax is such that the "apparent module name" can be either of: 
+    (a) a fixed name per spice-prefix, for basic types (r, c, l, etc), or 
+    (b) the *model* name for model-based devices, (mos, bjt, diode, etc) """
+
+    # For voltage sources, add spectre's "type" parameter, and potentially rename several parameters
+    if rmodule.spice_prefix == SpicePrefix.VSOURCE:
+        vname = rmodule.module_name
+        vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
+        if vname not in vtypes:
+            msg = f"Invalid or unsupported voltage-source type {vname}"
+            raise ValueError(msg)
+        paramvals.set("type", vtypes[vname])
+
+        if vname == "vpulse":
+            # For pulse sources, need to rename most parameters
+            paramvals.rename("v1", "val0")
+            paramvals.rename("v2", "val1")
+            paramvals.rename("td", "delay")
+            paramvals.rename("tr", "rise")
+            paramvals.rename("tf", "fall")
+            paramvals.rename("tpw", "width")
+            paramvals.rename("tper", "period")
+
+    # Mapping from spice-prefix to spectre-name for fixed-name types
+    basics = {
+        SpicePrefix.RESISTOR: "resistor",
+        SpicePrefix.CAPACITOR: "capacitor",
+        SpicePrefix.INDUCTOR: "inductor",
+        SpicePrefix.VSOURCE: "vsource",
+        SpicePrefix.ISOURCE: "isource",
+        SpicePrefix.VCVS: "vcvs",
+        SpicePrefix.VCCS: "vccs",
+        SpicePrefix.CCCS: "cccs",
+        SpicePrefix.CCVS: "ccvs",
+    }
+    if rmodule.spice_prefix in basics:
+        return basics[rmodule.spice_prefix]
+
+    # Other primitive-types get an "apparent module name" equal to their *model* name.
+    model_based = {
+        SpicePrefix.MOS,
+        SpicePrefix.BIPOLAR,
+        SpicePrefix.DIODE,
+        SpicePrefix.TLINE,
+    }
+    if rmodule.spice_prefix in model_based:
+        # Get the model-name from its instance parameters
+        return paramvals.pop("modelname")
+
+    # Otherwise, unclear what this is or how we got here.
+    raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
 
 
 class SpectreNetlister(Netlister):
@@ -68,43 +126,6 @@ class SpectreNetlister(Netlister):
         # Close up the sub-circuit
         self.write("ends \n\n")
 
-    def get_primitive_name(
-        self, rmodule: ResolvedModule, paramvals: ResolvedParams
-    ) -> str:
-        """ Get the module-name for primitives prefixed with `prefix`. 
-        Note spectre syntax is such that the "apparent module name" can be either of: 
-        (a) a fixed name per spice-prefix, for basic types (r, c, l, etc), or 
-        (b) the *model* name for model-based devices, (mos, bjt, diode, etc) """
-
-        # Mapping from spice-prefix to spectre-name for fixed-name types
-        basics = {
-            SpicePrefix.RESISTOR: "resistor",
-            SpicePrefix.CAPACITOR: "capacitor",
-            SpicePrefix.INDUCTOR: "inductor",
-            SpicePrefix.VSOURCE: "vsource",
-            SpicePrefix.ISOURCE: "isource",
-            SpicePrefix.VCVS: "vcvs",
-            SpicePrefix.VCCS: "vccs",
-            SpicePrefix.CCCS: "cccs",
-            SpicePrefix.CCVS: "ccvs",
-        }
-        if rmodule.spice_prefix in basics:
-            return basics[rmodule.spice_prefix]
-
-        # Other primitive-types get an "apparent module name" equal to their *model* name.
-        model_based = {
-            SpicePrefix.MOS,
-            SpicePrefix.BIPOLAR,
-            SpicePrefix.DIODE,
-            SpicePrefix.TLINE,
-        }
-        if rmodule.spice_prefix in model_based:
-            # Get the model-name from its instance parameters
-            return paramvals.pop("modelname")
-
-        # Otherwise, unclear what this is or how we got here.
-        raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
-
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
@@ -119,21 +140,13 @@ class SpectreNetlister(Netlister):
         if rmodule.spice_prefix == SpicePrefix.SUBCKT:
             module_name = rmodule.module_name
         else:  # Primitive element. Look up spectre-format module-name
-            module_name = self.get_primitive_name(rmodule, resolved_instance_parameters)
-        
-        # For voltage sources, add spectre's "type" parameter
-        if rmodule.spice_prefix == SpicePrefix.VSOURCE:
-            vname = rmodule.module_name
-            vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
-            if vname not in vtypes:
-                msg = f"Invalid or unsupported voltage-source type {vname}"
-                raise ValueError(msg)
-            resolved_instance_parameters.set("type", vtypes[vname])
+            module_name = map_primitive(rmodule, resolved_instance_parameters)
 
         # Create the instance name
         self.write(pinst.name + "\n")
 
         if module.ports:
+            self.write("+  // Ports: \n")
             self.write("+  ( ")
             # Get `module`'s port-order
             port_order = [pport.signal.name for pport in module.ports]
