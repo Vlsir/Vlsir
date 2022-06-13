@@ -10,7 +10,7 @@
 
 set -eo pipefail
 
-VERSION=1.0.0.rc0
+VERSION=1.0.0rc0
 
 # Python
 cd bindings/python 
@@ -23,8 +23,8 @@ python setup.py sdist
 twine upload dist/vlsirtools-${VERSION}.tar.gz
 
 # Rust
-cd ../bindings/rust 
-cargo publish 
+# cd ../bindings/rust 
+# cargo publish 
 
 # FIXME/ Coming Soon: JS. And C++, maybe, to some package-manager to be named.
 
