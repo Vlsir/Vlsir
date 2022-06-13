@@ -57,39 +57,45 @@ class ResolvedParams:
     Factoring in defaults, and converted to strings. 
     Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing. """
 
-    values: Dict[str, str]
+    inner: Dict[str, str]
 
     def set(self, key: str, val: str) -> None:
         """ Set the value of `key` to `val` in the resolved parameters. """
-        self.values[key] = val
+        self.inner[key] = val
 
     def get(self, key: str) -> str:
         """ Get the value of `key` from the resolved parameters. 
         Raises `RuntimeError` if `key` is not present. """
-        if key not in self.values:
+        if key not in self.inner:
             raise RuntimeError(f"Missing parameter {key}")
-        return self.values[key]
+        return self.inner[key]
 
     def pop(self, key: str) -> str:
         """ Get the value of `key` from the resolved parameters, and remove it from the `ResolvedParams`. 
         Raises `RuntimeError` if `key` is not present. """
-        if key not in self.values:
+        if key not in self.inner:
             raise RuntimeError(f"Missing parameter {key}")
-        return self.values.pop(key)
+        return self.inner.pop(key)
 
     def pop_many(self, keys: Iterable[str]) -> Dict[str, str]:
         """ Get the values of `keys` from the resolved parameters, and remove them from the `ResolvedParams`. 
         Raises `RuntimeError` if any `key` is not present. """
         return {key: self.pop(key) for key in keys}
 
+    def rename(self, old: str, new: str) -> None:
+        """ Rename a key from `old` to `new`. 
+        Raises an exception if `old` is not a key. """
+        val = self.pop(old)
+        self.set(new, val)
+
     @property
     def items(self):
-        return self.values.items
+        return self.inner.items
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
-        are forwarded down to the internal values dictionary. """
-        return bool(self.values)
+        are forwarded down to the internal `inner` dictionary. """
+        return bool(self.inner)
 
 
 @dataclass
@@ -375,49 +381,6 @@ class Netlister:
                 msg = f"Invalid direct-netlisting of physical `hdl21.Primitive` `{ref.external.name}`. "
                 msg += "Either compile to a target technology, or replace with an `ExternalModule`. "
                 raise RuntimeError(msg)
-
-            if ref.external.domain == "hdl21.ideal":
-                # FIXME: complete the deprecation of the dependency on `hdl21`.
-                import warnings
-
-                msg = f"Pending Deprecation: `hdl21.ideal` primitive {ref}. Move to `vlsir.primitives"
-                warnings.warn(msg)
-
-                # Ideal elements
-                name = ref.external.name
-
-                # Sort out the spectre-format name
-                if name == "IdealCapacitor":
-                    module_name = "capacitor"
-                    spice_prefix = SpicePrefix.CAPACITOR
-                elif name == "IdealResistor":
-                    module_name = "resistor"
-                    spice_prefix = SpicePrefix.RESISTOR
-                elif name == "IdealInductor":
-                    module_name = "inductor"
-                    spice_prefix = SpicePrefix.INDUCTOR
-                elif name == "VoltageSource":
-                    module_name = "vsource"
-                    spice_prefix = SpicePrefix.VSOURCE
-                elif name == "CurrentSource":
-                    module_name = "isource"
-                    spice_prefix = SpicePrefix.ISOURCE
-                else:
-                    raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
-
-                # Awkwardly, primitives don't naturally have definitions as
-                # either `vlsir.circuit.Module` or `vlsir.circuit.ExternalModule`.
-                # So we create one on the fly.
-
-                # FIXME: these two dependencies should be removed!
-                from hdl21.proto.to_proto import ProtoExporter
-                from hdl21.proto.from_proto import ProtoImporter
-
-                prim = ProtoImporter.import_hdl21_primitive(ref.external)
-                module = ProtoExporter.export_hdl21_primitive(prim)
-                return ResolvedModule(
-                    module=module, module_name=module_name, spice_prefix=spice_prefix,
-                )
 
             else:  # Externally-Defined, External-Domain `ExternalModule`
                 key = (ref.external.domain, ref.external.name)

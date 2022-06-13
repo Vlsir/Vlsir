@@ -95,9 +95,8 @@ class XyceSim(Sim):
                 line = f".param {ctrl.param.name}={XyceNetlister.get_param_value(ctrl.param.value)} \n"
                 netlist_file.write(line)
             elif inner == "meas":
-                netlist_file.write(
-                    f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
-                )
+                line = f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                netlist_file.write(line)
             elif inner == "literal":
                 netlist_file.write(ctrl.literal + "\n")
             elif inner in ("save"):

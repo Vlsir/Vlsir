@@ -84,6 +84,8 @@ AnalysisResult = Union[AcResult, DcResult, TranResult, OpResult]
 
 @dataclass
 class SimResult:
+    """ Results from a Mult-Analysis `Sim` """
+
     an: List[AnalysisResult]
 
     def to_proto(self) -> vlsir.spice.SimResult:
@@ -91,4 +93,7 @@ class SimResult:
         for a in self.an:
             res.an.append(vlsir.spice.AnalysisResult(**{a.vlsir_type: a.to_proto()}))
         return res
+
+    def __getitem__(self, key: int) -> AnalysisResult:
+        return self.an[key]
 
