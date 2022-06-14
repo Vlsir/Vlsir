@@ -19,7 +19,7 @@ _VLSIR_VERSION = "1.0.0rc0"
 
 setup(
     name="spicecmp",
-    version=_VLSIR_VERSION,
+    version="1.0.0rc1", # FIXME! temporarily ahead of the rest of VLSIR versioning
     description="Spice Models and Results Comparisons",
     long_description=long_description,
     long_description_content_type="text/markdown",

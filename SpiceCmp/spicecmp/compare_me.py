@@ -8,26 +8,20 @@ their test-cases and collect resultant measurement results.
 
 # Std-Lib Imports
 from dataclasses import dataclass, asdict
-from enum import Enum
 from pathlib import Path
-from typing import List, Dict, Callable
+from typing import List, Callable
 
 # PyPi Imports
 import pandas as pd
 
-# "Friend" VLSIR-World Imports
-from vlsir.spice_pb2 import Control, LibInclude
-from vlsirtools.spice import SupportedSimulators
-import hdl21 as h
-from hdl21.primitives import MosType, MosVth
-
 # Local Imports
 from .corner import Corner
-from .pdk import Pdk, MosModel
-from .simulator import Simulator, Simulators
+from .pdk import MosModel
+from .simulator import Simulators
 from .pdk_sim_combo import PdkSimCombo
-from .testcase import TestCase
+from .testcase import TestCase, TestCaseRun
 from .compare_meas import compare_case
+from .errormode import ErrorMode
 
 
 @dataclass
@@ -43,17 +37,23 @@ class CompareMe:
     * `compare` gathers the results of each `TestCase`, compares them measurement-by-measurement, creates and saves a summary table. 
     """
 
+    # The PDK-simulator combinations under comparison
     spectre: PdkSimCombo
     xyce: PdkSimCombo
 
     # Comparison name, for labeling and run-directory naming
     name: str
 
-    # Other shared data for comparison
+    # DUTs Under Comparison
     xtors: List[MosModel]
+    ro_cells: List[Callable]
+
+    # Comparison Conditions
     tempers: List[int]
     corners: List[Corner]
-    ro_cells: List[Callable]
+
+    # Options
+    errormode: ErrorMode = ErrorMode.WARN
 
     def __post_init__(self):
         if self.spectre.sim.enum != Simulators.SPECTRE:
@@ -61,33 +61,34 @@ class CompareMe:
         if self.xyce.sim.enum != Simulators.XYCE:
             raise RuntimeError(f"Unsupported sim-pdk combination {self.xyce}")
 
-    def run_test_case(self, testcase: TestCase, ps: PdkSimCombo):
+    def run_test_case(self, testcase: TestCase, ps: PdkSimCombo) -> None:
         """ Run a single test-case, with a single `PdkSimCombo`. """
-        pdk, simulator = ps.pdk, ps.sim
-        testcase.run_func(
+        run = TestCaseRun(
             testcase=testcase,
-            pdk=pdk,
-            simulator=simulator,
+            pdk=ps.pdk,
+            simulator=ps.sim,
             parentdir=Path("./rundirs") / ps.name,
+            errormode=self.errormode,
         )
-    
+        testcase.run_func(run)
+
     def run(self, testcases: List[TestCase]) -> None:
         """ Run all test cases (or at least "run" as much as we can). """
         for ps in (self.xyce, self.spectre):
             for testcase in testcases:
                 self.run_test_case(testcase, ps)
 
-    def run_one_combo(self, testcases: List[TestCase], which: Simulators):
+    def run_one_combo(self, testcases: List[TestCase], which: Simulators) -> None:
         """ Run all the test-cases for one `PdkSimCombo`, denoted by an enumerated `Simulator`. """
         if which == Simulators.XYCE:
-            ps = self.xyce 
+            ps = self.xyce
         elif which == Simulators.SPECTRE:
-            ps = self.spectre 
+            ps = self.spectre
         else:
             raise ValueError
-        
+
         for testcase in testcases:
-                self.run_test_case(testcase, ps)
+            self.run_test_case(testcase, ps)
 
     def compare(self, testcases: List[TestCase]) -> pd.DataFrame:
         """ Perform comparisons between results, and save to a data-table. """

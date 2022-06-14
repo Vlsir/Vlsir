@@ -1,7 +1,8 @@
 __version__ = "1.0.0rc0"
 
 # Local Imports
-from .corner import *
+from .errormode import ErrorMode
+from .corner import Corner
 from .pdk import *
 from .simulator import *
 from .pdk_sim_combo import *

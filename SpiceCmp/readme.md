@@ -80,11 +80,39 @@ def meas_func(inp: Dict[str, float]) -> Dict[str, float]:
     """ Convert a "raw" input measurement-dictionary to post-processed form. """
 ```
 
-The run-functions require a bit more data, including the `TestCase`, `Pdk`, `Simulator`, 
-and a file system `pathlib.Path` in which to execute simulation. 
+In Python `typing` notation, the type of each `meas_func` is therefore:
 
 ```python
-def run_func(testcase: TestCase, pdk: Pdk, simulator: Simulator, parentdir: Path) -> None:
+meas_func: Callable[[Dict[str, float]], Dict[str, float]]
+```
+
+Run-functions take as their sole argument a `TestCaseRun`, the combination of a `TestCase`, 
+PDK, and simulator to run it against, along with other metadata. 
+
+```python 
+@dataclass
+class TestCaseRun:
+    """ # Test Case Run
+    Execution of a `TestCase` with a particular PDK & simulator. """
+
+    testcase: TestCase
+    pdk: Pdk
+    simulator: Simulator
+    parentdir: Path
+    errormode: ErrorMode
+```
+
+Their signature takes a `TestCaseRun` as input and returns nothing: 
+
+```python
+def run_func(run: TestCaseRun) -> None:
+    """ Execute the `TestCaseRun` """
+```
+
+And again in `typing` module terms, run-functions are of type: 
+
+```python
+run_func: Callable[["TestCaseRun"], None]
 ```
 
 ### Comparison Results 

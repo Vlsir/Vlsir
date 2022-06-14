@@ -1,21 +1,22 @@
 # Std-Lib Imports
-from textwrap import dedent
-from copy import deepcopy
-from dataclasses import dataclass, asdict
-from enum import Enum, auto
 from pathlib import Path
-from typing import List, Any, Dict, Tuple, Callable
+from dataclasses import dataclass
+from typing import Any, Dict, Callable
 
-# Local Imports 
-from .corner import Corner 
+# Local Imports
+from .errormode import ErrorMode
+from .corner import Corner
+
 
 @dataclass
 class Test:
     """ # Simulation Comparison Test """
 
     name: str  # Test Name
-    run_func: Callable  # Run-Function
-    meas_func: Callable  # Measurement-Manipulation Function
+    # Run-Function
+    run_func: Callable[["TestCaseRun"], None]
+    # Measurement-Manipulation Function
+    meas_func: Callable[[Dict[str, float]], Dict[str, float]]
 
     def case(self, **kwargs) -> "TestCase":
         """ Create a derived `TestCase` with parameters `kwargs`. """
@@ -55,4 +56,16 @@ class TestCase:
         """ Run-directory name, gathered from the test-case data. """
         # Format: TestCaseName_DutName_TT_25
         return f"{self.name}_{self.dut.name}_{self.corner.value}_{str(self.temper)}"
+
+
+@dataclass
+class TestCaseRun:
+    """ # Test Case Run
+    Execution of a `TestCase` with a particular PDK & simulator. """
+
+    testcase: TestCase
+    pdk: "Pdk"
+    simulator: "Simulator"
+    parentdir: Path
+    errormode: ErrorMode
 

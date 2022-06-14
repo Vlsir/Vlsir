@@ -1,6 +1,5 @@
 # Std-Lib Imports
 from textwrap import dedent
-from enum import Enum
 from pathlib import Path
 from typing import List, Dict
 from dataclasses import dataclass
@@ -11,16 +10,10 @@ import hdl21 as h
 import vlsirtools.spice as vsp
 
 # Local Imports
-from .testcase import Test, TestCase
+from .testcase import Test, TestCase, TestCaseRun
 from .pdk import Pdk, MosModel
 from .simulator import Simulator
-
-
-class ErrorMode(Enum):
-    """ Enumerated error-handling strategies """
-
-    RAISE = "raise"
-    WARN = "warn"
+from .errormode import ErrorMode
 
 
 @h.paramclass
@@ -104,10 +97,13 @@ class MosDut:
         return self.model.name
 
 
-def mosiv_test(
-    testcase: TestCase, pdk: Pdk, simulator: Simulator, parentdir: Path
-) -> None:
+def mosiv_test(run: TestCaseRun) -> None:
     """ MOS DC I-V Test Case """
+    testcase = run.testcase
+    pdk = run.pdk
+    simulator = run.simulator
+    parentdir = run.parentdir
+
     mos_dut: MosDut = testcase.dut(pdk)
     params = DcIvParams(
         dut=mos_dut.instantiable,
@@ -118,6 +114,7 @@ def mosiv_test(
         vlsirtools_simulator=simulator.vlsirtools,
         vdd=pdk.vdd,
         temper=testcase.temper,
+        errormode=run.errormode,
     )
     results = dc_iv(params)
     return results
@@ -302,11 +299,13 @@ def std_cell_ro(params: StdCellRoParams) -> None:
             raise e
 
 
-def ro_test(
-    testcase: TestCase, pdk: Pdk, simulator: Simulator, parentdir: Path
-) -> None:
+def ro_test(run: TestCaseRun) -> None:
     """ "TestCase Interface" for the RO Tests
     Largely a thin wrapper around `std_cell_ro`. """
+    testcase = run.testcase
+    pdk = run.pdk
+    simulator = run.simulator
+    parentdir = run.parentdir
 
     params = StdCellRoParams(
         dut=testcase.dut(pdk),
@@ -316,6 +315,7 @@ def ro_test(
         vlsirtools_simulator=simulator.vlsirtools,
         vdd=pdk.vdd,
         temper=testcase.temper,
+        errormode=run.errormode,
     )
     results = std_cell_ro(params)
     return results
