@@ -1,4 +1,4 @@
-__version__ = "1.0.0rc0"
+__version__ = "1.0.0"
 
 # Local Imports
 from .errormode import ErrorMode

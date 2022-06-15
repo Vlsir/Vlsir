@@ -10,7 +10,7 @@
 
 set -eo pipefail
 
-VERSION=1.0.0rc0
+VERSION=1.0.0
 
 # Python
 cd bindings/python 
