@@ -11,7 +11,7 @@ from typing import Dict
 
 
 def test_version():
-    assert vlsirtools.__version__ == "1.0.0"
+    assert vlsirtools.__version__ == "2.0.dev0"
 
 
 def test_netlist1():

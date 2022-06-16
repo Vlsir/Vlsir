@@ -2,7 +2,7 @@
 # Vlsir Tools
 """
 
-__version__ = "1.0.0"
+__version__ = "2.0.dev0"
 
 from .netlist import netlist
 from . import spice
