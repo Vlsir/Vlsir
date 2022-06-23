@@ -93,38 +93,42 @@ class SpectreNetlister(Netlister):
         self.pmodules[module.name] = module
 
         # Create the sub-circuit definition header
-        self.write(f"subckt {module_name} \n")
+        self.writeln(f"subckt {module_name} ")
+        self.indent += 1
 
         if module.ports:  # Create its ports
-            self.write("+  ")
-            for pport in module.ports:
-                self.write(self.format_port_decl(pport) + " ")
-            self.write("\n")
+            self.writeln(
+                "+ "
+                + " ".join([self.format_port_decl(pport) for pport in module.ports])
+                + " "
+            )
         else:
-            self.write("+  // No ports \n")
+            self.writeln("+ // No ports ")
 
         # Create its parameters, if defined
-        if module.parameters:
-            self.write("parameters ")
-            for name, pparam in module.parameters.items():
-                self.write(
+        if module.parameters: 
+            formatted = " ".join(
+                [
                     self.format_param_decl(name, pparam)
-                )  # FIXME! NotImplemented
-            self.write("\n")
+                    for name, pparam in module.parameters.items()
+                ]
+            )
+            self.writeln("parameters " + formatted + " ")
         else:
-            self.write("+  // No parameters \n")
+            self.writeln("+ // No parameters ")
 
-        self.write("\n")  # End "header" facets
+        self.writeln("")  # End "header" facets
         # Note nothing need be done for internal signals;
         # spice and spectre create these "out of thin air"
 
         # Create its instances
         for pinst in module.instances:
             self.write_instance(pinst)
-        self.write("\n")
+        self.writeln("")
 
         # Close up the sub-circuit
-        self.write("ends \n\n")
+        self.indent -= 1
+        self.writeln("ends \n")
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
@@ -143,36 +147,43 @@ class SpectreNetlister(Netlister):
             module_name = map_primitive(rmodule, resolved_instance_parameters)
 
         # Create the instance name
-        self.write(pinst.name + "\n")
+        self.writeln(pinst.name + "")
 
         if module.ports:
-            self.write("+  // Ports: \n")
-            self.write("+  ( ")
+            self.writeln("+ // Ports: ")
             # Get `module`'s port-order
             port_order = [pport.signal.name for pport in module.ports]
             # And write the Instance ports, in that order
+            pconns = []
             for pname in port_order:
                 pconn = pinst.connections.get(pname, None)
                 if pconn is None:
                     raise RuntimeError(f"Unconnected Port {pname} on {pinst.name}")
-                self.write(self.format_connection(pconn) + " ")
-            self.write(" ) \n")
+                pconns.append(pconn)
+            self.writeln(
+                "+ ( "
+                + " ".join([self.format_connection(pconn) for pconn in pconns])
+                + " )"
+            )
         else:
-            self.write("+  // No ports \n")
+            self.writeln("+ // No ports ")
 
         # Write the module-name
-        self.write("+  " + module_name + " \n")
+        self.writeln("+  " + module_name + " ")
 
         if resolved_instance_parameters:  # Write its parameter-values
-            self.write("+  ")
-            for pname, pval in resolved_instance_parameters.items():
-                self.write(f"{pname}={pval} ")
-            self.write(" \n")
+            formatted = " ".join(
+                [
+                    f"{pname}={pval}"
+                    for pname, pval in resolved_instance_parameters.items()
+                ]
+            )
+            self.writeln("+  " + formatted + " ")
         else:
-            self.write("+  // No parameters \n")
+            self.writeln("+ // No parameters ")
 
         # And add a post-instance blank line
-        self.write("\n")
+        self.writeln("")
 
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
         """ Format the Concatenation of several other Connections """
@@ -221,5 +232,5 @@ class SpectreNetlister(Netlister):
     def write_comment(self, comment: str) -> None:
         """ While Spectre *can* do a bunch of other comment-styles, 
         the canonical one is generally the C-style line comment beginning with `//`. """
-        self.write(f"// {comment}\n")
+        self.writeln(f"// {comment}")
 

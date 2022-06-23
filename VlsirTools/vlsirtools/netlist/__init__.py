@@ -5,8 +5,9 @@ Exports `vlsir.circuit.Package` to a netlist format.
 """
 
 # Std-Lib Imports
-from typing import Union, IO
+from typing import Union, IO, Optional 
 from enum import Enum
+from dataclasses import dataclass
 
 # Local Imports
 import vlsir
@@ -64,12 +65,23 @@ class NetlistFormat(Enum):
         raise ValueError
 
 
+@dataclass
+class NetlistOptions:
+    """ Options for netlisting. """
+
+    indent: str = 2 * " "  # Indentation. Defaults to two spaces.
+    width: int = 80  # Line-width. Defaults to 80.
+
+
 # Type-alias for specifying format, either in enum or string terms
 NetlistFormatSpec = Union[NetlistFormat, str]
 
 
 def netlist(
-    pkg: vlsir.circuit.Package, dest: IO, fmt: NetlistFormatSpec = "spectre"
+    pkg: vlsir.circuit.Package,
+    dest: IO,
+    fmt: NetlistFormatSpec = "spectre",
+    opts: Optional[NetlistOptions] = None,
 ) -> None:
     """ Netlist proto-Package `pkg` to destination `dest`. 
 
@@ -93,6 +105,10 @@ def netlist(
     Format-specifier `fmt` may be any of the `NetlistFormatSpec` enumerated values 
     or their string equivalents.
     """
+
+    if opts is not None:
+        raise NotImplementedError("NetlistOptions not yet implemented.")  # FIXME!
+
     fmt_enum = NetlistFormat.get(fmt)
     netlister_cls = fmt_enum.netlister()
     netlister = netlister_cls(pkg, dest)

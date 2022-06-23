@@ -12,7 +12,7 @@ from warnings import warn
 import vlsir.spice_pb2 as vsp
 from ..netlist import netlist
 from ..netlist.spectre import SpectreNetlister
-from .sim_data import TranResult, OpResult, SimResult  ##, AcResult, DcResult,
+from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
 from .spice import (
     Sim,
     SimProcessError,
@@ -207,7 +207,13 @@ class SpectreSim(Sim):
         raise NotImplementedError
 
     def parse_dc(self, an: vsp.DcInput, data: Mapping[str, Any]) -> vsp.DcResult:
-        raise NotImplementedError
+        measurements = self.get_measurements("*.ms*")
+        return DcResult(
+            indep_name=an.indep_name,
+            analysis_name=an.analysis_name,
+            data=data["data"],
+            measurements=measurements,
+        )
 
     def parse_op(self, an: vsp.OpInput, data: Mapping[str, Any]) -> OpResult:
         return OpResult(
@@ -216,18 +222,23 @@ class SpectreSim(Sim):
         )
 
     def parse_tran(self, an: vsp.TranInput, data: Mapping[str, Any]) -> TranResult:
-        meas_files = glob.glob("*.mt*")
-        if len(meas_files) > 1:
-            msg = f"Unsupported: more than one measurement-file generated. Only the first will be read"
-            warn(msg)
-        elif len(meas_files) == 1:
-            measurements = parse_mt0(open(meas_files[0], "r"))
-        else:
-            measurements = dict()
-
+        """ Extract the results for Analysis `an` from `data`. """
+        measurements = self.get_measurements("*.mt*")
         return TranResult(
             analysis_name=an.analysis_name, data=data["data"], measurements=measurements
         )
+
+    def get_measurements(self, filepat: str) -> Dict[str, float]:
+        """ Get the measurements at files matching (glob) `filepat`. 
+        Returns only a single files-worth of measurements, and issues a warning if more than one such file exists. 
+        Returns an empty dictionary if no matching files are found. """
+        meas_files = glob.glob(filepat)
+        if not meas_files:
+            return dict()
+        if len(meas_files) > 1:
+            msg = f"Unsupported: more than one measurement-file generated. Only the first will be read"
+            warn(msg)
+        return parse_mt0(open(meas_files[0], "r"))
 
     def run_simulation(self):
         """ Run a Spectre simulation """
