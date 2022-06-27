@@ -97,7 +97,7 @@ class SpectreSim(Sim):
         self.run_simulation()
 
         # Parse output data
-        data = parse("netlist.raw")
+        data = parse_nutbin("netlist.raw")
         an_type_dispatch = dict(
             ac=self.parse_ac, dc=self.parse_dc, op=self.parse_op, tran=self.parse_tran
         )
@@ -147,6 +147,8 @@ class SpectreSim(Sim):
                 raise RuntimeError(f"Unknown control type: {inner}")
 
     def netlist_analysis(self, an: vsp.Analysis, netlist_file) -> None:
+        """ Netlist an `Analysis`, largely dispatching its content to a type-specific method. """
+
         inner = an.WhichOneof("an")
         inner_dispatch = dict(
             ac=self.netlist_ac,
@@ -154,18 +156,17 @@ class SpectreSim(Sim):
             op=self.netlist_op,
             tran=self.netlist_tran,
         )
-
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
     def netlist_ac(self, an: vsp.AcInput, netlist_file) -> None:
         """ Run an AC analysis. """
-        raise NotImplementedError
+        raise NotImplementedError  # FIXME!
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file) -> None:
-        """ Run a DC analysis. """
-        # Unpack the `DcInput`
-        analysis_name = an.analysis_name or "dc"
+        """ Netlist a DC analysis. """
 
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
@@ -175,38 +176,37 @@ class SpectreSim(Sim):
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            netlist_file.write(
-                f"{analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
-            )
+            line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            netlist_file.write(line)
         elif sweep_type in ("log", "points"):
             raise NotImplementedError
         else:
             raise ValueError("Invalid sweep type")
 
     def netlist_op(self, an: vsp.OpInput, netlist_file) -> None:
-        """
-        This netlists as a single point DC analysis
-        """
-        # Unpack the `OpInput`
-        analysis_name = an.analysis_name or "op"
+        """ Netlist a single point DC analysis """
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
-        netlist_file.write(f"{analysis_name} dc oppoint=rawfile\n\n")
+        netlist_file.write(f"{an.analysis_name} dc oppoint=rawfile\n\n")
 
     def netlist_tran(self, an: vsp.TranInput, netlist_file) -> None:
-        analysis_name = an.analysis_name or "tran"
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError
         if len(an.ic):
             raise NotImplementedError
 
-        netlist_file.write(f"{analysis_name} tran stop={an.tstop} \n\n")
+        netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
 
-    def parse_ac(self, an: vsp.AcInput, data: Mapping[str, Any]) -> vsp.AcResult:
-        raise NotImplementedError
+    def parse_ac(self, an: vsp.AcInput, data: Mapping[str, Any]) -> AcResult:
+        raise NotImplementedError  # FIXME!
 
-    def parse_dc(self, an: vsp.DcInput, data: Mapping[str, Any]) -> vsp.DcResult:
+    def parse_dc(self, an: vsp.DcInput, data: Mapping[str, Any]) -> DcResult:
         measurements = self.get_measurements("*.ms*")
         return DcResult(
             indep_name=an.indep_name,
@@ -243,6 +243,7 @@ class SpectreSim(Sim):
     def run_simulation(self):
         """ Run a Spectre simulation """
 
+        # Note the `nutbin` output format is dictated here
         cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
         try:
             subprocess.run(
@@ -258,11 +259,10 @@ class SpectreSim(Sim):
             raise
 
 
-def parse(filename: str) -> Mapping[str, Any]:
-    """ 
-    Parse a... what now? PSF Directory? In what format? 
-    FIXME: @avi 
-    """
+def parse_nutbin(filename: str) -> Mapping[str, Any]:
+    """ Parse a `nutbin` format set of simulation results. 
+    Note this is paired with the simulator invocation commands, which include `format=nutbin`. """
+
     data = {}
     with open(filename, "rb") as f:
         # First 2 lines are ascii one line statements
@@ -331,5 +331,13 @@ def parse_mt0(file: IO) -> Dict[str, float]:
     keys = file.readline()  # Measurement Names Line
     keys = keys.split()
     values = file.readline()  # Measurement Values Line
-    values = [float(s) for s in values.split()]
+
+    def convert(s: str) -> float:
+        """ Convert a string to a float, converting failing cases to `NaN` """
+        try:
+            return float(s)
+        except:
+            return float("NaN")
+
+    values = [convert(s) for s in values.split()]
     return dict(zip(keys, values))
