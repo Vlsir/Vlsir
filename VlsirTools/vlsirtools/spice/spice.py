@@ -1,7 +1,5 @@
 """ 
 # Spice-Class Simulator Interface 
-
-Base class(es), utilities, and shared functionality for simulators. 
 """
 
 # Std-Lib Imports
@@ -100,6 +98,8 @@ async def sim_async(inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = N
     Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`. 
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
+    from .xyce import XyceSim 
+    from .spectre import SpectreSim
 
     # Sort out the difference between "One" "OrMore" cases of input 
     # For a single `SimInput`, create a list, but note we only want to return a single ``
@@ -120,21 +120,19 @@ async def sim_async(inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = N
 
     # Get the per-simulator callable
     if opts.simulator == SupportedSimulators.XYCE:
-        from .xyce import sim as sim_func
+        cls = XyceSim
     elif opts.simulator == SupportedSimulators.SPECTRE:
-        from .spectre import sim as sim_func
+        cls = SpectreSim
     else:
         raise ValueError(f"Unsupported simulator: {opts.simulator}")
 
     if len(inp) > 1 and opts.rundir is not None:
-        # FIXME: how to ultimately handle this 
+        # FIXME: how to ultimately handle this "multi-inputs plus specified directory" case 
         raise RuntimeError("Cannot specify a run-directory for multiple simulations")
 
-    # FIXME: real work to go here! 
-
     # And do the real work, invoking the target simulator
-    futures = [sim_func(i, opts) for i in inp]
-    results = await asyncio.gather(futures)
+    futures = [cls.sim(i, opts) for i in inp]
+    results = await asyncio.gather(*futures)
 
     # For the sequence of inputs case, return the sequence of results that came back 
     if not inp_is_a_single_sim:

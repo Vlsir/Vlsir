@@ -3,7 +3,7 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import asyncio, subprocess, re, shutil, glob
+import subprocess, re, shutil, glob
 import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
 from warnings import warn
@@ -15,10 +15,8 @@ from ..netlist.spectre import SpectreNetlister
 from .base import Sim
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
 from .spice import (
-    ResultFormat,
-    SimOptions,
     SupportedSimulators,
-    SimResultUnion,
+    sim, sim_async # Not directly used here, but "re-exported"
 )
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -27,23 +25,6 @@ SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridd
 
 def available() -> bool:
     return SpectreSim.available()
-
-
-def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> SimResultUnion:
-    return asyncio.run(sim_async(inp, opts))
-
-
-async def sim_async(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> Awaitable[SimResultUnion]:
-    """ # Primary Simulation Method """
-
-    if opts is None:  # Create the default options
-        opts = SimOptions(simulator=SupportedSimulators.SPECTRE)
-
-    results = await SpectreSim.sim(inp, opts)
-
-    if opts.fmt == ResultFormat.VLSIR_PROTO:
-        return results.to_proto()
-    return results
 
 
 class SpectreSim(Sim):
@@ -76,9 +57,9 @@ class SpectreSim(Sim):
         return SupportedSimulators.SPECTRE
 
     async def _run(self) -> Awaitable[SimResult]:
-        """ Run the specified `SimInput` in directory `self.tmpdir`, returning its results. """
+        """ Run the specified `SimInput` in directory `self.rundir`, returning its results. """
 
-        netlist_file = open("netlist.scs", "w")
+        netlist_file = self.open("netlist.scs", "w")
         netlist_file.write("// Test Netlist \n\n")
         netlist_file.write("simulator lang=spectre \n\n")
         netlist_file.write("global 0\n\n")
@@ -98,14 +79,14 @@ class SpectreSim(Sim):
         for an in self.inp.an:
             self.netlist_analysis(an, netlist_file)
 
-        # Run the simulation
         netlist_file.flush()
         netlist_file.close()
+        
+        # Run the simulation
         await self.run_spectre_process()
-        self.all_procs_launched = True
 
         # Parse output data
-        data = parse_nutbin("netlist.raw")
+        data = parse_nutbin(self.open("netlist.raw", "rb"))
         an_type_dispatch = dict(
             ac=self.parse_ac, dc=self.parse_dc, op=self.parse_op, tran=self.parse_tran
         )
@@ -240,13 +221,13 @@ class SpectreSim(Sim):
         """ Get the measurements at files matching (glob) `filepat`. 
         Returns only a single files-worth of measurements, and issues a warning if more than one such file exists. 
         Returns an empty dictionary if no matching files are found. """
-        meas_files = glob.glob(filepat)
+        meas_files = list(self.glob(filepat))
         if not meas_files:
             return dict()
         if len(meas_files) > 1:
             msg = f"Unsupported: more than one measurement-file generated. Only the first will be read"
             warn(msg)
-        return parse_mt0(open(meas_files[0], "r"))
+        return parse_mt0(self.open(meas_files[0], "r"))
 
     def run_spectre_process(self) -> Awaitable[None]:
         """ Run a Spectre sub-process, executing the simulation """
@@ -254,59 +235,59 @@ class SpectreSim(Sim):
         return self.run_subprocess(cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs")
 
 
-def parse_nutbin(filename: str) -> Mapping[str, Any]:
+def parse_nutbin(f: IO) -> Mapping[str, Any]:
     """ Parse a `nutbin` format set of simulation results. 
     Note this is paired with the simulator invocation commands, which include `format=nutbin`. """
 
     data = {}
-    with open(filename, "rb") as f:
-        # First 2 lines are ascii one line statements
-        _title = f.readline()  # Title, ignored
-        _date = f.readline()  # Run date, ignored
-        while True:
-            # Next 4 lines are also ascii one line statements
-            plotname = f.readline()  # Simulation name
-            if len(plotname) == 0:
-                break
-            flags = f.readline()  # Flags for this simulation result
-            num_vars_line = f.readline()  # No. Variables:   [nvar]
-            num_pts_line = f.readline()  # No. Points:      [npts]
-            sim_name = plotname.decode("ascii").split("`")[-1].split("'")[0]
-            data[sim_name] = dict(data={}, units={})
 
-            # Find the number of variables and number of points
-            num_vars = int(
-                re.match(
-                    r"No. Variables:\s+(?P<num_vars>\d+)\n",
-                    num_vars_line.decode("ascii"),
-                ).group("num_vars")
-            )
-            num_pts = int(
-                re.match(
-                    r"No. Points:\s+(?P<num_pts>\d+)\n", num_pts_line.decode("ascii"),
-                ).group("num_pts")
-            )
+    # First 2 lines are ascii one line statements
+    _title = f.readline()  # Title, ignored
+    _date = f.readline()  # Run date, ignored
+    while True:
+        # Next 4 lines are also ascii one line statements
+        plotname = f.readline()  # Simulation name
+        if len(plotname) == 0:
+            break
+        flags = f.readline()  # Flags for this simulation result
+        num_vars_line = f.readline()  # No. Variables:   [nvar]
+        num_pts_line = f.readline()  # No. Points:      [npts]
+        sim_name = plotname.decode("ascii").split("`")[-1].split("'")[0]
+        data[sim_name] = dict(data={}, units={})
 
-            # Decode the variables spec, looks like the following
-            # Variables: [Variable idx] [Variable name] [units] [optional_flags]
-            var_line = f.readline().decode("ascii")
-            var_specs = [_read_var_spec(var_line[10:])]
-            for i in range(num_vars - 1):
-                var_specs.append(_read_var_spec(f.readline().decode("ascii")))
+        # Find the number of variables and number of points
+        num_vars = int(
+            re.match(
+                r"No. Variables:\s+(?P<num_vars>\d+)\n",
+                num_vars_line.decode("ascii"),
+            ).group("num_vars")
+        )
+        num_pts = int(
+            re.match(
+                r"No. Points:\s+(?P<num_pts>\d+)\n", num_pts_line.decode("ascii"),
+            ).group("num_pts")
+        )
 
-            # Read the binary data, should look like the following:
-            # Binary: \n[Binary data]
-            binary_line = f.readline().decode("ascii")
-            assert binary_line == "Binary:\n"
-            # Data is big endian
-            bin_data = np.fromfile(
-                f, dtype=np.dtype(float).newbyteorder(">"), count=num_vars * num_pts
-            )
-            for i, var in enumerate(var_specs):
-                data[sim_name]["data"][var[0]] = bin_data[i::num_vars]
-                data[sim_name]["units"][var[0]] = var[1]
+        # Decode the variables spec, looks like the following
+        # Variables: [Variable idx] [Variable name] [units] [optional_flags]
+        var_line = f.readline().decode("ascii")
+        var_specs = [_read_var_spec(var_line[10:])]
+        for i in range(num_vars - 1):
+            var_specs.append(_read_var_spec(f.readline().decode("ascii")))
 
-        return data
+        # Read the binary data, should look like the following:
+        # Binary: \n[Binary data]
+        binary_line = f.readline().decode("ascii")
+        assert binary_line == "Binary:\n"
+        # Data is big endian
+        bin_data = np.fromfile(
+            f, dtype=np.dtype(float).newbyteorder(">"), count=num_vars * num_pts
+        )
+        for i, var in enumerate(var_specs):
+            data[sim_name]["data"][var[0]] = bin_data[i::num_vars]
+            data[sim_name]["units"][var[0]] = var[1]
+
+    return data
 
 
 def _read_var_spec(line: str) -> Tuple[str, str]:

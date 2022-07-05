@@ -3,8 +3,8 @@ Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import asyncio, subprocess, random, shutil, csv
-from typing import List, Tuple, IO, Optional, Dict, Awaitable
+import random, shutil, csv
+from typing import List, Tuple, IO, Dict, Awaitable
 from glob import glob
 
 # Local/ Project Dependencies
@@ -12,11 +12,9 @@ import vlsir.spice_pb2 as vsp
 from ..netlist import netlist, XyceNetlister
 from .base import Sim
 from .spice import (
-    SimProcessError,
     ResultFormat,
-    SimOptions,
     SupportedSimulators,
-    SimResultUnion,
+    sim, sim_async # Not directly used here, but "re-exported"
 )
 
 
@@ -27,18 +25,6 @@ XYCE_EXECUTABLE = "Xyce"  # The simulator executable invoked. If over-ridden, li
 def available() -> bool:
     """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
     return shutil.which(XYCE_EXECUTABLE) is not None
-
-
-def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> SimResultUnion:
-    """ # Primary Simulation Method """
-
-    if opts is None:  # Create the default options
-        opts = SimOptions(simulator=SupportedSimulators.XYCE)
-
-    if opts.fmt != ResultFormat.VLSIR_PROTO:
-        raise RuntimeError(f"Unsupported ResultFormat: {opts.fmt} for Xyce")
-
-    return XyceSim.sim(inp, opts)
 
 
 class XyceSim(Sim):
@@ -57,11 +43,14 @@ class XyceSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.XYCE
 
-    def _run(self) -> vsp.SimResult:
+    async def _run(self) -> Awaitable[vsp.SimResult]:
         """ Run the specified `SimInput` in directory `self.rundir`, 
         returning its results. """
 
-        netlist_file = open("dut", "w")
+        if self.opts.fmt != ResultFormat.VLSIR_PROTO:
+            raise RuntimeError(f"Unsupported ResultFormat: {self.opts.fmt} for Xyce")
+
+        netlist_file = self.open("dut", "w")
         netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
 
         # Write the top-level instance
@@ -81,8 +70,9 @@ class XyceSim(Sim):
         # Run each analysis in the input
         results = vsp.SimResult()
         for an in self.inp.an:
-            results.an.append(self.analysis(an))
-        self.all_procs_launched = True
+            an_results = await self.analysis(an)
+            results.an.append(an_results)
+
         return results
 
     def write_control_elements(self, netlist_file: IO) -> None:
@@ -127,7 +117,7 @@ class XyceSim(Sim):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
 
-    def ac(self, an: vsp.AcInput) -> vsp.AcResult:
+    async def ac(self, an: vsp.AcInput) -> Awaitable[vsp.AcResult]:
         """ Run an AC analysis. """
 
         # Unpack the `AcInput`
@@ -137,7 +127,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = open(f"{analysis_name}.sp", "a")
+        netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
         npts = an.npts
@@ -154,10 +144,10 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        self.run_xyce_process(analysis_name)
+        await self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
+        with self.open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
             (signals, data) = read_csv(csv_handle)
 
         # Separate Frequency vector
@@ -176,14 +166,14 @@ class XyceSim(Sim):
         ]
 
         # Parse any scalar measurement results
-        measurements = parse_measurements(analysis_name)
+        measurements = self.parse_measurements(analysis_name)
 
         # And arrange them in an `AcResult`
         return vsp.AcResult(
             freq=freq, signals=signals, data=cplx_data, measurements=measurements
         )
 
-    def dc(self, an: vsp.DcInput) -> vsp.DcResult:
+    async def dc(self, an: vsp.DcInput) -> Awaitable[vsp.DcResult]:
         """ Run a DC analysis. """
 
         # Unpack the `DcInput`
@@ -194,7 +184,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = open(f"{analysis_name}.sp", "a")
+        netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
         param = an.indep_name
@@ -227,19 +217,19 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        self.run_xyce_process(analysis_name)
+        await self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = read_csv(csv_handle)
 
         # Parse any scalar measurement results
-        measurements = parse_measurements(analysis_name)
+        measurements = self.parse_measurements(analysis_name)
 
         # And arrange them in an `OpResult`
         return vsp.DcResult(signals=signals, data=data, measurements=measurements)
 
-    def op(self, an: vsp.OpInput) -> vsp.OpResult:
+    async def op(self, an: vsp.OpInput) -> Awaitable[vsp.OpResult]:
         """ Run an operating-point analysis. 
         Xyce describes the `.op` analysis as "partially supported". 
         Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep. """
@@ -251,7 +241,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = open(f"{analysis_name}.sp", "a")
+        netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Create the dummy parameter, and "sweep" a single value of it
         dummy_param = f"_dummy_{random.randint(0,65536)}_"
@@ -269,16 +259,16 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        self.run_xyce_process(analysis_name)
+        await self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
-        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = read_csv(csv_handle)
 
         # And arrange them in an `OpResult`
         return vsp.OpResult(signals=signals, data=data)
 
-    def tran(self, an: vsp.TranInput) -> vsp.TranResult:
+    async def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
         """ Run a transient analysis. """
 
         # Extract fields from our `TranInput`
@@ -296,7 +286,7 @@ class XyceSim(Sim):
 
         # Copy and append to the existing DUT netlist
         shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = open(f"{analysis_name}.sp", "a")
+        netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
         netlist.write(f".tran {tstep} {tstop} \n\n")
@@ -310,15 +300,15 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        self.run_xyce_process(analysis_name)
+        await self.run_xyce_process(analysis_name)
 
         # Parse and organize our results
         # First pull them in from CSV
-        with open(f"{analysis_name}.sp.csv", "r") as csv_handle:
+        with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
             (signals, data) = read_csv(csv_handle)
 
         # Parse any scalar measurement results
-        measurements = parse_measurements(analysis_name)
+        measurements = self.parse_measurements(analysis_name)
 
         # And organize them into a `TranResult` message
         return vsp.TranResult(
@@ -330,8 +320,19 @@ class XyceSim(Sim):
 
     def run_xyce_process(self, name: str) -> Awaitable[None]:
         """ Run a `Xyce` sub-process executing the simulation. """
-        # FIXME: this retains the blocking `asyncio.run` call, to prevent needing lots more `async def`s throughout this module 
-        asyncio.run(self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp "))
+        return self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp ")
+
+    def parse_measurements(self, analysis_name: str) -> Dict[str, float]:
+        # FIXME: the *input* should really be dictating whether we have measurements.
+        # For now, we just search for any matching filenames via `glob`
+        meas_glob = glob(f"*{analysis_name}*.m*0")
+        if len(meas_glob) > 1:
+            raise RuntimeError(f"Unsupported multiple measurement results for {self}")
+        if len(meas_glob) == 1:
+            measurements = parse_meas(self.open(meas_glob[0], "r"))
+            return {k.lower(): v for k, v in measurements.items()}
+        # No measurement-file, return an empty result
+        return {}
 
 
 def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
@@ -361,17 +362,3 @@ def parse_meas(file: IO) -> Dict[str, float]:
         name, val = contents[0], float(contents[2])
         rv[name] = val
     return rv
-
-
-def parse_measurements(analysis_name: str) -> Dict[str, float]:
-    # FIXME: the *input* should really be dictating whether we have measurements.
-    # For now, we just search for any matching filenames via `glob`
-    meas_glob = glob(f"*{analysis_name}*.m*0")
-    if len(meas_glob) > 1:
-        raise RuntimeError(f"Unsupported multiple measurement results for {self}")
-    if len(meas_glob) == 1:
-        measurements = parse_meas(open(meas_glob[0], "r"))
-        return {k.lower(): v for k, v in measurements.items()}
-    # No measurement-file, return an empty result
-    return {}
-
