@@ -4,7 +4,7 @@
 
 # Std-Lib Imports
 import asyncio, os, tempfile
-from typing import Optional, Awaitable, List
+from typing import Optional, Awaitable, List, IO
 from pathlib import Path
 
 # Local/ Project Dependencies
@@ -29,12 +29,10 @@ class Sim:
     * The base-class `Sim.sim` class-method should really be the entry point for everything! It will: 
       * Create the class instance
       * Set up the run-directory via `setup()`
-      * Invoke the primary instance-method `run`
-        * After initial checks and setup, `run` hands off to a sub-class-specific `_run` method.
-      * Await the completion of the (asynchronous) `run`
+      * Invoke the primary sub-class-specific method `run`
       * After completion, perform any clean-up activites via `cleanup()`. 
     * All other methods are implemented by the sub-classes. 
-      * The only required method is `_run`, which is called by `run` to perform the actual simulation.
+      * The only required method is `run`, which performs the actual simulation.
       * Other methods will generally do things including: writing simulator-specific netlist-content, launching a sim process, parsing results. 
       * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
     """
@@ -44,7 +42,9 @@ class Sim:
         raise NotImplementedError
 
     @classmethod
-    async def sim(cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> Awaitable[SimResultUnion]:
+    async def sim(
+        cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
+    ) -> Awaitable[SimResultUnion]:
         """ Sim-invoking class method. 
         Creates an instance of `cls` as a context manager, run in its simulation directory. 
         This should be invoked by typical implementations of a free-standing `sim` function. """
@@ -52,18 +52,23 @@ class Sim:
         if opts is None:  # Create the default `SimOptions`
             opts = SimOptions(simulator=cls.enum())
 
-        # Create the simulation-class instance, and execute its main `run` method 
+        # Create the simulation-class instance, and execute its main `run` method
         sim = cls(inp=inp, opts=opts)
-        try: 
+        try:
             sim.setup()
             results = await sim.run()
         finally:
             sim.cleanup()
 
-        # FIXME: we shouldn't need this `isinstance`; get Xyce to return `sd.SimResult` and decide whether to convert here 
-        if opts.fmt == ResultFormat.VLSIR_PROTO and not isinstance(results, vsp.SimResult):
+        # FIXME: we shouldn't need this `isinstance`; get Xyce to return `sd.SimResult` and decide whether to convert here
+        if opts.fmt == ResultFormat.VLSIR_PROTO and not isinstance(
+            results, vsp.SimResult
+        ):
             return results.to_proto()
         return results
+
+    def run(self) -> Awaitable[SimResultUnion]:
+        raise NotImplementedError("`Sim` subclasses must implement `run`")
 
     def __init__(self, inp: vsp.SimInput, opts: SimOptions) -> None:
         self.inp = inp
@@ -73,9 +78,11 @@ class Sim:
         self.top: Optional[vckt.Module] = None
         self.subprocesses: List[asyncio.Process] = []
 
-    def setup(self): 
-        """ Set up the simulation directory. """
-        if self.rundir is not None: # User-specified `rundir`
+    def setup(self):
+        """ Perform simulation setup, including the simulation directory and top-level Module validation. """
+
+        # Set up the simulation directory
+        if self.rundir is not None:  # User-specified `rundir`
             self.tmpdir = None
             self.rundir = Path(self.rundir).absolute()
             if not self.rundir.exists():
@@ -83,6 +90,9 @@ class Sim:
         else:  # Create a new temp directory
             self.tmpdir = tempfile.TemporaryDirectory()
             self.rundir = Path(self.tmpdir.name).absolute()
+
+        # Ensure that we have a valid top-level module
+        self.validate_top()
 
     def cleanup(self):
         """ On completion, clean up after ourselves. """
@@ -112,20 +122,6 @@ class Sim:
             msg = f"Top-level module `{self.inp.top}` not found among Modules {names}"
             raise RuntimeError(msg)
 
-    def run(self) -> Awaitable[SimResultUnion]:
-        """ Primary invocation method. 
-        Run the specified `SimInput` in directory `self.rundir`, returning its results. 
-        Performs initial setup, then hands off to the simulator-specific sub-class's `_run` method. """
-
-        # Setup
-        self.validate_top()
-
-        # And hand off to the simulator-specific sub-class's `_run` method.
-        return self._run()
-
-    async def _run(self) -> Awaitable[SimResultUnion]:
-        raise NotImplementedError("`Sim` subclasses must implement `_run`")
-
     async def run_subprocess(self, cmd: str) -> Awaitable[None]:
         """ Asynchronously run a shell subprocess invoking command `cmd`. 
         All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`. """
@@ -134,21 +130,22 @@ class Sim:
             cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            cwd=str(self.rundir)
+            cwd=str(self.rundir),
         )
         self.subprocesses.append(proc)
         stdout, stderr = await proc.communicate()
 
-        # The async subprocess module does not raise Python exceptions: check the return code instead. 
+        # The async subprocess module does not raise Python exceptions: check the return code instead.
         if proc.returncode != 0:
             from . import SimError
+
             raise SimError(sim=self, stdout=stdout, stderr=stderr)
         return None
 
-    def open(self, name: str, mode: str = 'r') -> Path:
+    def open(self, name: str, mode: str = "r") -> IO:
         """ Open a file in the simulation directory. """
         return self.path(name).open(mode)
-    
+
     def path(self, name: str) -> Path:
         """ Return a path in the simulation directory. """
         return Path(self.rundir) / Path(name)
@@ -156,4 +153,3 @@ class Sim:
     def glob(self, pat: str):
         """ Return a list of paths in the simulation directory matching `pat`. """
         return Path(self.rundir).glob(pat)
-

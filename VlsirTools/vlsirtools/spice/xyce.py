@@ -14,7 +14,8 @@ from .base import Sim
 from .spice import (
     ResultFormat,
     SupportedSimulators,
-    sim, sim_async # Not directly used here, but "re-exported"
+    sim,
+    sim_async,  # Not directly used here, but "re-exported"
 )
 
 
@@ -23,8 +24,7 @@ XYCE_EXECUTABLE = "Xyce"  # The simulator executable invoked. If over-ridden, li
 
 
 def available() -> bool:
-    """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
-    return shutil.which(XYCE_EXECUTABLE) is not None
+    return XyceSim.available()
 
 
 class XyceSim(Sim):
@@ -39,11 +39,16 @@ class XyceSim(Sim):
     Results from each analysis-process are collated into a single `SimResult`. 
     """
 
+    @staticmethod
+    def available() -> bool:
+        """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
+        return shutil.which(XYCE_EXECUTABLE) is not None
+
     @classmethod
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.XYCE
 
-    async def _run(self) -> Awaitable[vsp.SimResult]:
+    async def run(self) -> Awaitable[vsp.SimResult]:
         """ Run the specified `SimInput` in directory `self.rundir`, 
         returning its results. """
 

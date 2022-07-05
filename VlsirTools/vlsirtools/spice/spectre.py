@@ -16,7 +16,8 @@ from .base import Sim
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
 from .spice import (
     SupportedSimulators,
-    sim, sim_async # Not directly used here, but "re-exported"
+    sim,
+    sim_async,  # Not directly used here, but "re-exported"
 )
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -56,7 +57,7 @@ class SpectreSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.SPECTRE
 
-    async def _run(self) -> Awaitable[SimResult]:
+    async def run(self) -> Awaitable[SimResult]:
         """ Run the specified `SimInput` in directory `self.rundir`, returning its results. """
 
         netlist_file = self.open("netlist.scs", "w")
@@ -81,7 +82,7 @@ class SpectreSim(Sim):
 
         netlist_file.flush()
         netlist_file.close()
-        
+
         # Run the simulation
         await self.run_spectre_process()
 
@@ -232,7 +233,9 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """ Run a Spectre sub-process, executing the simulation """
         # Note the `nutbin` output format is dictated here
-        return self.run_subprocess(cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs")
+        return self.run_subprocess(
+            cmd=f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
+        )
 
 
 def parse_nutbin(f: IO) -> Mapping[str, Any]:
@@ -258,8 +261,7 @@ def parse_nutbin(f: IO) -> Mapping[str, Any]:
         # Find the number of variables and number of points
         num_vars = int(
             re.match(
-                r"No. Variables:\s+(?P<num_vars>\d+)\n",
-                num_vars_line.decode("ascii"),
+                r"No. Variables:\s+(?P<num_vars>\d+)\n", num_vars_line.decode("ascii"),
             ).group("num_vars")
         )
         num_pts = int(
