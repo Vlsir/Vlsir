@@ -3,15 +3,15 @@ Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, random, shutil, csv
-from typing import List, Tuple, IO, Optional, Dict
+import asyncio, subprocess, random, shutil, csv
+from typing import List, Tuple, IO, Optional, Dict, Awaitable
 from glob import glob
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
 from ..netlist import netlist, XyceNetlister
+from .base import Sim
 from .spice import (
-    Sim,
     SimProcessError,
     ResultFormat,
     SimOptions,
@@ -82,6 +82,7 @@ class XyceSim(Sim):
         results = vsp.SimResult()
         for an in self.inp.an:
             results.an.append(self.analysis(an))
+        self.all_procs_launched = True
         return results
 
     def write_control_elements(self, netlist_file: IO) -> None:
@@ -327,21 +328,10 @@ class XyceSim(Sim):
             measurements=measurements,
         )
 
-    def run_xyce_process(self, name: str):
-        """ Run a `Xyce` sub-process, collecting terminal output. """
-
-        try:
-            _result = subprocess.run(
-                f"{XYCE_EXECUTABLE} {name}.sp ",
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                shell=True,
-                check=True,
-            )
-        except subprocess.CalledProcessError as e:
-            raise SimProcessError(self, e)
-        except Exception as e:
-            raise
+    def run_xyce_process(self, name: str) -> Awaitable[None]:
+        """ Run a `Xyce` sub-process executing the simulation. """
+        # FIXME: this retains the blocking `asyncio.run` call, to prevent needing lots more `async def`s throughout this module 
+        asyncio.run(self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp "))
 
 
 def read_csv(handle: IO) -> Tuple[List[str], List[float]]:

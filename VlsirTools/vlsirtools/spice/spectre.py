@@ -3,19 +3,18 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, glob
+import asyncio, subprocess, re, shutil, glob
 import numpy as np
-from typing import Tuple, Any, Mapping, Optional, IO, Dict
+from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
 from warnings import warn
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
 from ..netlist import netlist
 from ..netlist.spectre import SpectreNetlister
+from .base import Sim
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
 from .spice import (
-    Sim,
-    SimProcessError,
     ResultFormat,
     SimOptions,
     SupportedSimulators,
@@ -27,32 +26,20 @@ SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridd
 
 
 def available() -> bool:
-    """ Boolean indication of whether the current running environment includes the simulator executable. """
-    if shutil.which(SPECTRE_EXECUTABLE) is None:
-        return False
-    try:
-        # And if it's set, check that we can get its version without croaking.
-        # This can often happen because of an inaccessible license server, or just a badly-linked installation.
-        subprocess.run(
-            f"{SPECTRE_EXECUTABLE} -V",  # Yes, "version" gets a capital "V" for this program (ascii shrug)
-            shell=True,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-    except Exception:
-        # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
-        return False
-    return True  # Otherwise, installation looks good.
+    return SpectreSim.available()
 
 
-def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None,) -> SimResultUnion:
+def sim(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> SimResultUnion:
+    return asyncio.run(sim_async(inp, opts))
+
+
+async def sim_async(inp: vsp.SimInput, opts: Optional[SimOptions] = None) -> Awaitable[SimResultUnion]:
     """ # Primary Simulation Method """
 
     if opts is None:  # Create the default options
         opts = SimOptions(simulator=SupportedSimulators.SPECTRE)
 
-    results = SpectreSim.sim(inp, opts)
+    results = await SpectreSim.sim(inp, opts)
 
     if opts.fmt == ResultFormat.VLSIR_PROTO:
         return results.to_proto()
@@ -64,11 +51,31 @@ class SpectreSim(Sim):
     State and execution logic for a Spectre-call to `vsp.Sim`.
     """
 
+    @staticmethod
+    def available() -> bool:
+        """ Boolean indication of whether the current running environment includes the simulator executable. """
+        if shutil.which(SPECTRE_EXECUTABLE) is None:
+            return False
+        try:
+            # And if it's set, check that we can get its version without croaking.
+            # This can often happen because of an inaccessible license server, or just a badly-linked installation.
+            subprocess.run(
+                f"{SPECTRE_EXECUTABLE} -V",  # Yes, "version" gets a capital "V" for this program (ascii shrug)
+                shell=True,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except Exception:
+            # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
+            return False
+        return True  # Otherwise, installation looks good.
+
     @classmethod
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.SPECTRE
 
-    def _run(self) -> SimResult:
+    async def _run(self) -> Awaitable[SimResult]:
         """ Run the specified `SimInput` in directory `self.tmpdir`, returning its results. """
 
         netlist_file = open("netlist.scs", "w")
@@ -94,7 +101,8 @@ class SpectreSim(Sim):
         # Run the simulation
         netlist_file.flush()
         netlist_file.close()
-        self.run_simulation()
+        await self.run_spectre_process()
+        self.all_procs_launched = True
 
         # Parse output data
         data = parse_nutbin("netlist.raw")
@@ -240,23 +248,10 @@ class SpectreSim(Sim):
             warn(msg)
         return parse_mt0(open(meas_files[0], "r"))
 
-    def run_simulation(self):
-        """ Run a Spectre simulation """
-
+    def run_spectre_process(self) -> Awaitable[None]:
+        """ Run a Spectre sub-process, executing the simulation """
         # Note the `nutbin` output format is dictated here
-        cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
-        try:
-            subprocess.run(
-                cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                shell=True,
-                check=True,
-            )
-        except subprocess.CalledProcessError as e:
-            raise SimProcessError(self, e)
-        except Exception as e:
-            raise
+        return self.run_subprocess(cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs")
 
 
 def parse_nutbin(filename: str) -> Mapping[str, Any]:
