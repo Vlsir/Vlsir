@@ -28,8 +28,8 @@ message Port {
     INOUT = 2;
     NONE = 3;
   }
-  Signal signal = 1;
-  Direction direction = 2;
+  string signal = 1;        // Reference to `Signal` by name
+  Direction direction = 2;  // Port direction
 }
 
 // # Signal
@@ -56,40 +56,48 @@ message Slice {
 // Signal Concatenation
 // FIXME: documentation of ordering, MSB-LSB
 message Concat {
-  repeated Connection parts = 1;
+  repeated ConnectionTarget parts = 1;
 }
 
-// # Connection Union
+// # ConnectionTarget Union
 // Enumerates all types that can be
 // (a) Connected to Ports, and
 // (b) Concatenated
-message Connection {
+message ConnectionTarget {
   oneof stype {
-    // FIXME: `sig` can become just string-valued reference to signal-name
-    Signal sig = 1;
-    Slice slice = 2;
-    Concat concat = 3;
+    string sig = 1;     // Reference to `Signal` (name) `sig`
+    Slice slice = 2;    // Slice into signals
+    Concat concat = 3;  // Concatenation of signals
   }
 }
+
+// # Port Connection 
+// Pairing between an Instance port (name) and a parent-module ConnectionTarget.
+message Connection {
+  string portname = 1;
+  ConnectionTarget target = 2;
+}
+
 // Module Instance
 message Instance {
   // Instance Name
   string name = 1;
-  // vlsir.utils.Reference to Module instantiated
+  // Reference to Module instantiated
   vlsir.utils.Reference module = 2;
-  // Param Values
-  map<string, vlsir.utils.ParamValue> parameters = 3;
-  // Map internal to external signals by name.
-  map<string, Connection> connections = 4;
+  // Parameter Values
+  repeated vlsir.utils.Param parameters = 3;
+  // Port `Connection`s
+  repeated Connection connections = 4;
 }
 
 // Module - the primary unit of hardware re-use
 message Module {
   // Module Name
   string name = 1;
-  // Port Definitions
+  // Port List, referring to elements of `signals` by name 
+  // Ordered as they will be in order-sensitive formats, such as typical netlist formats. 
   repeated Port ports = 2;
-  // Internal Signals
+  // Signal Definitions, including externally-facing `Port` signals
   repeated Signal signals = 3;
   // Module Instances
   repeated Instance instances = 4;
@@ -106,6 +114,7 @@ message ExternalModule {
   // Description
   string desc = 2;
   // Port Definitions
+  // Ordered as they will be in order-sensitive formats, such as typical netlist formats. 
   repeated Port ports = 3;
   // Params
   repeated vlsir.utils.Param parameters = 5;
