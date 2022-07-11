@@ -23,9 +23,9 @@ fn main() {
     // And build!
     let src = [
         "protos/utils.proto",
-        "protos/raw.proto",
+        "protos/layout/raw.proto",
         "protos/circuit.proto",
-        "protos/tetris.proto",
+        "protos/layout/tetris.proto",
         "protos/spice.proto",
     ];
     config.compile_protos(&src, &["protos/"]).unwrap();

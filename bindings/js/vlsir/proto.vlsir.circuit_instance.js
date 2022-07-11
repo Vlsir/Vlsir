@@ -2,20 +2,22 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
 goog.provide('proto.vlsir.circuit.Instance');
 
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
-goog.require('jspb.Map');
 goog.require('jspb.Message');
 goog.require('proto.vlsir.circuit.Connection');
-goog.require('proto.vlsir.utils.ParamValue');
+goog.require('proto.vlsir.utils.Param');
 goog.require('proto.vlsir.utils.Reference');
 
 /**
@@ -29,7 +31,7 @@ goog.require('proto.vlsir.utils.Reference');
  * @constructor
  */
 proto.vlsir.circuit.Instance = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.vlsir.circuit.Instance.repeatedFields_, null);
 };
 goog.inherits(proto.vlsir.circuit.Instance, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -39,6 +41,13 @@ if (goog.DEBUG && !COMPILED) {
    */
   proto.vlsir.circuit.Instance.displayName = 'proto.vlsir.circuit.Instance';
 }
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.vlsir.circuit.Instance.repeatedFields_ = [3,4];
 
 
 
@@ -73,8 +82,10 @@ proto.vlsir.circuit.Instance.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
     module: (f = msg.getModule()) && proto.vlsir.utils.Reference.toObject(includeInstance, f),
-    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, proto.vlsir.utils.ParamValue.toObject) : [],
-    connectionsMap: (f = msg.getConnectionsMap()) ? f.toObject(includeInstance, proto.vlsir.circuit.Connection.toObject) : []
+    parametersList: jspb.Message.toObjectList(msg.getParametersList(),
+    proto.vlsir.utils.Param.toObject, includeInstance),
+    connectionsList: jspb.Message.toObjectList(msg.getConnectionsList(),
+    proto.vlsir.circuit.Connection.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -121,16 +132,14 @@ proto.vlsir.circuit.Instance.deserializeBinaryFromReader = function(msg, reader)
       msg.setModule(value);
       break;
     case 3:
-      var value = msg.getParametersMap();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.vlsir.utils.ParamValue.deserializeBinaryFromReader, "", new proto.vlsir.utils.ParamValue());
-         });
+      var value = new proto.vlsir.utils.Param;
+      reader.readMessage(value,proto.vlsir.utils.Param.deserializeBinaryFromReader);
+      msg.addParameters(value);
       break;
     case 4:
-      var value = msg.getConnectionsMap();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.vlsir.circuit.Connection.deserializeBinaryFromReader, "", new proto.vlsir.circuit.Connection());
-         });
+      var value = new proto.vlsir.circuit.Connection;
+      reader.readMessage(value,proto.vlsir.circuit.Connection.deserializeBinaryFromReader);
+      msg.addConnections(value);
       break;
     default:
       reader.skipField();
@@ -176,13 +185,21 @@ proto.vlsir.circuit.Instance.serializeBinaryToWriter = function(message, writer)
       proto.vlsir.utils.Reference.serializeBinaryToWriter
     );
   }
-  f = message.getParametersMap(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(3, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeMessage, proto.vlsir.utils.ParamValue.serializeBinaryToWriter);
+  f = message.getParametersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.vlsir.utils.Param.serializeBinaryToWriter
+    );
   }
-  f = message.getConnectionsMap(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(4, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeMessage, proto.vlsir.circuit.Connection.serializeBinaryToWriter);
+  f = message.getConnectionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.vlsir.circuit.Connection.serializeBinaryToWriter
+    );
   }
 };
 
@@ -243,46 +260,78 @@ proto.vlsir.circuit.Instance.prototype.hasModule = function() {
 
 
 /**
- * map<string, vlsir.utils.ParamValue> parameters = 3;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,!proto.vlsir.utils.ParamValue>}
+ * repeated vlsir.utils.Param parameters = 3;
+ * @return {!Array<!proto.vlsir.utils.Param>}
  */
-proto.vlsir.circuit.Instance.prototype.getParametersMap = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,!proto.vlsir.utils.ParamValue>} */ (
-      jspb.Message.getMapField(this, 3, opt_noLazyCreate,
-      proto.vlsir.utils.ParamValue));
+proto.vlsir.circuit.Instance.prototype.getParametersList = function() {
+  return /** @type{!Array<!proto.vlsir.utils.Param>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.utils.Param, 3));
 };
 
 
 /**
- * Clears values from the map. The map will be non-null.
+ * @param {!Array<!proto.vlsir.utils.Param>} value
  * @return {!proto.vlsir.circuit.Instance} returns this
- */
-proto.vlsir.circuit.Instance.prototype.clearParametersMap = function() {
-  this.getParametersMap().clear();
-  return this;};
-
-
-/**
- * map<string, Connection> connections = 4;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,!proto.vlsir.circuit.Connection>}
- */
-proto.vlsir.circuit.Instance.prototype.getConnectionsMap = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,!proto.vlsir.circuit.Connection>} */ (
-      jspb.Message.getMapField(this, 4, opt_noLazyCreate,
-      proto.vlsir.circuit.Connection));
+*/
+proto.vlsir.circuit.Instance.prototype.setParametersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
 /**
- * Clears values from the map. The map will be non-null.
+ * @param {!proto.vlsir.utils.Param=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.vlsir.utils.Param}
+ */
+proto.vlsir.circuit.Instance.prototype.addParameters = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.vlsir.utils.Param, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
  * @return {!proto.vlsir.circuit.Instance} returns this
  */
-proto.vlsir.circuit.Instance.prototype.clearConnectionsMap = function() {
-  this.getConnectionsMap().clear();
-  return this;};
+proto.vlsir.circuit.Instance.prototype.clearParametersList = function() {
+  return this.setParametersList([]);
+};
+
+
+/**
+ * repeated Connection connections = 4;
+ * @return {!Array<!proto.vlsir.circuit.Connection>}
+ */
+proto.vlsir.circuit.Instance.prototype.getConnectionsList = function() {
+  return /** @type{!Array<!proto.vlsir.circuit.Connection>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.Connection, 4));
+};
+
+
+/**
+ * @param {!Array<!proto.vlsir.circuit.Connection>} value
+ * @return {!proto.vlsir.circuit.Instance} returns this
+*/
+proto.vlsir.circuit.Instance.prototype.setConnectionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.vlsir.circuit.Connection=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.vlsir.circuit.Connection}
+ */
+proto.vlsir.circuit.Instance.prototype.addConnections = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.vlsir.circuit.Connection, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.vlsir.circuit.Instance} returns this
+ */
+proto.vlsir.circuit.Instance.prototype.clearConnectionsList = function() {
+  return this.setConnectionsList([]);
+};
 
 
