@@ -5,6 +5,9 @@
 # TODO: add the separate Rust build process 
 # 
 
+rm -rf photos
+git clone -b main git@github.com:Vlsir/schema-proto protos
+
 set -eo 
 
 # Protobuf Compilation
