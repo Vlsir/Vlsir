@@ -26,6 +26,12 @@ pybindings = here / "bindings" / "python"
 sys.path.append(str(pybindings))
 
 # Now importing `vlsir` should work
+# TODO: There is a circular dependency on
+# bindings/python/vlsir/vlsir.primitives.pb.txt when importing the following
+# modules. If the schema changes and the old .pb.txt files does not load this
+# import will break, and we will not be able to generate a new .pb.txt file.
+# A temporary fix is to comment out the code in
+# bindings/python/vlsir/primitives.py.
 from vlsir.utils_pb2 import (QualifiedName, Param,)
 from vlsir.circuit_pb2 import (
     Package,
@@ -41,9 +47,17 @@ Some Helper Content
 """
 
 
+def _signal(name: str, width: int = 1) -> Signal:
+    return Signal(name=name, width=1)
+
+
+def _signals(names: Sequence[str]) -> List[Signal]:
+    return [_signal(name) for name in names]
+
+
 def _port(name: str) -> Port:
     # Shorthand to create a width-one, non-directional port named `name`
-    return Port(signal=Signal(name=name, width=1), direction="NONE")
+    return Port(signal=name, direction="NONE")
 
 
 def _ports(names: Sequence[str]) -> List[Port]:
@@ -98,6 +112,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="r", desc="Resistance (Ohms)"),],
         ),
         ExternalModule(
@@ -116,6 +131,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="c", desc="Capacitance (Farads)"),],
         ),
         ExternalModule(
@@ -134,6 +150,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="l", desc="Inductance (Henries)"),],
         ),
         ExternalModule(
@@ -149,6 +166,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
+            signals=_signals(("p", "n", "ctrlp", "ctrln")),
             parameters=[Param(name="gain", desc="Voltage Gain (Volts/Volt)"),],
         ),
         ExternalModule(
@@ -164,6 +182,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
+            signals=_signals(("p", "n", "ctrlp", "ctrln")),
             parameters=[
                 Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
             ],
@@ -181,6 +200,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
+            signals=_signals(("p", "n", "ctrlp", "ctrln")),
             parameters=[Param(name="gain", desc="Current Gain (Amps/Amp)"),],
         ),
         ExternalModule(
@@ -196,6 +216,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
+            signals=_signals(("p", "n", "ctrlp", "ctrln")),
             parameters=[
                 Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
             ],
@@ -215,6 +236,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="dc", desc="DC Current (Amps)"),],
         ),
         ExternalModule(
@@ -230,6 +252,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="dc", desc="DC Voltage (Volts)"),],
         ),
         ExternalModule(
@@ -246,6 +269,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[
                 Param(name="v1", desc="Initial Value (V)"),
                 Param(name="v2", desc="Pulse Value (V)"),
@@ -269,6 +293,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[
                 Param(name="voff", desc="Offset voltage (V)"),
                 Param(name="vamp", desc="Amplitude (V)"),
@@ -292,6 +317,7 @@ primitives = Package(
         #         """
         #     ),
         #     ports=_ports(("p", "n")),
+        #     signals=_signals(("p", "n")),
         #     parameters=[],
         # ),
         ExternalModule(
@@ -341,6 +367,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(["d", "g", "s", "b"]),
+            signals=_signals(["d", "g", "s", "b"]),
             parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
@@ -365,6 +392,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("c", "b", "e")),
+            signals=_signals(("c", "b", "e")),
             parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
@@ -387,6 +415,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
         ExternalModule(
@@ -407,6 +436,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p1p", "p1n", "p2p", "p2n",)),
+            signals=_signals(("p1p", "p1n", "p2p", "p2n",)),
             parameters=[Param(name="modelname", desc="Model Name (string)"),],
         ),
     ],

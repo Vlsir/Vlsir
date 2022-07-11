@@ -1982,6 +1982,7 @@ class ExternalModule final :
 
   enum : int {
     kPortsFieldNumber = 3,
+    kSignalsFieldNumber = 4,
     kParametersFieldNumber = 5,
     kDescFieldNumber = 2,
     kNameFieldNumber = 1,
@@ -2003,6 +2004,24 @@ class ExternalModule final :
   ::vlsir::circuit::Port* add_ports();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port >&
       ports() const;
+
+  // repeated .vlsir.circuit.Signal signals = 4;
+  int signals_size() const;
+  private:
+  int _internal_signals_size() const;
+  public:
+  void clear_signals();
+  ::vlsir::circuit::Signal* mutable_signals(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >*
+      mutable_signals();
+  private:
+  const ::vlsir::circuit::Signal& _internal_signals(int index) const;
+  ::vlsir::circuit::Signal* _internal_add_signals();
+  public:
+  const ::vlsir::circuit::Signal& signals(int index) const;
+  ::vlsir::circuit::Signal* add_signals();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >&
+      signals() const;
 
   // repeated .vlsir.utils.Param parameters = 5;
   int parameters_size() const;
@@ -2062,6 +2081,7 @@ class ExternalModule final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port > ports_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal > signals_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::utils::Param > parameters_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desc_;
   ::vlsir::utils::QualifiedName* name_;
@@ -3718,6 +3738,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Port >
 ExternalModule::ports() const {
   // @@protoc_insertion_point(field_list:vlsir.circuit.ExternalModule.ports)
   return ports_;
+}
+
+// repeated .vlsir.circuit.Signal signals = 4;
+inline int ExternalModule::_internal_signals_size() const {
+  return signals_.size();
+}
+inline int ExternalModule::signals_size() const {
+  return _internal_signals_size();
+}
+inline void ExternalModule::clear_signals() {
+  signals_.Clear();
+}
+inline ::vlsir::circuit::Signal* ExternalModule::mutable_signals(int index) {
+  // @@protoc_insertion_point(field_mutable:vlsir.circuit.ExternalModule.signals)
+  return signals_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >*
+ExternalModule::mutable_signals() {
+  // @@protoc_insertion_point(field_mutable_list:vlsir.circuit.ExternalModule.signals)
+  return &signals_;
+}
+inline const ::vlsir::circuit::Signal& ExternalModule::_internal_signals(int index) const {
+  return signals_.Get(index);
+}
+inline const ::vlsir::circuit::Signal& ExternalModule::signals(int index) const {
+  // @@protoc_insertion_point(field_get:vlsir.circuit.ExternalModule.signals)
+  return _internal_signals(index);
+}
+inline ::vlsir::circuit::Signal* ExternalModule::_internal_add_signals() {
+  return signals_.Add();
+}
+inline ::vlsir::circuit::Signal* ExternalModule::add_signals() {
+  ::vlsir::circuit::Signal* _add = _internal_add_signals();
+  // @@protoc_insertion_point(field_add:vlsir.circuit.ExternalModule.signals)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vlsir::circuit::Signal >&
+ExternalModule::signals() const {
+  // @@protoc_insertion_point(field_list:vlsir.circuit.ExternalModule.signals)
+  return signals_;
 }
 
 // repeated .vlsir.utils.Param parameters = 5;

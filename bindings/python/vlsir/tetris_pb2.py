@@ -24,7 +24,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
     serialized_pb=b'\n\x0ctetris.proto\x12\x0cvlsir.tetris\x1a\x0butils.proto\x1a\traw.proto\x1a\rcircuit.proto"i\n\x07Library\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12!\n\x05\x63\x65lls\x18\n \x03(\x0b\x32\x12.vlsir.tetris.Cell\x12+\n\x06\x61uthor\x18\x14 \x01(\x0b\x32\x1b.vlsir.utils.AuthorMetadata"\xb8\x01\n\x04\x43\x65ll\x12\x0c\n\x04name\x18\x01 \x01(\t\x12+\n\tinterface\x18\n \x01(\x0b\x32\x18.vlsir.circuit.Interface\x12%\n\x06module\x18\x0b \x01(\x0b\x32\x15.vlsir.circuit.Module\x12(\n\x08\x61\x62stract\x18\x0c \x01(\x0b\x32\x16.vlsir.tetris.Abstract\x12$\n\x06layout\x18\r \x01(\x0b\x32\x14.vlsir.tetris.Layout"\xbc\x01\n\x06Layout\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x07outline\x18\n \x01(\x0b\x32\x15.vlsir.tetris.Outline\x12)\n\tinstances\x18\x14 \x03(\x0b\x32\x16.vlsir.tetris.Instance\x12)\n\x0b\x61ssignments\x18\x15 \x03(\x0b\x32\x14.vlsir.tetris.Assign\x12&\n\x04\x63uts\x18\x16 \x03(\x0b\x32\x18.vlsir.tetris.TrackCross";\n\x06\x41ssign\x12\x0b\n\x03net\x18\x01 \x01(\t\x12$\n\x02\x61t\x18\x02 \x01(\x0b\x32\x18.vlsir.tetris.TrackCross"Z\n\nTrackCross\x12%\n\x05track\x18\x01 \x01(\x0b\x32\x16.vlsir.tetris.TrackRef\x12%\n\x05\x63ross\x18\x02 \x01(\x0b\x32\x16.vlsir.tetris.TrackRef"(\n\x08TrackRef\x12\r\n\x05layer\x18\x01 \x01(\x03\x12\r\n\x05track\x18\x02 \x01(\x03"/\n\x07Outline\x12\t\n\x01x\x18\x01 \x03(\x03\x12\t\n\x01y\x18\x02 \x03(\x03\x12\x0e\n\x06metals\x18\x03 \x01(\x03"k\n\x08\x41\x62stract\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x07outline\x18\n \x01(\x0b\x32\x15.vlsir.tetris.Outline\x12)\n\x05ports\x18\x14 \x03(\x0b\x32\x1a.vlsir.tetris.AbstractPort"\x97\x04\n\x0c\x41\x62stractPort\x12\x0b\n\x03net\x18\x01 \x01(\t\x12\x33\n\x04\x65\x64ge\x18\n \x01(\x0b\x32#.vlsir.tetris.AbstractPort.EdgePortH\x00\x12<\n\tztop_edge\x18\x0b \x01(\x0b\x32\'.vlsir.tetris.AbstractPort.ZTopEdgePortH\x00\x12:\n\nztop_inner\x18\x0c \x01(\x0b\x32$.vlsir.tetris.AbstractPort.ZTopInnerH\x00\x1a\x64\n\x08\x45\x64gePort\x12%\n\x05track\x18\x01 \x01(\x0b\x32\x16.vlsir.tetris.TrackRef\x12\x31\n\x04side\x18\x02 \x01(\x0e\x32#.vlsir.tetris.AbstractPort.PortSide\x1av\n\x0cZTopEdgePort\x12\r\n\x05track\x18\x01 \x01(\x03\x12\x31\n\x04side\x18\x02 \x01(\x0e\x32#.vlsir.tetris.AbstractPort.PortSide\x12$\n\x04into\x18\x03 \x01(\x0b\x32\x16.vlsir.tetris.TrackRef\x1a\x33\n\tZTopInner\x12&\n\x04locs\x18\x01 \x03(\x0b\x32\x18.vlsir.tetris.TrackCross"0\n\x08PortSide\x12\x12\n\x0e\x42OTTOM_OR_LEFT\x10\x00\x12\x10\n\x0cTOP_OR_RIGHT\x10\x01\x42\x06\n\x04kind"\x8d\x01\n\x08Instance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x04\x63\x65ll\x18\x03 \x01(\x0b\x32\x16.vlsir.utils.Reference\x12 \n\x03loc\x18\x04 \x01(\x0b\x32\x13.vlsir.tetris.Place\x12\x15\n\rreflect_horiz\x18\x06 \x01(\x08\x12\x14\n\x0creflect_vert\x18\x07 \x01(\x08"X\n\x05Place\x12\x1f\n\x03\x61\x62s\x18\x01 \x01(\x0b\x32\x10.vlsir.raw.PointH\x00\x12%\n\x03rel\x18\x02 \x01(\x0b\x32\x16.vlsir.tetris.RelPlaceH\x00\x42\x07\n\x05place"\n\n\x08RelPlace"\xce\x01\n\x05Stack\x12\x1f\n\x05units\x18\x01 \x01(\x0e\x32\x10.vlsir.raw.Units\x12*\n\x04prim\x18\x02 \x01(\x0b\x32\x1c.vlsir.tetris.PrimitiveLayer\x12(\n\x06metals\x18\x03 \x03(\x0b\x32\x18.vlsir.tetris.MetalLayer\x12$\n\x04vias\x18\x04 \x03(\x0b\x32\x16.vlsir.tetris.ViaLayer\x12(\n\x0e\x62oundary_layer\x18\x0b \x01(\x0b\x32\x10.vlsir.raw.Layer"{\n\tLayerEnum\x12/\n\x04type\x18\x01 \x01(\x0e\x32!.vlsir.tetris.LayerEnum.LayerType\x12\r\n\x05index\x18\x02 \x01(\x03".\n\tLayerType\x12\r\n\tPRIMITIVE\x10\x00\x12\t\n\x05METAL\x10\x01\x12\x07\n\x03VIA\x10\x02"\xd1\x02\n\nMetalLayer\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x03\x64ir\x18\x02 \x01(\x0e\x32\x1c.vlsir.tetris.MetalLayer.Dir\x12\x0f\n\x07\x63utsize\x18\x03 \x01(\x03\x12(\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x17.vlsir.tetris.TrackSpec\x12\x0e\n\x06offset\x18\x05 \x01(\x03\x12\x0f\n\x07overlap\x18\x06 \x01(\x03\x12\x0c\n\x04\x66lip\x18\x07 \x01(\x08\x12\x34\n\x04prim\x18\x08 \x01(\x0e\x32&.vlsir.tetris.MetalLayer.PrimitiveMode\x12\x1d\n\x03raw\x18\x0b \x01(\x0b\x32\x10.vlsir.raw.Layer"\x1a\n\x03\x44ir\x12\t\n\x05HORIZ\x10\x00\x12\x08\n\x04VERT\x10\x01"/\n\rPrimitiveMode\x12\x08\n\x04PRIM\x10\x00\x12\t\n\x05SPLIT\x10\x01\x12\t\n\x05STACK\x10\x02"\xa3\x01\n\x08ViaLayer\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x03top\x18\x02 \x01(\x0b\x32\x17.vlsir.tetris.LayerEnum\x12$\n\x03\x62ot\x18\x03 \x01(\x0b\x32\x17.vlsir.tetris.LayerEnum\x12\x1e\n\x04size\x18\x04 \x01(\x0b\x32\x10.vlsir.tetris.Xy\x12\x1d\n\x03raw\x18\x0b \x01(\x0b\x32\x10.vlsir.raw.Layer"3\n\x0ePrimitiveLayer\x12!\n\x07pitches\x18\x01 \x01(\x0b\x32\x10.vlsir.tetris.Xy"\xce\x02\n\tTrackSpec\x12\x33\n\x05\x65ntry\x18\x01 \x01(\x0b\x32".vlsir.tetris.TrackSpec.TrackEntryH\x00\x12\x30\n\x06repeat\x18\x02 \x01(\x0b\x32\x1e.vlsir.tetris.TrackSpec.RepeatH\x00\x1a\x84\x01\n\nTrackEntry\x12;\n\x05ttype\x18\x01 \x01(\x0e\x32,.vlsir.tetris.TrackSpec.TrackEntry.TrackType\x12\r\n\x05width\x18\x02 \x01(\x03"*\n\tTrackType\x12\x07\n\x03GAP\x10\x00\x12\n\n\x06SIGNAL\x10\x01\x12\x08\n\x04RAIL\x10\x02\x1aK\n\x06Repeat\x12\x33\n\x07\x65ntries\x18\x01 \x03(\x0b\x32".vlsir.tetris.TrackSpec.TrackEntry\x12\x0c\n\x04nrep\x18\x02 \x01(\x03\x42\x06\n\x04spec"\x1a\n\x02Xy\x12\t\n\x01x\x18\x01 \x01(\x03\x12\t\n\x01y\x18\x02 \x01(\x03\x62\x06proto3',
-    dependencies=[utils__pb2.DESCRIPTOR, raw__pb2.DESCRIPTOR, circuit__pb2.DESCRIPTOR,],
+    dependencies=[
+        utils__pb2.DESCRIPTOR,
+        raw__pb2.DESCRIPTOR,
+        circuit__pb2.DESCRIPTOR,
+    ],
 )
 
 
@@ -1127,7 +1131,9 @@ _ABSTRACTPORT = _descriptor.Descriptor(
         _ABSTRACTPORT_ZTOPEDGEPORT,
         _ABSTRACTPORT_ZTOPINNER,
     ],
-    enum_types=[_ABSTRACTPORT_PORTSIDE,],
+    enum_types=[
+        _ABSTRACTPORT_PORTSIDE,
+    ],
     serialized_options=None,
     is_extendable=False,
     syntax="proto3",
@@ -1520,7 +1526,9 @@ _LAYERENUM = _descriptor.Descriptor(
     ],
     extensions=[],
     nested_types=[],
-    enum_types=[_LAYERENUM_LAYERTYPE,],
+    enum_types=[
+        _LAYERENUM_LAYERTYPE,
+    ],
     serialized_options=None,
     is_extendable=False,
     syntax="proto3",
@@ -1713,7 +1721,10 @@ _METALLAYER = _descriptor.Descriptor(
     ],
     extensions=[],
     nested_types=[],
-    enum_types=[_METALLAYER_DIR, _METALLAYER_PRIMITIVEMODE,],
+    enum_types=[
+        _METALLAYER_DIR,
+        _METALLAYER_PRIMITIVEMODE,
+    ],
     serialized_options=None,
     is_extendable=False,
     syntax="proto3",
@@ -1931,7 +1942,9 @@ _TRACKSPEC_TRACKENTRY = _descriptor.Descriptor(
     ],
     extensions=[],
     nested_types=[],
-    enum_types=[_TRACKSPEC_TRACKENTRY_TRACKTYPE,],
+    enum_types=[
+        _TRACKSPEC_TRACKENTRY_TRACKTYPE,
+    ],
     serialized_options=None,
     is_extendable=False,
     syntax="proto3",
@@ -2048,7 +2061,10 @@ _TRACKSPEC = _descriptor.Descriptor(
         ),
     ],
     extensions=[],
-    nested_types=[_TRACKSPEC_TRACKENTRY, _TRACKSPEC_REPEAT,],
+    nested_types=[
+        _TRACKSPEC_TRACKENTRY,
+        _TRACKSPEC_REPEAT,
+    ],
     enum_types=[],
     serialized_options=None,
     is_extendable=False,

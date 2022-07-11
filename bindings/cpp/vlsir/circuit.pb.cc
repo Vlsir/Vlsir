@@ -145,6 +145,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ModuleDefaultTypeInternal _Modu
 constexpr ExternalModule::ExternalModule(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : ports_()
+  , signals_()
   , parameters_()
   , desc_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , name_(nullptr){}
@@ -267,6 +268,7 @@ const uint32_t TableStruct_circuit_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ExternalModule, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ExternalModule, desc_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ExternalModule, ports_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ExternalModule, signals_),
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::ExternalModule, parameters_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::circuit::Interface, _internal_metadata_),
@@ -288,7 +290,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 60, -1, -1, sizeof(::vlsir::circuit::Instance)},
   { 70, -1, -1, sizeof(::vlsir::circuit::Module)},
   { 81, -1, -1, sizeof(::vlsir::circuit::ExternalModule)},
-  { 91, -1, -1, sizeof(::vlsir::circuit::Interface)},
+  { 92, -1, -1, sizeof(::vlsir::circuit::Interface)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -331,9 +333,10 @@ const char descriptor_table_protodef_circuit_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\n\007signals\030\003 \003(\0132\025.vlsir.circuit.Signal\022*"
   "\n\tinstances\030\004 \003(\0132\027.vlsir.circuit.Instan"
   "ce\022&\n\nparameters\030\005 \003(\0132\022.vlsir.utils.Par"
-  "am\"\224\001\n\016ExternalModule\022(\n\004name\030\001 \001(\0132\032.vl"
+  "am\"\274\001\n\016ExternalModule\022(\n\004name\030\001 \001(\0132\032.vl"
   "sir.utils.QualifiedName\022\014\n\004desc\030\002 \001(\t\022\"\n"
-  "\005ports\030\003 \003(\0132\023.vlsir.circuit.Port\022&\n\npar"
+  "\005ports\030\003 \003(\0132\023.vlsir.circuit.Port\022&\n\007sig"
+  "nals\030\004 \003(\0132\025.vlsir.circuit.Signal\022&\n\npar"
   "ameters\030\005 \003(\0132\022.vlsir.utils.Param\"=\n\tInt"
   "erface\022\014\n\004name\030\001 \001(\t\022\"\n\005ports\030\n \003(\0132\023.vl"
   "sir.circuit.Portb\006proto3"
@@ -343,7 +346,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_circuit_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_circuit_2eproto = {
-  false, false, 1224, descriptor_table_protodef_circuit_2eproto, "circuit.proto", 
+  false, false, 1264, descriptor_table_protodef_circuit_2eproto, "circuit.proto", 
   &descriptor_table_circuit_2eproto_once, descriptor_table_circuit_2eproto_deps, 1, 11,
   schemas, file_default_instances, TableStruct_circuit_2eproto::offsets,
   file_level_metadata_circuit_2eproto, file_level_enum_descriptors_circuit_2eproto, file_level_service_descriptors_circuit_2eproto,
@@ -2877,6 +2880,7 @@ ExternalModule::ExternalModule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   ports_(arena),
+  signals_(arena),
   parameters_(arena) {
   SharedCtor();
   if (!is_message_owned) {
@@ -2887,6 +2891,7 @@ ExternalModule::ExternalModule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 ExternalModule::ExternalModule(const ExternalModule& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       ports_(from.ports_),
+      signals_(from.signals_),
       parameters_(from.parameters_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   desc_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -2943,6 +2948,7 @@ void ExternalModule::Clear() {
   (void) cached_has_bits;
 
   ports_.Clear();
+  signals_.Clear();
   parameters_.Clear();
   desc_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && name_ != nullptr) {
@@ -2986,6 +2992,19 @@ const char* ExternalModule::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vlsir.circuit.Signal signals = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_signals(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -3057,6 +3076,14 @@ uint8_t* ExternalModule::_InternalSerialize(
       InternalWriteMessage(3, this->_internal_ports(i), target, stream);
   }
 
+  // repeated .vlsir.circuit.Signal signals = 4;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_signals_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, this->_internal_signals(i), target, stream);
+  }
+
   // repeated .vlsir.utils.Param parameters = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_parameters_size()); i < n; i++) {
@@ -3084,6 +3111,13 @@ size_t ExternalModule::ByteSizeLong() const {
   // repeated .vlsir.circuit.Port ports = 3;
   total_size += 1UL * this->_internal_ports_size();
   for (const auto& msg : this->ports_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .vlsir.circuit.Signal signals = 4;
+  total_size += 1UL * this->_internal_signals_size();
+  for (const auto& msg : this->signals_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3132,6 +3166,7 @@ void ExternalModule::MergeFrom(const ExternalModule& from) {
   (void) cached_has_bits;
 
   ports_.MergeFrom(from.ports_);
+  signals_.MergeFrom(from.signals_);
   parameters_.MergeFrom(from.parameters_);
   if (!from._internal_desc().empty()) {
     _internal_set_desc(from._internal_desc());
@@ -3159,6 +3194,7 @@ void ExternalModule::InternalSwap(ExternalModule* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ports_.InternalSwap(&other->ports_);
+  signals_.InternalSwap(&other->signals_);
   parameters_.InternalSwap(&other->parameters_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
