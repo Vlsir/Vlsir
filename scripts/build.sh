@@ -2,11 +2,20 @@
 # # VLSIR Build
 # 
 # Primarily generates language-specific bindings from the schema defined in `protos/`.
-# TODO: add the separate Rust build process 
+#
+# Must be run from the root of the Vlsir directory.
 # 
-
-rm -rf photos
-git clone -b main git@github.com:Vlsir/schema-proto protos
+# TODO: you need to run this so that 'protos' exists before you build rust
+# TODO: add the separate Rust build process 
+ 
+if [ ! -d protos ]; then
+  git clone -b main git@github.com:Vlsir/schema-proto protos
+else
+  cd protos
+  git checkout -q main
+  git pull origin main
+  cd ../
+fi
 
 set -eo 
 

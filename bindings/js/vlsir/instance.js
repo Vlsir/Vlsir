@@ -1,19 +1,23 @@
-// source: tetris.proto
+// source: circuit.proto
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
-goog.provide('proto.vlsir.tetris.Instance');
+goog.provide('proto.vlsir.circuit.Instance');
 
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
 goog.require('jspb.Message');
-goog.require('proto.vlsir.tetris.Place');
+goog.require('proto.vlsir.circuit.Connection');
+goog.require('proto.vlsir.utils.Param');
 goog.require('proto.vlsir.utils.Reference');
 
 /**
@@ -26,17 +30,24 @@ goog.require('proto.vlsir.utils.Reference');
  * @extends {jspb.Message}
  * @constructor
  */
-proto.vlsir.tetris.Instance = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.vlsir.circuit.Instance = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.vlsir.circuit.Instance.repeatedFields_, null);
 };
-goog.inherits(proto.vlsir.tetris.Instance, jspb.Message);
+goog.inherits(proto.vlsir.circuit.Instance, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.vlsir.tetris.Instance.displayName = 'proto.vlsir.tetris.Instance';
+  proto.vlsir.circuit.Instance.displayName = 'proto.vlsir.circuit.Instance';
 }
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.vlsir.circuit.Instance.repeatedFields_ = [3,4];
 
 
 
@@ -53,8 +64,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.vlsir.tetris.Instance.prototype.toObject = function(opt_includeInstance) {
-  return proto.vlsir.tetris.Instance.toObject(opt_includeInstance, this);
+proto.vlsir.circuit.Instance.prototype.toObject = function(opt_includeInstance) {
+  return proto.vlsir.circuit.Instance.toObject(opt_includeInstance, this);
 };
 
 
@@ -63,17 +74,18 @@ proto.vlsir.tetris.Instance.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.vlsir.tetris.Instance} msg The msg instance to transform.
+ * @param {!proto.vlsir.circuit.Instance} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.tetris.Instance.toObject = function(includeInstance, msg) {
+proto.vlsir.circuit.Instance.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    cell: (f = msg.getCell()) && proto.vlsir.utils.Reference.toObject(includeInstance, f),
-    loc: (f = msg.getLoc()) && proto.vlsir.tetris.Place.toObject(includeInstance, f),
-    reflectHoriz: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
-    reflectVert: jspb.Message.getBooleanFieldWithDefault(msg, 7, false)
+    module: (f = msg.getModule()) && proto.vlsir.utils.Reference.toObject(includeInstance, f),
+    parametersList: jspb.Message.toObjectList(msg.getParametersList(),
+    proto.vlsir.utils.Param.toObject, includeInstance),
+    connectionsList: jspb.Message.toObjectList(msg.getConnectionsList(),
+    proto.vlsir.circuit.Connection.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -87,23 +99,23 @@ proto.vlsir.tetris.Instance.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.vlsir.tetris.Instance}
+ * @return {!proto.vlsir.circuit.Instance}
  */
-proto.vlsir.tetris.Instance.deserializeBinary = function(bytes) {
+proto.vlsir.circuit.Instance.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.vlsir.tetris.Instance;
-  return proto.vlsir.tetris.Instance.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.vlsir.circuit.Instance;
+  return proto.vlsir.circuit.Instance.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.vlsir.tetris.Instance} msg The message object to deserialize into.
+ * @param {!proto.vlsir.circuit.Instance} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.vlsir.tetris.Instance}
+ * @return {!proto.vlsir.circuit.Instance}
  */
-proto.vlsir.tetris.Instance.deserializeBinaryFromReader = function(msg, reader) {
+proto.vlsir.circuit.Instance.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -114,23 +126,20 @@ proto.vlsir.tetris.Instance.deserializeBinaryFromReader = function(msg, reader) 
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
-    case 3:
+    case 2:
       var value = new proto.vlsir.utils.Reference;
       reader.readMessage(value,proto.vlsir.utils.Reference.deserializeBinaryFromReader);
-      msg.setCell(value);
+      msg.setModule(value);
+      break;
+    case 3:
+      var value = new proto.vlsir.utils.Param;
+      reader.readMessage(value,proto.vlsir.utils.Param.deserializeBinaryFromReader);
+      msg.addParameters(value);
       break;
     case 4:
-      var value = new proto.vlsir.tetris.Place;
-      reader.readMessage(value,proto.vlsir.tetris.Place.deserializeBinaryFromReader);
-      msg.setLoc(value);
-      break;
-    case 6:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setReflectHoriz(value);
-      break;
-    case 7:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setReflectVert(value);
+      var value = new proto.vlsir.circuit.Connection;
+      reader.readMessage(value,proto.vlsir.circuit.Connection.deserializeBinaryFromReader);
+      msg.addConnections(value);
       break;
     default:
       reader.skipField();
@@ -145,9 +154,9 @@ proto.vlsir.tetris.Instance.deserializeBinaryFromReader = function(msg, reader) 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.vlsir.tetris.Instance.prototype.serializeBinary = function() {
+proto.vlsir.circuit.Instance.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.vlsir.tetris.Instance.serializeBinaryToWriter(this, writer);
+  proto.vlsir.circuit.Instance.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -155,11 +164,11 @@ proto.vlsir.tetris.Instance.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.vlsir.tetris.Instance} message
+ * @param {!proto.vlsir.circuit.Instance} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.tetris.Instance.serializeBinaryToWriter = function(message, writer) {
+proto.vlsir.circuit.Instance.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getName();
   if (f.length > 0) {
@@ -168,34 +177,28 @@ proto.vlsir.tetris.Instance.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getCell();
+  f = message.getModule();
   if (f != null) {
     writer.writeMessage(
-      3,
+      2,
       f,
       proto.vlsir.utils.Reference.serializeBinaryToWriter
     );
   }
-  f = message.getLoc();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getParametersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.vlsir.utils.Param.serializeBinaryToWriter
+    );
+  }
+  f = message.getConnectionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
       4,
       f,
-      proto.vlsir.tetris.Place.serializeBinaryToWriter
-    );
-  }
-  f = message.getReflectHoriz();
-  if (f) {
-    writer.writeBool(
-      6,
-      f
-    );
-  }
-  f = message.getReflectVert();
-  if (f) {
-    writer.writeBool(
-      7,
-      f
+      proto.vlsir.circuit.Connection.serializeBinaryToWriter
     );
   }
 };
@@ -205,45 +208,45 @@ proto.vlsir.tetris.Instance.serializeBinaryToWriter = function(message, writer) 
  * optional string name = 1;
  * @return {string}
  */
-proto.vlsir.tetris.Instance.prototype.getName = function() {
+proto.vlsir.circuit.Instance.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * @return {!proto.vlsir.circuit.Instance} returns this
  */
-proto.vlsir.tetris.Instance.prototype.setName = function(value) {
+proto.vlsir.circuit.Instance.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional vlsir.utils.Reference cell = 3;
+ * optional vlsir.utils.Reference module = 2;
  * @return {?proto.vlsir.utils.Reference}
  */
-proto.vlsir.tetris.Instance.prototype.getCell = function() {
+proto.vlsir.circuit.Instance.prototype.getModule = function() {
   return /** @type{?proto.vlsir.utils.Reference} */ (
-    jspb.Message.getWrapperField(this, proto.vlsir.utils.Reference, 3));
+    jspb.Message.getWrapperField(this, proto.vlsir.utils.Reference, 2));
 };
 
 
 /**
  * @param {?proto.vlsir.utils.Reference|undefined} value
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * @return {!proto.vlsir.circuit.Instance} returns this
 */
-proto.vlsir.tetris.Instance.prototype.setCell = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
+proto.vlsir.circuit.Instance.prototype.setModule = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * @return {!proto.vlsir.circuit.Instance} returns this
  */
-proto.vlsir.tetris.Instance.prototype.clearCell = function() {
-  return this.setCell(undefined);
+proto.vlsir.circuit.Instance.prototype.clearModule = function() {
+  return this.setModule(undefined);
 };
 
 
@@ -251,81 +254,84 @@ proto.vlsir.tetris.Instance.prototype.clearCell = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.vlsir.tetris.Instance.prototype.hasCell = function() {
-  return jspb.Message.getField(this, 3) != null;
+proto.vlsir.circuit.Instance.prototype.hasModule = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
 /**
- * optional Place loc = 4;
- * @return {?proto.vlsir.tetris.Place}
+ * repeated vlsir.utils.Param parameters = 3;
+ * @return {!Array<!proto.vlsir.utils.Param>}
  */
-proto.vlsir.tetris.Instance.prototype.getLoc = function() {
-  return /** @type{?proto.vlsir.tetris.Place} */ (
-    jspb.Message.getWrapperField(this, proto.vlsir.tetris.Place, 4));
+proto.vlsir.circuit.Instance.prototype.getParametersList = function() {
+  return /** @type{!Array<!proto.vlsir.utils.Param>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.utils.Param, 3));
 };
 
 
 /**
- * @param {?proto.vlsir.tetris.Place|undefined} value
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * @param {!Array<!proto.vlsir.utils.Param>} value
+ * @return {!proto.vlsir.circuit.Instance} returns this
 */
-proto.vlsir.tetris.Instance.prototype.setLoc = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
+proto.vlsir.circuit.Instance.prototype.setParametersList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
 /**
- * Clears the message field making it undefined.
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * @param {!proto.vlsir.utils.Param=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.vlsir.utils.Param}
  */
-proto.vlsir.tetris.Instance.prototype.clearLoc = function() {
-  return this.setLoc(undefined);
+proto.vlsir.circuit.Instance.prototype.addParameters = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.vlsir.utils.Param, opt_index);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {boolean}
+ * Clears the list making it empty but non-null.
+ * @return {!proto.vlsir.circuit.Instance} returns this
  */
-proto.vlsir.tetris.Instance.prototype.hasLoc = function() {
-  return jspb.Message.getField(this, 4) != null;
+proto.vlsir.circuit.Instance.prototype.clearParametersList = function() {
+  return this.setParametersList([]);
 };
 
 
 /**
- * optional bool reflect_horiz = 6;
- * @return {boolean}
+ * repeated Connection connections = 4;
+ * @return {!Array<!proto.vlsir.circuit.Connection>}
  */
-proto.vlsir.tetris.Instance.prototype.getReflectHoriz = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+proto.vlsir.circuit.Instance.prototype.getConnectionsList = function() {
+  return /** @type{!Array<!proto.vlsir.circuit.Connection>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.Connection, 4));
 };
 
 
 /**
- * @param {boolean} value
- * @return {!proto.vlsir.tetris.Instance} returns this
- */
-proto.vlsir.tetris.Instance.prototype.setReflectHoriz = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 6, value);
+ * @param {!Array<!proto.vlsir.circuit.Connection>} value
+ * @return {!proto.vlsir.circuit.Instance} returns this
+*/
+proto.vlsir.circuit.Instance.prototype.setConnectionsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
 /**
- * optional bool reflect_vert = 7;
- * @return {boolean}
+ * @param {!proto.vlsir.circuit.Connection=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.vlsir.circuit.Connection}
  */
-proto.vlsir.tetris.Instance.prototype.getReflectVert = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 7, false));
+proto.vlsir.circuit.Instance.prototype.addConnections = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.vlsir.circuit.Connection, opt_index);
 };
 
 
 /**
- * @param {boolean} value
- * @return {!proto.vlsir.tetris.Instance} returns this
+ * Clears the list making it empty but non-null.
+ * @return {!proto.vlsir.circuit.Instance} returns this
  */
-proto.vlsir.tetris.Instance.prototype.setReflectVert = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 7, value);
+proto.vlsir.circuit.Instance.prototype.clearConnectionsList = function() {
+  return this.setConnectionsList([]);
 };
 
 
