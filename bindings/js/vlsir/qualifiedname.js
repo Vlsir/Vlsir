@@ -1,14 +1,17 @@
-// source: utils.proto
+// source: geometry.proto
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
-goog.provide('proto.vlsir.utils.QualifiedName');
+goog.provide('proto.vlsirlol.QualifiedName');
 
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
@@ -24,16 +27,16 @@ goog.require('jspb.Message');
  * @extends {jspb.Message}
  * @constructor
  */
-proto.vlsir.utils.QualifiedName = function(opt_data) {
+proto.vlsirlol.QualifiedName = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.vlsir.utils.QualifiedName, jspb.Message);
+goog.inherits(proto.vlsirlol.QualifiedName, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.vlsir.utils.QualifiedName.displayName = 'proto.vlsir.utils.QualifiedName';
+  proto.vlsirlol.QualifiedName.displayName = 'proto.vlsirlol.QualifiedName';
 }
 
 
@@ -51,8 +54,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.vlsir.utils.QualifiedName.prototype.toObject = function(opt_includeInstance) {
-  return proto.vlsir.utils.QualifiedName.toObject(opt_includeInstance, this);
+proto.vlsirlol.QualifiedName.prototype.toObject = function(opt_includeInstance) {
+  return proto.vlsirlol.QualifiedName.toObject(opt_includeInstance, this);
 };
 
 
@@ -61,11 +64,11 @@ proto.vlsir.utils.QualifiedName.prototype.toObject = function(opt_includeInstanc
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.vlsir.utils.QualifiedName} msg The msg instance to transform.
+ * @param {!proto.vlsirlol.QualifiedName} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.utils.QualifiedName.toObject = function(includeInstance, msg) {
+proto.vlsirlol.QualifiedName.toObject = function(includeInstance, msg) {
   var f, obj = {
     domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, "")
@@ -82,23 +85,23 @@ proto.vlsir.utils.QualifiedName.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.vlsir.utils.QualifiedName}
+ * @return {!proto.vlsirlol.QualifiedName}
  */
-proto.vlsir.utils.QualifiedName.deserializeBinary = function(bytes) {
+proto.vlsirlol.QualifiedName.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.vlsir.utils.QualifiedName;
-  return proto.vlsir.utils.QualifiedName.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.vlsirlol.QualifiedName;
+  return proto.vlsirlol.QualifiedName.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.vlsir.utils.QualifiedName} msg The message object to deserialize into.
+ * @param {!proto.vlsirlol.QualifiedName} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.vlsir.utils.QualifiedName}
+ * @return {!proto.vlsirlol.QualifiedName}
  */
-proto.vlsir.utils.QualifiedName.deserializeBinaryFromReader = function(msg, reader) {
+proto.vlsirlol.QualifiedName.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -126,9 +129,9 @@ proto.vlsir.utils.QualifiedName.deserializeBinaryFromReader = function(msg, read
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.vlsir.utils.QualifiedName.prototype.serializeBinary = function() {
+proto.vlsirlol.QualifiedName.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.vlsir.utils.QualifiedName.serializeBinaryToWriter(this, writer);
+  proto.vlsirlol.QualifiedName.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -136,11 +139,11 @@ proto.vlsir.utils.QualifiedName.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.vlsir.utils.QualifiedName} message
+ * @param {!proto.vlsirlol.QualifiedName} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.utils.QualifiedName.serializeBinaryToWriter = function(message, writer) {
+proto.vlsirlol.QualifiedName.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getDomain();
   if (f.length > 0) {
@@ -163,16 +166,16 @@ proto.vlsir.utils.QualifiedName.serializeBinaryToWriter = function(message, writ
  * optional string domain = 1;
  * @return {string}
  */
-proto.vlsir.utils.QualifiedName.prototype.getDomain = function() {
+proto.vlsirlol.QualifiedName.prototype.getDomain = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.vlsir.utils.QualifiedName} returns this
+ * @return {!proto.vlsirlol.QualifiedName} returns this
  */
-proto.vlsir.utils.QualifiedName.prototype.setDomain = function(value) {
+proto.vlsirlol.QualifiedName.prototype.setDomain = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
@@ -181,16 +184,16 @@ proto.vlsir.utils.QualifiedName.prototype.setDomain = function(value) {
  * optional string name = 2;
  * @return {string}
  */
-proto.vlsir.utils.QualifiedName.prototype.getName = function() {
+proto.vlsirlol.QualifiedName.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.vlsir.utils.QualifiedName} returns this
+ * @return {!proto.vlsirlol.QualifiedName} returns this
  */
-proto.vlsir.utils.QualifiedName.prototype.setName = function(value) {
+proto.vlsirlol.QualifiedName.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
