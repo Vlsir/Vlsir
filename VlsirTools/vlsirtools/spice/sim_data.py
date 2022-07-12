@@ -96,4 +96,3 @@ class SimResult:
 
     def __getitem__(self, key: int) -> AnalysisResult:
         return self.an[key]
-
