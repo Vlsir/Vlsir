@@ -8,7 +8,7 @@
 # TODO: you need to run this so that 'protos' exists before you build rust
 # TODO: add the separate Rust build process 
 
-SCHEMA_VERSION="goofball"
+SCHEMA_VERSION="1.0.0"
  
 if [ ! -d protos ]; then
   git clone -b "${SCHEMA_VERSION}" git@github.com:Vlsir/schema-proto protos

@@ -7,148 +7,194 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-import utils_pb2 as utils__pb2
+from . import utils_pb2 as utils__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcircuit.proto\x12\rvlsir.circuit\x1a\x0butils.proto\"\x83\x01\n\x07Package\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12&\n\x07modules\x18\x02 \x03(\x0b\x32\x15.vlsir.circuit.Module\x12\x32\n\x0b\x65xt_modules\x18\x03 \x03(\x0b\x32\x1d.vlsir.circuit.ExternalModule\x12\x0c\n\x04\x64\x65sc\x18\n \x01(\t\"\x98\x01\n\x04Port\x12%\n\x06signal\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.Signal\x12\x30\n\tdirection\x18\x02 \x01(\x0e\x32\x1d.vlsir.circuit.Port.Direction\"7\n\tDirection\x12\t\n\x05INPUT\x10\x00\x12\n\n\x06OUTPUT\x10\x01\x12\t\n\x05INOUT\x10\x02\x12\x08\n\x04NONE\x10\x03\"%\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x03\"1\n\x05Slice\x12\x0e\n\x06signal\x18\x01 \x01(\t\x12\x0b\n\x03top\x18\x02 \x01(\x03\x12\x0b\n\x03\x62ot\x18\x03 \x01(\x03\"2\n\x06\x43oncat\x12(\n\x05parts\x18\x01 \x03(\x0b\x32\x19.vlsir.circuit.Connection\"\x8b\x01\n\nConnection\x12$\n\x03sig\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.SignalH\x00\x12%\n\x05slice\x18\x02 \x01(\x0b\x32\x14.vlsir.circuit.SliceH\x00\x12\'\n\x06\x63oncat\x18\x03 \x01(\x0b\x32\x15.vlsir.circuit.ConcatH\x00\x42\x07\n\x05stype\"\xd7\x02\n\x08Instance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x06module\x18\x02 \x01(\x0b\x32\x16.vlsir.utils.Reference\x12;\n\nparameters\x18\x03 \x03(\x0b\x32\'.vlsir.circuit.Instance.ParametersEntry\x12=\n\x0b\x63onnections\x18\x04 \x03(\x0b\x32(.vlsir.circuit.Instance.ConnectionsEntry\x1aJ\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue:\x02\x38\x01\x1aM\n\x10\x43onnectionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.vlsir.circuit.Connection:\x02\x38\x01\"\xb6\x01\n\x06Module\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\"\n\x05ports\x18\x02 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\x07signals\x18\x03 \x03(\x0b\x32\x15.vlsir.circuit.Signal\x12*\n\tinstances\x18\x04 \x03(\x0b\x32\x17.vlsir.circuit.Instance\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param\"\x94\x01\n\x0e\x45xternalModule\x12(\n\x04name\x18\x01 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedName\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12\"\n\x05ports\x18\x03 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param\"=\n\tInterface\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\"\n\x05ports\x18\n \x03(\x0b\x32\x13.vlsir.circuit.Portb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\rcircuit.proto\x12\rvlsir.circuit\x1a\x0butils.proto"\x83\x01\n\x07Package\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12&\n\x07modules\x18\x02 \x03(\x0b\x32\x15.vlsir.circuit.Module\x12\x32\n\x0b\x65xt_modules\x18\x03 \x03(\x0b\x32\x1d.vlsir.circuit.ExternalModule\x12\x0c\n\x04\x64\x65sc\x18\n \x01(\t"\x98\x01\n\x04Port\x12%\n\x06signal\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.Signal\x12\x30\n\tdirection\x18\x02 \x01(\x0e\x32\x1d.vlsir.circuit.Port.Direction"7\n\tDirection\x12\t\n\x05INPUT\x10\x00\x12\n\n\x06OUTPUT\x10\x01\x12\t\n\x05INOUT\x10\x02\x12\x08\n\x04NONE\x10\x03"%\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x03"1\n\x05Slice\x12\x0e\n\x06signal\x18\x01 \x01(\t\x12\x0b\n\x03top\x18\x02 \x01(\x03\x12\x0b\n\x03\x62ot\x18\x03 \x01(\x03"2\n\x06\x43oncat\x12(\n\x05parts\x18\x01 \x03(\x0b\x32\x19.vlsir.circuit.Connection"\x8b\x01\n\nConnection\x12$\n\x03sig\x18\x01 \x01(\x0b\x32\x15.vlsir.circuit.SignalH\x00\x12%\n\x05slice\x18\x02 \x01(\x0b\x32\x14.vlsir.circuit.SliceH\x00\x12\'\n\x06\x63oncat\x18\x03 \x01(\x0b\x32\x15.vlsir.circuit.ConcatH\x00\x42\x07\n\x05stype"\xd7\x02\n\x08Instance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x06module\x18\x02 \x01(\x0b\x32\x16.vlsir.utils.Reference\x12;\n\nparameters\x18\x03 \x03(\x0b\x32\'.vlsir.circuit.Instance.ParametersEntry\x12=\n\x0b\x63onnections\x18\x04 \x03(\x0b\x32(.vlsir.circuit.Instance.ConnectionsEntry\x1aJ\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue:\x02\x38\x01\x1aM\n\x10\x43onnectionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.vlsir.circuit.Connection:\x02\x38\x01"\xb6\x01\n\x06Module\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\x02 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\x07signals\x18\x03 \x03(\x0b\x32\x15.vlsir.circuit.Signal\x12*\n\tinstances\x18\x04 \x03(\x0b\x32\x17.vlsir.circuit.Instance\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param"\x94\x01\n\x0e\x45xternalModule\x12(\n\x04name\x18\x01 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedName\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12"\n\x05ports\x18\x03 \x03(\x0b\x32\x13.vlsir.circuit.Port\x12&\n\nparameters\x18\x05 \x03(\x0b\x32\x12.vlsir.utils.Param"=\n\tInterface\x12\x0c\n\x04name\x18\x01 \x01(\t\x12"\n\x05ports\x18\n \x03(\x0b\x32\x13.vlsir.circuit.Portb\x06proto3'
+)
 
 
-
-_PACKAGE = DESCRIPTOR.message_types_by_name['Package']
-_PORT = DESCRIPTOR.message_types_by_name['Port']
-_SIGNAL = DESCRIPTOR.message_types_by_name['Signal']
-_SLICE = DESCRIPTOR.message_types_by_name['Slice']
-_CONCAT = DESCRIPTOR.message_types_by_name['Concat']
-_CONNECTION = DESCRIPTOR.message_types_by_name['Connection']
-_INSTANCE = DESCRIPTOR.message_types_by_name['Instance']
-_INSTANCE_PARAMETERSENTRY = _INSTANCE.nested_types_by_name['ParametersEntry']
-_INSTANCE_CONNECTIONSENTRY = _INSTANCE.nested_types_by_name['ConnectionsEntry']
-_MODULE = DESCRIPTOR.message_types_by_name['Module']
-_EXTERNALMODULE = DESCRIPTOR.message_types_by_name['ExternalModule']
-_INTERFACE = DESCRIPTOR.message_types_by_name['Interface']
-_PORT_DIRECTION = _PORT.enum_types_by_name['Direction']
-Package = _reflection.GeneratedProtocolMessageType('Package', (_message.Message,), {
-  'DESCRIPTOR' : _PACKAGE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Package)
-  })
+_PACKAGE = DESCRIPTOR.message_types_by_name["Package"]
+_PORT = DESCRIPTOR.message_types_by_name["Port"]
+_SIGNAL = DESCRIPTOR.message_types_by_name["Signal"]
+_SLICE = DESCRIPTOR.message_types_by_name["Slice"]
+_CONCAT = DESCRIPTOR.message_types_by_name["Concat"]
+_CONNECTION = DESCRIPTOR.message_types_by_name["Connection"]
+_INSTANCE = DESCRIPTOR.message_types_by_name["Instance"]
+_INSTANCE_PARAMETERSENTRY = _INSTANCE.nested_types_by_name["ParametersEntry"]
+_INSTANCE_CONNECTIONSENTRY = _INSTANCE.nested_types_by_name["ConnectionsEntry"]
+_MODULE = DESCRIPTOR.message_types_by_name["Module"]
+_EXTERNALMODULE = DESCRIPTOR.message_types_by_name["ExternalModule"]
+_INTERFACE = DESCRIPTOR.message_types_by_name["Interface"]
+_PORT_DIRECTION = _PORT.enum_types_by_name["Direction"]
+Package = _reflection.GeneratedProtocolMessageType(
+    "Package",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PACKAGE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Package)
+    },
+)
 _sym_db.RegisterMessage(Package)
 
-Port = _reflection.GeneratedProtocolMessageType('Port', (_message.Message,), {
-  'DESCRIPTOR' : _PORT,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Port)
-  })
+Port = _reflection.GeneratedProtocolMessageType(
+    "Port",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PORT,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Port)
+    },
+)
 _sym_db.RegisterMessage(Port)
 
-Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,), {
-  'DESCRIPTOR' : _SIGNAL,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Signal)
-  })
+Signal = _reflection.GeneratedProtocolMessageType(
+    "Signal",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SIGNAL,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Signal)
+    },
+)
 _sym_db.RegisterMessage(Signal)
 
-Slice = _reflection.GeneratedProtocolMessageType('Slice', (_message.Message,), {
-  'DESCRIPTOR' : _SLICE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Slice)
-  })
+Slice = _reflection.GeneratedProtocolMessageType(
+    "Slice",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SLICE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Slice)
+    },
+)
 _sym_db.RegisterMessage(Slice)
 
-Concat = _reflection.GeneratedProtocolMessageType('Concat', (_message.Message,), {
-  'DESCRIPTOR' : _CONCAT,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Concat)
-  })
+Concat = _reflection.GeneratedProtocolMessageType(
+    "Concat",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _CONCAT,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Concat)
+    },
+)
 _sym_db.RegisterMessage(Concat)
 
-Connection = _reflection.GeneratedProtocolMessageType('Connection', (_message.Message,), {
-  'DESCRIPTOR' : _CONNECTION,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Connection)
-  })
+Connection = _reflection.GeneratedProtocolMessageType(
+    "Connection",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _CONNECTION,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Connection)
+    },
+)
 _sym_db.RegisterMessage(Connection)
 
-Instance = _reflection.GeneratedProtocolMessageType('Instance', (_message.Message,), {
-
-  'ParametersEntry' : _reflection.GeneratedProtocolMessageType('ParametersEntry', (_message.Message,), {
-    'DESCRIPTOR' : _INSTANCE_PARAMETERSENTRY,
-    '__module__' : 'circuit_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance.ParametersEntry)
-    })
-  ,
-
-  'ConnectionsEntry' : _reflection.GeneratedProtocolMessageType('ConnectionsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _INSTANCE_CONNECTIONSENTRY,
-    '__module__' : 'circuit_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance.ConnectionsEntry)
-    })
-  ,
-  'DESCRIPTOR' : _INSTANCE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance)
-  })
+Instance = _reflection.GeneratedProtocolMessageType(
+    "Instance",
+    (_message.Message,),
+    {
+        "ParametersEntry": _reflection.GeneratedProtocolMessageType(
+            "ParametersEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _INSTANCE_PARAMETERSENTRY,
+                "__module__": "circuit_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance.ParametersEntry)
+            },
+        ),
+        "ConnectionsEntry": _reflection.GeneratedProtocolMessageType(
+            "ConnectionsEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _INSTANCE_CONNECTIONSENTRY,
+                "__module__": "circuit_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance.ConnectionsEntry)
+            },
+        ),
+        "DESCRIPTOR": _INSTANCE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Instance)
+    },
+)
 _sym_db.RegisterMessage(Instance)
 _sym_db.RegisterMessage(Instance.ParametersEntry)
 _sym_db.RegisterMessage(Instance.ConnectionsEntry)
 
-Module = _reflection.GeneratedProtocolMessageType('Module', (_message.Message,), {
-  'DESCRIPTOR' : _MODULE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Module)
-  })
+Module = _reflection.GeneratedProtocolMessageType(
+    "Module",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _MODULE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Module)
+    },
+)
 _sym_db.RegisterMessage(Module)
 
-ExternalModule = _reflection.GeneratedProtocolMessageType('ExternalModule', (_message.Message,), {
-  'DESCRIPTOR' : _EXTERNALMODULE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.ExternalModule)
-  })
+ExternalModule = _reflection.GeneratedProtocolMessageType(
+    "ExternalModule",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _EXTERNALMODULE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.ExternalModule)
+    },
+)
 _sym_db.RegisterMessage(ExternalModule)
 
-Interface = _reflection.GeneratedProtocolMessageType('Interface', (_message.Message,), {
-  'DESCRIPTOR' : _INTERFACE,
-  '__module__' : 'circuit_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.circuit.Interface)
-  })
+Interface = _reflection.GeneratedProtocolMessageType(
+    "Interface",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _INTERFACE,
+        "__module__": "circuit_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.circuit.Interface)
+    },
+)
 _sym_db.RegisterMessage(Interface)
 
 if _descriptor._USE_C_DESCRIPTORS == False:
 
-  DESCRIPTOR._options = None
-  _INSTANCE_PARAMETERSENTRY._options = None
-  _INSTANCE_PARAMETERSENTRY._serialized_options = b'8\001'
-  _INSTANCE_CONNECTIONSENTRY._options = None
-  _INSTANCE_CONNECTIONSENTRY._serialized_options = b'8\001'
-  _PACKAGE._serialized_start=46
-  _PACKAGE._serialized_end=177
-  _PORT._serialized_start=180
-  _PORT._serialized_end=332
-  _PORT_DIRECTION._serialized_start=277
-  _PORT_DIRECTION._serialized_end=332
-  _SIGNAL._serialized_start=334
-  _SIGNAL._serialized_end=371
-  _SLICE._serialized_start=373
-  _SLICE._serialized_end=422
-  _CONCAT._serialized_start=424
-  _CONCAT._serialized_end=474
-  _CONNECTION._serialized_start=477
-  _CONNECTION._serialized_end=616
-  _INSTANCE._serialized_start=619
-  _INSTANCE._serialized_end=962
-  _INSTANCE_PARAMETERSENTRY._serialized_start=809
-  _INSTANCE_PARAMETERSENTRY._serialized_end=883
-  _INSTANCE_CONNECTIONSENTRY._serialized_start=885
-  _INSTANCE_CONNECTIONSENTRY._serialized_end=962
-  _MODULE._serialized_start=965
-  _MODULE._serialized_end=1147
-  _EXTERNALMODULE._serialized_start=1150
-  _EXTERNALMODULE._serialized_end=1298
-  _INTERFACE._serialized_start=1300
-  _INTERFACE._serialized_end=1361
+    DESCRIPTOR._options = None
+    _INSTANCE_PARAMETERSENTRY._options = None
+    _INSTANCE_PARAMETERSENTRY._serialized_options = b"8\001"
+    _INSTANCE_CONNECTIONSENTRY._options = None
+    _INSTANCE_CONNECTIONSENTRY._serialized_options = b"8\001"
+    _PACKAGE._serialized_start = 46
+    _PACKAGE._serialized_end = 177
+    _PORT._serialized_start = 180
+    _PORT._serialized_end = 332
+    _PORT_DIRECTION._serialized_start = 277
+    _PORT_DIRECTION._serialized_end = 332
+    _SIGNAL._serialized_start = 334
+    _SIGNAL._serialized_end = 371
+    _SLICE._serialized_start = 373
+    _SLICE._serialized_end = 422
+    _CONCAT._serialized_start = 424
+    _CONCAT._serialized_end = 474
+    _CONNECTION._serialized_start = 477
+    _CONNECTION._serialized_end = 616
+    _INSTANCE._serialized_start = 619
+    _INSTANCE._serialized_end = 962
+    _INSTANCE_PARAMETERSENTRY._serialized_start = 809
+    _INSTANCE_PARAMETERSENTRY._serialized_end = 883
+    _INSTANCE_CONNECTIONSENTRY._serialized_start = 885
+    _INSTANCE_CONNECTIONSENTRY._serialized_end = 962
+    _MODULE._serialized_start = 965
+    _MODULE._serialized_end = 1147
+    _EXTERNALMODULE._serialized_start = 1150
+    _EXTERNALMODULE._serialized_end = 1298
+    _INTERFACE._serialized_start = 1300
+    _INTERFACE._serialized_end = 1361
 # @@protoc_insertion_point(module_scope)

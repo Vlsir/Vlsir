@@ -7,382 +7,512 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb2
-import utils_pb2 as utils__pb2
-import circuit_pb2 as circuit__pb2
+from . import utils_pb2 as utils__pb2
+from . import circuit_pb2 as circuit__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x0butils.proto\x1a\rcircuit.proto\"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control\"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"W\n\nSimOptions\x12\x0c\n\x04temp\x18\x01 \x01(\x01\x12\x0c\n\x04tnom\x18\x02 \x01(\x01\x12\x0c\n\x04gmin\x18\x03 \x01(\x01\x12\x0f\n\x07iabstol\x18\x04 \x01(\x01\x12\x0e\n\x06reltol\x18\x05 \x01(\x01\"\xac\x02\n\x08\x41nalysis\x12\"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12\"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12\"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n\"\xb9\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n\"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05\"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05\"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05\"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01\"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05\"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult\"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\"\x16\n\x14\x43ustomAnalysisResult\"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp\"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01\"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01\"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl\"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00\"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save\"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t\"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t\"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t\"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity\".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x0butils.proto\x1a\rcircuit.proto"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"W\n\nSimOptions\x12\x0c\n\x04temp\x18\x01 \x01(\x01\x12\x0c\n\x04tnom\x18\x02 \x01(\x01\x12\x0c\n\x04gmin\x18\x03 \x01(\x01\x12\x0f\n\x07iabstol\x18\x04 \x01(\x01\x12\x0e\n\x06reltol\x18\x05 \x01(\x01"\xac\x02\n\x08\x41nalysis\x12"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n"\xb9\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x16\n\x14\x43ustomAnalysisResult"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3'
+)
 
 
-
-_SIMINPUT = DESCRIPTOR.message_types_by_name['SimInput']
-_SIMRESULT = DESCRIPTOR.message_types_by_name['SimResult']
-_SIMOPTIONS = DESCRIPTOR.message_types_by_name['SimOptions']
-_ANALYSIS = DESCRIPTOR.message_types_by_name['Analysis']
-_ANALYSISRESULT = DESCRIPTOR.message_types_by_name['AnalysisResult']
-_OPINPUT = DESCRIPTOR.message_types_by_name['OpInput']
-_OPRESULT = DESCRIPTOR.message_types_by_name['OpResult']
-_DCINPUT = DESCRIPTOR.message_types_by_name['DcInput']
-_DCRESULT = DESCRIPTOR.message_types_by_name['DcResult']
-_DCRESULT_MEASUREMENTSENTRY = _DCRESULT.nested_types_by_name['MeasurementsEntry']
-_TRANINPUT = DESCRIPTOR.message_types_by_name['TranInput']
-_TRANINPUT_ICENTRY = _TRANINPUT.nested_types_by_name['IcEntry']
-_TRANRESULT = DESCRIPTOR.message_types_by_name['TranResult']
-_TRANRESULT_MEASUREMENTSENTRY = _TRANRESULT.nested_types_by_name['MeasurementsEntry']
-_COMPLEXNUM = DESCRIPTOR.message_types_by_name['ComplexNum']
-_ACINPUT = DESCRIPTOR.message_types_by_name['AcInput']
-_ACRESULT = DESCRIPTOR.message_types_by_name['AcResult']
-_ACRESULT_MEASUREMENTSENTRY = _ACRESULT.nested_types_by_name['MeasurementsEntry']
-_SWEEPINPUT = DESCRIPTOR.message_types_by_name['SweepInput']
-_SWEEPRESULT = DESCRIPTOR.message_types_by_name['SweepResult']
-_MONTEINPUT = DESCRIPTOR.message_types_by_name['MonteInput']
-_MONTERESULT = DESCRIPTOR.message_types_by_name['MonteResult']
-_CUSTOMANALYSISINPUT = DESCRIPTOR.message_types_by_name['CustomAnalysisInput']
-_CUSTOMANALYSISRESULT = DESCRIPTOR.message_types_by_name['CustomAnalysisResult']
-_SWEEP = DESCRIPTOR.message_types_by_name['Sweep']
-_LINEARSWEEP = DESCRIPTOR.message_types_by_name['LinearSweep']
-_LOGSWEEP = DESCRIPTOR.message_types_by_name['LogSweep']
-_POINTSWEEP = DESCRIPTOR.message_types_by_name['PointSweep']
-_CONTROL = DESCRIPTOR.message_types_by_name['Control']
-_SAVE = DESCRIPTOR.message_types_by_name['Save']
-_INCLUDE = DESCRIPTOR.message_types_by_name['Include']
-_LIBINCLUDE = DESCRIPTOR.message_types_by_name['LibInclude']
-_MEAS = DESCRIPTOR.message_types_by_name['Meas']
-_SIGNAL = DESCRIPTOR.message_types_by_name['Signal']
-_SAVE_SAVEMODE = _SAVE.enum_types_by_name['SaveMode']
-_SIGNAL_QUANTITY = _SIGNAL.enum_types_by_name['Quantity']
-SimInput = _reflection.GeneratedProtocolMessageType('SimInput', (_message.Message,), {
-  'DESCRIPTOR' : _SIMINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.SimInput)
-  })
+_SIMINPUT = DESCRIPTOR.message_types_by_name["SimInput"]
+_SIMRESULT = DESCRIPTOR.message_types_by_name["SimResult"]
+_SIMOPTIONS = DESCRIPTOR.message_types_by_name["SimOptions"]
+_ANALYSIS = DESCRIPTOR.message_types_by_name["Analysis"]
+_ANALYSISRESULT = DESCRIPTOR.message_types_by_name["AnalysisResult"]
+_OPINPUT = DESCRIPTOR.message_types_by_name["OpInput"]
+_OPRESULT = DESCRIPTOR.message_types_by_name["OpResult"]
+_DCINPUT = DESCRIPTOR.message_types_by_name["DcInput"]
+_DCRESULT = DESCRIPTOR.message_types_by_name["DcResult"]
+_DCRESULT_MEASUREMENTSENTRY = _DCRESULT.nested_types_by_name["MeasurementsEntry"]
+_TRANINPUT = DESCRIPTOR.message_types_by_name["TranInput"]
+_TRANINPUT_ICENTRY = _TRANINPUT.nested_types_by_name["IcEntry"]
+_TRANRESULT = DESCRIPTOR.message_types_by_name["TranResult"]
+_TRANRESULT_MEASUREMENTSENTRY = _TRANRESULT.nested_types_by_name["MeasurementsEntry"]
+_COMPLEXNUM = DESCRIPTOR.message_types_by_name["ComplexNum"]
+_ACINPUT = DESCRIPTOR.message_types_by_name["AcInput"]
+_ACRESULT = DESCRIPTOR.message_types_by_name["AcResult"]
+_ACRESULT_MEASUREMENTSENTRY = _ACRESULT.nested_types_by_name["MeasurementsEntry"]
+_SWEEPINPUT = DESCRIPTOR.message_types_by_name["SweepInput"]
+_SWEEPRESULT = DESCRIPTOR.message_types_by_name["SweepResult"]
+_MONTEINPUT = DESCRIPTOR.message_types_by_name["MonteInput"]
+_MONTERESULT = DESCRIPTOR.message_types_by_name["MonteResult"]
+_CUSTOMANALYSISINPUT = DESCRIPTOR.message_types_by_name["CustomAnalysisInput"]
+_CUSTOMANALYSISRESULT = DESCRIPTOR.message_types_by_name["CustomAnalysisResult"]
+_SWEEP = DESCRIPTOR.message_types_by_name["Sweep"]
+_LINEARSWEEP = DESCRIPTOR.message_types_by_name["LinearSweep"]
+_LOGSWEEP = DESCRIPTOR.message_types_by_name["LogSweep"]
+_POINTSWEEP = DESCRIPTOR.message_types_by_name["PointSweep"]
+_CONTROL = DESCRIPTOR.message_types_by_name["Control"]
+_SAVE = DESCRIPTOR.message_types_by_name["Save"]
+_INCLUDE = DESCRIPTOR.message_types_by_name["Include"]
+_LIBINCLUDE = DESCRIPTOR.message_types_by_name["LibInclude"]
+_MEAS = DESCRIPTOR.message_types_by_name["Meas"]
+_SIGNAL = DESCRIPTOR.message_types_by_name["Signal"]
+_SAVE_SAVEMODE = _SAVE.enum_types_by_name["SaveMode"]
+_SIGNAL_QUANTITY = _SIGNAL.enum_types_by_name["Quantity"]
+SimInput = _reflection.GeneratedProtocolMessageType(
+    "SimInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SIMINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.SimInput)
+    },
+)
 _sym_db.RegisterMessage(SimInput)
 
-SimResult = _reflection.GeneratedProtocolMessageType('SimResult', (_message.Message,), {
-  'DESCRIPTOR' : _SIMRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.SimResult)
-  })
+SimResult = _reflection.GeneratedProtocolMessageType(
+    "SimResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SIMRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.SimResult)
+    },
+)
 _sym_db.RegisterMessage(SimResult)
 
-SimOptions = _reflection.GeneratedProtocolMessageType('SimOptions', (_message.Message,), {
-  'DESCRIPTOR' : _SIMOPTIONS,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.SimOptions)
-  })
+SimOptions = _reflection.GeneratedProtocolMessageType(
+    "SimOptions",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SIMOPTIONS,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.SimOptions)
+    },
+)
 _sym_db.RegisterMessage(SimOptions)
 
-Analysis = _reflection.GeneratedProtocolMessageType('Analysis', (_message.Message,), {
-  'DESCRIPTOR' : _ANALYSIS,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Analysis)
-  })
+Analysis = _reflection.GeneratedProtocolMessageType(
+    "Analysis",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _ANALYSIS,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Analysis)
+    },
+)
 _sym_db.RegisterMessage(Analysis)
 
-AnalysisResult = _reflection.GeneratedProtocolMessageType('AnalysisResult', (_message.Message,), {
-  'DESCRIPTOR' : _ANALYSISRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.AnalysisResult)
-  })
+AnalysisResult = _reflection.GeneratedProtocolMessageType(
+    "AnalysisResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _ANALYSISRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.AnalysisResult)
+    },
+)
 _sym_db.RegisterMessage(AnalysisResult)
 
-OpInput = _reflection.GeneratedProtocolMessageType('OpInput', (_message.Message,), {
-  'DESCRIPTOR' : _OPINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.OpInput)
-  })
+OpInput = _reflection.GeneratedProtocolMessageType(
+    "OpInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _OPINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.OpInput)
+    },
+)
 _sym_db.RegisterMessage(OpInput)
 
-OpResult = _reflection.GeneratedProtocolMessageType('OpResult', (_message.Message,), {
-  'DESCRIPTOR' : _OPRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.OpResult)
-  })
+OpResult = _reflection.GeneratedProtocolMessageType(
+    "OpResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _OPRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.OpResult)
+    },
+)
 _sym_db.RegisterMessage(OpResult)
 
-DcInput = _reflection.GeneratedProtocolMessageType('DcInput', (_message.Message,), {
-  'DESCRIPTOR' : _DCINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.DcInput)
-  })
+DcInput = _reflection.GeneratedProtocolMessageType(
+    "DcInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _DCINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.DcInput)
+    },
+)
 _sym_db.RegisterMessage(DcInput)
 
-DcResult = _reflection.GeneratedProtocolMessageType('DcResult', (_message.Message,), {
-
-  'MeasurementsEntry' : _reflection.GeneratedProtocolMessageType('MeasurementsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _DCRESULT_MEASUREMENTSENTRY,
-    '__module__' : 'spice_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.spice.DcResult.MeasurementsEntry)
-    })
-  ,
-  'DESCRIPTOR' : _DCRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.DcResult)
-  })
+DcResult = _reflection.GeneratedProtocolMessageType(
+    "DcResult",
+    (_message.Message,),
+    {
+        "MeasurementsEntry": _reflection.GeneratedProtocolMessageType(
+            "MeasurementsEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _DCRESULT_MEASUREMENTSENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.DcResult.MeasurementsEntry)
+            },
+        ),
+        "DESCRIPTOR": _DCRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.DcResult)
+    },
+)
 _sym_db.RegisterMessage(DcResult)
 _sym_db.RegisterMessage(DcResult.MeasurementsEntry)
 
-TranInput = _reflection.GeneratedProtocolMessageType('TranInput', (_message.Message,), {
-
-  'IcEntry' : _reflection.GeneratedProtocolMessageType('IcEntry', (_message.Message,), {
-    'DESCRIPTOR' : _TRANINPUT_ICENTRY,
-    '__module__' : 'spice_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.spice.TranInput.IcEntry)
-    })
-  ,
-  'DESCRIPTOR' : _TRANINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.TranInput)
-  })
+TranInput = _reflection.GeneratedProtocolMessageType(
+    "TranInput",
+    (_message.Message,),
+    {
+        "IcEntry": _reflection.GeneratedProtocolMessageType(
+            "IcEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _TRANINPUT_ICENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.TranInput.IcEntry)
+            },
+        ),
+        "DESCRIPTOR": _TRANINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.TranInput)
+    },
+)
 _sym_db.RegisterMessage(TranInput)
 _sym_db.RegisterMessage(TranInput.IcEntry)
 
-TranResult = _reflection.GeneratedProtocolMessageType('TranResult', (_message.Message,), {
-
-  'MeasurementsEntry' : _reflection.GeneratedProtocolMessageType('MeasurementsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _TRANRESULT_MEASUREMENTSENTRY,
-    '__module__' : 'spice_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.spice.TranResult.MeasurementsEntry)
-    })
-  ,
-  'DESCRIPTOR' : _TRANRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.TranResult)
-  })
+TranResult = _reflection.GeneratedProtocolMessageType(
+    "TranResult",
+    (_message.Message,),
+    {
+        "MeasurementsEntry": _reflection.GeneratedProtocolMessageType(
+            "MeasurementsEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _TRANRESULT_MEASUREMENTSENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.TranResult.MeasurementsEntry)
+            },
+        ),
+        "DESCRIPTOR": _TRANRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.TranResult)
+    },
+)
 _sym_db.RegisterMessage(TranResult)
 _sym_db.RegisterMessage(TranResult.MeasurementsEntry)
 
-ComplexNum = _reflection.GeneratedProtocolMessageType('ComplexNum', (_message.Message,), {
-  'DESCRIPTOR' : _COMPLEXNUM,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.ComplexNum)
-  })
+ComplexNum = _reflection.GeneratedProtocolMessageType(
+    "ComplexNum",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _COMPLEXNUM,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.ComplexNum)
+    },
+)
 _sym_db.RegisterMessage(ComplexNum)
 
-AcInput = _reflection.GeneratedProtocolMessageType('AcInput', (_message.Message,), {
-  'DESCRIPTOR' : _ACINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.AcInput)
-  })
+AcInput = _reflection.GeneratedProtocolMessageType(
+    "AcInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _ACINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.AcInput)
+    },
+)
 _sym_db.RegisterMessage(AcInput)
 
-AcResult = _reflection.GeneratedProtocolMessageType('AcResult', (_message.Message,), {
-
-  'MeasurementsEntry' : _reflection.GeneratedProtocolMessageType('MeasurementsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _ACRESULT_MEASUREMENTSENTRY,
-    '__module__' : 'spice_pb2'
-    # @@protoc_insertion_point(class_scope:vlsir.spice.AcResult.MeasurementsEntry)
-    })
-  ,
-  'DESCRIPTOR' : _ACRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.AcResult)
-  })
+AcResult = _reflection.GeneratedProtocolMessageType(
+    "AcResult",
+    (_message.Message,),
+    {
+        "MeasurementsEntry": _reflection.GeneratedProtocolMessageType(
+            "MeasurementsEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _ACRESULT_MEASUREMENTSENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.AcResult.MeasurementsEntry)
+            },
+        ),
+        "DESCRIPTOR": _ACRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.AcResult)
+    },
+)
 _sym_db.RegisterMessage(AcResult)
 _sym_db.RegisterMessage(AcResult.MeasurementsEntry)
 
-SweepInput = _reflection.GeneratedProtocolMessageType('SweepInput', (_message.Message,), {
-  'DESCRIPTOR' : _SWEEPINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.SweepInput)
-  })
+SweepInput = _reflection.GeneratedProtocolMessageType(
+    "SweepInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SWEEPINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.SweepInput)
+    },
+)
 _sym_db.RegisterMessage(SweepInput)
 
-SweepResult = _reflection.GeneratedProtocolMessageType('SweepResult', (_message.Message,), {
-  'DESCRIPTOR' : _SWEEPRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.SweepResult)
-  })
+SweepResult = _reflection.GeneratedProtocolMessageType(
+    "SweepResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SWEEPRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.SweepResult)
+    },
+)
 _sym_db.RegisterMessage(SweepResult)
 
-MonteInput = _reflection.GeneratedProtocolMessageType('MonteInput', (_message.Message,), {
-  'DESCRIPTOR' : _MONTEINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.MonteInput)
-  })
+MonteInput = _reflection.GeneratedProtocolMessageType(
+    "MonteInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _MONTEINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.MonteInput)
+    },
+)
 _sym_db.RegisterMessage(MonteInput)
 
-MonteResult = _reflection.GeneratedProtocolMessageType('MonteResult', (_message.Message,), {
-  'DESCRIPTOR' : _MONTERESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.MonteResult)
-  })
+MonteResult = _reflection.GeneratedProtocolMessageType(
+    "MonteResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _MONTERESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.MonteResult)
+    },
+)
 _sym_db.RegisterMessage(MonteResult)
 
-CustomAnalysisInput = _reflection.GeneratedProtocolMessageType('CustomAnalysisInput', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMANALYSISINPUT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.CustomAnalysisInput)
-  })
+CustomAnalysisInput = _reflection.GeneratedProtocolMessageType(
+    "CustomAnalysisInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _CUSTOMANALYSISINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.CustomAnalysisInput)
+    },
+)
 _sym_db.RegisterMessage(CustomAnalysisInput)
 
-CustomAnalysisResult = _reflection.GeneratedProtocolMessageType('CustomAnalysisResult', (_message.Message,), {
-  'DESCRIPTOR' : _CUSTOMANALYSISRESULT,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.CustomAnalysisResult)
-  })
+CustomAnalysisResult = _reflection.GeneratedProtocolMessageType(
+    "CustomAnalysisResult",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _CUSTOMANALYSISRESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.CustomAnalysisResult)
+    },
+)
 _sym_db.RegisterMessage(CustomAnalysisResult)
 
-Sweep = _reflection.GeneratedProtocolMessageType('Sweep', (_message.Message,), {
-  'DESCRIPTOR' : _SWEEP,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Sweep)
-  })
+Sweep = _reflection.GeneratedProtocolMessageType(
+    "Sweep",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SWEEP,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Sweep)
+    },
+)
 _sym_db.RegisterMessage(Sweep)
 
-LinearSweep = _reflection.GeneratedProtocolMessageType('LinearSweep', (_message.Message,), {
-  'DESCRIPTOR' : _LINEARSWEEP,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.LinearSweep)
-  })
+LinearSweep = _reflection.GeneratedProtocolMessageType(
+    "LinearSweep",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _LINEARSWEEP,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.LinearSweep)
+    },
+)
 _sym_db.RegisterMessage(LinearSweep)
 
-LogSweep = _reflection.GeneratedProtocolMessageType('LogSweep', (_message.Message,), {
-  'DESCRIPTOR' : _LOGSWEEP,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.LogSweep)
-  })
+LogSweep = _reflection.GeneratedProtocolMessageType(
+    "LogSweep",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _LOGSWEEP,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.LogSweep)
+    },
+)
 _sym_db.RegisterMessage(LogSweep)
 
-PointSweep = _reflection.GeneratedProtocolMessageType('PointSweep', (_message.Message,), {
-  'DESCRIPTOR' : _POINTSWEEP,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.PointSweep)
-  })
+PointSweep = _reflection.GeneratedProtocolMessageType(
+    "PointSweep",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _POINTSWEEP,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.PointSweep)
+    },
+)
 _sym_db.RegisterMessage(PointSweep)
 
-Control = _reflection.GeneratedProtocolMessageType('Control', (_message.Message,), {
-  'DESCRIPTOR' : _CONTROL,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Control)
-  })
+Control = _reflection.GeneratedProtocolMessageType(
+    "Control",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _CONTROL,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Control)
+    },
+)
 _sym_db.RegisterMessage(Control)
 
-Save = _reflection.GeneratedProtocolMessageType('Save', (_message.Message,), {
-  'DESCRIPTOR' : _SAVE,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Save)
-  })
+Save = _reflection.GeneratedProtocolMessageType(
+    "Save",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SAVE,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Save)
+    },
+)
 _sym_db.RegisterMessage(Save)
 
-Include = _reflection.GeneratedProtocolMessageType('Include', (_message.Message,), {
-  'DESCRIPTOR' : _INCLUDE,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Include)
-  })
+Include = _reflection.GeneratedProtocolMessageType(
+    "Include",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _INCLUDE,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Include)
+    },
+)
 _sym_db.RegisterMessage(Include)
 
-LibInclude = _reflection.GeneratedProtocolMessageType('LibInclude', (_message.Message,), {
-  'DESCRIPTOR' : _LIBINCLUDE,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.LibInclude)
-  })
+LibInclude = _reflection.GeneratedProtocolMessageType(
+    "LibInclude",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _LIBINCLUDE,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.LibInclude)
+    },
+)
 _sym_db.RegisterMessage(LibInclude)
 
-Meas = _reflection.GeneratedProtocolMessageType('Meas', (_message.Message,), {
-  'DESCRIPTOR' : _MEAS,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Meas)
-  })
+Meas = _reflection.GeneratedProtocolMessageType(
+    "Meas",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _MEAS,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Meas)
+    },
+)
 _sym_db.RegisterMessage(Meas)
 
-Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,), {
-  'DESCRIPTOR' : _SIGNAL,
-  '__module__' : 'spice_pb2'
-  # @@protoc_insertion_point(class_scope:vlsir.spice.Signal)
-  })
+Signal = _reflection.GeneratedProtocolMessageType(
+    "Signal",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SIGNAL,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.Signal)
+    },
+)
 _sym_db.RegisterMessage(Signal)
 
-_SPICE = DESCRIPTOR.services_by_name['Spice']
+_SPICE = DESCRIPTOR.services_by_name["Spice"]
 if _descriptor._USE_C_DESCRIPTORS == False:
 
-  DESCRIPTOR._options = None
-  _DCRESULT_MEASUREMENTSENTRY._options = None
-  _DCRESULT_MEASUREMENTSENTRY._serialized_options = b'8\001'
-  _TRANINPUT_ICENTRY._options = None
-  _TRANINPUT_ICENTRY._serialized_options = b'8\001'
-  _TRANRESULT_MEASUREMENTSENTRY._options = None
-  _TRANRESULT_MEASUREMENTSENTRY._serialized_options = b'8\001'
-  _ACRESULT_MEASUREMENTSENTRY._options = None
-  _ACRESULT_MEASUREMENTSENTRY._serialized_options = b'8\001'
-  _SIMINPUT._serialized_start=89
-  _SIMINPUT._serialized_end=260
-  _SIMRESULT._serialized_start=262
-  _SIMRESULT._serialized_end=314
-  _SIMOPTIONS._serialized_start=316
-  _SIMOPTIONS._serialized_end=403
-  _ANALYSIS._serialized_start=406
-  _ANALYSIS._serialized_end=706
-  _ANALYSISRESULT._serialized_start=709
-  _ANALYSISRESULT._serialized_end=1022
-  _OPINPUT._serialized_start=1024
-  _OPINPUT._serialized_end=1093
-  _OPRESULT._serialized_start=1095
-  _OPRESULT._serialized_end=1171
-  _DCINPUT._serialized_start=1173
-  _DCINPUT._serialized_end=1297
-  _DCRESULT._serialized_start=1300
-  _DCRESULT._serialized_end=1506
-  _DCRESULT_MEASUREMENTSENTRY._serialized_start=1449
-  _DCRESULT_MEASUREMENTSENTRY._serialized_end=1500
-  _TRANINPUT._serialized_start=1509
-  _TRANINPUT._serialized_end=1697
-  _TRANINPUT_ICENTRY._serialized_start=1656
-  _TRANINPUT_ICENTRY._serialized_end=1697
-  _TRANRESULT._serialized_start=1700
-  _TRANRESULT._serialized_end=1896
-  _TRANRESULT_MEASUREMENTSENTRY._serialized_start=1449
-  _TRANRESULT_MEASUREMENTSENTRY._serialized_end=1500
-  _COMPLEXNUM._serialized_start=1898
-  _COMPLEXNUM._serialized_end=1934
-  _ACINPUT._serialized_start=1936
-  _ACINPUT._serialized_end=2050
-  _ACRESULT._serialized_start=2053
-  _ACRESULT._serialized_end=2278
-  _ACRESULT_MEASUREMENTSENTRY._serialized_start=1449
-  _ACRESULT_MEASUREMENTSENTRY._serialized_end=1500
-  _SWEEPINPUT._serialized_start=2281
-  _SWEEPINPUT._serialized_end=2441
-  _SWEEPRESULT._serialized_start=2444
-  _SWEEPRESULT._serialized_end=2574
-  _MONTEINPUT._serialized_start=2577
-  _MONTEINPUT._serialized_end=2712
-  _MONTERESULT._serialized_start=2715
-  _MONTERESULT._serialized_end=2845
-  _CUSTOMANALYSISINPUT._serialized_start=2847
-  _CUSTOMANALYSISINPUT._serialized_end=2941
-  _CUSTOMANALYSISRESULT._serialized_start=2943
-  _CUSTOMANALYSISRESULT._serialized_end=2965
-  _SWEEP._serialized_start=2968
-  _SWEEP._serialized_end=3106
-  _LINEARSWEEP._serialized_start=3108
-  _LINEARSWEEP._serialized_end=3164
-  _LOGSWEEP._serialized_start=3166
-  _LOGSWEEP._serialized_end=3219
-  _POINTSWEEP._serialized_start=3221
-  _POINTSWEEP._serialized_end=3277
-  _CONTROL._serialized_start=3280
-  _CONTROL._serialized_end=3504
-  _SAVE._serialized_start=3506
-  _SAVE._serialized_end=3613
-  _SAVE_SAVEMODE._serialized_start=3576
-  _SAVE_SAVEMODE._serialized_end=3605
-  _INCLUDE._serialized_start=3615
-  _INCLUDE._serialized_end=3638
-  _LIBINCLUDE._serialized_start=3640
-  _LIBINCLUDE._serialized_end=3683
-  _MEAS._serialized_start=3685
-  _MEAS._serialized_end=3742
-  _SIGNAL._serialized_start=3744
-  _SIGNAL._serialized_end=3862
-  _SIGNAL_QUANTITY._serialized_start=3816
-  _SIGNAL_QUANTITY._serialized_end=3862
-  _SPICE._serialized_start=3864
-  _SPICE._serialized_end=3925
+    DESCRIPTOR._options = None
+    _DCRESULT_MEASUREMENTSENTRY._options = None
+    _DCRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
+    _TRANINPUT_ICENTRY._options = None
+    _TRANINPUT_ICENTRY._serialized_options = b"8\001"
+    _TRANRESULT_MEASUREMENTSENTRY._options = None
+    _TRANRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
+    _ACRESULT_MEASUREMENTSENTRY._options = None
+    _ACRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
+    _SIMINPUT._serialized_start = 89
+    _SIMINPUT._serialized_end = 260
+    _SIMRESULT._serialized_start = 262
+    _SIMRESULT._serialized_end = 314
+    _SIMOPTIONS._serialized_start = 316
+    _SIMOPTIONS._serialized_end = 403
+    _ANALYSIS._serialized_start = 406
+    _ANALYSIS._serialized_end = 706
+    _ANALYSISRESULT._serialized_start = 709
+    _ANALYSISRESULT._serialized_end = 1022
+    _OPINPUT._serialized_start = 1024
+    _OPINPUT._serialized_end = 1093
+    _OPRESULT._serialized_start = 1095
+    _OPRESULT._serialized_end = 1171
+    _DCINPUT._serialized_start = 1173
+    _DCINPUT._serialized_end = 1297
+    _DCRESULT._serialized_start = 1300
+    _DCRESULT._serialized_end = 1506
+    _DCRESULT_MEASUREMENTSENTRY._serialized_start = 1449
+    _DCRESULT_MEASUREMENTSENTRY._serialized_end = 1500
+    _TRANINPUT._serialized_start = 1509
+    _TRANINPUT._serialized_end = 1697
+    _TRANINPUT_ICENTRY._serialized_start = 1656
+    _TRANINPUT_ICENTRY._serialized_end = 1697
+    _TRANRESULT._serialized_start = 1700
+    _TRANRESULT._serialized_end = 1896
+    _TRANRESULT_MEASUREMENTSENTRY._serialized_start = 1449
+    _TRANRESULT_MEASUREMENTSENTRY._serialized_end = 1500
+    _COMPLEXNUM._serialized_start = 1898
+    _COMPLEXNUM._serialized_end = 1934
+    _ACINPUT._serialized_start = 1936
+    _ACINPUT._serialized_end = 2050
+    _ACRESULT._serialized_start = 2053
+    _ACRESULT._serialized_end = 2278
+    _ACRESULT_MEASUREMENTSENTRY._serialized_start = 1449
+    _ACRESULT_MEASUREMENTSENTRY._serialized_end = 1500
+    _SWEEPINPUT._serialized_start = 2281
+    _SWEEPINPUT._serialized_end = 2441
+    _SWEEPRESULT._serialized_start = 2444
+    _SWEEPRESULT._serialized_end = 2574
+    _MONTEINPUT._serialized_start = 2577
+    _MONTEINPUT._serialized_end = 2712
+    _MONTERESULT._serialized_start = 2715
+    _MONTERESULT._serialized_end = 2845
+    _CUSTOMANALYSISINPUT._serialized_start = 2847
+    _CUSTOMANALYSISINPUT._serialized_end = 2941
+    _CUSTOMANALYSISRESULT._serialized_start = 2943
+    _CUSTOMANALYSISRESULT._serialized_end = 2965
+    _SWEEP._serialized_start = 2968
+    _SWEEP._serialized_end = 3106
+    _LINEARSWEEP._serialized_start = 3108
+    _LINEARSWEEP._serialized_end = 3164
+    _LOGSWEEP._serialized_start = 3166
+    _LOGSWEEP._serialized_end = 3219
+    _POINTSWEEP._serialized_start = 3221
+    _POINTSWEEP._serialized_end = 3277
+    _CONTROL._serialized_start = 3280
+    _CONTROL._serialized_end = 3504
+    _SAVE._serialized_start = 3506
+    _SAVE._serialized_end = 3613
+    _SAVE_SAVEMODE._serialized_start = 3576
+    _SAVE_SAVEMODE._serialized_end = 3605
+    _INCLUDE._serialized_start = 3615
+    _INCLUDE._serialized_end = 3638
+    _LIBINCLUDE._serialized_start = 3640
+    _LIBINCLUDE._serialized_end = 3683
+    _MEAS._serialized_start = 3685
+    _MEAS._serialized_end = 3742
+    _SIGNAL._serialized_start = 3744
+    _SIGNAL._serialized_end = 3862
+    _SIGNAL_QUANTITY._serialized_start = 3816
+    _SIGNAL_QUANTITY._serialized_end = 3862
+    _SPICE._serialized_start = 3864
+    _SPICE._serialized_end = 3925
 # @@protoc_insertion_point(module_scope)
