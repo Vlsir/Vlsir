@@ -6,7 +6,9 @@ Spectre Implementation of `vlsir.spice.Sim`
 import subprocess, re, shutil, glob
 import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
+from dataclasses import dataclass
 from warnings import warn
+from enum import Enum 
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -136,7 +138,7 @@ class SpectreSim(Sim):
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
-    def netlist_analysis(self, an: vsp.Analysis, netlist_file) -> None:
+    def netlist_analysis(self, an: vsp.Analysis, netlist_file: IO) -> None:
         """ Netlist an `Analysis`, largely dispatching its content to a type-specific method. """
 
         inner = an.WhichOneof("an")
@@ -148,11 +150,30 @@ class SpectreSim(Sim):
         )
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
-    def netlist_ac(self, an: vsp.AcInput, netlist_file) -> None:
+    def netlist_ac(self, an: vsp.AcInput, netlist_file: IO) -> None:
         """ Run an AC analysis. """
-        raise NotImplementedError  # FIXME!
 
-    def netlist_dc(self, an: vsp.DcInput, netlist_file) -> None:
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+        
+        # Unpack the analysis / sweep content
+        fstart = an.fstart
+        if fstart <= 0:
+            raise ValueError(f"Invalid `fstart` {fstart}")
+        fstop = an.fstop
+        if fstop <= 0:
+            raise ValueError(f"Invalid `fstop` {fstop}")
+        npts = an.npts
+        if npts <= 0:
+            raise ValueError(f"Invalid `npts` {npts}")
+        
+        # Write the analysis command
+        line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}\n\n"
+        netlist_file.write(line) 
+
+    def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
         """ Netlist a DC analysis. """
 
         if not an.analysis_name:
@@ -168,12 +189,16 @@ class SpectreSim(Sim):
             sweep = an.sweep.linear
             line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
             netlist_file.write(line)
-        elif sweep_type in ("log", "points"):
+        elif sweep_type == "points":
+            sweep = an.sweep.points
+            line = f"{an.analysis_name} dc values=[{sweep.points}]\n\n"
+            netlist_file.write(line)
+        elif sweep_type == "log":
             raise NotImplementedError
         else:
             raise ValueError("Invalid sweep type")
 
-    def netlist_op(self, an: vsp.OpInput, netlist_file) -> None:
+    def netlist_op(self, an: vsp.OpInput, netlist_file: IO) -> None:
         """ Netlist a single point DC analysis """
 
         if not an.analysis_name:
@@ -183,7 +208,7 @@ class SpectreSim(Sim):
 
         netlist_file.write(f"{an.analysis_name} dc oppoint=rawfile\n\n")
 
-    def netlist_tran(self, an: vsp.TranInput, netlist_file) -> None:
+    def netlist_tran(self, an: vsp.TranInput, netlist_file: IO) -> None:
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
@@ -193,29 +218,45 @@ class SpectreSim(Sim):
 
         netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
 
-    def parse_ac(self, an: vsp.AcInput, data: Mapping[str, Any]) -> AcResult:
-        raise NotImplementedError  # FIXME!
+    def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
+        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim! 
+        measurements = self.get_measurements("*.mt*") 
 
-    def parse_dc(self, an: vsp.DcInput, data: Mapping[str, Any]) -> DcResult:
-        measurements = self.get_measurements("*.ms*")
-        return DcResult(
-            indep_name=an.indep_name,
+        # Pop the frequence vector out of the data
+        freq = nutbin.data.pop("freq")
+        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data. 
+        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts. 
+        if np.any(freq.imag):
+            raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
+        freq = freq.real
+
+        return AcResult(
             analysis_name=an.analysis_name,
-            data=data["data"],
+            freq=freq,
+            data=nutbin.data,
             measurements=measurements,
         )
 
-    def parse_op(self, an: vsp.OpInput, data: Mapping[str, Any]) -> OpResult:
-        return OpResult(
+    def parse_dc(self, an: vsp.DcInput, nutbin: "NutBinAnalysis") -> DcResult:
+        measurements = self.get_measurements("*.ms*")
+        return DcResult(
             analysis_name=an.analysis_name,
-            data={k: v[0] for k, v in data["data"].items()},
+            indep_name=an.indep_name,
+            data=nutbin.data,
+            measurements=measurements,
         )
 
-    def parse_tran(self, an: vsp.TranInput, data: Mapping[str, Any]) -> TranResult:
+    def parse_op(self, an: vsp.OpInput, nutbin: "NutBinAnalysis") -> OpResult:
+        return OpResult(
+            analysis_name=an.analysis_name,
+            data={k: v[0] for k, v in nutbin.data.items()},
+        )
+
+    def parse_tran(self, an: vsp.TranInput, nutbin: "NutBinAnalysis") -> TranResult:
         """ Extract the results for Analysis `an` from `data`. """
         measurements = self.get_measurements("*.mt*")
         return TranResult(
-            analysis_name=an.analysis_name, data=data["data"], measurements=measurements
+            analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
         )
 
     def get_measurements(self, filepat: str) -> Dict[str, float]:
@@ -233,72 +274,151 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """ Run a Spectre sub-process, executing the simulation """
         # Note the `nutbin` output format is dictated here
-        return self.run_subprocess(
-            cmd=f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
-        )
+        cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
+        return self.run_subprocess(cmd)
 
 
-def parse_nutbin(f: IO) -> Mapping[str, Any]:
+class FromStr:
+    """ Mix-in for creating `Enum`s from string values. """
+
+    @classmethod 
+    def from_str(cls, s: str) -> "FromStr":
+        reversed = {v.value: v for v in cls}
+        if s not in reversed:
+            msg = f"Invalid `{cls.__name__}`: `{s}`"
+            raise ValueError(msg)
+        return reversed[s]
+
+
+class NumType(FromStr, Enum):
+    """ # Numeric Datatypes 
+    Values equal the strings used in NutBin data files. """
+
+    REAL = "real"
+    COMPLEX = "complex"
+
+
+class Units(FromStr, Enum):
+    """ # Unit Types
+    Values equal the strings used in NutBin data files. """
+
+    DUMMY = "dummy"
+    SWEEP = "sweep"
+    SECONDS = "s"
+    VOLTS = "V"
+    AMPS = "A"
+    HERTZ = "Hz"
+    CELSIUS = "C"
+
+
+@dataclass
+class VarSpec:
+    """ Variable Spec """
+    
+    name: str 
+    units: Units
+
+
+@dataclass 
+class NutBinAnalysis:
+    """ Analysis result from a NutBin file. """
+
+    analysis_name: str  # Analysis name
+    numtype: NumType  # Numeric type in `data` field
+    data: Mapping[str, np.ndarray]  # Signal name => data
+    units: Mapping[str, Units]  # Signal name => units
+
+
+def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
     """ Parse a `nutbin` format set of simulation results. 
+    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`. 
     Note this is paired with the simulator invocation commands, which include `format=nutbin`. """
 
-    data = {}
-
+    # Parse per-file header info
     # First 2 lines are ascii one line statements
     _title = f.readline()  # Title, ignored
     _date = f.readline()  # Run date, ignored
-    while True:
-        # Next 4 lines are also ascii one line statements
-        plotname = f.readline()  # Simulation name
+    
+    # And parse the rest of the file per-analysis
+    rv = {}
+    while f:
+        plotname = f.readline().decode("ascii")  # Simulation name
         if len(plotname) == 0:
             break
-        flags = f.readline()  # Flags for this simulation result
-        num_vars_line = f.readline()  # No. Variables:   [nvar]
-        num_pts_line = f.readline()  # No. Points:      [npts]
-        sim_name = plotname.decode("ascii").split("`")[-1].split("'")[0]
-        data[sim_name] = dict(data={}, units={})
-
-        # Find the number of variables and number of points
-        num_vars = int(
-            re.match(
-                r"No. Variables:\s+(?P<num_vars>\d+)\n", num_vars_line.decode("ascii"),
-            ).group("num_vars")
-        )
-        num_pts = int(
-            re.match(
-                r"No. Points:\s+(?P<num_pts>\d+)\n", num_pts_line.decode("ascii"),
-            ).group("num_pts")
-        )
-
-        # Decode the variables spec, looks like the following
-        # Variables: [Variable idx] [Variable name] [units] [optional_flags]
-        var_line = f.readline().decode("ascii")
-        var_specs = [_read_var_spec(var_line[10:])]
-        for i in range(num_vars - 1):
-            var_specs.append(_read_var_spec(f.readline().decode("ascii")))
-
-        # Read the binary data, should look like the following:
-        # Binary: \n[Binary data]
-        binary_line = f.readline().decode("ascii")
-        assert binary_line == "Binary:\n"
-        # Data is big endian
-        bin_data = np.fromfile(
-            f, dtype=np.dtype(float).newbyteorder(">"), count=num_vars * num_pts
-        )
-        for i, var in enumerate(var_specs):
-            data[sim_name]["data"][var[0]] = bin_data[i::num_vars]
-            data[sim_name]["units"][var[0]] = var[1]
-
-    return data
+        an = parse_nutbin_analysis(f, plotname)
+        rv[an.analysis_name] = an
+    return rv
 
 
-def _read_var_spec(line: str) -> Tuple[str, str]:
+def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
+    """ Parse a `NutBinAnalysis` from an open nutbin-format file `f`. """
+
+    # Next 4 lines are also ascii one line statements
+    # Parse the `Flags` field, which primarily includes the numeric datatype
+    flags = f.readline().decode("ascii") 
+    flags = flags.split()
+    if len(flags) != 2 or flags[0] != "Flags:":
+        raise ValueError(f"Invalid flags {flags}")
+    numtype = NumType.from_str(flags[1])
+    nptypes = {
+        NumType.REAL: float,
+        NumType.COMPLEX: complex
+    }
+    nptype = nptypes[numtype]
+
+    # Parse the number of variables and points
+    num_vars_line = f.readline()  # No. Variables:   [nvar]
+    num_pts_line = f.readline()  # No. Points:      [npts]
+    sim_name = plotname.split("`")[-1].split("'")[0]
+
+    # Find the number of variables and number of points
+    num_vars = int(
+        re.match(
+            r"No. Variables:\s+(?P<num_vars>\d+)\n", num_vars_line.decode("ascii"),
+        ).group("num_vars")
+    )
+    num_pts = int(
+        re.match(
+            r"No. Points:\s+(?P<num_pts>\d+)\n", num_pts_line.decode("ascii"),
+        ).group("num_pts")
+    )
+
+    # Decode the variables spec, looks like the following
+    # Variables: [Variable idx] [Variable name] [units] [optional_flags]
+    var_line = f.readline().decode("ascii")
+    var_specs = [_read_var_spec(var_line[10:])]
+    for i in range(num_vars - 1):
+        var_specs.append(_read_var_spec(f.readline().decode("ascii")))
+
+    # Read the binary data, should look like the following:
+    # Binary: \n[Binary data]
+    binary_line = f.readline().decode("ascii")
+    assert binary_line == "Binary:\n"
+    # Data is big endian
+    bin_data = np.fromfile(
+        f, dtype=np.dtype(nptype).newbyteorder(">"), count=num_vars * num_pts
+    )
+    data = {}
+    units = {}
+    for i, var in enumerate(var_specs):
+        data[var.name] = bin_data[i::num_vars]
+        units[var.name] = var.units
+
+    return NutBinAnalysis(
+        analysis_name=sim_name,
+        numtype=numtype,
+        data=data,
+        units=units,
+    )
+
+
+def _read_var_spec(line: str) -> VarSpec:
     """Read a Variable spec line from the input
     and return the name and the units."""
     m = re.match(
         r"\s+(?P<idx>\d+)\s+(?P<name>\S+)\s+(?P<units>\S+)(?P<rest>.*)\n", line
     )
-    return (m.group("name"), m.group("units"))
+    return VarSpec(name=m.group("name"), units=Units.from_str(m.group("units")))
 
 
 def parse_mt0(file: IO) -> Dict[str, float]:

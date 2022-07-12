@@ -96,6 +96,9 @@ class ResolvedParams:
         """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
         are forwarded down to the internal `inner` dictionary. """
         return bool(self.inner)
+    
+    def __contains__(self, key: str) -> bool:
+        return key in self.inner
 
 
 @dataclass

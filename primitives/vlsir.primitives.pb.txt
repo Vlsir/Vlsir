@@ -279,6 +279,10 @@ ext_modules {
     name: "dc"
     desc: "DC Voltage (Volts)"
   }
+  parameters {
+    name: "ac"
+    desc: "AC/ Small-Signal Magnitude (Volts)"
+  }
 }
 ext_modules {
   name {

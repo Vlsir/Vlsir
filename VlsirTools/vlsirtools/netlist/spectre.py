@@ -39,6 +39,9 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
             paramvals.rename("tf", "fall")
             paramvals.rename("tpw", "width")
             paramvals.rename("tper", "period")
+        elif vname == "vdc":
+            if "ac" in paramvals:
+                paramvals.rename("ac", "mag")
 
     # Mapping from spice-prefix to spectre-name for fixed-name types
     basics = {
