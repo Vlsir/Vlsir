@@ -1,4 +1,4 @@
-// source: layout/tetris.proto
+// source: tetris.proto
 /**
  * @fileoverview
  * @enhanceable

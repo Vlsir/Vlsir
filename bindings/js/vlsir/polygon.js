@@ -1,4 +1,4 @@
-// source: layout/raw.proto
+// source: raw.proto
 /**
  * @fileoverview
  * @enhanceable

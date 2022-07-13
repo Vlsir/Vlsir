@@ -13,7 +13,14 @@ def test_version():
 def test_sim():
     # Test creation of a `vlsir.spice.SimInput`
 
-    from vlsir.circuit_pb2 import Module, Signal, Connection, ConnectionTarget, Port, Instance
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        ConnectionTarget,
+        Port,
+        Instance,
+    )
     from vlsir.utils_pb2 import Reference, QualifiedName
 
     inp = vlsir.spice.SimInput()
@@ -31,10 +38,8 @@ def test_sim():
                         )
                     ),
                     connections=[
-                        Connection(portname="p",
-                            target=ConnectionTarget(sig="1")),
-                        Connection(portname="n",
-                            target=ConnectionTarget(sig="VSS"))
+                        Connection(portname="p", target=ConnectionTarget(sig="1")),
+                        Connection(portname="n", target=ConnectionTarget(sig="VSS")),
                     ],
                 )
             ],

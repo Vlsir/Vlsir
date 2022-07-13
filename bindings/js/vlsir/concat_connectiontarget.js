@@ -12,13 +12,12 @@
 // @ts-nocheck
 
 goog.provide('proto.vlsir.circuit.Concat');
-goog.provide('proto.vlsir.circuit.Connection');
-goog.provide('proto.vlsir.circuit.Connection.StypeCase');
+goog.provide('proto.vlsir.circuit.ConnectionTarget');
+goog.provide('proto.vlsir.circuit.ConnectionTarget.StypeCase');
 
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
 goog.require('jspb.Message');
-goog.require('proto.vlsir.circuit.Signal');
 goog.require('proto.vlsir.circuit.Slice');
 
 /**
@@ -52,16 +51,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.vlsir.circuit.Connection = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.vlsir.circuit.Connection.oneofGroups_);
+proto.vlsir.circuit.ConnectionTarget = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.vlsir.circuit.ConnectionTarget.oneofGroups_);
 };
-goog.inherits(proto.vlsir.circuit.Connection, jspb.Message);
+goog.inherits(proto.vlsir.circuit.ConnectionTarget, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.vlsir.circuit.Connection.displayName = 'proto.vlsir.circuit.Connection';
+  proto.vlsir.circuit.ConnectionTarget.displayName = 'proto.vlsir.circuit.ConnectionTarget';
 }
 
 /**
@@ -103,7 +102,7 @@ proto.vlsir.circuit.Concat.prototype.toObject = function(opt_includeInstance) {
 proto.vlsir.circuit.Concat.toObject = function(includeInstance, msg) {
   var f, obj = {
     partsList: jspb.Message.toObjectList(msg.getPartsList(),
-    proto.vlsir.circuit.Connection.toObject, includeInstance)
+    proto.vlsir.circuit.ConnectionTarget.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -141,8 +140,8 @@ proto.vlsir.circuit.Concat.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.vlsir.circuit.Connection;
-      reader.readMessage(value,proto.vlsir.circuit.Connection.deserializeBinaryFromReader);
+      var value = new proto.vlsir.circuit.ConnectionTarget;
+      reader.readMessage(value,proto.vlsir.circuit.ConnectionTarget.deserializeBinaryFromReader);
       msg.addParts(value);
       break;
     default:
@@ -179,24 +178,24 @@ proto.vlsir.circuit.Concat.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       1,
       f,
-      proto.vlsir.circuit.Connection.serializeBinaryToWriter
+      proto.vlsir.circuit.ConnectionTarget.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * repeated Connection parts = 1;
- * @return {!Array<!proto.vlsir.circuit.Connection>}
+ * repeated ConnectionTarget parts = 1;
+ * @return {!Array<!proto.vlsir.circuit.ConnectionTarget>}
  */
 proto.vlsir.circuit.Concat.prototype.getPartsList = function() {
-  return /** @type{!Array<!proto.vlsir.circuit.Connection>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.Connection, 1));
+  return /** @type{!Array<!proto.vlsir.circuit.ConnectionTarget>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.ConnectionTarget, 1));
 };
 
 
 /**
- * @param {!Array<!proto.vlsir.circuit.Connection>} value
+ * @param {!Array<!proto.vlsir.circuit.ConnectionTarget>} value
  * @return {!proto.vlsir.circuit.Concat} returns this
 */
 proto.vlsir.circuit.Concat.prototype.setPartsList = function(value) {
@@ -205,12 +204,12 @@ proto.vlsir.circuit.Concat.prototype.setPartsList = function(value) {
 
 
 /**
- * @param {!proto.vlsir.circuit.Connection=} opt_value
+ * @param {!proto.vlsir.circuit.ConnectionTarget=} opt_value
  * @param {number=} opt_index
- * @return {!proto.vlsir.circuit.Connection}
+ * @return {!proto.vlsir.circuit.ConnectionTarget}
  */
 proto.vlsir.circuit.Concat.prototype.addParts = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.vlsir.circuit.Connection, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.vlsir.circuit.ConnectionTarget, opt_index);
 };
 
 
@@ -232,12 +231,12 @@ proto.vlsir.circuit.Concat.prototype.clearPartsList = function() {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.vlsir.circuit.Connection.oneofGroups_ = [[1,2,3]];
+proto.vlsir.circuit.ConnectionTarget.oneofGroups_ = [[1,2,3]];
 
 /**
  * @enum {number}
  */
-proto.vlsir.circuit.Connection.StypeCase = {
+proto.vlsir.circuit.ConnectionTarget.StypeCase = {
   STYPE_NOT_SET: 0,
   SIG: 1,
   SLICE: 2,
@@ -245,10 +244,10 @@ proto.vlsir.circuit.Connection.StypeCase = {
 };
 
 /**
- * @return {proto.vlsir.circuit.Connection.StypeCase}
+ * @return {proto.vlsir.circuit.ConnectionTarget.StypeCase}
  */
-proto.vlsir.circuit.Connection.prototype.getStypeCase = function() {
-  return /** @type {proto.vlsir.circuit.Connection.StypeCase} */(jspb.Message.computeOneofCase(this, proto.vlsir.circuit.Connection.oneofGroups_[0]));
+proto.vlsir.circuit.ConnectionTarget.prototype.getStypeCase = function() {
+  return /** @type {proto.vlsir.circuit.ConnectionTarget.StypeCase} */(jspb.Message.computeOneofCase(this, proto.vlsir.circuit.ConnectionTarget.oneofGroups_[0]));
 };
 
 
@@ -266,8 +265,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.vlsir.circuit.Connection.prototype.toObject = function(opt_includeInstance) {
-  return proto.vlsir.circuit.Connection.toObject(opt_includeInstance, this);
+proto.vlsir.circuit.ConnectionTarget.prototype.toObject = function(opt_includeInstance) {
+  return proto.vlsir.circuit.ConnectionTarget.toObject(opt_includeInstance, this);
 };
 
 
@@ -276,13 +275,13 @@ proto.vlsir.circuit.Connection.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.vlsir.circuit.Connection} msg The msg instance to transform.
+ * @param {!proto.vlsir.circuit.ConnectionTarget} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.circuit.Connection.toObject = function(includeInstance, msg) {
+proto.vlsir.circuit.ConnectionTarget.toObject = function(includeInstance, msg) {
   var f, obj = {
-    sig: (f = msg.getSig()) && proto.vlsir.circuit.Signal.toObject(includeInstance, f),
+    sig: jspb.Message.getFieldWithDefault(msg, 1, ""),
     slice: (f = msg.getSlice()) && proto.vlsir.circuit.Slice.toObject(includeInstance, f),
     concat: (f = msg.getConcat()) && proto.vlsir.circuit.Concat.toObject(includeInstance, f)
   };
@@ -298,23 +297,23 @@ proto.vlsir.circuit.Connection.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.vlsir.circuit.Connection}
+ * @return {!proto.vlsir.circuit.ConnectionTarget}
  */
-proto.vlsir.circuit.Connection.deserializeBinary = function(bytes) {
+proto.vlsir.circuit.ConnectionTarget.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.vlsir.circuit.Connection;
-  return proto.vlsir.circuit.Connection.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.vlsir.circuit.ConnectionTarget;
+  return proto.vlsir.circuit.ConnectionTarget.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.vlsir.circuit.Connection} msg The message object to deserialize into.
+ * @param {!proto.vlsir.circuit.ConnectionTarget} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.vlsir.circuit.Connection}
+ * @return {!proto.vlsir.circuit.ConnectionTarget}
  */
-proto.vlsir.circuit.Connection.deserializeBinaryFromReader = function(msg, reader) {
+proto.vlsir.circuit.ConnectionTarget.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -322,8 +321,7 @@ proto.vlsir.circuit.Connection.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.vlsir.circuit.Signal;
-      reader.readMessage(value,proto.vlsir.circuit.Signal.deserializeBinaryFromReader);
+      var value = /** @type {string} */ (reader.readString());
       msg.setSig(value);
       break;
     case 2:
@@ -349,9 +347,9 @@ proto.vlsir.circuit.Connection.deserializeBinaryFromReader = function(msg, reade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.vlsir.circuit.Connection.prototype.serializeBinary = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.vlsir.circuit.Connection.serializeBinaryToWriter(this, writer);
+  proto.vlsir.circuit.ConnectionTarget.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -359,18 +357,17 @@ proto.vlsir.circuit.Connection.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.vlsir.circuit.Connection} message
+ * @param {!proto.vlsir.circuit.ConnectionTarget} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.vlsir.circuit.Connection.serializeBinaryToWriter = function(message, writer) {
+proto.vlsir.circuit.ConnectionTarget.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getSig();
+  f = /** @type {string} */ (jspb.Message.getField(message, 1));
   if (f != null) {
-    writer.writeMessage(
+    writer.writeString(
       1,
-      f,
-      proto.vlsir.circuit.Signal.serializeBinaryToWriter
+      f
     );
   }
   f = message.getSlice();
@@ -393,30 +390,29 @@ proto.vlsir.circuit.Connection.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional Signal sig = 1;
- * @return {?proto.vlsir.circuit.Signal}
+ * optional string sig = 1;
+ * @return {string}
  */
-proto.vlsir.circuit.Connection.prototype.getSig = function() {
-  return /** @type{?proto.vlsir.circuit.Signal} */ (
-    jspb.Message.getWrapperField(this, proto.vlsir.circuit.Signal, 1));
+proto.vlsir.circuit.ConnectionTarget.prototype.getSig = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {?proto.vlsir.circuit.Signal|undefined} value
- * @return {!proto.vlsir.circuit.Connection} returns this
-*/
-proto.vlsir.circuit.Connection.prototype.setSig = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 1, proto.vlsir.circuit.Connection.oneofGroups_[0], value);
+ * @param {string} value
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
+ */
+proto.vlsir.circuit.ConnectionTarget.prototype.setSig = function(value) {
+  return jspb.Message.setOneofField(this, 1, proto.vlsir.circuit.ConnectionTarget.oneofGroups_[0], value);
 };
 
 
 /**
- * Clears the message field making it undefined.
- * @return {!proto.vlsir.circuit.Connection} returns this
+ * Clears the field making it undefined.
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
  */
-proto.vlsir.circuit.Connection.prototype.clearSig = function() {
-  return this.setSig(undefined);
+proto.vlsir.circuit.ConnectionTarget.prototype.clearSig = function() {
+  return jspb.Message.setOneofField(this, 1, proto.vlsir.circuit.ConnectionTarget.oneofGroups_[0], undefined);
 };
 
 
@@ -424,7 +420,7 @@ proto.vlsir.circuit.Connection.prototype.clearSig = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.vlsir.circuit.Connection.prototype.hasSig = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.hasSig = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
@@ -433,7 +429,7 @@ proto.vlsir.circuit.Connection.prototype.hasSig = function() {
  * optional Slice slice = 2;
  * @return {?proto.vlsir.circuit.Slice}
  */
-proto.vlsir.circuit.Connection.prototype.getSlice = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.getSlice = function() {
   return /** @type{?proto.vlsir.circuit.Slice} */ (
     jspb.Message.getWrapperField(this, proto.vlsir.circuit.Slice, 2));
 };
@@ -441,18 +437,18 @@ proto.vlsir.circuit.Connection.prototype.getSlice = function() {
 
 /**
  * @param {?proto.vlsir.circuit.Slice|undefined} value
- * @return {!proto.vlsir.circuit.Connection} returns this
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
 */
-proto.vlsir.circuit.Connection.prototype.setSlice = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 2, proto.vlsir.circuit.Connection.oneofGroups_[0], value);
+proto.vlsir.circuit.ConnectionTarget.prototype.setSlice = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 2, proto.vlsir.circuit.ConnectionTarget.oneofGroups_[0], value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.vlsir.circuit.Connection} returns this
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
  */
-proto.vlsir.circuit.Connection.prototype.clearSlice = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.clearSlice = function() {
   return this.setSlice(undefined);
 };
 
@@ -461,7 +457,7 @@ proto.vlsir.circuit.Connection.prototype.clearSlice = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.vlsir.circuit.Connection.prototype.hasSlice = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.hasSlice = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -470,7 +466,7 @@ proto.vlsir.circuit.Connection.prototype.hasSlice = function() {
  * optional Concat concat = 3;
  * @return {?proto.vlsir.circuit.Concat}
  */
-proto.vlsir.circuit.Connection.prototype.getConcat = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.getConcat = function() {
   return /** @type{?proto.vlsir.circuit.Concat} */ (
     jspb.Message.getWrapperField(this, proto.vlsir.circuit.Concat, 3));
 };
@@ -478,18 +474,18 @@ proto.vlsir.circuit.Connection.prototype.getConcat = function() {
 
 /**
  * @param {?proto.vlsir.circuit.Concat|undefined} value
- * @return {!proto.vlsir.circuit.Connection} returns this
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
 */
-proto.vlsir.circuit.Connection.prototype.setConcat = function(value) {
-  return jspb.Message.setOneofWrapperField(this, 3, proto.vlsir.circuit.Connection.oneofGroups_[0], value);
+proto.vlsir.circuit.ConnectionTarget.prototype.setConcat = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 3, proto.vlsir.circuit.ConnectionTarget.oneofGroups_[0], value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.vlsir.circuit.Connection} returns this
+ * @return {!proto.vlsir.circuit.ConnectionTarget} returns this
  */
-proto.vlsir.circuit.Connection.prototype.clearConcat = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.clearConcat = function() {
   return this.setConcat(undefined);
 };
 
@@ -498,7 +494,7 @@ proto.vlsir.circuit.Connection.prototype.clearConcat = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.vlsir.circuit.Connection.prototype.hasConcat = function() {
+proto.vlsir.circuit.ConnectionTarget.prototype.hasConcat = function() {
   return jspb.Message.getField(this, 3) != null;
 };
 

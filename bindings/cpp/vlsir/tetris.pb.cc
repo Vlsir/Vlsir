@@ -14,524 +14,364 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_circuit_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Interface_circuit_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_circuit_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Module_circuit_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_raw_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Layer_raw_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_raw_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Point_raw_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Abstract_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_AbstractPort_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_EdgePort_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_ZTopInner_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Assign_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Cell_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Instance_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LayerEnum_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Layout_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_MetalLayer_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Outline_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Place_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_PrimitiveLayer_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RelPlace_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TrackCross_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TrackRef_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_TrackSpec_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TrackSpec_Repeat_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TrackSpec_TrackEntry_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_ViaLayer_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_tetris_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Xy_tetris_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_utils_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AuthorMetadata_utils_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_utils_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Reference_utils_2eproto;
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace vlsir {
 namespace tetris {
-class LibraryDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Library> _instance;
-} _Library_default_instance_;
-class CellDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Cell> _instance;
-} _Cell_default_instance_;
-class LayoutDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Layout> _instance;
-} _Layout_default_instance_;
-class AssignDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Assign> _instance;
-} _Assign_default_instance_;
-class TrackCrossDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TrackCross> _instance;
-} _TrackCross_default_instance_;
-class TrackRefDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TrackRef> _instance;
-} _TrackRef_default_instance_;
-class OutlineDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Outline> _instance;
-} _Outline_default_instance_;
-class AbstractDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Abstract> _instance;
-} _Abstract_default_instance_;
-class AbstractPort_EdgePortDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AbstractPort_EdgePort> _instance;
-} _AbstractPort_EdgePort_default_instance_;
-class AbstractPort_ZTopEdgePortDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AbstractPort_ZTopEdgePort> _instance;
-} _AbstractPort_ZTopEdgePort_default_instance_;
-class AbstractPort_ZTopInnerDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AbstractPort_ZTopInner> _instance;
-} _AbstractPort_ZTopInner_default_instance_;
-class AbstractPortDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AbstractPort> _instance;
-  const ::vlsir::tetris::AbstractPort_EdgePort* edge_;
-  const ::vlsir::tetris::AbstractPort_ZTopEdgePort* ztop_edge_;
-  const ::vlsir::tetris::AbstractPort_ZTopInner* ztop_inner_;
-} _AbstractPort_default_instance_;
-class InstanceDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Instance> _instance;
-} _Instance_default_instance_;
-class PlaceDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Place> _instance;
-  const ::vlsir::raw::Point* abs_;
-  const ::vlsir::tetris::RelPlace* rel_;
-} _Place_default_instance_;
-class RelPlaceDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RelPlace> _instance;
-} _RelPlace_default_instance_;
-class StackDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Stack> _instance;
-} _Stack_default_instance_;
-class LayerEnumDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LayerEnum> _instance;
-} _LayerEnum_default_instance_;
-class MetalLayerDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MetalLayer> _instance;
-} _MetalLayer_default_instance_;
-class ViaLayerDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ViaLayer> _instance;
-} _ViaLayer_default_instance_;
-class PrimitiveLayerDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PrimitiveLayer> _instance;
-} _PrimitiveLayer_default_instance_;
-class TrackSpec_TrackEntryDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TrackSpec_TrackEntry> _instance;
-} _TrackSpec_TrackEntry_default_instance_;
-class TrackSpec_RepeatDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TrackSpec_Repeat> _instance;
-} _TrackSpec_Repeat_default_instance_;
-class TrackSpecDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TrackSpec> _instance;
-  const ::vlsir::tetris::TrackSpec_TrackEntry* entry_;
-  const ::vlsir::tetris::TrackSpec_Repeat* repeat_;
-} _TrackSpec_default_instance_;
-class XyDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Xy> _instance;
-} _Xy_default_instance_;
+constexpr Library::Library(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : cells_()
+  , domain_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , author_(nullptr){}
+struct LibraryDefaultTypeInternal {
+  constexpr LibraryDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~LibraryDefaultTypeInternal() {}
+  union {
+    Library _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LibraryDefaultTypeInternal _Library_default_instance_;
+constexpr Cell::Cell(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , interface_(nullptr)
+  , module_(nullptr)
+  , abstract_(nullptr)
+  , layout_(nullptr){}
+struct CellDefaultTypeInternal {
+  constexpr CellDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CellDefaultTypeInternal() {}
+  union {
+    Cell _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CellDefaultTypeInternal _Cell_default_instance_;
+constexpr Layout::Layout(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : instances_()
+  , assignments_()
+  , cuts_()
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , outline_(nullptr){}
+struct LayoutDefaultTypeInternal {
+  constexpr LayoutDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~LayoutDefaultTypeInternal() {}
+  union {
+    Layout _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LayoutDefaultTypeInternal _Layout_default_instance_;
+constexpr Assign::Assign(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : net_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , at_(nullptr){}
+struct AssignDefaultTypeInternal {
+  constexpr AssignDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AssignDefaultTypeInternal() {}
+  union {
+    Assign _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AssignDefaultTypeInternal _Assign_default_instance_;
+constexpr TrackCross::TrackCross(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : track_(nullptr)
+  , cross_(nullptr){}
+struct TrackCrossDefaultTypeInternal {
+  constexpr TrackCrossDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TrackCrossDefaultTypeInternal() {}
+  union {
+    TrackCross _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TrackCrossDefaultTypeInternal _TrackCross_default_instance_;
+constexpr TrackRef::TrackRef(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : layer_(int64_t{0})
+  , track_(int64_t{0}){}
+struct TrackRefDefaultTypeInternal {
+  constexpr TrackRefDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TrackRefDefaultTypeInternal() {}
+  union {
+    TrackRef _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TrackRefDefaultTypeInternal _TrackRef_default_instance_;
+constexpr Outline::Outline(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : x_()
+  , _x_cached_byte_size_(0)
+  , y_()
+  , _y_cached_byte_size_(0)
+  , metals_(int64_t{0}){}
+struct OutlineDefaultTypeInternal {
+  constexpr OutlineDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~OutlineDefaultTypeInternal() {}
+  union {
+    Outline _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OutlineDefaultTypeInternal _Outline_default_instance_;
+constexpr Abstract::Abstract(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : ports_()
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , outline_(nullptr){}
+struct AbstractDefaultTypeInternal {
+  constexpr AbstractDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AbstractDefaultTypeInternal() {}
+  union {
+    Abstract _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbstractDefaultTypeInternal _Abstract_default_instance_;
+constexpr AbstractPort_EdgePort::AbstractPort_EdgePort(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : track_(nullptr)
+  , side_(0)
+{}
+struct AbstractPort_EdgePortDefaultTypeInternal {
+  constexpr AbstractPort_EdgePortDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AbstractPort_EdgePortDefaultTypeInternal() {}
+  union {
+    AbstractPort_EdgePort _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbstractPort_EdgePortDefaultTypeInternal _AbstractPort_EdgePort_default_instance_;
+constexpr AbstractPort_ZTopEdgePort::AbstractPort_ZTopEdgePort(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : into_(nullptr)
+  , track_(int64_t{0})
+  , side_(0)
+{}
+struct AbstractPort_ZTopEdgePortDefaultTypeInternal {
+  constexpr AbstractPort_ZTopEdgePortDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AbstractPort_ZTopEdgePortDefaultTypeInternal() {}
+  union {
+    AbstractPort_ZTopEdgePort _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbstractPort_ZTopEdgePortDefaultTypeInternal _AbstractPort_ZTopEdgePort_default_instance_;
+constexpr AbstractPort_ZTopInner::AbstractPort_ZTopInner(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : locs_(){}
+struct AbstractPort_ZTopInnerDefaultTypeInternal {
+  constexpr AbstractPort_ZTopInnerDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AbstractPort_ZTopInnerDefaultTypeInternal() {}
+  union {
+    AbstractPort_ZTopInner _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbstractPort_ZTopInnerDefaultTypeInternal _AbstractPort_ZTopInner_default_instance_;
+constexpr AbstractPort::AbstractPort(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : net_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , _oneof_case_{}{}
+struct AbstractPortDefaultTypeInternal {
+  constexpr AbstractPortDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AbstractPortDefaultTypeInternal() {}
+  union {
+    AbstractPort _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbstractPortDefaultTypeInternal _AbstractPort_default_instance_;
+constexpr Instance::Instance(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cell_(nullptr)
+  , loc_(nullptr)
+  , reflect_horiz_(false)
+  , reflect_vert_(false){}
+struct InstanceDefaultTypeInternal {
+  constexpr InstanceDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~InstanceDefaultTypeInternal() {}
+  union {
+    Instance _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InstanceDefaultTypeInternal _Instance_default_instance_;
+constexpr Place::Place(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : _oneof_case_{}{}
+struct PlaceDefaultTypeInternal {
+  constexpr PlaceDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~PlaceDefaultTypeInternal() {}
+  union {
+    Place _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PlaceDefaultTypeInternal _Place_default_instance_;
+constexpr RelPlace::RelPlace(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct RelPlaceDefaultTypeInternal {
+  constexpr RelPlaceDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~RelPlaceDefaultTypeInternal() {}
+  union {
+    RelPlace _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RelPlaceDefaultTypeInternal _RelPlace_default_instance_;
+constexpr Stack::Stack(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : metals_()
+  , vias_()
+  , prim_(nullptr)
+  , boundary_layer_(nullptr)
+  , units_(0)
+{}
+struct StackDefaultTypeInternal {
+  constexpr StackDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~StackDefaultTypeInternal() {}
+  union {
+    Stack _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StackDefaultTypeInternal _Stack_default_instance_;
+constexpr LayerEnum::LayerEnum(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : index_(int64_t{0})
+  , type_(0)
+{}
+struct LayerEnumDefaultTypeInternal {
+  constexpr LayerEnumDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~LayerEnumDefaultTypeInternal() {}
+  union {
+    LayerEnum _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LayerEnumDefaultTypeInternal _LayerEnum_default_instance_;
+constexpr MetalLayer::MetalLayer(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : entries_()
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , raw_(nullptr)
+  , cutsize_(int64_t{0})
+  , dir_(0)
+
+  , flip_(false)
+  , offset_(int64_t{0})
+  , overlap_(int64_t{0})
+  , prim_(0)
+{}
+struct MetalLayerDefaultTypeInternal {
+  constexpr MetalLayerDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~MetalLayerDefaultTypeInternal() {}
+  union {
+    MetalLayer _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MetalLayerDefaultTypeInternal _MetalLayer_default_instance_;
+constexpr ViaLayer::ViaLayer(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , top_(nullptr)
+  , bot_(nullptr)
+  , size_(nullptr)
+  , raw_(nullptr){}
+struct ViaLayerDefaultTypeInternal {
+  constexpr ViaLayerDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ViaLayerDefaultTypeInternal() {}
+  union {
+    ViaLayer _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ViaLayerDefaultTypeInternal _ViaLayer_default_instance_;
+constexpr PrimitiveLayer::PrimitiveLayer(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : pitches_(nullptr){}
+struct PrimitiveLayerDefaultTypeInternal {
+  constexpr PrimitiveLayerDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~PrimitiveLayerDefaultTypeInternal() {}
+  union {
+    PrimitiveLayer _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PrimitiveLayerDefaultTypeInternal _PrimitiveLayer_default_instance_;
+constexpr TrackSpec_TrackEntry::TrackSpec_TrackEntry(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : width_(int64_t{0})
+  , ttype_(0)
+{}
+struct TrackSpec_TrackEntryDefaultTypeInternal {
+  constexpr TrackSpec_TrackEntryDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TrackSpec_TrackEntryDefaultTypeInternal() {}
+  union {
+    TrackSpec_TrackEntry _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TrackSpec_TrackEntryDefaultTypeInternal _TrackSpec_TrackEntry_default_instance_;
+constexpr TrackSpec_Repeat::TrackSpec_Repeat(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : entries_()
+  , nrep_(int64_t{0}){}
+struct TrackSpec_RepeatDefaultTypeInternal {
+  constexpr TrackSpec_RepeatDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TrackSpec_RepeatDefaultTypeInternal() {}
+  union {
+    TrackSpec_Repeat _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TrackSpec_RepeatDefaultTypeInternal _TrackSpec_Repeat_default_instance_;
+constexpr TrackSpec::TrackSpec(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : _oneof_case_{}{}
+struct TrackSpecDefaultTypeInternal {
+  constexpr TrackSpecDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~TrackSpecDefaultTypeInternal() {}
+  union {
+    TrackSpec _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TrackSpecDefaultTypeInternal _TrackSpec_default_instance_;
+constexpr Xy::Xy(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : x_(int64_t{0})
+  , y_(int64_t{0}){}
+struct XyDefaultTypeInternal {
+  constexpr XyDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~XyDefaultTypeInternal() {}
+  union {
+    Xy _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT XyDefaultTypeInternal _Xy_default_instance_;
 }  // namespace tetris
 }  // namespace vlsir
-static void InitDefaultsscc_info_Abstract_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Abstract_default_instance_;
-    new (ptr) ::vlsir::tetris::Abstract();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Abstract::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Abstract_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Abstract_tetris_2eproto}, {
-      &scc_info_Outline_tetris_2eproto.base,
-      &scc_info_AbstractPort_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_AbstractPort_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_AbstractPort_default_instance_;
-    new (ptr) ::vlsir::tetris::AbstractPort();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::AbstractPort::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_AbstractPort_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_AbstractPort_tetris_2eproto}, {
-      &scc_info_AbstractPort_EdgePort_tetris_2eproto.base,
-      &scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto.base,
-      &scc_info_AbstractPort_ZTopInner_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_AbstractPort_EdgePort_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_AbstractPort_EdgePort_default_instance_;
-    new (ptr) ::vlsir::tetris::AbstractPort_EdgePort();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::AbstractPort_EdgePort::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_EdgePort_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AbstractPort_EdgePort_tetris_2eproto}, {
-      &scc_info_TrackRef_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_AbstractPort_ZTopEdgePort_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_AbstractPort_ZTopEdgePort_default_instance_;
-    new (ptr) ::vlsir::tetris::AbstractPort_ZTopEdgePort();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::AbstractPort_ZTopEdgePort::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AbstractPort_ZTopEdgePort_tetris_2eproto}, {
-      &scc_info_TrackRef_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_AbstractPort_ZTopInner_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_AbstractPort_ZTopInner_default_instance_;
-    new (ptr) ::vlsir::tetris::AbstractPort_ZTopInner();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::AbstractPort_ZTopInner::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AbstractPort_ZTopInner_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AbstractPort_ZTopInner_tetris_2eproto}, {
-      &scc_info_TrackCross_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_Assign_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Assign_default_instance_;
-    new (ptr) ::vlsir::tetris::Assign();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Assign::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Assign_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Assign_tetris_2eproto}, {
-      &scc_info_TrackCross_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_Cell_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Cell_default_instance_;
-    new (ptr) ::vlsir::tetris::Cell();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Cell::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Cell_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_Cell_tetris_2eproto}, {
-      &scc_info_Interface_circuit_2eproto.base,
-      &scc_info_Module_circuit_2eproto.base,
-      &scc_info_Abstract_tetris_2eproto.base,
-      &scc_info_Layout_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_Instance_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Instance_default_instance_;
-    new (ptr) ::vlsir::tetris::Instance();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Instance::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Instance_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Instance_tetris_2eproto}, {
-      &scc_info_Reference_utils_2eproto.base,
-      &scc_info_Place_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_LayerEnum_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_LayerEnum_default_instance_;
-    new (ptr) ::vlsir::tetris::LayerEnum();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::LayerEnum::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LayerEnum_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LayerEnum_tetris_2eproto}, {}};
-
-static void InitDefaultsscc_info_Layout_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Layout_default_instance_;
-    new (ptr) ::vlsir::tetris::Layout();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Layout::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Layout_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_Layout_tetris_2eproto}, {
-      &scc_info_Outline_tetris_2eproto.base,
-      &scc_info_Instance_tetris_2eproto.base,
-      &scc_info_Assign_tetris_2eproto.base,
-      &scc_info_TrackCross_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_Library_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Library_default_instance_;
-    new (ptr) ::vlsir::tetris::Library();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Library::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Library_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Library_tetris_2eproto}, {
-      &scc_info_Cell_tetris_2eproto.base,
-      &scc_info_AuthorMetadata_utils_2eproto.base,}};
-
-static void InitDefaultsscc_info_MetalLayer_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_MetalLayer_default_instance_;
-    new (ptr) ::vlsir::tetris::MetalLayer();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::MetalLayer::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_MetalLayer_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_MetalLayer_tetris_2eproto}, {
-      &scc_info_TrackSpec_tetris_2eproto.base,
-      &scc_info_Layer_raw_2eproto.base,}};
-
-static void InitDefaultsscc_info_Outline_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Outline_default_instance_;
-    new (ptr) ::vlsir::tetris::Outline();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Outline::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Outline_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Outline_tetris_2eproto}, {}};
-
-static void InitDefaultsscc_info_Place_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Place_default_instance_;
-    new (ptr) ::vlsir::tetris::Place();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Place::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Place_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Place_tetris_2eproto}, {
-      &scc_info_Point_raw_2eproto.base,
-      &scc_info_RelPlace_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_PrimitiveLayer_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_PrimitiveLayer_default_instance_;
-    new (ptr) ::vlsir::tetris::PrimitiveLayer();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::PrimitiveLayer::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_PrimitiveLayer_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_PrimitiveLayer_tetris_2eproto}, {
-      &scc_info_Xy_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_RelPlace_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_RelPlace_default_instance_;
-    new (ptr) ::vlsir::tetris::RelPlace();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::RelPlace::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RelPlace_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RelPlace_tetris_2eproto}, {}};
-
-static void InitDefaultsscc_info_Stack_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Stack_default_instance_;
-    new (ptr) ::vlsir::tetris::Stack();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Stack::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<4> scc_info_Stack_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 4, 0, InitDefaultsscc_info_Stack_tetris_2eproto}, {
-      &scc_info_PrimitiveLayer_tetris_2eproto.base,
-      &scc_info_MetalLayer_tetris_2eproto.base,
-      &scc_info_ViaLayer_tetris_2eproto.base,
-      &scc_info_Layer_raw_2eproto.base,}};
-
-static void InitDefaultsscc_info_TrackCross_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_TrackCross_default_instance_;
-    new (ptr) ::vlsir::tetris::TrackCross();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::TrackCross::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TrackCross_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_TrackCross_tetris_2eproto}, {
-      &scc_info_TrackRef_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_TrackRef_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_TrackRef_default_instance_;
-    new (ptr) ::vlsir::tetris::TrackRef();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::TrackRef::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TrackRef_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TrackRef_tetris_2eproto}, {}};
-
-static void InitDefaultsscc_info_TrackSpec_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_TrackSpec_default_instance_;
-    new (ptr) ::vlsir::tetris::TrackSpec();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::TrackSpec::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_TrackSpec_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_TrackSpec_tetris_2eproto}, {
-      &scc_info_TrackSpec_TrackEntry_tetris_2eproto.base,
-      &scc_info_TrackSpec_Repeat_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_TrackSpec_Repeat_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_TrackSpec_Repeat_default_instance_;
-    new (ptr) ::vlsir::tetris::TrackSpec_Repeat();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::TrackSpec_Repeat::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_TrackSpec_Repeat_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_TrackSpec_Repeat_tetris_2eproto}, {
-      &scc_info_TrackSpec_TrackEntry_tetris_2eproto.base,}};
-
-static void InitDefaultsscc_info_TrackSpec_TrackEntry_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_TrackSpec_TrackEntry_default_instance_;
-    new (ptr) ::vlsir::tetris::TrackSpec_TrackEntry();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::TrackSpec_TrackEntry::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TrackSpec_TrackEntry_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TrackSpec_TrackEntry_tetris_2eproto}, {}};
-
-static void InitDefaultsscc_info_ViaLayer_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_ViaLayer_default_instance_;
-    new (ptr) ::vlsir::tetris::ViaLayer();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::ViaLayer::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_ViaLayer_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 3, 0, InitDefaultsscc_info_ViaLayer_tetris_2eproto}, {
-      &scc_info_LayerEnum_tetris_2eproto.base,
-      &scc_info_Xy_tetris_2eproto.base,
-      &scc_info_Layer_raw_2eproto.base,}};
-
-static void InitDefaultsscc_info_Xy_tetris_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::vlsir::tetris::_Xy_default_instance_;
-    new (ptr) ::vlsir::tetris::Xy();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::vlsir::tetris::Xy::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Xy_tetris_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Xy_tetris_2eproto}, {}};
-
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tetris_2eproto[24];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_tetris_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tetris_2eproto = nullptr;
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+const uint32_t TableStruct_tetris_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Library, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Library, domain_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Library, cells_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Library, author_),
@@ -540,6 +380,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Cell, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Cell, interface_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Cell, module_),
@@ -550,6 +391,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Layout, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Layout, outline_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Layout, instances_),
@@ -560,6 +402,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Assign, net_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Assign, at_),
   ~0u,  // no _has_bits_
@@ -567,6 +410,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackCross, track_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackCross, cross_),
   ~0u,  // no _has_bits_
@@ -574,6 +418,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackRef, layer_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackRef, track_),
   ~0u,  // no _has_bits_
@@ -581,6 +426,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Outline, x_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Outline, y_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Outline, metals_),
@@ -589,6 +435,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Abstract, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Abstract, outline_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Abstract, ports_),
@@ -597,6 +444,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_EdgePort, track_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_EdgePort, side_),
   ~0u,  // no _has_bits_
@@ -604,6 +452,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_ZTopEdgePort, track_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_ZTopEdgePort, side_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_ZTopEdgePort, into_),
@@ -612,22 +461,25 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort_ZTopInner, locs_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort, _internal_metadata_),
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort, net_),
-  offsetof(::vlsir::tetris::AbstractPortDefaultTypeInternal, edge_),
-  offsetof(::vlsir::tetris::AbstractPortDefaultTypeInternal, ztop_edge_),
-  offsetof(::vlsir::tetris::AbstractPortDefaultTypeInternal, ztop_inner_),
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::AbstractPort, kind_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Instance, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Instance, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Instance, cell_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Instance, loc_),
@@ -638,19 +490,22 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Place, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  offsetof(::vlsir::tetris::PlaceDefaultTypeInternal, abs_),
-  offsetof(::vlsir::tetris::PlaceDefaultTypeInternal, rel_),
+  ~0u,  // no _inlined_string_donated_
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Place, place_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::RelPlace, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Stack, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Stack, units_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Stack, prim_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Stack, metals_),
@@ -661,6 +516,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::LayerEnum, type_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::LayerEnum, index_),
   ~0u,  // no _has_bits_
@@ -668,6 +524,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::MetalLayer, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::MetalLayer, dir_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::MetalLayer, cutsize_),
@@ -682,6 +539,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::ViaLayer, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::ViaLayer, top_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::ViaLayer, bot_),
@@ -692,12 +550,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::PrimitiveLayer, pitches_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec_TrackEntry, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec_TrackEntry, ttype_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec_TrackEntry, width_),
   ~0u,  // no _has_bits_
@@ -705,6 +565,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec_Repeat, entries_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec_Repeat, nrep_),
   ~0u,  // no _has_bits_
@@ -712,42 +573,44 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tetris_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
-  offsetof(::vlsir::tetris::TrackSpecDefaultTypeInternal, entry_),
-  offsetof(::vlsir::tetris::TrackSpecDefaultTypeInternal, repeat_),
+  ~0u,  // no _inlined_string_donated_
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::TrackSpec, spec_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Xy, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Xy, x_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tetris::Xy, y_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::vlsir::tetris::Library)},
-  { 8, -1, sizeof(::vlsir::tetris::Cell)},
-  { 18, -1, sizeof(::vlsir::tetris::Layout)},
-  { 28, -1, sizeof(::vlsir::tetris::Assign)},
-  { 35, -1, sizeof(::vlsir::tetris::TrackCross)},
-  { 42, -1, sizeof(::vlsir::tetris::TrackRef)},
-  { 49, -1, sizeof(::vlsir::tetris::Outline)},
-  { 57, -1, sizeof(::vlsir::tetris::Abstract)},
-  { 65, -1, sizeof(::vlsir::tetris::AbstractPort_EdgePort)},
-  { 72, -1, sizeof(::vlsir::tetris::AbstractPort_ZTopEdgePort)},
-  { 80, -1, sizeof(::vlsir::tetris::AbstractPort_ZTopInner)},
-  { 86, -1, sizeof(::vlsir::tetris::AbstractPort)},
-  { 96, -1, sizeof(::vlsir::tetris::Instance)},
-  { 106, -1, sizeof(::vlsir::tetris::Place)},
-  { 114, -1, sizeof(::vlsir::tetris::RelPlace)},
-  { 119, -1, sizeof(::vlsir::tetris::Stack)},
-  { 129, -1, sizeof(::vlsir::tetris::LayerEnum)},
-  { 136, -1, sizeof(::vlsir::tetris::MetalLayer)},
-  { 150, -1, sizeof(::vlsir::tetris::ViaLayer)},
-  { 160, -1, sizeof(::vlsir::tetris::PrimitiveLayer)},
-  { 166, -1, sizeof(::vlsir::tetris::TrackSpec_TrackEntry)},
-  { 173, -1, sizeof(::vlsir::tetris::TrackSpec_Repeat)},
-  { 180, -1, sizeof(::vlsir::tetris::TrackSpec)},
-  { 188, -1, sizeof(::vlsir::tetris::Xy)},
+  { 0, -1, -1, sizeof(::vlsir::tetris::Library)},
+  { 9, -1, -1, sizeof(::vlsir::tetris::Cell)},
+  { 20, -1, -1, sizeof(::vlsir::tetris::Layout)},
+  { 31, -1, -1, sizeof(::vlsir::tetris::Assign)},
+  { 39, -1, -1, sizeof(::vlsir::tetris::TrackCross)},
+  { 47, -1, -1, sizeof(::vlsir::tetris::TrackRef)},
+  { 55, -1, -1, sizeof(::vlsir::tetris::Outline)},
+  { 64, -1, -1, sizeof(::vlsir::tetris::Abstract)},
+  { 73, -1, -1, sizeof(::vlsir::tetris::AbstractPort_EdgePort)},
+  { 81, -1, -1, sizeof(::vlsir::tetris::AbstractPort_ZTopEdgePort)},
+  { 90, -1, -1, sizeof(::vlsir::tetris::AbstractPort_ZTopInner)},
+  { 97, -1, -1, sizeof(::vlsir::tetris::AbstractPort)},
+  { 108, -1, -1, sizeof(::vlsir::tetris::Instance)},
+  { 119, -1, -1, sizeof(::vlsir::tetris::Place)},
+  { 128, -1, -1, sizeof(::vlsir::tetris::RelPlace)},
+  { 134, -1, -1, sizeof(::vlsir::tetris::Stack)},
+  { 145, -1, -1, sizeof(::vlsir::tetris::LayerEnum)},
+  { 153, -1, -1, sizeof(::vlsir::tetris::MetalLayer)},
+  { 168, -1, -1, sizeof(::vlsir::tetris::ViaLayer)},
+  { 179, -1, -1, sizeof(::vlsir::tetris::PrimitiveLayer)},
+  { 186, -1, -1, sizeof(::vlsir::tetris::TrackSpec_TrackEntry)},
+  { 194, -1, -1, sizeof(::vlsir::tetris::TrackSpec_Repeat)},
+  { 202, -1, -1, sizeof(::vlsir::tetris::TrackSpec)},
+  { 211, -1, -1, sizeof(::vlsir::tetris::Xy)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -858,42 +721,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_raw_2eproto,
   &::descriptor_table_utils_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_tetris_2eproto_sccs[24] = {
-  &scc_info_Abstract_tetris_2eproto.base,
-  &scc_info_AbstractPort_tetris_2eproto.base,
-  &scc_info_AbstractPort_EdgePort_tetris_2eproto.base,
-  &scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto.base,
-  &scc_info_AbstractPort_ZTopInner_tetris_2eproto.base,
-  &scc_info_Assign_tetris_2eproto.base,
-  &scc_info_Cell_tetris_2eproto.base,
-  &scc_info_Instance_tetris_2eproto.base,
-  &scc_info_LayerEnum_tetris_2eproto.base,
-  &scc_info_Layout_tetris_2eproto.base,
-  &scc_info_Library_tetris_2eproto.base,
-  &scc_info_MetalLayer_tetris_2eproto.base,
-  &scc_info_Outline_tetris_2eproto.base,
-  &scc_info_Place_tetris_2eproto.base,
-  &scc_info_PrimitiveLayer_tetris_2eproto.base,
-  &scc_info_RelPlace_tetris_2eproto.base,
-  &scc_info_Stack_tetris_2eproto.base,
-  &scc_info_TrackCross_tetris_2eproto.base,
-  &scc_info_TrackRef_tetris_2eproto.base,
-  &scc_info_TrackSpec_tetris_2eproto.base,
-  &scc_info_TrackSpec_Repeat_tetris_2eproto.base,
-  &scc_info_TrackSpec_TrackEntry_tetris_2eproto.base,
-  &scc_info_ViaLayer_tetris_2eproto.base,
-  &scc_info_Xy_tetris_2eproto.base,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tetris_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tetris_2eproto = {
-  false, false, descriptor_table_protodef_tetris_2eproto, "tetris.proto", 2955,
-  &descriptor_table_tetris_2eproto_once, descriptor_table_tetris_2eproto_sccs, descriptor_table_tetris_2eproto_deps, 24, 3,
+  false, false, 2955, descriptor_table_protodef_tetris_2eproto, "tetris.proto", 
+  &descriptor_table_tetris_2eproto_once, descriptor_table_tetris_2eproto_deps, 3, 24,
   schemas, file_default_instances, TableStruct_tetris_2eproto::offsets,
-  file_level_metadata_tetris_2eproto, 24, file_level_enum_descriptors_tetris_2eproto, file_level_service_descriptors_tetris_2eproto,
+  file_level_metadata_tetris_2eproto, file_level_enum_descriptors_tetris_2eproto, file_level_service_descriptors_tetris_2eproto,
 };
+PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_tetris_2eproto_getter() {
+  return &descriptor_table_tetris_2eproto;
+}
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_tetris_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_tetris_2eproto)), true);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_tetris_2eproto(&descriptor_table_tetris_2eproto);
 namespace vlsir {
 namespace tetris {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AbstractPort_PortSide_descriptor() {
@@ -910,13 +750,13 @@ bool AbstractPort_PortSide_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr AbstractPort_PortSide AbstractPort::BOTTOM_OR_LEFT;
 constexpr AbstractPort_PortSide AbstractPort::TOP_OR_RIGHT;
 constexpr AbstractPort_PortSide AbstractPort::PortSide_MIN;
 constexpr AbstractPort_PortSide AbstractPort::PortSide_MAX;
 constexpr int AbstractPort::PortSide_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LayerEnum_LayerType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tetris_2eproto);
   return file_level_enum_descriptors_tetris_2eproto[1];
@@ -932,14 +772,14 @@ bool LayerEnum_LayerType_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr LayerEnum_LayerType LayerEnum::PRIMITIVE;
 constexpr LayerEnum_LayerType LayerEnum::METAL;
 constexpr LayerEnum_LayerType LayerEnum::VIA;
 constexpr LayerEnum_LayerType LayerEnum::LayerType_MIN;
 constexpr LayerEnum_LayerType LayerEnum::LayerType_MAX;
 constexpr int LayerEnum::LayerType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MetalLayer_Dir_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tetris_2eproto);
   return file_level_enum_descriptors_tetris_2eproto[2];
@@ -954,13 +794,13 @@ bool MetalLayer_Dir_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr MetalLayer_Dir MetalLayer::HORIZ;
 constexpr MetalLayer_Dir MetalLayer::VERT;
 constexpr MetalLayer_Dir MetalLayer::Dir_MIN;
 constexpr MetalLayer_Dir MetalLayer::Dir_MAX;
 constexpr int MetalLayer::Dir_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MetalLayer_PrimitiveMode_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tetris_2eproto);
   return file_level_enum_descriptors_tetris_2eproto[3];
@@ -976,14 +816,14 @@ bool MetalLayer_PrimitiveMode_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr MetalLayer_PrimitiveMode MetalLayer::PRIM;
 constexpr MetalLayer_PrimitiveMode MetalLayer::SPLIT;
 constexpr MetalLayer_PrimitiveMode MetalLayer::STACK;
 constexpr MetalLayer_PrimitiveMode MetalLayer::PrimitiveMode_MIN;
 constexpr MetalLayer_PrimitiveMode MetalLayer::PrimitiveMode_MAX;
 constexpr int MetalLayer::PrimitiveMode_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TrackSpec_TrackEntry_TrackType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tetris_2eproto);
   return file_level_enum_descriptors_tetris_2eproto[4];
@@ -999,21 +839,17 @@ bool TrackSpec_TrackEntry_TrackType_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr TrackSpec_TrackEntry_TrackType TrackSpec_TrackEntry::GAP;
 constexpr TrackSpec_TrackEntry_TrackType TrackSpec_TrackEntry::SIGNAL;
 constexpr TrackSpec_TrackEntry_TrackType TrackSpec_TrackEntry::RAIL;
 constexpr TrackSpec_TrackEntry_TrackType TrackSpec_TrackEntry::TrackType_MIN;
 constexpr TrackSpec_TrackEntry_TrackType TrackSpec_TrackEntry::TrackType_MAX;
 constexpr int TrackSpec_TrackEntry::TrackType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
 
-void Library::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Library_default_instance_._instance.get_mutable()->author_ = const_cast< ::vlsir::utils::AuthorMetadata*>(
-      ::vlsir::utils::AuthorMetadata::internal_default_instance());
-}
 class Library::_Internal {
  public:
   static const ::vlsir::utils::AuthorMetadata& author(const Library* msg);
@@ -1024,16 +860,19 @@ Library::_Internal::author(const Library* msg) {
   return *msg->author_;
 }
 void Library::clear_author() {
-  if (GetArena() == nullptr && author_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && author_ != nullptr) {
     delete author_;
   }
   author_ = nullptr;
 }
-Library::Library(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+Library::Library(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   cells_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Library)
 }
 Library::Library(const Library& from)
@@ -1041,9 +880,12 @@ Library::Library(const Library& from)
       cells_(from.cells_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   domain_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    domain_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_domain().empty()) {
-    domain_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_domain(),
-      GetArena());
+    domain_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_domain(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_author()) {
     author_ = new ::vlsir::utils::AuthorMetadata(*from.author_);
@@ -1053,20 +895,23 @@ Library::Library(const Library& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Library)
 }
 
-void Library::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Library_tetris_2eproto.base);
-  domain_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  author_ = nullptr;
+inline void Library::SharedCtor() {
+domain_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  domain_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+author_ = nullptr;
 }
 
 Library::~Library() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Library)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Library::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Library::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   domain_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete author_;
 }
@@ -1080,21 +925,16 @@ void Library::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Library::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Library& Library::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Library_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Library::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Library)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cells_.Clear();
-  domain_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && author_ != nullptr) {
+  domain_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && author_ != nullptr) {
     delete author_;
   }
   author_ = nullptr;
@@ -1103,24 +943,23 @@ void Library::Clear() {
 
 const char* Library::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string domain = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_domain();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Library.domain"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.Cell cells = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -1128,45 +967,48 @@ const char* Library::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.utils.AuthorMetadata author = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr = ctx->ParseMessage(_internal_mutable_author(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Library::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Library::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Library)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string domain = 1;
-  if (this->domain().size() > 0) {
+  if (!this->_internal_domain().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_domain().data(), static_cast<int>(this->_internal_domain().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1184,7 +1026,7 @@ failure:
   }
 
   // .vlsir.utils.AuthorMetadata author = 20;
-  if (this->has_author()) {
+  if (this->_internal_has_author()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1203,7 +1045,7 @@ size_t Library::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Library)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1215,64 +1057,49 @@ size_t Library::ByteSizeLong() const {
   }
 
   // string domain = 1;
-  if (this->domain().size() > 0) {
+  if (!this->_internal_domain().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_domain());
   }
 
   // .vlsir.utils.AuthorMetadata author = 20;
-  if (this->has_author()) {
+  if (this->_internal_has_author()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *author_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Library::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Library)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Library* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Library>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Library)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Library)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Library::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Library::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Library::GetClassData() const { return &_class_data_; }
+
+void Library::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Library *>(to)->MergeFrom(
+      static_cast<const Library &>(from));
 }
+
 
 void Library::MergeFrom(const Library& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Library)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cells_.MergeFrom(from.cells_);
-  if (from.domain().size() > 0) {
+  if (!from._internal_domain().empty()) {
     _internal_set_domain(from._internal_domain());
   }
-  if (from.has_author()) {
+  if (from._internal_has_author()) {
     _internal_mutable_author()->::vlsir::utils::AuthorMetadata::MergeFrom(from._internal_author());
   }
-}
-
-void Library::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Library)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Library::CopyFrom(const Library& from) {
@@ -1288,29 +1115,26 @@ bool Library::IsInitialized() const {
 
 void Library::InternalSwap(Library* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   cells_.InternalSwap(&other->cells_);
-  domain_.Swap(&other->domain_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &domain_, lhs_arena,
+      &other->domain_, rhs_arena
+  );
   swap(author_, other->author_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Library::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[0]);
 }
-
 
 // ===================================================================
 
-void Cell::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Cell_default_instance_._instance.get_mutable()->interface_ = const_cast< ::vlsir::circuit::Interface*>(
-      ::vlsir::circuit::Interface::internal_default_instance());
-  ::vlsir::tetris::_Cell_default_instance_._instance.get_mutable()->module_ = const_cast< ::vlsir::circuit::Module*>(
-      ::vlsir::circuit::Module::internal_default_instance());
-  ::vlsir::tetris::_Cell_default_instance_._instance.get_mutable()->abstract_ = const_cast< ::vlsir::tetris::Abstract*>(
-      ::vlsir::tetris::Abstract::internal_default_instance());
-  ::vlsir::tetris::_Cell_default_instance_._instance.get_mutable()->layout_ = const_cast< ::vlsir::tetris::Layout*>(
-      ::vlsir::tetris::Layout::internal_default_instance());
-}
 class Cell::_Internal {
  public:
   static const ::vlsir::circuit::Interface& interface(const Cell* msg);
@@ -1336,30 +1160,36 @@ Cell::_Internal::layout(const Cell* msg) {
   return *msg->layout_;
 }
 void Cell::clear_interface() {
-  if (GetArena() == nullptr && interface_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && interface_ != nullptr) {
     delete interface_;
   }
   interface_ = nullptr;
 }
 void Cell::clear_module() {
-  if (GetArena() == nullptr && module_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && module_ != nullptr) {
     delete module_;
   }
   module_ = nullptr;
 }
-Cell::Cell(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Cell::Cell(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Cell)
 }
 Cell::Cell(const Cell& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_interface()) {
     interface_ = new ::vlsir::circuit::Interface(*from.interface_);
@@ -1384,22 +1214,26 @@ Cell::Cell(const Cell& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Cell)
 }
 
-void Cell::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Cell_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&interface_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&layout_) -
-      reinterpret_cast<char*>(&interface_)) + sizeof(layout_));
+inline void Cell::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&interface_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&layout_) -
+    reinterpret_cast<char*>(&interface_)) + sizeof(layout_));
 }
 
 Cell::~Cell() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Cell)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Cell::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Cell::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete interface_;
   if (this != internal_default_instance()) delete module_;
@@ -1416,32 +1250,27 @@ void Cell::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Cell::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Cell& Cell::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Cell_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Cell::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Cell)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && interface_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && interface_ != nullptr) {
     delete interface_;
   }
   interface_ = nullptr;
-  if (GetArena() == nullptr && module_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && module_ != nullptr) {
     delete module_;
   }
   module_ = nullptr;
-  if (GetArena() == nullptr && abstract_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && abstract_ != nullptr) {
     delete abstract_;
   }
   abstract_ = nullptr;
-  if (GetArena() == nullptr && layout_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && layout_ != nullptr) {
     delete layout_;
   }
   layout_ = nullptr;
@@ -1450,79 +1279,83 @@ void Cell::Clear() {
 
 const char* Cell::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Cell.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.circuit.Interface interface = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_interface(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.circuit.Module module = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_module(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Abstract abstract = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_abstract(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Layout layout = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_layout(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Cell::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Cell::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Cell)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1532,7 +1365,7 @@ failure:
   }
 
   // .vlsir.circuit.Interface interface = 10;
-  if (this->has_interface()) {
+  if (this->_internal_has_interface()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1540,7 +1373,7 @@ failure:
   }
 
   // .vlsir.circuit.Module module = 11;
-  if (this->has_module()) {
+  if (this->_internal_has_module()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1548,7 +1381,7 @@ failure:
   }
 
   // .vlsir.tetris.Abstract abstract = 12;
-  if (this->has_abstract()) {
+  if (this->_internal_has_abstract()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1556,7 +1389,7 @@ failure:
   }
 
   // .vlsir.tetris.Layout layout = 13;
-  if (this->has_layout()) {
+  if (this->_internal_has_layout()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1575,98 +1408,83 @@ size_t Cell::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Cell)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.circuit.Interface interface = 10;
-  if (this->has_interface()) {
+  if (this->_internal_has_interface()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *interface_);
   }
 
   // .vlsir.circuit.Module module = 11;
-  if (this->has_module()) {
+  if (this->_internal_has_module()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *module_);
   }
 
   // .vlsir.tetris.Abstract abstract = 12;
-  if (this->has_abstract()) {
+  if (this->_internal_has_abstract()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *abstract_);
   }
 
   // .vlsir.tetris.Layout layout = 13;
-  if (this->has_layout()) {
+  if (this->_internal_has_layout()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *layout_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Cell::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Cell)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Cell* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Cell>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Cell)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Cell)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Cell::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Cell::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Cell::GetClassData() const { return &_class_data_; }
+
+void Cell::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Cell *>(to)->MergeFrom(
+      static_cast<const Cell &>(from));
 }
+
 
 void Cell::MergeFrom(const Cell& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Cell)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_interface()) {
+  if (from._internal_has_interface()) {
     _internal_mutable_interface()->::vlsir::circuit::Interface::MergeFrom(from._internal_interface());
   }
-  if (from.has_module()) {
+  if (from._internal_has_module()) {
     _internal_mutable_module()->::vlsir::circuit::Module::MergeFrom(from._internal_module());
   }
-  if (from.has_abstract()) {
+  if (from._internal_has_abstract()) {
     _internal_mutable_abstract()->::vlsir::tetris::Abstract::MergeFrom(from._internal_abstract());
   }
-  if (from.has_layout()) {
+  if (from._internal_has_layout()) {
     _internal_mutable_layout()->::vlsir::tetris::Layout::MergeFrom(from._internal_layout());
   }
-}
-
-void Cell::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Cell)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Cell::CopyFrom(const Cell& from) {
@@ -1682,8 +1500,14 @@ bool Cell::IsInitialized() const {
 
 void Cell::InternalSwap(Cell* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Cell, layout_)
       + sizeof(Cell::layout_)
@@ -1693,16 +1517,13 @@ void Cell::InternalSwap(Cell* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Cell::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[1]);
 }
-
 
 // ===================================================================
 
-void Layout::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Layout_default_instance_._instance.get_mutable()->outline_ = const_cast< ::vlsir::tetris::Outline*>(
-      ::vlsir::tetris::Outline::internal_default_instance());
-}
 class Layout::_Internal {
  public:
   static const ::vlsir::tetris::Outline& outline(const Layout* msg);
@@ -1712,13 +1533,16 @@ const ::vlsir::tetris::Outline&
 Layout::_Internal::outline(const Layout* msg) {
   return *msg->outline_;
 }
-Layout::Layout(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+Layout::Layout(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   instances_(arena),
   assignments_(arena),
   cuts_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Layout)
 }
 Layout::Layout(const Layout& from)
@@ -1728,9 +1552,12 @@ Layout::Layout(const Layout& from)
       cuts_(from.cuts_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_outline()) {
     outline_ = new ::vlsir::tetris::Outline(*from.outline_);
@@ -1740,20 +1567,23 @@ Layout::Layout(const Layout& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Layout)
 }
 
-void Layout::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Layout_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  outline_ = nullptr;
+inline void Layout::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+outline_ = nullptr;
 }
 
 Layout::~Layout() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Layout)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Layout::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Layout::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete outline_;
 }
@@ -1767,23 +1597,18 @@ void Layout::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Layout::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Layout& Layout::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Layout_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Layout::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Layout)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   instances_.Clear();
   assignments_.Clear();
   cuts_.Clear();
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && outline_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && outline_ != nullptr) {
     delete outline_;
   }
   outline_ = nullptr;
@@ -1792,31 +1617,31 @@ void Layout::Clear() {
 
 const char* Layout::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Layout.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Outline outline = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_outline(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.Instance instances = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -1824,11 +1649,12 @@ const char* Layout::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<162>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.Assign assignments = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 170)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -1836,11 +1662,12 @@ const char* Layout::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<170>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.TrackCross cuts = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -1848,38 +1675,40 @@ const char* Layout::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<178>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Layout::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Layout::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Layout)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1889,7 +1718,7 @@ failure:
   }
 
   // .vlsir.tetris.Outline outline = 10;
-  if (this->has_outline()) {
+  if (this->_internal_has_outline()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1932,7 +1761,7 @@ size_t Layout::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Layout)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1958,66 +1787,51 @@ size_t Layout::ByteSizeLong() const {
   }
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.tetris.Outline outline = 10;
-  if (this->has_outline()) {
+  if (this->_internal_has_outline()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *outline_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Layout::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Layout)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Layout* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Layout>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Layout)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Layout)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Layout::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Layout::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Layout::GetClassData() const { return &_class_data_; }
+
+void Layout::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Layout *>(to)->MergeFrom(
+      static_cast<const Layout &>(from));
 }
+
 
 void Layout::MergeFrom(const Layout& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Layout)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   instances_.MergeFrom(from.instances_);
   assignments_.MergeFrom(from.assignments_);
   cuts_.MergeFrom(from.cuts_);
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_outline()) {
+  if (from._internal_has_outline()) {
     _internal_mutable_outline()->::vlsir::tetris::Outline::MergeFrom(from._internal_outline());
   }
-}
-
-void Layout::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Layout)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Layout::CopyFrom(const Layout& from) {
@@ -2033,25 +1847,28 @@ bool Layout::IsInitialized() const {
 
 void Layout::InternalSwap(Layout* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   instances_.InternalSwap(&other->instances_);
   assignments_.InternalSwap(&other->assignments_);
   cuts_.InternalSwap(&other->cuts_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   swap(outline_, other->outline_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Layout::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[2]);
 }
-
 
 // ===================================================================
 
-void Assign::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Assign_default_instance_._instance.get_mutable()->at_ = const_cast< ::vlsir::tetris::TrackCross*>(
-      ::vlsir::tetris::TrackCross::internal_default_instance());
-}
 class Assign::_Internal {
  public:
   static const ::vlsir::tetris::TrackCross& at(const Assign* msg);
@@ -2061,19 +1878,25 @@ const ::vlsir::tetris::TrackCross&
 Assign::_Internal::at(const Assign* msg) {
   return *msg->at_;
 }
-Assign::Assign(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Assign::Assign(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Assign)
 }
 Assign::Assign(const Assign& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_net().empty()) {
-    net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_net(),
-      GetArena());
+    net_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_net(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_at()) {
     at_ = new ::vlsir::tetris::TrackCross(*from.at_);
@@ -2083,20 +1906,23 @@ Assign::Assign(const Assign& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Assign)
 }
 
-void Assign::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Assign_tetris_2eproto.base);
-  net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  at_ = nullptr;
+inline void Assign::SharedCtor() {
+net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+at_ = nullptr;
 }
 
 Assign::~Assign() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Assign)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Assign::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Assign::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   net_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete at_;
 }
@@ -2110,20 +1936,15 @@ void Assign::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Assign::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Assign& Assign::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Assign_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Assign::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Assign)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  net_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && at_ != nullptr) {
+  net_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && at_ != nullptr) {
     delete at_;
   }
   at_ = nullptr;
@@ -2132,58 +1953,59 @@ void Assign::Clear() {
 
 const char* Assign::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string net = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_net();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Assign.net"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.TrackCross at = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_at(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Assign::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Assign::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Assign)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string net = 1;
-  if (this->net().size() > 0) {
+  if (!this->_internal_net().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_net().data(), static_cast<int>(this->_internal_net().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -2193,7 +2015,7 @@ failure:
   }
 
   // .vlsir.tetris.TrackCross at = 2;
-  if (this->has_at()) {
+  if (this->_internal_has_at()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -2212,68 +2034,53 @@ size_t Assign::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Assign)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string net = 1;
-  if (this->net().size() > 0) {
+  if (!this->_internal_net().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_net());
   }
 
   // .vlsir.tetris.TrackCross at = 2;
-  if (this->has_at()) {
+  if (this->_internal_has_at()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *at_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Assign::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Assign)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Assign* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Assign>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Assign)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Assign)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Assign::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Assign::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Assign::GetClassData() const { return &_class_data_; }
+
+void Assign::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Assign *>(to)->MergeFrom(
+      static_cast<const Assign &>(from));
 }
+
 
 void Assign::MergeFrom(const Assign& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Assign)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.net().size() > 0) {
+  if (!from._internal_net().empty()) {
     _internal_set_net(from._internal_net());
   }
-  if (from.has_at()) {
+  if (from._internal_has_at()) {
     _internal_mutable_at()->::vlsir::tetris::TrackCross::MergeFrom(from._internal_at());
   }
-}
-
-void Assign::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Assign)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Assign::CopyFrom(const Assign& from) {
@@ -2289,24 +2096,25 @@ bool Assign::IsInitialized() const {
 
 void Assign::InternalSwap(Assign* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  net_.Swap(&other->net_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &net_, lhs_arena,
+      &other->net_, rhs_arena
+  );
   swap(at_, other->at_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Assign::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[3]);
 }
-
 
 // ===================================================================
 
-void TrackCross::InitAsDefaultInstance() {
-  ::vlsir::tetris::_TrackCross_default_instance_._instance.get_mutable()->track_ = const_cast< ::vlsir::tetris::TrackRef*>(
-      ::vlsir::tetris::TrackRef::internal_default_instance());
-  ::vlsir::tetris::_TrackCross_default_instance_._instance.get_mutable()->cross_ = const_cast< ::vlsir::tetris::TrackRef*>(
-      ::vlsir::tetris::TrackRef::internal_default_instance());
-}
 class TrackCross::_Internal {
  public:
   static const ::vlsir::tetris::TrackRef& track(const TrackCross* msg);
@@ -2321,10 +2129,13 @@ const ::vlsir::tetris::TrackRef&
 TrackCross::_Internal::cross(const TrackCross* msg) {
   return *msg->cross_;
 }
-TrackCross::TrackCross(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+TrackCross::TrackCross(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.TrackCross)
 }
 TrackCross::TrackCross(const TrackCross& from)
@@ -2343,21 +2154,22 @@ TrackCross::TrackCross(const TrackCross& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.TrackCross)
 }
 
-void TrackCross::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TrackCross_tetris_2eproto.base);
-  ::memset(&track_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&cross_) -
-      reinterpret_cast<char*>(&track_)) + sizeof(cross_));
+inline void TrackCross::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&track_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&cross_) -
+    reinterpret_cast<char*>(&track_)) + sizeof(cross_));
 }
 
 TrackCross::~TrackCross() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.TrackCross)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void TrackCross::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TrackCross::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete track_;
   if (this != internal_default_instance()) delete cross_;
 }
@@ -2371,23 +2183,18 @@ void TrackCross::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TrackCross::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TrackCross& TrackCross::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TrackCross_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TrackCross::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.TrackCross)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && track_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && track_ != nullptr) {
     delete track_;
   }
   track_ = nullptr;
-  if (GetArena() == nullptr && cross_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && cross_ != nullptr) {
     delete cross_;
   }
   cross_ = nullptr;
@@ -2396,56 +2203,57 @@ void TrackCross::Clear() {
 
 const char* TrackCross::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.TrackRef track = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_track(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.TrackRef cross = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_cross(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* TrackCross::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* TrackCross::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.TrackCross)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackRef track = 1;
-  if (this->has_track()) {
+  if (this->_internal_has_track()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -2453,7 +2261,7 @@ failure:
   }
 
   // .vlsir.tetris.TrackRef cross = 2;
-  if (this->has_cross()) {
+  if (this->_internal_has_cross()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -2472,68 +2280,53 @@ size_t TrackCross::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.TrackCross)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackRef track = 1;
-  if (this->has_track()) {
+  if (this->_internal_has_track()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *track_);
   }
 
   // .vlsir.tetris.TrackRef cross = 2;
-  if (this->has_cross()) {
+  if (this->_internal_has_cross()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *cross_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void TrackCross::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.TrackCross)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TrackCross* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TrackCross>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.TrackCross)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.TrackCross)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TrackCross::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    TrackCross::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TrackCross::GetClassData() const { return &_class_data_; }
+
+void TrackCross::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<TrackCross *>(to)->MergeFrom(
+      static_cast<const TrackCross &>(from));
 }
+
 
 void TrackCross::MergeFrom(const TrackCross& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.TrackCross)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_track()) {
+  if (from._internal_has_track()) {
     _internal_mutable_track()->::vlsir::tetris::TrackRef::MergeFrom(from._internal_track());
   }
-  if (from.has_cross()) {
+  if (from._internal_has_cross()) {
     _internal_mutable_cross()->::vlsir::tetris::TrackRef::MergeFrom(from._internal_cross());
   }
-}
-
-void TrackCross::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.TrackCross)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TrackCross::CopyFrom(const TrackCross& from) {
@@ -2549,7 +2342,7 @@ bool TrackCross::IsInitialized() const {
 
 void TrackCross::InternalSwap(TrackCross* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TrackCross, cross_)
       + sizeof(TrackCross::cross_)
@@ -2559,22 +2352,24 @@ void TrackCross::InternalSwap(TrackCross* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TrackCross::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[4]);
 }
-
 
 // ===================================================================
 
-void TrackRef::InitAsDefaultInstance() {
-}
 class TrackRef::_Internal {
  public:
 };
 
-TrackRef::TrackRef(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+TrackRef::TrackRef(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.TrackRef)
 }
 TrackRef::TrackRef(const TrackRef& from)
@@ -2586,20 +2381,22 @@ TrackRef::TrackRef(const TrackRef& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.TrackRef)
 }
 
-void TrackRef::SharedCtor() {
-  ::memset(&layer_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&track_) -
-      reinterpret_cast<char*>(&layer_)) + sizeof(track_));
+inline void TrackRef::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&layer_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&track_) -
+    reinterpret_cast<char*>(&layer_)) + sizeof(track_));
 }
 
 TrackRef::~TrackRef() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.TrackRef)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void TrackRef::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TrackRef::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void TrackRef::ArenaDtor(void* object) {
@@ -2611,15 +2408,10 @@ void TrackRef::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TrackRef::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TrackRef& TrackRef::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TrackRef_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TrackRef::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.TrackRef)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2631,62 +2423,63 @@ void TrackRef::Clear() {
 
 const char* TrackRef::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // int64 layer = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           layer_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 track = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           track_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* TrackRef::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* TrackRef::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.TrackRef)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 layer = 1;
-  if (this->layer() != 0) {
+  if (this->_internal_layer() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_layer(), target);
   }
 
   // int64 track = 2;
-  if (this->track() != 0) {
+  if (this->_internal_track() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_track(), target);
   }
@@ -2703,68 +2496,49 @@ size_t TrackRef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.TrackRef)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 layer = 1;
-  if (this->layer() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_layer());
+  if (this->_internal_layer() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_layer());
   }
 
   // int64 track = 2;
-  if (this->track() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_track());
+  if (this->_internal_track() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_track());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void TrackRef::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.TrackRef)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TrackRef* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TrackRef>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.TrackRef)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.TrackRef)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TrackRef::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    TrackRef::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TrackRef::GetClassData() const { return &_class_data_; }
+
+void TrackRef::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<TrackRef *>(to)->MergeFrom(
+      static_cast<const TrackRef &>(from));
 }
+
 
 void TrackRef::MergeFrom(const TrackRef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.TrackRef)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.layer() != 0) {
+  if (from._internal_layer() != 0) {
     _internal_set_layer(from._internal_layer());
   }
-  if (from.track() != 0) {
+  if (from._internal_track() != 0) {
     _internal_set_track(from._internal_track());
   }
-}
-
-void TrackRef::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.TrackRef)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TrackRef::CopyFrom(const TrackRef& from) {
@@ -2780,7 +2554,7 @@ bool TrackRef::IsInitialized() const {
 
 void TrackRef::InternalSwap(TrackRef* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TrackRef, track_)
       + sizeof(TrackRef::track_)
@@ -2790,24 +2564,26 @@ void TrackRef::InternalSwap(TrackRef* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TrackRef::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[5]);
 }
-
 
 // ===================================================================
 
-void Outline::InitAsDefaultInstance() {
-}
 class Outline::_Internal {
  public:
 };
 
-Outline::Outline(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+Outline::Outline(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   x_(arena),
   y_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Outline)
 }
 Outline::Outline(const Outline& from)
@@ -2819,18 +2595,19 @@ Outline::Outline(const Outline& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Outline)
 }
 
-void Outline::SharedCtor() {
-  metals_ = PROTOBUF_LONGLONG(0);
+inline void Outline::SharedCtor() {
+metals_ = int64_t{0};
 }
 
 Outline::~Outline() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Outline)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Outline::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Outline::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Outline::ArenaDtor(void* object) {
@@ -2842,85 +2619,82 @@ void Outline::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Outline::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Outline& Outline::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Outline_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Outline::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Outline)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   x_.Clear();
   y_.Clear();
-  metals_ = PROTOBUF_LONGLONG(0);
+  metals_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Outline::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // repeated int64 x = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_x(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8) {
+        } else if (static_cast<uint8_t>(tag) == 8) {
           _internal_add_x(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated int64 y = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_y(), ptr, ctx);
           CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16) {
+        } else if (static_cast<uint8_t>(tag) == 16) {
           _internal_add_y(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 metals = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           metals_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Outline::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Outline::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Outline)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated int64 x = 1;
@@ -2942,7 +2716,7 @@ failure:
   }
 
   // int64 metals = 3;
-  if (this->metals() != 0) {
+  if (this->_internal_metals() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_metals(), target);
   }
@@ -2959,7 +2733,7 @@ size_t Outline::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Outline)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2970,7 +2744,7 @@ size_t Outline::ByteSizeLong() const {
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
+            static_cast<int32_t>(data_size));
     }
     int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
     _x_cached_byte_size_.store(cached_size,
@@ -2985,7 +2759,7 @@ size_t Outline::ByteSizeLong() const {
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
+            static_cast<int32_t>(data_size));
     }
     int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
     _y_cached_byte_size_.store(cached_size,
@@ -2994,55 +2768,38 @@ size_t Outline::ByteSizeLong() const {
   }
 
   // int64 metals = 3;
-  if (this->metals() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_metals());
+  if (this->_internal_metals() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_metals());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Outline::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Outline)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Outline* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Outline>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Outline)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Outline)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Outline::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Outline::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Outline::GetClassData() const { return &_class_data_; }
+
+void Outline::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Outline *>(to)->MergeFrom(
+      static_cast<const Outline &>(from));
 }
+
 
 void Outline::MergeFrom(const Outline& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Outline)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   x_.MergeFrom(from.x_);
   y_.MergeFrom(from.y_);
-  if (from.metals() != 0) {
+  if (from._internal_metals() != 0) {
     _internal_set_metals(from._internal_metals());
   }
-}
-
-void Outline::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Outline)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Outline::CopyFrom(const Outline& from) {
@@ -3058,23 +2815,20 @@ bool Outline::IsInitialized() const {
 
 void Outline::InternalSwap(Outline* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   x_.InternalSwap(&other->x_);
   y_.InternalSwap(&other->y_);
   swap(metals_, other->metals_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Outline::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[6]);
 }
-
 
 // ===================================================================
 
-void Abstract::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Abstract_default_instance_._instance.get_mutable()->outline_ = const_cast< ::vlsir::tetris::Outline*>(
-      ::vlsir::tetris::Outline::internal_default_instance());
-}
 class Abstract::_Internal {
  public:
   static const ::vlsir::tetris::Outline& outline(const Abstract* msg);
@@ -3084,11 +2838,14 @@ const ::vlsir::tetris::Outline&
 Abstract::_Internal::outline(const Abstract* msg) {
   return *msg->outline_;
 }
-Abstract::Abstract(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+Abstract::Abstract(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   ports_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Abstract)
 }
 Abstract::Abstract(const Abstract& from)
@@ -3096,9 +2853,12 @@ Abstract::Abstract(const Abstract& from)
       ports_(from.ports_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_outline()) {
     outline_ = new ::vlsir::tetris::Outline(*from.outline_);
@@ -3108,20 +2868,23 @@ Abstract::Abstract(const Abstract& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Abstract)
 }
 
-void Abstract::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Abstract_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  outline_ = nullptr;
+inline void Abstract::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+outline_ = nullptr;
 }
 
 Abstract::~Abstract() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Abstract)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Abstract::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Abstract::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete outline_;
 }
@@ -3135,21 +2898,16 @@ void Abstract::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Abstract::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Abstract& Abstract::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Abstract_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Abstract::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Abstract)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   ports_.Clear();
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && outline_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && outline_ != nullptr) {
     delete outline_;
   }
   outline_ = nullptr;
@@ -3158,31 +2916,31 @@ void Abstract::Clear() {
 
 const char* Abstract::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Abstract.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Outline outline = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_outline(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.AbstractPort ports = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -3190,38 +2948,40 @@ const char* Abstract::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<162>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Abstract::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Abstract::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Abstract)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -3231,7 +2991,7 @@ failure:
   }
 
   // .vlsir.tetris.Outline outline = 10;
-  if (this->has_outline()) {
+  if (this->_internal_has_outline()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -3258,7 +3018,7 @@ size_t Abstract::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Abstract)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3270,64 +3030,49 @@ size_t Abstract::ByteSizeLong() const {
   }
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.tetris.Outline outline = 10;
-  if (this->has_outline()) {
+  if (this->_internal_has_outline()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *outline_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Abstract::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Abstract)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Abstract* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Abstract>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Abstract)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Abstract)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Abstract::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Abstract::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Abstract::GetClassData() const { return &_class_data_; }
+
+void Abstract::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Abstract *>(to)->MergeFrom(
+      static_cast<const Abstract &>(from));
 }
+
 
 void Abstract::MergeFrom(const Abstract& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Abstract)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   ports_.MergeFrom(from.ports_);
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_outline()) {
+  if (from._internal_has_outline()) {
     _internal_mutable_outline()->::vlsir::tetris::Outline::MergeFrom(from._internal_outline());
   }
-}
-
-void Abstract::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Abstract)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Abstract::CopyFrom(const Abstract& from) {
@@ -3343,23 +3088,26 @@ bool Abstract::IsInitialized() const {
 
 void Abstract::InternalSwap(Abstract* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ports_.InternalSwap(&other->ports_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   swap(outline_, other->outline_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Abstract::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[7]);
 }
-
 
 // ===================================================================
 
-void AbstractPort_EdgePort::InitAsDefaultInstance() {
-  ::vlsir::tetris::_AbstractPort_EdgePort_default_instance_._instance.get_mutable()->track_ = const_cast< ::vlsir::tetris::TrackRef*>(
-      ::vlsir::tetris::TrackRef::internal_default_instance());
-}
 class AbstractPort_EdgePort::_Internal {
  public:
   static const ::vlsir::tetris::TrackRef& track(const AbstractPort_EdgePort* msg);
@@ -3369,10 +3117,13 @@ const ::vlsir::tetris::TrackRef&
 AbstractPort_EdgePort::_Internal::track(const AbstractPort_EdgePort* msg) {
   return *msg->track_;
 }
-AbstractPort_EdgePort::AbstractPort_EdgePort(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+AbstractPort_EdgePort::AbstractPort_EdgePort(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.AbstractPort.EdgePort)
 }
 AbstractPort_EdgePort::AbstractPort_EdgePort(const AbstractPort_EdgePort& from)
@@ -3387,21 +3138,22 @@ AbstractPort_EdgePort::AbstractPort_EdgePort(const AbstractPort_EdgePort& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.AbstractPort.EdgePort)
 }
 
-void AbstractPort_EdgePort::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AbstractPort_EdgePort_tetris_2eproto.base);
-  ::memset(&track_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&side_) -
-      reinterpret_cast<char*>(&track_)) + sizeof(side_));
+inline void AbstractPort_EdgePort::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&track_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&side_) -
+    reinterpret_cast<char*>(&track_)) + sizeof(side_));
 }
 
 AbstractPort_EdgePort::~AbstractPort_EdgePort() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.AbstractPort.EdgePort)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void AbstractPort_EdgePort::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void AbstractPort_EdgePort::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete track_;
 }
 
@@ -3414,19 +3166,14 @@ void AbstractPort_EdgePort::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void AbstractPort_EdgePort::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const AbstractPort_EdgePort& AbstractPort_EdgePort::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AbstractPort_EdgePort_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void AbstractPort_EdgePort::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.AbstractPort.EdgePort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && track_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && track_ != nullptr) {
     delete track_;
   }
   track_ = nullptr;
@@ -3436,57 +3183,58 @@ void AbstractPort_EdgePort::Clear() {
 
 const char* AbstractPort_EdgePort::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.TrackRef track = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_track(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.AbstractPort.PortSide side = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_side(static_cast<::vlsir::tetris::AbstractPort_PortSide>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AbstractPort_EdgePort::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* AbstractPort_EdgePort::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.AbstractPort.EdgePort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackRef track = 1;
-  if (this->has_track()) {
+  if (this->_internal_has_track()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -3494,7 +3242,7 @@ failure:
   }
 
   // .vlsir.tetris.AbstractPort.PortSide side = 2;
-  if (this->side() != 0) {
+  if (this->_internal_side() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_side(), target);
@@ -3512,67 +3260,52 @@ size_t AbstractPort_EdgePort::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.AbstractPort.EdgePort)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackRef track = 1;
-  if (this->has_track()) {
+  if (this->_internal_has_track()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *track_);
   }
 
   // .vlsir.tetris.AbstractPort.PortSide side = 2;
-  if (this->side() != 0) {
+  if (this->_internal_side() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_side());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void AbstractPort_EdgePort::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.AbstractPort.EdgePort)
-  GOOGLE_DCHECK_NE(&from, this);
-  const AbstractPort_EdgePort* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AbstractPort_EdgePort>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.AbstractPort.EdgePort)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.AbstractPort.EdgePort)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AbstractPort_EdgePort::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    AbstractPort_EdgePort::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AbstractPort_EdgePort::GetClassData() const { return &_class_data_; }
+
+void AbstractPort_EdgePort::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<AbstractPort_EdgePort *>(to)->MergeFrom(
+      static_cast<const AbstractPort_EdgePort &>(from));
 }
+
 
 void AbstractPort_EdgePort::MergeFrom(const AbstractPort_EdgePort& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.AbstractPort.EdgePort)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_track()) {
+  if (from._internal_has_track()) {
     _internal_mutable_track()->::vlsir::tetris::TrackRef::MergeFrom(from._internal_track());
   }
-  if (from.side() != 0) {
+  if (from._internal_side() != 0) {
     _internal_set_side(from._internal_side());
   }
-}
-
-void AbstractPort_EdgePort::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.AbstractPort.EdgePort)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AbstractPort_EdgePort::CopyFrom(const AbstractPort_EdgePort& from) {
@@ -3588,7 +3321,7 @@ bool AbstractPort_EdgePort::IsInitialized() const {
 
 void AbstractPort_EdgePort::InternalSwap(AbstractPort_EdgePort* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AbstractPort_EdgePort, side_)
       + sizeof(AbstractPort_EdgePort::side_)
@@ -3598,16 +3331,13 @@ void AbstractPort_EdgePort::InternalSwap(AbstractPort_EdgePort* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AbstractPort_EdgePort::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[8]);
 }
-
 
 // ===================================================================
 
-void AbstractPort_ZTopEdgePort::InitAsDefaultInstance() {
-  ::vlsir::tetris::_AbstractPort_ZTopEdgePort_default_instance_._instance.get_mutable()->into_ = const_cast< ::vlsir::tetris::TrackRef*>(
-      ::vlsir::tetris::TrackRef::internal_default_instance());
-}
 class AbstractPort_ZTopEdgePort::_Internal {
  public:
   static const ::vlsir::tetris::TrackRef& into(const AbstractPort_ZTopEdgePort* msg);
@@ -3617,10 +3347,13 @@ const ::vlsir::tetris::TrackRef&
 AbstractPort_ZTopEdgePort::_Internal::into(const AbstractPort_ZTopEdgePort* msg) {
   return *msg->into_;
 }
-AbstractPort_ZTopEdgePort::AbstractPort_ZTopEdgePort(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+AbstractPort_ZTopEdgePort::AbstractPort_ZTopEdgePort(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.AbstractPort.ZTopEdgePort)
 }
 AbstractPort_ZTopEdgePort::AbstractPort_ZTopEdgePort(const AbstractPort_ZTopEdgePort& from)
@@ -3637,21 +3370,22 @@ AbstractPort_ZTopEdgePort::AbstractPort_ZTopEdgePort(const AbstractPort_ZTopEdge
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.AbstractPort.ZTopEdgePort)
 }
 
-void AbstractPort_ZTopEdgePort::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto.base);
-  ::memset(&into_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&side_) -
-      reinterpret_cast<char*>(&into_)) + sizeof(side_));
+inline void AbstractPort_ZTopEdgePort::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&into_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&side_) -
+    reinterpret_cast<char*>(&into_)) + sizeof(side_));
 }
 
 AbstractPort_ZTopEdgePort::~AbstractPort_ZTopEdgePort() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.AbstractPort.ZTopEdgePort)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void AbstractPort_ZTopEdgePort::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void AbstractPort_ZTopEdgePort::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete into_;
 }
 
@@ -3664,19 +3398,14 @@ void AbstractPort_ZTopEdgePort::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena
 void AbstractPort_ZTopEdgePort::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const AbstractPort_ZTopEdgePort& AbstractPort_ZTopEdgePort::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AbstractPort_ZTopEdgePort_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void AbstractPort_ZTopEdgePort::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && into_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && into_ != nullptr) {
     delete into_;
   }
   into_ = nullptr;
@@ -3688,77 +3417,79 @@ void AbstractPort_ZTopEdgePort::Clear() {
 
 const char* AbstractPort_ZTopEdgePort::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // int64 track = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           track_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.AbstractPort.PortSide side = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_side(static_cast<::vlsir::tetris::AbstractPort_PortSide>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.TrackRef into = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_into(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AbstractPort_ZTopEdgePort::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* AbstractPort_ZTopEdgePort::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 track = 1;
-  if (this->track() != 0) {
+  if (this->_internal_track() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_track(), target);
   }
 
   // .vlsir.tetris.AbstractPort.PortSide side = 2;
-  if (this->side() != 0) {
+  if (this->_internal_side() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_side(), target);
   }
 
   // .vlsir.tetris.TrackRef into = 3;
-  if (this->has_into()) {
+  if (this->_internal_has_into()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -3777,77 +3508,60 @@ size_t AbstractPort_ZTopEdgePort::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackRef into = 3;
-  if (this->has_into()) {
+  if (this->_internal_has_into()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *into_);
   }
 
   // int64 track = 1;
-  if (this->track() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_track());
+  if (this->_internal_track() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_track());
   }
 
   // .vlsir.tetris.AbstractPort.PortSide side = 2;
-  if (this->side() != 0) {
+  if (this->_internal_side() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_side());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void AbstractPort_ZTopEdgePort::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
-  GOOGLE_DCHECK_NE(&from, this);
-  const AbstractPort_ZTopEdgePort* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AbstractPort_ZTopEdgePort>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.AbstractPort.ZTopEdgePort)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.AbstractPort.ZTopEdgePort)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AbstractPort_ZTopEdgePort::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    AbstractPort_ZTopEdgePort::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AbstractPort_ZTopEdgePort::GetClassData() const { return &_class_data_; }
+
+void AbstractPort_ZTopEdgePort::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<AbstractPort_ZTopEdgePort *>(to)->MergeFrom(
+      static_cast<const AbstractPort_ZTopEdgePort &>(from));
 }
+
 
 void AbstractPort_ZTopEdgePort::MergeFrom(const AbstractPort_ZTopEdgePort& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_into()) {
+  if (from._internal_has_into()) {
     _internal_mutable_into()->::vlsir::tetris::TrackRef::MergeFrom(from._internal_into());
   }
-  if (from.track() != 0) {
+  if (from._internal_track() != 0) {
     _internal_set_track(from._internal_track());
   }
-  if (from.side() != 0) {
+  if (from._internal_side() != 0) {
     _internal_set_side(from._internal_side());
   }
-}
-
-void AbstractPort_ZTopEdgePort::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.AbstractPort.ZTopEdgePort)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AbstractPort_ZTopEdgePort::CopyFrom(const AbstractPort_ZTopEdgePort& from) {
@@ -3863,7 +3577,7 @@ bool AbstractPort_ZTopEdgePort::IsInitialized() const {
 
 void AbstractPort_ZTopEdgePort::InternalSwap(AbstractPort_ZTopEdgePort* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AbstractPort_ZTopEdgePort, side_)
       + sizeof(AbstractPort_ZTopEdgePort::side_)
@@ -3873,23 +3587,25 @@ void AbstractPort_ZTopEdgePort::InternalSwap(AbstractPort_ZTopEdgePort* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AbstractPort_ZTopEdgePort::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[9]);
 }
-
 
 // ===================================================================
 
-void AbstractPort_ZTopInner::InitAsDefaultInstance() {
-}
 class AbstractPort_ZTopInner::_Internal {
  public:
 };
 
-AbstractPort_ZTopInner::AbstractPort_ZTopInner(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+AbstractPort_ZTopInner::AbstractPort_ZTopInner(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   locs_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.AbstractPort.ZTopInner)
 }
 AbstractPort_ZTopInner::AbstractPort_ZTopInner(const AbstractPort_ZTopInner& from)
@@ -3899,18 +3615,18 @@ AbstractPort_ZTopInner::AbstractPort_ZTopInner(const AbstractPort_ZTopInner& fro
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.AbstractPort.ZTopInner)
 }
 
-void AbstractPort_ZTopInner::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AbstractPort_ZTopInner_tetris_2eproto.base);
+inline void AbstractPort_ZTopInner::SharedCtor() {
 }
 
 AbstractPort_ZTopInner::~AbstractPort_ZTopInner() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.AbstractPort.ZTopInner)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void AbstractPort_ZTopInner::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void AbstractPort_ZTopInner::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void AbstractPort_ZTopInner::ArenaDtor(void* object) {
@@ -3922,15 +3638,10 @@ void AbstractPort_ZTopInner::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) 
 void AbstractPort_ZTopInner::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const AbstractPort_ZTopInner& AbstractPort_ZTopInner::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AbstractPort_ZTopInner_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void AbstractPort_ZTopInner::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.AbstractPort.ZTopInner)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3940,15 +3651,13 @@ void AbstractPort_ZTopInner::Clear() {
 
 const char* AbstractPort_ZTopInner::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // repeated .vlsir.tetris.TrackCross locs = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3956,34 +3665,36 @@ const char* AbstractPort_ZTopInner::_InternalParse(const char* ptr, ::PROTOBUF_N
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AbstractPort_ZTopInner::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* AbstractPort_ZTopInner::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.AbstractPort.ZTopInner)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .vlsir.tetris.TrackCross locs = 1;
@@ -4006,7 +3717,7 @@ size_t AbstractPort_ZTopInner::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.AbstractPort.ZTopInner)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4017,45 +3728,30 @@ size_t AbstractPort_ZTopInner::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void AbstractPort_ZTopInner::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.AbstractPort.ZTopInner)
-  GOOGLE_DCHECK_NE(&from, this);
-  const AbstractPort_ZTopInner* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AbstractPort_ZTopInner>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.AbstractPort.ZTopInner)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.AbstractPort.ZTopInner)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AbstractPort_ZTopInner::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    AbstractPort_ZTopInner::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AbstractPort_ZTopInner::GetClassData() const { return &_class_data_; }
+
+void AbstractPort_ZTopInner::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<AbstractPort_ZTopInner *>(to)->MergeFrom(
+      static_cast<const AbstractPort_ZTopInner &>(from));
 }
+
 
 void AbstractPort_ZTopInner::MergeFrom(const AbstractPort_ZTopInner& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.AbstractPort.ZTopInner)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   locs_.MergeFrom(from.locs_);
-}
-
-void AbstractPort_ZTopInner::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.AbstractPort.ZTopInner)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AbstractPort_ZTopInner::CopyFrom(const AbstractPort_ZTopInner& from) {
@@ -4071,25 +3767,18 @@ bool AbstractPort_ZTopInner::IsInitialized() const {
 
 void AbstractPort_ZTopInner::InternalSwap(AbstractPort_ZTopInner* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   locs_.InternalSwap(&other->locs_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AbstractPort_ZTopInner::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[10]);
 }
-
 
 // ===================================================================
 
-void AbstractPort::InitAsDefaultInstance() {
-  ::vlsir::tetris::_AbstractPort_default_instance_.edge_ = const_cast< ::vlsir::tetris::AbstractPort_EdgePort*>(
-      ::vlsir::tetris::AbstractPort_EdgePort::internal_default_instance());
-  ::vlsir::tetris::_AbstractPort_default_instance_.ztop_edge_ = const_cast< ::vlsir::tetris::AbstractPort_ZTopEdgePort*>(
-      ::vlsir::tetris::AbstractPort_ZTopEdgePort::internal_default_instance());
-  ::vlsir::tetris::_AbstractPort_default_instance_.ztop_inner_ = const_cast< ::vlsir::tetris::AbstractPort_ZTopInner*>(
-      ::vlsir::tetris::AbstractPort_ZTopInner::internal_default_instance());
-}
 class AbstractPort::_Internal {
  public:
   static const ::vlsir::tetris::AbstractPort_EdgePort& edge(const AbstractPort* msg);
@@ -4110,11 +3799,11 @@ AbstractPort::_Internal::ztop_inner(const AbstractPort* msg) {
   return *msg->kind_.ztop_inner_;
 }
 void AbstractPort::set_allocated_edge(::vlsir::tetris::AbstractPort_EdgePort* edge) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_kind();
   if (edge) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(edge);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::AbstractPort_EdgePort>::GetOwningArena(edge);
     if (message_arena != submessage_arena) {
       edge = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, edge, submessage_arena);
@@ -4125,11 +3814,11 @@ void AbstractPort::set_allocated_edge(::vlsir::tetris::AbstractPort_EdgePort* ed
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.AbstractPort.edge)
 }
 void AbstractPort::set_allocated_ztop_edge(::vlsir::tetris::AbstractPort_ZTopEdgePort* ztop_edge) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_kind();
   if (ztop_edge) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(ztop_edge);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::AbstractPort_ZTopEdgePort>::GetOwningArena(ztop_edge);
     if (message_arena != submessage_arena) {
       ztop_edge = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ztop_edge, submessage_arena);
@@ -4140,11 +3829,11 @@ void AbstractPort::set_allocated_ztop_edge(::vlsir::tetris::AbstractPort_ZTopEdg
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.AbstractPort.ztop_edge)
 }
 void AbstractPort::set_allocated_ztop_inner(::vlsir::tetris::AbstractPort_ZTopInner* ztop_inner) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_kind();
   if (ztop_inner) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(ztop_inner);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::AbstractPort_ZTopInner>::GetOwningArena(ztop_inner);
     if (message_arena != submessage_arena) {
       ztop_inner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ztop_inner, submessage_arena);
@@ -4154,19 +3843,25 @@ void AbstractPort::set_allocated_ztop_inner(::vlsir::tetris::AbstractPort_ZTopIn
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.AbstractPort.ztop_inner)
 }
-AbstractPort::AbstractPort(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+AbstractPort::AbstractPort(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.AbstractPort)
 }
 AbstractPort::AbstractPort(const AbstractPort& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_net().empty()) {
-    net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_net(),
-      GetArena());
+    net_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_net(), 
+      GetArenaForAllocation());
   }
   clear_has_kind();
   switch (from.kind_case()) {
@@ -4189,20 +3884,23 @@ AbstractPort::AbstractPort(const AbstractPort& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.AbstractPort)
 }
 
-void AbstractPort::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AbstractPort_tetris_2eproto.base);
-  net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  clear_has_kind();
+inline void AbstractPort::SharedCtor() {
+net_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  net_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+clear_has_kind();
 }
 
 AbstractPort::~AbstractPort() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.AbstractPort)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void AbstractPort::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void AbstractPort::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   net_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (has_kind()) {
     clear_kind();
@@ -4218,29 +3916,24 @@ void AbstractPort::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void AbstractPort::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const AbstractPort& AbstractPort::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AbstractPort_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void AbstractPort::clear_kind() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.tetris.AbstractPort)
   switch (kind_case()) {
     case kEdge: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete kind_.edge_;
       }
       break;
     }
     case kZtopEdge: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete kind_.ztop_edge_;
       }
       break;
     }
     case kZtopInner: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete kind_.ztop_inner_;
       }
       break;
@@ -4255,83 +3948,86 @@ void AbstractPort::clear_kind() {
 
 void AbstractPort::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.AbstractPort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  net_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  net_.ClearToEmpty();
   clear_kind();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* AbstractPort::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string net = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_net();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.AbstractPort.net"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.AbstractPort.EdgePort edge = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_edge(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.AbstractPort.ZTopEdgePort ztop_edge = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_ztop_edge(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.AbstractPort.ZTopInner ztop_inner = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_ztop_inner(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AbstractPort::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* AbstractPort::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.AbstractPort)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string net = 1;
-  if (this->net().size() > 0) {
+  if (!this->_internal_net().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_net().data(), static_cast<int>(this->_internal_net().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4376,12 +4072,12 @@ size_t AbstractPort::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.AbstractPort)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string net = 1;
-  if (this->net().size() > 0) {
+  if (!this->_internal_net().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_net());
@@ -4413,38 +4109,29 @@ size_t AbstractPort::ByteSizeLong() const {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void AbstractPort::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.AbstractPort)
-  GOOGLE_DCHECK_NE(&from, this);
-  const AbstractPort* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AbstractPort>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.AbstractPort)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.AbstractPort)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AbstractPort::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    AbstractPort::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AbstractPort::GetClassData() const { return &_class_data_; }
+
+void AbstractPort::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<AbstractPort *>(to)->MergeFrom(
+      static_cast<const AbstractPort &>(from));
 }
+
 
 void AbstractPort::MergeFrom(const AbstractPort& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.AbstractPort)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.net().size() > 0) {
+  if (!from._internal_net().empty()) {
     _internal_set_net(from._internal_net());
   }
   switch (from.kind_case()) {
@@ -4464,13 +4151,7 @@ void AbstractPort::MergeFrom(const AbstractPort& from) {
       break;
     }
   }
-}
-
-void AbstractPort::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.AbstractPort)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AbstractPort::CopyFrom(const AbstractPort& from) {
@@ -4486,25 +4167,26 @@ bool AbstractPort::IsInitialized() const {
 
 void AbstractPort::InternalSwap(AbstractPort* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  net_.Swap(&other->net_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &net_, lhs_arena,
+      &other->net_, rhs_arena
+  );
   swap(kind_, other->kind_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AbstractPort::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[11]);
 }
-
 
 // ===================================================================
 
-void Instance::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Instance_default_instance_._instance.get_mutable()->cell_ = const_cast< ::vlsir::utils::Reference*>(
-      ::vlsir::utils::Reference::internal_default_instance());
-  ::vlsir::tetris::_Instance_default_instance_._instance.get_mutable()->loc_ = const_cast< ::vlsir::tetris::Place*>(
-      ::vlsir::tetris::Place::internal_default_instance());
-}
 class Instance::_Internal {
  public:
   static const ::vlsir::utils::Reference& cell(const Instance* msg);
@@ -4520,24 +4202,30 @@ Instance::_Internal::loc(const Instance* msg) {
   return *msg->loc_;
 }
 void Instance::clear_cell() {
-  if (GetArena() == nullptr && cell_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && cell_ != nullptr) {
     delete cell_;
   }
   cell_ = nullptr;
 }
-Instance::Instance(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Instance::Instance(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Instance)
 }
 Instance::Instance(const Instance& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_cell()) {
     cell_ = new ::vlsir::utils::Reference(*from.cell_);
@@ -4555,22 +4243,26 @@ Instance::Instance(const Instance& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Instance)
 }
 
-void Instance::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Instance_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&cell_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&reflect_vert_) -
-      reinterpret_cast<char*>(&cell_)) + sizeof(reflect_vert_));
+inline void Instance::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&cell_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&reflect_vert_) -
+    reinterpret_cast<char*>(&cell_)) + sizeof(reflect_vert_));
 }
 
 Instance::~Instance() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Instance)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Instance::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Instance::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete cell_;
   if (this != internal_default_instance()) delete loc_;
@@ -4585,24 +4277,19 @@ void Instance::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Instance::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Instance& Instance::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Instance_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Instance::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Instance)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && cell_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && cell_ != nullptr) {
     delete cell_;
   }
   cell_ = nullptr;
-  if (GetArena() == nullptr && loc_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && loc_ != nullptr) {
     delete loc_;
   }
   loc_ = nullptr;
@@ -4614,79 +4301,83 @@ void Instance::Clear() {
 
 const char* Instance::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.Instance.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.utils.Reference cell = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_cell(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Place loc = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_loc(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool reflect_horiz = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           reflect_horiz_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool reflect_vert = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           reflect_vert_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Instance::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Instance::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Instance)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -4696,7 +4387,7 @@ failure:
   }
 
   // .vlsir.utils.Reference cell = 3;
-  if (this->has_cell()) {
+  if (this->_internal_has_cell()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -4704,7 +4395,7 @@ failure:
   }
 
   // .vlsir.tetris.Place loc = 4;
-  if (this->has_loc()) {
+  if (this->_internal_has_loc()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -4712,13 +4403,13 @@ failure:
   }
 
   // bool reflect_horiz = 6;
-  if (this->reflect_horiz() != 0) {
+  if (this->_internal_reflect_horiz() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_reflect_horiz(), target);
   }
 
   // bool reflect_vert = 7;
-  if (this->reflect_vert() != 0) {
+  if (this->_internal_reflect_vert() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_reflect_vert(), target);
   }
@@ -4735,94 +4426,79 @@ size_t Instance::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Instance)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.utils.Reference cell = 3;
-  if (this->has_cell()) {
+  if (this->_internal_has_cell()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *cell_);
   }
 
   // .vlsir.tetris.Place loc = 4;
-  if (this->has_loc()) {
+  if (this->_internal_has_loc()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *loc_);
   }
 
   // bool reflect_horiz = 6;
-  if (this->reflect_horiz() != 0) {
+  if (this->_internal_reflect_horiz() != 0) {
     total_size += 1 + 1;
   }
 
   // bool reflect_vert = 7;
-  if (this->reflect_vert() != 0) {
+  if (this->_internal_reflect_vert() != 0) {
     total_size += 1 + 1;
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Instance::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Instance)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Instance* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Instance>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Instance)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Instance)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Instance::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Instance::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Instance::GetClassData() const { return &_class_data_; }
+
+void Instance::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Instance *>(to)->MergeFrom(
+      static_cast<const Instance &>(from));
 }
+
 
 void Instance::MergeFrom(const Instance& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Instance)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_cell()) {
+  if (from._internal_has_cell()) {
     _internal_mutable_cell()->::vlsir::utils::Reference::MergeFrom(from._internal_cell());
   }
-  if (from.has_loc()) {
+  if (from._internal_has_loc()) {
     _internal_mutable_loc()->::vlsir::tetris::Place::MergeFrom(from._internal_loc());
   }
-  if (from.reflect_horiz() != 0) {
+  if (from._internal_reflect_horiz() != 0) {
     _internal_set_reflect_horiz(from._internal_reflect_horiz());
   }
-  if (from.reflect_vert() != 0) {
+  if (from._internal_reflect_vert() != 0) {
     _internal_set_reflect_vert(from._internal_reflect_vert());
   }
-}
-
-void Instance::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Instance)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Instance::CopyFrom(const Instance& from) {
@@ -4838,8 +4514,14 @@ bool Instance::IsInitialized() const {
 
 void Instance::InternalSwap(Instance* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Instance, reflect_vert_)
       + sizeof(Instance::reflect_vert_)
@@ -4849,18 +4531,13 @@ void Instance::InternalSwap(Instance* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Instance::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[12]);
 }
-
 
 // ===================================================================
 
-void Place::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Place_default_instance_.abs_ = const_cast< ::vlsir::raw::Point*>(
-      ::vlsir::raw::Point::internal_default_instance());
-  ::vlsir::tetris::_Place_default_instance_.rel_ = const_cast< ::vlsir::tetris::RelPlace*>(
-      ::vlsir::tetris::RelPlace::internal_default_instance());
-}
 class Place::_Internal {
  public:
   static const ::vlsir::raw::Point& abs(const Place* msg);
@@ -4876,11 +4553,13 @@ Place::_Internal::rel(const Place* msg) {
   return *msg->place_.rel_;
 }
 void Place::set_allocated_abs(::vlsir::raw::Point* abs) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_place();
   if (abs) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(abs)->GetArena();
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(abs));
     if (message_arena != submessage_arena) {
       abs = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, abs, submessage_arena);
@@ -4892,18 +4571,18 @@ void Place::set_allocated_abs(::vlsir::raw::Point* abs) {
 }
 void Place::clear_abs() {
   if (_internal_has_abs()) {
-    if (GetArena() == nullptr) {
+    if (GetArenaForAllocation() == nullptr) {
       delete place_.abs_;
     }
     clear_has_place();
   }
 }
 void Place::set_allocated_rel(::vlsir::tetris::RelPlace* rel) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_place();
   if (rel) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(rel);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::RelPlace>::GetOwningArena(rel);
     if (message_arena != submessage_arena) {
       rel = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, rel, submessage_arena);
@@ -4913,10 +4592,13 @@ void Place::set_allocated_rel(::vlsir::tetris::RelPlace* rel) {
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.Place.rel)
 }
-Place::Place(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Place::Place(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Place)
 }
 Place::Place(const Place& from)
@@ -4939,19 +4621,19 @@ Place::Place(const Place& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Place)
 }
 
-void Place::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Place_tetris_2eproto.base);
-  clear_has_place();
+inline void Place::SharedCtor() {
+clear_has_place();
 }
 
 Place::~Place() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Place)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Place::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Place::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_place()) {
     clear_place();
   }
@@ -4966,23 +4648,18 @@ void Place::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Place::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Place& Place::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Place_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Place::clear_place() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.tetris.Place)
   switch (place_case()) {
     case kAbs: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete place_.abs_;
       }
       break;
     }
     case kRel: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete place_.rel_;
       }
       break;
@@ -4997,7 +4674,7 @@ void Place::clear_place() {
 
 void Place::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Place)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5007,52 +4684,53 @@ void Place::Clear() {
 
 const char* Place::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.raw.Point abs = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_abs(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.RelPlace rel = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_rel(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Place::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Place::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Place)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.raw.Point abs = 1;
@@ -5083,7 +4761,7 @@ size_t Place::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Place)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5106,35 +4784,26 @@ size_t Place::ByteSizeLong() const {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Place::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Place)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Place* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Place>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Place)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Place)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Place::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Place::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Place::GetClassData() const { return &_class_data_; }
+
+void Place::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Place *>(to)->MergeFrom(
+      static_cast<const Place &>(from));
 }
+
 
 void Place::MergeFrom(const Place& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Place)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.place_case()) {
@@ -5150,13 +4819,7 @@ void Place::MergeFrom(const Place& from) {
       break;
     }
   }
-}
-
-void Place::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Place)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Place::CopyFrom(const Place& from) {
@@ -5172,189 +4835,58 @@ bool Place::IsInitialized() const {
 
 void Place::InternalSwap(Place* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(place_, other->place_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Place::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[13]);
 }
-
 
 // ===================================================================
 
-void RelPlace::InitAsDefaultInstance() {
-}
 class RelPlace::_Internal {
  public:
 };
 
-RelPlace::RelPlace(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
+RelPlace::RelPlace(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.RelPlace)
 }
 RelPlace::RelPlace(const RelPlace& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.RelPlace)
 }
 
-void RelPlace::SharedCtor() {
-}
-
-RelPlace::~RelPlace() {
-  // @@protoc_insertion_point(destructor:vlsir.tetris.RelPlace)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void RelPlace::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-}
-
-void RelPlace::ArenaDtor(void* object) {
-  RelPlace* _this = reinterpret_cast< RelPlace* >(object);
-  (void)_this;
-}
-void RelPlace::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void RelPlace::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const RelPlace& RelPlace::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RelPlace_tetris_2eproto.base);
-  return *internal_default_instance();
-}
 
 
-void RelPlace::Clear() {
-// @@protoc_insertion_point(message_clear_start:vlsir.tetris.RelPlace)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
 
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
 
-const char* RelPlace::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RelPlace::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RelPlace::GetClassData() const { return &_class_data_; }
 
-::PROTOBUF_NAMESPACE_ID::uint8* RelPlace::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.RelPlace)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vlsir.tetris.RelPlace)
-  return target;
-}
 
-size_t RelPlace::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.RelPlace)
-  size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
 
-void RelPlace::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.RelPlace)
-  GOOGLE_DCHECK_NE(&from, this);
-  const RelPlace* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RelPlace>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.RelPlace)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.RelPlace)
-    MergeFrom(*source);
-  }
-}
-
-void RelPlace::MergeFrom(const RelPlace& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.RelPlace)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-}
-
-void RelPlace::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.RelPlace)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RelPlace::CopyFrom(const RelPlace& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.tetris.RelPlace)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RelPlace::IsInitialized() const {
-  return true;
-}
-
-void RelPlace::InternalSwap(RelPlace* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-}
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RelPlace::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[14]);
 }
-
 
 // ===================================================================
 
-void Stack::InitAsDefaultInstance() {
-  ::vlsir::tetris::_Stack_default_instance_._instance.get_mutable()->prim_ = const_cast< ::vlsir::tetris::PrimitiveLayer*>(
-      ::vlsir::tetris::PrimitiveLayer::internal_default_instance());
-  ::vlsir::tetris::_Stack_default_instance_._instance.get_mutable()->boundary_layer_ = const_cast< ::vlsir::raw::Layer*>(
-      ::vlsir::raw::Layer::internal_default_instance());
-}
 class Stack::_Internal {
  public:
   static const ::vlsir::tetris::PrimitiveLayer& prim(const Stack* msg);
@@ -5370,17 +4902,20 @@ Stack::_Internal::boundary_layer(const Stack* msg) {
   return *msg->boundary_layer_;
 }
 void Stack::clear_boundary_layer() {
-  if (GetArena() == nullptr && boundary_layer_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && boundary_layer_ != nullptr) {
     delete boundary_layer_;
   }
   boundary_layer_ = nullptr;
 }
-Stack::Stack(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+Stack::Stack(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   metals_(arena),
   vias_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Stack)
 }
 Stack::Stack(const Stack& from)
@@ -5402,21 +4937,22 @@ Stack::Stack(const Stack& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Stack)
 }
 
-void Stack::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Stack_tetris_2eproto.base);
-  ::memset(&prim_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&units_) -
-      reinterpret_cast<char*>(&prim_)) + sizeof(units_));
+inline void Stack::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&prim_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&units_) -
+    reinterpret_cast<char*>(&prim_)) + sizeof(units_));
 }
 
 Stack::~Stack() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Stack)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Stack::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Stack::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete prim_;
   if (this != internal_default_instance()) delete boundary_layer_;
 }
@@ -5430,25 +4966,20 @@ void Stack::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Stack::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Stack& Stack::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Stack_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Stack::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Stack)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   metals_.Clear();
   vias_.Clear();
-  if (GetArena() == nullptr && prim_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && prim_ != nullptr) {
     delete prim_;
   }
   prim_ = nullptr;
-  if (GetArena() == nullptr && boundary_layer_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && boundary_layer_ != nullptr) {
     delete boundary_layer_;
   }
   boundary_layer_ = nullptr;
@@ -5458,30 +4989,30 @@ void Stack::Clear() {
 
 const char* Stack::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.raw.Units units = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_units(static_cast<::vlsir::raw::Units>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.PrimitiveLayer prim = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_prim(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.MetalLayer metals = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -5489,11 +5020,12 @@ const char* Stack::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.ViaLayer vias = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -5501,52 +5033,55 @@ const char* Stack::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.raw.Layer boundary_layer = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_boundary_layer(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Stack::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Stack::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Stack)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.raw.Units units = 1;
-  if (this->units() != 0) {
+  if (this->_internal_units() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       1, this->_internal_units(), target);
   }
 
   // .vlsir.tetris.PrimitiveLayer prim = 2;
-  if (this->has_prim()) {
+  if (this->_internal_has_prim()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -5570,7 +5105,7 @@ failure:
   }
 
   // .vlsir.raw.Layer boundary_layer = 11;
-  if (this->has_boundary_layer()) {
+  if (this->_internal_has_boundary_layer()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -5589,7 +5124,7 @@ size_t Stack::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Stack)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5608,74 +5143,59 @@ size_t Stack::ByteSizeLong() const {
   }
 
   // .vlsir.tetris.PrimitiveLayer prim = 2;
-  if (this->has_prim()) {
+  if (this->_internal_has_prim()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *prim_);
   }
 
   // .vlsir.raw.Layer boundary_layer = 11;
-  if (this->has_boundary_layer()) {
+  if (this->_internal_has_boundary_layer()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *boundary_layer_);
   }
 
   // .vlsir.raw.Units units = 1;
-  if (this->units() != 0) {
+  if (this->_internal_units() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_units());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Stack::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Stack)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Stack* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Stack>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Stack)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Stack)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Stack::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Stack::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Stack::GetClassData() const { return &_class_data_; }
+
+void Stack::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Stack *>(to)->MergeFrom(
+      static_cast<const Stack &>(from));
 }
+
 
 void Stack::MergeFrom(const Stack& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Stack)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   metals_.MergeFrom(from.metals_);
   vias_.MergeFrom(from.vias_);
-  if (from.has_prim()) {
+  if (from._internal_has_prim()) {
     _internal_mutable_prim()->::vlsir::tetris::PrimitiveLayer::MergeFrom(from._internal_prim());
   }
-  if (from.has_boundary_layer()) {
+  if (from._internal_has_boundary_layer()) {
     _internal_mutable_boundary_layer()->::vlsir::raw::Layer::MergeFrom(from._internal_boundary_layer());
   }
-  if (from.units() != 0) {
+  if (from._internal_units() != 0) {
     _internal_set_units(from._internal_units());
   }
-}
-
-void Stack::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Stack)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Stack::CopyFrom(const Stack& from) {
@@ -5691,7 +5211,7 @@ bool Stack::IsInitialized() const {
 
 void Stack::InternalSwap(Stack* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   metals_.InternalSwap(&other->metals_);
   vias_.InternalSwap(&other->vias_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
@@ -5703,22 +5223,24 @@ void Stack::InternalSwap(Stack* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Stack::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[15]);
 }
-
 
 // ===================================================================
 
-void LayerEnum::InitAsDefaultInstance() {
-}
 class LayerEnum::_Internal {
  public:
 };
 
-LayerEnum::LayerEnum(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+LayerEnum::LayerEnum(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.LayerEnum)
 }
 LayerEnum::LayerEnum(const LayerEnum& from)
@@ -5730,20 +5252,22 @@ LayerEnum::LayerEnum(const LayerEnum& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.LayerEnum)
 }
 
-void LayerEnum::SharedCtor() {
-  ::memset(&index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&type_) -
-      reinterpret_cast<char*>(&index_)) + sizeof(type_));
+inline void LayerEnum::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&index_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&index_)) + sizeof(type_));
 }
 
 LayerEnum::~LayerEnum() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.LayerEnum)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void LayerEnum::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void LayerEnum::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void LayerEnum::ArenaDtor(void* object) {
@@ -5755,15 +5279,10 @@ void LayerEnum::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void LayerEnum::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const LayerEnum& LayerEnum::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_LayerEnum_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void LayerEnum::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.LayerEnum)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -5775,64 +5294,65 @@ void LayerEnum::Clear() {
 
 const char* LayerEnum::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.LayerEnum.LayerType type = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_type(static_cast<::vlsir::tetris::LayerEnum_LayerType>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* LayerEnum::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* LayerEnum::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.LayerEnum)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.LayerEnum.LayerType type = 1;
-  if (this->type() != 0) {
+  if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // int64 index = 2;
-  if (this->index() != 0) {
+  if (this->_internal_index() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_index(), target);
   }
@@ -5849,67 +5369,50 @@ size_t LayerEnum::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.LayerEnum)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 index = 2;
-  if (this->index() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_index());
+  if (this->_internal_index() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_index());
   }
 
   // .vlsir.tetris.LayerEnum.LayerType type = 1;
-  if (this->type() != 0) {
+  if (this->_internal_type() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void LayerEnum::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.LayerEnum)
-  GOOGLE_DCHECK_NE(&from, this);
-  const LayerEnum* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<LayerEnum>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.LayerEnum)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.LayerEnum)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LayerEnum::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    LayerEnum::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LayerEnum::GetClassData() const { return &_class_data_; }
+
+void LayerEnum::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<LayerEnum *>(to)->MergeFrom(
+      static_cast<const LayerEnum &>(from));
 }
+
 
 void LayerEnum::MergeFrom(const LayerEnum& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.LayerEnum)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.index() != 0) {
+  if (from._internal_index() != 0) {
     _internal_set_index(from._internal_index());
   }
-  if (from.type() != 0) {
+  if (from._internal_type() != 0) {
     _internal_set_type(from._internal_type());
   }
-}
-
-void LayerEnum::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.LayerEnum)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void LayerEnum::CopyFrom(const LayerEnum& from) {
@@ -5925,7 +5428,7 @@ bool LayerEnum::IsInitialized() const {
 
 void LayerEnum::InternalSwap(LayerEnum* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(LayerEnum, type_)
       + sizeof(LayerEnum::type_)
@@ -5935,16 +5438,13 @@ void LayerEnum::InternalSwap(LayerEnum* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LayerEnum::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[16]);
 }
-
 
 // ===================================================================
 
-void MetalLayer::InitAsDefaultInstance() {
-  ::vlsir::tetris::_MetalLayer_default_instance_._instance.get_mutable()->raw_ = const_cast< ::vlsir::raw::Layer*>(
-      ::vlsir::raw::Layer::internal_default_instance());
-}
 class MetalLayer::_Internal {
  public:
   static const ::vlsir::raw::Layer& raw(const MetalLayer* msg);
@@ -5955,16 +5455,19 @@ MetalLayer::_Internal::raw(const MetalLayer* msg) {
   return *msg->raw_;
 }
 void MetalLayer::clear_raw() {
-  if (GetArena() == nullptr && raw_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && raw_ != nullptr) {
     delete raw_;
   }
   raw_ = nullptr;
 }
-MetalLayer::MetalLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+MetalLayer::MetalLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   entries_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.MetalLayer)
 }
 MetalLayer::MetalLayer(const MetalLayer& from)
@@ -5972,9 +5475,12 @@ MetalLayer::MetalLayer(const MetalLayer& from)
       entries_(from.entries_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_raw()) {
     raw_ = new ::vlsir::raw::Layer(*from.raw_);
@@ -5987,22 +5493,26 @@ MetalLayer::MetalLayer(const MetalLayer& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.MetalLayer)
 }
 
-void MetalLayer::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MetalLayer_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&raw_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&prim_) -
-      reinterpret_cast<char*>(&raw_)) + sizeof(prim_));
+inline void MetalLayer::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&raw_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&prim_) -
+    reinterpret_cast<char*>(&raw_)) + sizeof(prim_));
 }
 
 MetalLayer::~MetalLayer() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.MetalLayer)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void MetalLayer::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void MetalLayer::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete raw_;
 }
@@ -6016,21 +5526,16 @@ void MetalLayer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void MetalLayer::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const MetalLayer& MetalLayer::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_MetalLayer_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void MetalLayer::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.MetalLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   entries_.Clear();
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && raw_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && raw_ != nullptr) {
     delete raw_;
   }
   raw_ = nullptr;
@@ -6042,39 +5547,40 @@ void MetalLayer::Clear() {
 
 const char* MetalLayer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.MetalLayer.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.MetalLayer.Dir dir = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_dir(static_cast<::vlsir::tetris::MetalLayer_Dir>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 cutsize = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           cutsize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .vlsir.tetris.TrackSpec entries = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -6082,74 +5588,81 @@ const char* MetalLayer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 offset = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           offset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 overlap = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           overlap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool flip = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           flip_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.MetalLayer.PrimitiveMode prim = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_prim(static_cast<::vlsir::tetris::MetalLayer_PrimitiveMode>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.raw.Layer raw = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_raw(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* MetalLayer::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* MetalLayer::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.MetalLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6159,14 +5672,14 @@ failure:
   }
 
   // .vlsir.tetris.MetalLayer.Dir dir = 2;
-  if (this->dir() != 0) {
+  if (this->_internal_dir() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_dir(), target);
   }
 
   // int64 cutsize = 3;
-  if (this->cutsize() != 0) {
+  if (this->_internal_cutsize() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_cutsize(), target);
   }
@@ -6180,32 +5693,32 @@ failure:
   }
 
   // int64 offset = 5;
-  if (this->offset() != 0) {
+  if (this->_internal_offset() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_offset(), target);
   }
 
   // int64 overlap = 6;
-  if (this->overlap() != 0) {
+  if (this->_internal_overlap() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(6, this->_internal_overlap(), target);
   }
 
   // bool flip = 7;
-  if (this->flip() != 0) {
+  if (this->_internal_flip() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_flip(), target);
   }
 
   // .vlsir.tetris.MetalLayer.PrimitiveMode prim = 8;
-  if (this->prim() != 0) {
+  if (this->_internal_prim() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       8, this->_internal_prim(), target);
   }
 
   // .vlsir.raw.Layer raw = 11;
-  if (this->has_raw()) {
+  if (this->_internal_has_raw()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6224,7 +5737,7 @@ size_t MetalLayer::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.MetalLayer)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -6236,120 +5749,99 @@ size_t MetalLayer::ByteSizeLong() const {
   }
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.raw.Layer raw = 11;
-  if (this->has_raw()) {
+  if (this->_internal_has_raw()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *raw_);
   }
 
   // int64 cutsize = 3;
-  if (this->cutsize() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_cutsize());
+  if (this->_internal_cutsize() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_cutsize());
   }
 
   // .vlsir.tetris.MetalLayer.Dir dir = 2;
-  if (this->dir() != 0) {
+  if (this->_internal_dir() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_dir());
   }
 
   // bool flip = 7;
-  if (this->flip() != 0) {
+  if (this->_internal_flip() != 0) {
     total_size += 1 + 1;
   }
 
   // int64 offset = 5;
-  if (this->offset() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_offset());
+  if (this->_internal_offset() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_offset());
   }
 
   // int64 overlap = 6;
-  if (this->overlap() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_overlap());
+  if (this->_internal_overlap() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_overlap());
   }
 
   // .vlsir.tetris.MetalLayer.PrimitiveMode prim = 8;
-  if (this->prim() != 0) {
+  if (this->_internal_prim() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_prim());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void MetalLayer::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.MetalLayer)
-  GOOGLE_DCHECK_NE(&from, this);
-  const MetalLayer* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MetalLayer>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.MetalLayer)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.MetalLayer)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MetalLayer::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    MetalLayer::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MetalLayer::GetClassData() const { return &_class_data_; }
+
+void MetalLayer::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<MetalLayer *>(to)->MergeFrom(
+      static_cast<const MetalLayer &>(from));
 }
+
 
 void MetalLayer::MergeFrom(const MetalLayer& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.MetalLayer)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   entries_.MergeFrom(from.entries_);
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_raw()) {
+  if (from._internal_has_raw()) {
     _internal_mutable_raw()->::vlsir::raw::Layer::MergeFrom(from._internal_raw());
   }
-  if (from.cutsize() != 0) {
+  if (from._internal_cutsize() != 0) {
     _internal_set_cutsize(from._internal_cutsize());
   }
-  if (from.dir() != 0) {
+  if (from._internal_dir() != 0) {
     _internal_set_dir(from._internal_dir());
   }
-  if (from.flip() != 0) {
+  if (from._internal_flip() != 0) {
     _internal_set_flip(from._internal_flip());
   }
-  if (from.offset() != 0) {
+  if (from._internal_offset() != 0) {
     _internal_set_offset(from._internal_offset());
   }
-  if (from.overlap() != 0) {
+  if (from._internal_overlap() != 0) {
     _internal_set_overlap(from._internal_overlap());
   }
-  if (from.prim() != 0) {
+  if (from._internal_prim() != 0) {
     _internal_set_prim(from._internal_prim());
   }
-}
-
-void MetalLayer::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.MetalLayer)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MetalLayer::CopyFrom(const MetalLayer& from) {
@@ -6365,9 +5857,15 @@ bool MetalLayer::IsInitialized() const {
 
 void MetalLayer::InternalSwap(MetalLayer* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   entries_.InternalSwap(&other->entries_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(MetalLayer, prim_)
       + sizeof(MetalLayer::prim_)
@@ -6377,22 +5875,13 @@ void MetalLayer::InternalSwap(MetalLayer* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MetalLayer::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[17]);
 }
-
 
 // ===================================================================
 
-void ViaLayer::InitAsDefaultInstance() {
-  ::vlsir::tetris::_ViaLayer_default_instance_._instance.get_mutable()->top_ = const_cast< ::vlsir::tetris::LayerEnum*>(
-      ::vlsir::tetris::LayerEnum::internal_default_instance());
-  ::vlsir::tetris::_ViaLayer_default_instance_._instance.get_mutable()->bot_ = const_cast< ::vlsir::tetris::LayerEnum*>(
-      ::vlsir::tetris::LayerEnum::internal_default_instance());
-  ::vlsir::tetris::_ViaLayer_default_instance_._instance.get_mutable()->size_ = const_cast< ::vlsir::tetris::Xy*>(
-      ::vlsir::tetris::Xy::internal_default_instance());
-  ::vlsir::tetris::_ViaLayer_default_instance_._instance.get_mutable()->raw_ = const_cast< ::vlsir::raw::Layer*>(
-      ::vlsir::raw::Layer::internal_default_instance());
-}
 class ViaLayer::_Internal {
  public:
   static const ::vlsir::tetris::LayerEnum& top(const ViaLayer* msg);
@@ -6418,24 +5907,30 @@ ViaLayer::_Internal::raw(const ViaLayer* msg) {
   return *msg->raw_;
 }
 void ViaLayer::clear_raw() {
-  if (GetArena() == nullptr && raw_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && raw_ != nullptr) {
     delete raw_;
   }
   raw_ = nullptr;
 }
-ViaLayer::ViaLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+ViaLayer::ViaLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.ViaLayer)
 }
 ViaLayer::ViaLayer(const ViaLayer& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_name(),
-      GetArena());
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_top()) {
     top_ = new ::vlsir::tetris::LayerEnum(*from.top_);
@@ -6460,22 +5955,26 @@ ViaLayer::ViaLayer(const ViaLayer& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.ViaLayer)
 }
 
-void ViaLayer::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ViaLayer_tetris_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&top_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&raw_) -
-      reinterpret_cast<char*>(&top_)) + sizeof(raw_));
+inline void ViaLayer::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&top_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&raw_) -
+    reinterpret_cast<char*>(&top_)) + sizeof(raw_));
 }
 
 ViaLayer::~ViaLayer() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.ViaLayer)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void ViaLayer::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void ViaLayer::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete top_;
   if (this != internal_default_instance()) delete bot_;
@@ -6492,32 +5991,27 @@ void ViaLayer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void ViaLayer::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ViaLayer& ViaLayer::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ViaLayer_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void ViaLayer::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.ViaLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  if (GetArena() == nullptr && top_ != nullptr) {
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && top_ != nullptr) {
     delete top_;
   }
   top_ = nullptr;
-  if (GetArena() == nullptr && bot_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && bot_ != nullptr) {
     delete bot_;
   }
   bot_ = nullptr;
-  if (GetArena() == nullptr && size_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && size_ != nullptr) {
     delete size_;
   }
   size_ = nullptr;
-  if (GetArena() == nullptr && raw_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && raw_ != nullptr) {
     delete raw_;
   }
   raw_ = nullptr;
@@ -6526,79 +6020,83 @@ void ViaLayer::Clear() {
 
 const char* ViaLayer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tetris.ViaLayer.name"));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.LayerEnum top = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_top(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.LayerEnum bot = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_bot(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.Xy size = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_size(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.raw.Layer raw = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_raw(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ViaLayer::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* ViaLayer::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.ViaLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -6608,7 +6106,7 @@ failure:
   }
 
   // .vlsir.tetris.LayerEnum top = 2;
-  if (this->has_top()) {
+  if (this->_internal_has_top()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6616,7 +6114,7 @@ failure:
   }
 
   // .vlsir.tetris.LayerEnum bot = 3;
-  if (this->has_bot()) {
+  if (this->_internal_has_bot()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6624,7 +6122,7 @@ failure:
   }
 
   // .vlsir.tetris.Xy size = 4;
-  if (this->has_size()) {
+  if (this->_internal_has_size()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6632,7 +6130,7 @@ failure:
   }
 
   // .vlsir.raw.Layer raw = 11;
-  if (this->has_raw()) {
+  if (this->_internal_has_raw()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6651,98 +6149,83 @@ size_t ViaLayer::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.ViaLayer)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // .vlsir.tetris.LayerEnum top = 2;
-  if (this->has_top()) {
+  if (this->_internal_has_top()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *top_);
   }
 
   // .vlsir.tetris.LayerEnum bot = 3;
-  if (this->has_bot()) {
+  if (this->_internal_has_bot()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *bot_);
   }
 
   // .vlsir.tetris.Xy size = 4;
-  if (this->has_size()) {
+  if (this->_internal_has_size()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *size_);
   }
 
   // .vlsir.raw.Layer raw = 11;
-  if (this->has_raw()) {
+  if (this->_internal_has_raw()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *raw_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void ViaLayer::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.ViaLayer)
-  GOOGLE_DCHECK_NE(&from, this);
-  const ViaLayer* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ViaLayer>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.ViaLayer)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.ViaLayer)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ViaLayer::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ViaLayer::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ViaLayer::GetClassData() const { return &_class_data_; }
+
+void ViaLayer::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<ViaLayer *>(to)->MergeFrom(
+      static_cast<const ViaLayer &>(from));
 }
+
 
 void ViaLayer::MergeFrom(const ViaLayer& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.ViaLayer)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
+  if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from.has_top()) {
+  if (from._internal_has_top()) {
     _internal_mutable_top()->::vlsir::tetris::LayerEnum::MergeFrom(from._internal_top());
   }
-  if (from.has_bot()) {
+  if (from._internal_has_bot()) {
     _internal_mutable_bot()->::vlsir::tetris::LayerEnum::MergeFrom(from._internal_bot());
   }
-  if (from.has_size()) {
+  if (from._internal_has_size()) {
     _internal_mutable_size()->::vlsir::tetris::Xy::MergeFrom(from._internal_size());
   }
-  if (from.has_raw()) {
+  if (from._internal_has_raw()) {
     _internal_mutable_raw()->::vlsir::raw::Layer::MergeFrom(from._internal_raw());
   }
-}
-
-void ViaLayer::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.ViaLayer)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ViaLayer::CopyFrom(const ViaLayer& from) {
@@ -6758,8 +6241,14 @@ bool ViaLayer::IsInitialized() const {
 
 void ViaLayer::InternalSwap(ViaLayer* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ViaLayer, raw_)
       + sizeof(ViaLayer::raw_)
@@ -6769,16 +6258,13 @@ void ViaLayer::InternalSwap(ViaLayer* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ViaLayer::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[18]);
 }
-
 
 // ===================================================================
 
-void PrimitiveLayer::InitAsDefaultInstance() {
-  ::vlsir::tetris::_PrimitiveLayer_default_instance_._instance.get_mutable()->pitches_ = const_cast< ::vlsir::tetris::Xy*>(
-      ::vlsir::tetris::Xy::internal_default_instance());
-}
 class PrimitiveLayer::_Internal {
  public:
   static const ::vlsir::tetris::Xy& pitches(const PrimitiveLayer* msg);
@@ -6788,10 +6274,13 @@ const ::vlsir::tetris::Xy&
 PrimitiveLayer::_Internal::pitches(const PrimitiveLayer* msg) {
   return *msg->pitches_;
 }
-PrimitiveLayer::PrimitiveLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+PrimitiveLayer::PrimitiveLayer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.PrimitiveLayer)
 }
 PrimitiveLayer::PrimitiveLayer(const PrimitiveLayer& from)
@@ -6805,19 +6294,19 @@ PrimitiveLayer::PrimitiveLayer(const PrimitiveLayer& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.PrimitiveLayer)
 }
 
-void PrimitiveLayer::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_PrimitiveLayer_tetris_2eproto.base);
-  pitches_ = nullptr;
+inline void PrimitiveLayer::SharedCtor() {
+pitches_ = nullptr;
 }
 
 PrimitiveLayer::~PrimitiveLayer() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.PrimitiveLayer)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void PrimitiveLayer::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void PrimitiveLayer::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete pitches_;
 }
 
@@ -6830,19 +6319,14 @@ void PrimitiveLayer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void PrimitiveLayer::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const PrimitiveLayer& PrimitiveLayer::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_PrimitiveLayer_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void PrimitiveLayer::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.PrimitiveLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && pitches_ != nullptr) {
+  if (GetArenaForAllocation() == nullptr && pitches_ != nullptr) {
     delete pitches_;
   }
   pitches_ = nullptr;
@@ -6851,49 +6335,49 @@ void PrimitiveLayer::Clear() {
 
 const char* PrimitiveLayer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.Xy pitches = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_pitches(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* PrimitiveLayer::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* PrimitiveLayer::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.PrimitiveLayer)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.Xy pitches = 1;
-  if (this->has_pitches()) {
+  if (this->_internal_has_pitches()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -6912,58 +6396,43 @@ size_t PrimitiveLayer::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.PrimitiveLayer)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // .vlsir.tetris.Xy pitches = 1;
-  if (this->has_pitches()) {
+  if (this->_internal_has_pitches()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *pitches_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void PrimitiveLayer::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.PrimitiveLayer)
-  GOOGLE_DCHECK_NE(&from, this);
-  const PrimitiveLayer* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PrimitiveLayer>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.PrimitiveLayer)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.PrimitiveLayer)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PrimitiveLayer::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    PrimitiveLayer::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PrimitiveLayer::GetClassData() const { return &_class_data_; }
+
+void PrimitiveLayer::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<PrimitiveLayer *>(to)->MergeFrom(
+      static_cast<const PrimitiveLayer &>(from));
 }
+
 
 void PrimitiveLayer::MergeFrom(const PrimitiveLayer& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.PrimitiveLayer)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_pitches()) {
+  if (from._internal_has_pitches()) {
     _internal_mutable_pitches()->::vlsir::tetris::Xy::MergeFrom(from._internal_pitches());
   }
-}
-
-void PrimitiveLayer::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.PrimitiveLayer)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void PrimitiveLayer::CopyFrom(const PrimitiveLayer& from) {
@@ -6979,27 +6448,29 @@ bool PrimitiveLayer::IsInitialized() const {
 
 void PrimitiveLayer::InternalSwap(PrimitiveLayer* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(pitches_, other->pitches_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PrimitiveLayer::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[19]);
 }
-
 
 // ===================================================================
 
-void TrackSpec_TrackEntry::InitAsDefaultInstance() {
-}
 class TrackSpec_TrackEntry::_Internal {
  public:
 };
 
-TrackSpec_TrackEntry::TrackSpec_TrackEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+TrackSpec_TrackEntry::TrackSpec_TrackEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.TrackSpec.TrackEntry)
 }
 TrackSpec_TrackEntry::TrackSpec_TrackEntry(const TrackSpec_TrackEntry& from)
@@ -7011,20 +6482,22 @@ TrackSpec_TrackEntry::TrackSpec_TrackEntry(const TrackSpec_TrackEntry& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.TrackSpec.TrackEntry)
 }
 
-void TrackSpec_TrackEntry::SharedCtor() {
-  ::memset(&width_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ttype_) -
-      reinterpret_cast<char*>(&width_)) + sizeof(ttype_));
+inline void TrackSpec_TrackEntry::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ttype_) -
+    reinterpret_cast<char*>(&width_)) + sizeof(ttype_));
 }
 
 TrackSpec_TrackEntry::~TrackSpec_TrackEntry() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.TrackSpec.TrackEntry)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void TrackSpec_TrackEntry::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TrackSpec_TrackEntry::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void TrackSpec_TrackEntry::ArenaDtor(void* object) {
@@ -7036,15 +6509,10 @@ void TrackSpec_TrackEntry::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TrackSpec_TrackEntry::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TrackSpec_TrackEntry& TrackSpec_TrackEntry::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TrackSpec_TrackEntry_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TrackSpec_TrackEntry::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.TrackSpec.TrackEntry)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7056,64 +6524,65 @@ void TrackSpec_TrackEntry::Clear() {
 
 const char* TrackSpec_TrackEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.TrackSpec.TrackEntry.TrackType ttype = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_ttype(static_cast<::vlsir::tetris::TrackSpec_TrackEntry_TrackType>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 width = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* TrackSpec_TrackEntry::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* TrackSpec_TrackEntry::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.TrackSpec.TrackEntry)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackSpec.TrackEntry.TrackType ttype = 1;
-  if (this->ttype() != 0) {
+  if (this->_internal_ttype() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       1, this->_internal_ttype(), target);
   }
 
   // int64 width = 2;
-  if (this->width() != 0) {
+  if (this->_internal_width() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_width(), target);
   }
@@ -7130,67 +6599,50 @@ size_t TrackSpec_TrackEntry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.TrackSpec.TrackEntry)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 width = 2;
-  if (this->width() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_width());
+  if (this->_internal_width() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_width());
   }
 
   // .vlsir.tetris.TrackSpec.TrackEntry.TrackType ttype = 1;
-  if (this->ttype() != 0) {
+  if (this->_internal_ttype() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_ttype());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void TrackSpec_TrackEntry::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.TrackSpec.TrackEntry)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TrackSpec_TrackEntry* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TrackSpec_TrackEntry>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.TrackSpec.TrackEntry)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.TrackSpec.TrackEntry)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TrackSpec_TrackEntry::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    TrackSpec_TrackEntry::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TrackSpec_TrackEntry::GetClassData() const { return &_class_data_; }
+
+void TrackSpec_TrackEntry::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<TrackSpec_TrackEntry *>(to)->MergeFrom(
+      static_cast<const TrackSpec_TrackEntry &>(from));
 }
+
 
 void TrackSpec_TrackEntry::MergeFrom(const TrackSpec_TrackEntry& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.TrackSpec.TrackEntry)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.width() != 0) {
+  if (from._internal_width() != 0) {
     _internal_set_width(from._internal_width());
   }
-  if (from.ttype() != 0) {
+  if (from._internal_ttype() != 0) {
     _internal_set_ttype(from._internal_ttype());
   }
-}
-
-void TrackSpec_TrackEntry::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.TrackSpec.TrackEntry)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TrackSpec_TrackEntry::CopyFrom(const TrackSpec_TrackEntry& from) {
@@ -7206,7 +6658,7 @@ bool TrackSpec_TrackEntry::IsInitialized() const {
 
 void TrackSpec_TrackEntry::InternalSwap(TrackSpec_TrackEntry* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(TrackSpec_TrackEntry, ttype_)
       + sizeof(TrackSpec_TrackEntry::ttype_)
@@ -7216,23 +6668,25 @@ void TrackSpec_TrackEntry::InternalSwap(TrackSpec_TrackEntry* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TrackSpec_TrackEntry::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[20]);
 }
-
 
 // ===================================================================
 
-void TrackSpec_Repeat::InitAsDefaultInstance() {
-}
 class TrackSpec_Repeat::_Internal {
  public:
 };
 
-TrackSpec_Repeat::TrackSpec_Repeat(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+TrackSpec_Repeat::TrackSpec_Repeat(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   entries_(arena) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.TrackSpec.Repeat)
 }
 TrackSpec_Repeat::TrackSpec_Repeat(const TrackSpec_Repeat& from)
@@ -7243,19 +6697,19 @@ TrackSpec_Repeat::TrackSpec_Repeat(const TrackSpec_Repeat& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.TrackSpec.Repeat)
 }
 
-void TrackSpec_Repeat::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TrackSpec_Repeat_tetris_2eproto.base);
-  nrep_ = PROTOBUF_LONGLONG(0);
+inline void TrackSpec_Repeat::SharedCtor() {
+nrep_ = int64_t{0};
 }
 
 TrackSpec_Repeat::~TrackSpec_Repeat() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.TrackSpec.Repeat)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void TrackSpec_Repeat::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TrackSpec_Repeat::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void TrackSpec_Repeat::ArenaDtor(void* object) {
@@ -7267,34 +6721,27 @@ void TrackSpec_Repeat::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TrackSpec_Repeat::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TrackSpec_Repeat& TrackSpec_Repeat::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TrackSpec_Repeat_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TrackSpec_Repeat::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.TrackSpec.Repeat)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   entries_.Clear();
-  nrep_ = PROTOBUF_LONGLONG(0);
+  nrep_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* TrackSpec_Repeat::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // repeated .vlsir.tetris.TrackSpec.TrackEntry entries = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -7302,41 +6749,44 @@ const char* TrackSpec_Repeat::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 nrep = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           nrep_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* TrackSpec_Repeat::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* TrackSpec_Repeat::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.TrackSpec.Repeat)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .vlsir.tetris.TrackSpec.TrackEntry entries = 1;
@@ -7348,7 +6798,7 @@ failure:
   }
 
   // int64 nrep = 2;
-  if (this->nrep() != 0) {
+  if (this->_internal_nrep() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_nrep(), target);
   }
@@ -7365,7 +6815,7 @@ size_t TrackSpec_Repeat::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.TrackSpec.Repeat)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7377,54 +6827,37 @@ size_t TrackSpec_Repeat::ByteSizeLong() const {
   }
 
   // int64 nrep = 2;
-  if (this->nrep() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_nrep());
+  if (this->_internal_nrep() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_nrep());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void TrackSpec_Repeat::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.TrackSpec.Repeat)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TrackSpec_Repeat* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TrackSpec_Repeat>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.TrackSpec.Repeat)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.TrackSpec.Repeat)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TrackSpec_Repeat::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    TrackSpec_Repeat::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TrackSpec_Repeat::GetClassData() const { return &_class_data_; }
+
+void TrackSpec_Repeat::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<TrackSpec_Repeat *>(to)->MergeFrom(
+      static_cast<const TrackSpec_Repeat &>(from));
 }
+
 
 void TrackSpec_Repeat::MergeFrom(const TrackSpec_Repeat& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.TrackSpec.Repeat)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   entries_.MergeFrom(from.entries_);
-  if (from.nrep() != 0) {
+  if (from._internal_nrep() != 0) {
     _internal_set_nrep(from._internal_nrep());
   }
-}
-
-void TrackSpec_Repeat::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.TrackSpec.Repeat)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TrackSpec_Repeat::CopyFrom(const TrackSpec_Repeat& from) {
@@ -7440,24 +6873,19 @@ bool TrackSpec_Repeat::IsInitialized() const {
 
 void TrackSpec_Repeat::InternalSwap(TrackSpec_Repeat* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   entries_.InternalSwap(&other->entries_);
   swap(nrep_, other->nrep_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TrackSpec_Repeat::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[21]);
 }
-
 
 // ===================================================================
 
-void TrackSpec::InitAsDefaultInstance() {
-  ::vlsir::tetris::_TrackSpec_default_instance_.entry_ = const_cast< ::vlsir::tetris::TrackSpec_TrackEntry*>(
-      ::vlsir::tetris::TrackSpec_TrackEntry::internal_default_instance());
-  ::vlsir::tetris::_TrackSpec_default_instance_.repeat_ = const_cast< ::vlsir::tetris::TrackSpec_Repeat*>(
-      ::vlsir::tetris::TrackSpec_Repeat::internal_default_instance());
-}
 class TrackSpec::_Internal {
  public:
   static const ::vlsir::tetris::TrackSpec_TrackEntry& entry(const TrackSpec* msg);
@@ -7473,11 +6901,11 @@ TrackSpec::_Internal::repeat(const TrackSpec* msg) {
   return *msg->spec_.repeat_;
 }
 void TrackSpec::set_allocated_entry(::vlsir::tetris::TrackSpec_TrackEntry* entry) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_spec();
   if (entry) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(entry);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::TrackSpec_TrackEntry>::GetOwningArena(entry);
     if (message_arena != submessage_arena) {
       entry = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, entry, submessage_arena);
@@ -7488,11 +6916,11 @@ void TrackSpec::set_allocated_entry(::vlsir::tetris::TrackSpec_TrackEntry* entry
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.TrackSpec.entry)
 }
 void TrackSpec::set_allocated_repeat(::vlsir::tetris::TrackSpec_Repeat* repeat) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_spec();
   if (repeat) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(repeat);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::tetris::TrackSpec_Repeat>::GetOwningArena(repeat);
     if (message_arena != submessage_arena) {
       repeat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, repeat, submessage_arena);
@@ -7502,10 +6930,13 @@ void TrackSpec::set_allocated_repeat(::vlsir::tetris::TrackSpec_Repeat* repeat) 
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.tetris.TrackSpec.repeat)
 }
-TrackSpec::TrackSpec(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+TrackSpec::TrackSpec(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.TrackSpec)
 }
 TrackSpec::TrackSpec(const TrackSpec& from)
@@ -7528,19 +6959,19 @@ TrackSpec::TrackSpec(const TrackSpec& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.TrackSpec)
 }
 
-void TrackSpec::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TrackSpec_tetris_2eproto.base);
-  clear_has_spec();
+inline void TrackSpec::SharedCtor() {
+clear_has_spec();
 }
 
 TrackSpec::~TrackSpec() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.TrackSpec)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void TrackSpec::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void TrackSpec::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (has_spec()) {
     clear_spec();
   }
@@ -7555,23 +6986,18 @@ void TrackSpec::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void TrackSpec::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const TrackSpec& TrackSpec::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_TrackSpec_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void TrackSpec::clear_spec() {
 // @@protoc_insertion_point(one_of_clear_start:vlsir.tetris.TrackSpec)
   switch (spec_case()) {
     case kEntry: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete spec_.entry_;
       }
       break;
     }
     case kRepeat: {
-      if (GetArena() == nullptr) {
+      if (GetArenaForAllocation() == nullptr) {
         delete spec_.repeat_;
       }
       break;
@@ -7586,7 +7012,7 @@ void TrackSpec::clear_spec() {
 
 void TrackSpec::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.TrackSpec)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7596,52 +7022,53 @@ void TrackSpec::Clear() {
 
 const char* TrackSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // .vlsir.tetris.TrackSpec.TrackEntry entry = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_entry(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .vlsir.tetris.TrackSpec.Repeat repeat = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_repeat(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* TrackSpec::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* TrackSpec::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.TrackSpec)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // .vlsir.tetris.TrackSpec.TrackEntry entry = 1;
@@ -7672,7 +7099,7 @@ size_t TrackSpec::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.TrackSpec)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7695,35 +7122,26 @@ size_t TrackSpec::ByteSizeLong() const {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void TrackSpec::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.TrackSpec)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TrackSpec* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<TrackSpec>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.TrackSpec)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.TrackSpec)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TrackSpec::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    TrackSpec::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TrackSpec::GetClassData() const { return &_class_data_; }
+
+void TrackSpec::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<TrackSpec *>(to)->MergeFrom(
+      static_cast<const TrackSpec &>(from));
 }
+
 
 void TrackSpec::MergeFrom(const TrackSpec& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.TrackSpec)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.spec_case()) {
@@ -7739,13 +7157,7 @@ void TrackSpec::MergeFrom(const TrackSpec& from) {
       break;
     }
   }
-}
-
-void TrackSpec::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.TrackSpec)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TrackSpec::CopyFrom(const TrackSpec& from) {
@@ -7761,28 +7173,30 @@ bool TrackSpec::IsInitialized() const {
 
 void TrackSpec::InternalSwap(TrackSpec* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(spec_, other->spec_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TrackSpec::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[22]);
 }
-
 
 // ===================================================================
 
-void Xy::InitAsDefaultInstance() {
-}
 class Xy::_Internal {
  public:
 };
 
-Xy::Xy(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+Xy::Xy(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
-  RegisterArenaDtor(arena);
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:vlsir.tetris.Xy)
 }
 Xy::Xy(const Xy& from)
@@ -7794,20 +7208,22 @@ Xy::Xy(const Xy& from)
   // @@protoc_insertion_point(copy_constructor:vlsir.tetris.Xy)
 }
 
-void Xy::SharedCtor() {
-  ::memset(&x_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&y_) -
-      reinterpret_cast<char*>(&x_)) + sizeof(y_));
+inline void Xy::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&x_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&y_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(y_));
 }
 
 Xy::~Xy() {
   // @@protoc_insertion_point(destructor:vlsir.tetris.Xy)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void Xy::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
+inline void Xy::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void Xy::ArenaDtor(void* object) {
@@ -7819,15 +7235,10 @@ void Xy::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Xy::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Xy& Xy::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Xy_tetris_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Xy::Clear() {
 // @@protoc_insertion_point(message_clear_start:vlsir.tetris.Xy)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -7839,62 +7250,63 @@ void Xy::Clear() {
 
 const char* Xy::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // int64 x = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           x_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 y = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           y_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Xy::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Xy::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:vlsir.tetris.Xy)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 x = 1;
-  if (this->x() != 0) {
+  if (this->_internal_x() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_x(), target);
   }
 
   // int64 y = 2;
-  if (this->y() != 0) {
+  if (this->_internal_y() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_y(), target);
   }
@@ -7911,68 +7323,49 @@ size_t Xy::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:vlsir.tetris.Xy)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // int64 x = 1;
-  if (this->x() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_x());
+  if (this->_internal_x() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_x());
   }
 
   // int64 y = 2;
-  if (this->y() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_y());
+  if (this->_internal_y() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_y());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-void Xy::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:vlsir.tetris.Xy)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Xy* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Xy>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:vlsir.tetris.Xy)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:vlsir.tetris.Xy)
-    MergeFrom(*source);
-  }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Xy::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Xy::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Xy::GetClassData() const { return &_class_data_; }
+
+void Xy::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<Xy *>(to)->MergeFrom(
+      static_cast<const Xy &>(from));
 }
+
 
 void Xy::MergeFrom(const Xy& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:vlsir.tetris.Xy)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.x() != 0) {
+  if (from._internal_x() != 0) {
     _internal_set_x(from._internal_x());
   }
-  if (from.y() != 0) {
+  if (from._internal_y() != 0) {
     _internal_set_y(from._internal_y());
   }
-}
-
-void Xy::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:vlsir.tetris.Xy)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Xy::CopyFrom(const Xy& from) {
@@ -7988,7 +7381,7 @@ bool Xy::IsInitialized() const {
 
 void Xy::InternalSwap(Xy* other) {
   using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Xy, y_)
       + sizeof(Xy::y_)
@@ -7998,9 +7391,10 @@ void Xy::InternalSwap(Xy* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Xy::GetMetadata() const {
-  return GetMetadataStatic();
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_tetris_2eproto_getter, &descriptor_table_tetris_2eproto_once,
+      file_level_metadata_tetris_2eproto[23]);
 }
-
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace tetris
