@@ -71,7 +71,7 @@ proto.vlsir.tech.LayerPurpose.prototype.toObject = function(opt_includeInstance)
  */
 proto.vlsir.tech.LayerPurpose.toObject = function(includeInstance, msg) {
   var f, obj = {
-    purpose: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 1, ""),
     type: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -111,7 +111,7 @@ proto.vlsir.tech.LayerPurpose.deserializeBinaryFromReader = function(msg, reader
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setPurpose(value);
+      msg.setDescription(value);
       break;
     case 2:
       var value = /** @type {!proto.vlsir.tech.LayerPurposeType} */ (reader.readEnum());
@@ -146,7 +146,7 @@ proto.vlsir.tech.LayerPurpose.prototype.serializeBinary = function() {
  */
 proto.vlsir.tech.LayerPurpose.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getPurpose();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -164,10 +164,10 @@ proto.vlsir.tech.LayerPurpose.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional string purpose = 1;
+ * optional string description = 1;
  * @return {string}
  */
-proto.vlsir.tech.LayerPurpose.prototype.getPurpose = function() {
+proto.vlsir.tech.LayerPurpose.prototype.getDescription = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -176,7 +176,7 @@ proto.vlsir.tech.LayerPurpose.prototype.getPurpose = function() {
  * @param {string} value
  * @return {!proto.vlsir.tech.LayerPurpose} returns this
  */
-proto.vlsir.tech.LayerPurpose.prototype.setPurpose = function(value) {
+proto.vlsir.tech.LayerPurpose.prototype.setDescription = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

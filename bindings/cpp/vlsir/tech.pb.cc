@@ -22,8 +22,7 @@ constexpr Technology::Technology(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : packages_()
   , layers_()
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , label_sub_index_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct TechnologyDefaultTypeInternal {
   constexpr TechnologyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -47,7 +46,7 @@ struct PackageDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PackageDefaultTypeInternal _Package_default_instance_;
 constexpr LayerPurpose::LayerPurpose(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : purpose_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , type_(0)
 {}
 struct LayerPurposeDefaultTypeInternal {
@@ -90,7 +89,6 @@ const uint32_t TableStruct_tech_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::Technology, name_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::Technology, packages_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::Technology, layers_),
-  PROTOBUF_FIELD_OFFSET(::vlsir::tech::Technology, label_sub_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::Package, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -104,7 +102,7 @@ const uint32_t TableStruct_tech_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vlsir::tech::LayerPurpose, purpose_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::tech::LayerPurpose, description_),
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::LayerPurpose, type_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::tech::LayerInfo, _internal_metadata_),
@@ -119,9 +117,9 @@ const uint32_t TableStruct_tech_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vlsir::tech::Technology)},
-  { 10, -1, -1, sizeof(::vlsir::tech::Package)},
-  { 17, -1, -1, sizeof(::vlsir::tech::LayerPurpose)},
-  { 25, -1, -1, sizeof(::vlsir::tech::LayerInfo)},
+  { 9, -1, -1, sizeof(::vlsir::tech::Package)},
+  { 16, -1, -1, sizeof(::vlsir::tech::LayerPurpose)},
+  { 24, -1, -1, sizeof(::vlsir::tech::LayerInfo)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -132,22 +130,22 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_tech_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\ntech.proto\022\nvlsir.tech\"\201\001\n\nTechnology\022"
-  "\014\n\004name\030\001 \001(\t\022%\n\010packages\030\013 \003(\0132\023.vlsir."
-  "tech.Package\022%\n\006layers\030e \003(\0132\025.vlsir.tec"
-  "h.LayerInfo\022\027\n\017label_sub_index\030f \001(\t\"\027\n\007"
-  "Package\022\014\n\004name\030\001 \001(\t\"K\n\014LayerPurpose\022\017\n"
-  "\007purpose\030\001 \001(\t\022*\n\004type\030\002 \001(\0162\034.vlsir.tec"
-  "h.LayerPurposeType\"f\n\tLayerInfo\022\014\n\004name\030"
-  "\001 \001(\t\022)\n\007purpose\030\013 \001(\0132\030.vlsir.tech.Laye"
-  "rPurpose\022\r\n\005index\030\025 \001(\004\022\021\n\tsub_index\030\037 \001"
-  "(\004*^\n\020LayerPurposeType\022\013\n\007UNKNOWN\020\000\022\t\n\005L"
-  "ABEL\020\001\022\013\n\007DRAWING\020\002\022\007\n\003PIN\020\003\022\017\n\013OBSTRUCT"
-  "ION\020\004\022\013\n\007OUTLINE\020\005b\006proto3"
+  "\n\ntech.proto\022\nvlsir.tech\"h\n\nTechnology\022\014"
+  "\n\004name\030\001 \001(\t\022%\n\010packages\030\013 \003(\0132\023.vlsir.t"
+  "ech.Package\022%\n\006layers\030e \003(\0132\025.vlsir.tech"
+  ".LayerInfo\"\027\n\007Package\022\014\n\004name\030\001 \001(\t\"O\n\014L"
+  "ayerPurpose\022\023\n\013description\030\001 \001(\t\022*\n\004type"
+  "\030\002 \001(\0162\034.vlsir.tech.LayerPurposeType\"f\n\t"
+  "LayerInfo\022\014\n\004name\030\001 \001(\t\022)\n\007purpose\030\013 \001(\013"
+  "2\030.vlsir.tech.LayerPurpose\022\r\n\005index\030\025 \001("
+  "\004\022\021\n\tsub_index\030\037 \001(\004*^\n\020LayerPurposeType"
+  "\022\013\n\007UNKNOWN\020\000\022\t\n\005LABEL\020\001\022\013\n\007DRAWING\020\002\022\007\n"
+  "\003PIN\020\003\022\017\n\013OBSTRUCTION\020\004\022\013\n\007OUTLINE\020\005b\006pr"
+  "oto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tech_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tech_2eproto = {
-  false, false, 466, descriptor_table_protodef_tech_2eproto, "tech.proto", 
+  false, false, 444, descriptor_table_protodef_tech_2eproto, "tech.proto", 
   &descriptor_table_tech_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_tech_2eproto::offsets,
   file_level_metadata_tech_2eproto, file_level_enum_descriptors_tech_2eproto, file_level_service_descriptors_tech_2eproto,
@@ -209,14 +207,6 @@ Technology::Technology(const Technology& from)
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
   }
-  label_sub_index_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    label_sub_index_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_label_sub_index().empty()) {
-    label_sub_index_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_label_sub_index(), 
-      GetArenaForAllocation());
-  }
   // @@protoc_insertion_point(copy_constructor:vlsir.tech.Technology)
 }
 
@@ -224,10 +214,6 @@ inline void Technology::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-label_sub_index_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  label_sub_index_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -241,7 +227,6 @@ Technology::~Technology() {
 inline void Technology::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  label_sub_index_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Technology::ArenaDtor(void* object) {
@@ -263,7 +248,6 @@ void Technology::Clear() {
   packages_.Clear();
   layers_.Clear();
   name_.ClearToEmpty();
-  label_sub_index_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -306,16 +290,6 @@ const char* Technology::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<810>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string label_sub_index = 102;
-      case 102:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
-          auto str = _internal_mutable_label_sub_index();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tech.Technology.label_sub_index"));
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -374,16 +348,6 @@ uint8_t* Technology::_InternalSerialize(
       InternalWriteMessage(101, this->_internal_layers(i), target, stream);
   }
 
-  // string label_sub_index = 102;
-  if (!this->_internal_label_sub_index().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_label_sub_index().data(), static_cast<int>(this->_internal_label_sub_index().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vlsir.tech.Technology.label_sub_index");
-    target = stream->WriteStringMaybeAliased(
-        102, this->_internal_label_sub_index(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -421,13 +385,6 @@ size_t Technology::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // string label_sub_index = 102;
-  if (!this->_internal_label_sub_index().empty()) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_label_sub_index());
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
@@ -455,9 +412,6 @@ void Technology::MergeFrom(const Technology& from) {
   if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (!from._internal_label_sub_index().empty()) {
-    _internal_set_label_sub_index(from._internal_label_sub_index());
-  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -483,11 +437,6 @@ void Technology::InternalSwap(Technology* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &name_, lhs_arena,
       &other->name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &label_sub_index_, lhs_arena,
-      &other->label_sub_index_, rhs_arena
   );
 }
 
@@ -718,12 +667,12 @@ LayerPurpose::LayerPurpose(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 LayerPurpose::LayerPurpose(const LayerPurpose& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  purpose_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    purpose_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_purpose().empty()) {
-    purpose_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_purpose(), 
+  if (!from._internal_description().empty()) {
+    description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_description(), 
       GetArenaForAllocation());
   }
   type_ = from.type_;
@@ -731,9 +680,9 @@ LayerPurpose::LayerPurpose(const LayerPurpose& from)
 }
 
 inline void LayerPurpose::SharedCtor() {
-purpose_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  purpose_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 type_ = 0;
 }
@@ -747,7 +696,7 @@ LayerPurpose::~LayerPurpose() {
 
 inline void LayerPurpose::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  purpose_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void LayerPurpose::ArenaDtor(void* object) {
@@ -766,7 +715,7 @@ void LayerPurpose::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  purpose_.ClearToEmpty();
+  description_.ClearToEmpty();
   type_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -777,12 +726,12 @@ const char* LayerPurpose::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string purpose = 1;
+      // string description = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_purpose();
+          auto str = _internal_mutable_description();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tech.LayerPurpose.purpose"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.tech.LayerPurpose.description"));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -825,14 +774,14 @@ uint8_t* LayerPurpose::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string purpose = 1;
-  if (!this->_internal_purpose().empty()) {
+  // string description = 1;
+  if (!this->_internal_description().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_purpose().data(), static_cast<int>(this->_internal_purpose().length()),
+      this->_internal_description().data(), static_cast<int>(this->_internal_description().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vlsir.tech.LayerPurpose.purpose");
+      "vlsir.tech.LayerPurpose.description");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_purpose(), target);
+        1, this->_internal_description(), target);
   }
 
   // .vlsir.tech.LayerPurposeType type = 2;
@@ -858,11 +807,11 @@ size_t LayerPurpose::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string purpose = 1;
-  if (!this->_internal_purpose().empty()) {
+  // string description = 1;
+  if (!this->_internal_description().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_purpose());
+        this->_internal_description());
   }
 
   // .vlsir.tech.LayerPurposeType type = 2;
@@ -893,8 +842,8 @@ void LayerPurpose::MergeFrom(const LayerPurpose& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_purpose().empty()) {
-    _internal_set_purpose(from._internal_purpose());
+  if (!from._internal_description().empty()) {
+    _internal_set_description(from._internal_description());
   }
   if (from._internal_type() != 0) {
     _internal_set_type(from._internal_type());
@@ -920,8 +869,8 @@ void LayerPurpose::InternalSwap(LayerPurpose* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &purpose_, lhs_arena,
-      &other->purpose_, rhs_arena
+      &description_, lhs_arena,
+      &other->description_, rhs_arena
   );
   swap(type_, other->type_);
 }

@@ -83,8 +83,7 @@ proto.vlsir.tech.Technology.toObject = function(includeInstance, msg) {
     packagesList: jspb.Message.toObjectList(msg.getPackagesList(),
     proto.vlsir.tech.Package.toObject, includeInstance),
     layersList: jspb.Message.toObjectList(msg.getLayersList(),
-    proto.vlsir.tech.LayerInfo.toObject, includeInstance),
-    labelSubIndex: jspb.Message.getFieldWithDefault(msg, 102, "")
+    proto.vlsir.tech.LayerInfo.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -134,10 +133,6 @@ proto.vlsir.tech.Technology.deserializeBinaryFromReader = function(msg, reader) 
       var value = new proto.vlsir.tech.LayerInfo;
       reader.readMessage(value,proto.vlsir.tech.LayerInfo.deserializeBinaryFromReader);
       msg.addLayers(value);
-      break;
-    case 102:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setLabelSubIndex(value);
       break;
     default:
       reader.skipField();
@@ -189,13 +184,6 @@ proto.vlsir.tech.Technology.serializeBinaryToWriter = function(message, writer) 
       101,
       f,
       proto.vlsir.tech.LayerInfo.serializeBinaryToWriter
-    );
-  }
-  f = message.getLabelSubIndex();
-  if (f.length > 0) {
-    writer.writeString(
-      102,
-      f
     );
   }
 };
@@ -292,24 +280,6 @@ proto.vlsir.tech.Technology.prototype.addLayers = function(opt_value, opt_index)
  */
 proto.vlsir.tech.Technology.prototype.clearLayersList = function() {
   return this.setLayersList([]);
-};
-
-
-/**
- * optional string label_sub_index = 102;
- * @return {string}
- */
-proto.vlsir.tech.Technology.prototype.getLabelSubIndex = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 102, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.vlsir.tech.Technology} returns this
- */
-proto.vlsir.tech.Technology.prototype.setLabelSubIndex = function(value) {
-  return jspb.Message.setProto3StringField(this, 102, value);
 };
 
 
