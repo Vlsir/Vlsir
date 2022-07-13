@@ -27,6 +27,7 @@ fn main() {
         "protos/circuit.proto",
         "protos/layout/tetris.proto",
         "protos/spice.proto",
+        "protos/tech.proto",
     ];
     config.compile_protos(&src, &["protos/"]).unwrap();
 }
