@@ -106,7 +106,7 @@ class SpectreNetlister(Netlister):
             self.writeln("+ // No ports ")
 
         # Create its parameters, if defined
-        if module.parameters: 
+        if module.parameters:
             formatted = " ".join(
                 [
                     self.format_param_decl(name, pparam)
@@ -233,4 +233,3 @@ class SpectreNetlister(Netlister):
         """ While Spectre *can* do a bunch of other comment-styles, 
         the canonical one is generally the C-style line comment beginning with `//`. """
         self.writeln(f"// {comment}")
-

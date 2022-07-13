@@ -5,7 +5,7 @@ Exports `vlsir.circuit.Package` to a netlist format.
 """
 
 # Std-Lib Imports
-from typing import Union, IO, Optional 
+from typing import Union, IO, Optional
 from enum import Enum
 from dataclasses import dataclass
 

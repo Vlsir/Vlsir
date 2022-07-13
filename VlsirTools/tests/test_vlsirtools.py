@@ -251,4 +251,3 @@ def test_xyce_import():
 def test_spectre_import():
     # Just test importing from the `vlsirtools.spectre` path
     from vlsirtools.spectre import sim
-

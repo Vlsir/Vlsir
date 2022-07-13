@@ -8,4 +8,3 @@ from .netlist import netlist
 from . import spice
 from .spice import xyce
 from .spice import spectre
-
