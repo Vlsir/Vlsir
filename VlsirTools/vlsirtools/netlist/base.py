@@ -304,8 +304,7 @@ class Netlister:
         # Step through each of `pmodule`'s declared parameters first, applying defaults if necessary
         for mparam in pmodule.parameters:
             if mparam.name in instance_parameters:  # Specified by the Instance
-                inst_pval = instance_parameters[mparam.name]
-                del instance_parameters[mparam.name]
+                inst_pval = instance_parameters.pop(mparam.name)
                 values[mparam.name] = cls.get_param_value(inst_pval)
             else:  # Not specified by the instance. Apply the default, or fail.
                 pdefault = cls.get_param_default(mparam)
