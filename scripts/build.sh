@@ -16,6 +16,7 @@ else
   cd protos
   git fetch
   git checkout -q "${SCHEMA_VERSION}"
+  git pull
   cd ../
 fi
 
