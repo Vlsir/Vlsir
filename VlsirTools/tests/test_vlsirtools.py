@@ -56,7 +56,7 @@ def test_netlist1():
                     Port(direction="NONE", signal="vvv"),
                     Port(direction="NONE", signal="VSS"),
                 ],
-                signals=[],
+                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
                         name="r",
@@ -151,10 +151,10 @@ def test_netlist_hdl21_ideal1():
             Module(
                 name="mid",
                 ports=[
-                    Port(direction="NONE", signal=Signal(name="vvv", width=1)),
-                    Port(direction="NONE", signal=Signal(name="VSS", width=1)),
+                    Port(direction="NONE", signal="vvv"),
+                    Port(direction="NONE", signal="VSS"),
                 ],
-                signals=[],
+                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
                         name="r1",

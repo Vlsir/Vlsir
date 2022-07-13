@@ -71,6 +71,15 @@ class SpiceNetlister(Netlister):
         # Check for double-definition
         if module_name in self.module_names:
             raise RuntimeError(f"Module {module_name} doubly defined")
+
+        # Collect and index vlsir.circuit.Signals in this Module by name.
+        self.signals_by_name = {}
+        for signal in module.signals:
+            if signal.name in self.signals_by_name:
+                raise RuntimeError(
+                    f"Duplicate signal definition in Module {module.name}")
+            self.signals_by_name[signal.name] = signal
+
         # Add to our visited lists
         self.module_names.add(module_name)
         self.pmodules[module.name] = module
@@ -267,12 +276,14 @@ class SpiceNetlister(Netlister):
 
         self.write("+ ")
         # And write the Instance ports, in that order
-        port_order = [pport.signal.name for pport in module.ports]
+        port_order = [pport.signal for pport in module.ports]
+        connection_targets = {connection.portname: connection.target
+                              for connection in pinst.connections}
         for pname in port_order:
-            pconn = pinst.connections.get(pname, None)
-            if pconn is None:
+            ptarget = connection_targets.get(pname, None)
+            if ptarget is None:
                 raise RuntimeError(f"Unconnected Port {pname} on {pinst.name}")
-            self.write(self.format_connection(pconn) + " ")
+            self.write(self.format_connection_target(ptarget) + " ")
         self.write("\n")
 
     def write_instance_params(self, pvals: ResolvedParams) -> None:
@@ -305,15 +316,15 @@ class SpiceNetlister(Netlister):
             out += self.format_connection(part) + " "
         return out
 
-    @classmethod
-    def format_port_decl(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
         """ Get a netlist `Port` definition """
-        return cls.format_signal_ref(pport.signal)
+        signal = self.get_signal(pport.signal)
+        return self.format_signal_ref(signal)
 
-    @classmethod
-    def format_port_ref(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
         """ Get a netlist `Port` reference """
-        return cls.format_signal_ref(pport.signal)
+        signal = self.get_signal(pport.signal)
+        return self.format_signal_ref(signal)
 
     @classmethod
     def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
