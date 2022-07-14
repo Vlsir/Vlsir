@@ -29,12 +29,10 @@ def test_netlist1():
     )
 
     def _connections(**kwargs):
-        return [Connection(
-            portname=key, target=value) for key, value in kwargs.items()]
+        return [Connection(portname=key, target=value) for key, value in kwargs.items()]
 
     def _params(**kwargs):
-        return [Param(
-            name=key, value=value) for key, value in kwargs.items()]
+        return [Param(name=key, value=value) for key, value in kwargs.items()]
 
     def _prim(name: str) -> Reference:
         # Shorthand for a `Reference` to primitive `name`
@@ -43,8 +41,7 @@ def test_netlist1():
     def default_conns() -> Dict:
         # Shorthand for connections between node "1" and "VSS", used for many instances below.
         return _connections(
-            p=ConnectionTarget(sig="vvv"),
-            n=ConnectionTarget(sig="VSS"),
+            p=ConnectionTarget(sig="vvv"), n=ConnectionTarget(sig="VSS"),
         )
 
     pkg = Package(
@@ -97,7 +94,9 @@ def test_netlist1():
                             s=ConnectionTarget(sig="VSS"),
                             b=ConnectionTarget(sig="VSS"),
                         ),
-                        parameters=_params(modelname=ParamValue(string="some_model_name")),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                     Instance(
                         name="q",
@@ -107,13 +106,17 @@ def test_netlist1():
                             b=ConnectionTarget(sig="VSS"),
                             e=ConnectionTarget(sig="VSS"),
                         ),
-                        parameters=_params(modelname=ParamValue(string="some_model_name")),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                     Instance(
                         name="d",
                         module=_prim("diode"),
                         connections=default_conns(),
-                        parameters=_params(modelname=ParamValue(string="some_model_name")),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                 ],
             ),

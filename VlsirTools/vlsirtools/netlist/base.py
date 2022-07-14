@@ -161,7 +161,9 @@ class Netlister:
         self.pkg = pkg
         self.dest = dest
         self.indent = Indent(chars="  ")
-        self.signals_by_name = dict()  # Signals in the currently-visited module, by name
+        self.signals_by_name = (
+            dict()
+        )  # Signals in the currently-visited module, by name
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
         self.ext_modules = dict()  # Visited ExternalModules
@@ -299,7 +301,6 @@ class Netlister:
         instance_parameters = dict()
         for param in pinst.parameters:
             instance_parameters[param.name] = param.value
-
 
         # Step through each of `pmodule`'s declared parameters first, applying defaults if necessary
         for mparam in pmodule.parameters:
@@ -447,7 +448,9 @@ class Netlister:
         try:
             return self.signals_by_name[name]
         except KeyError:
-            raise RuntimeError(f"Unknown signal: {name} in {self.signals_by_name.keys()}")
+            raise RuntimeError(
+                f"Unknown signal: {name} in {self.signals_by_name.keys()}"
+            )
 
     """ 
     Virtual `format` Methods 

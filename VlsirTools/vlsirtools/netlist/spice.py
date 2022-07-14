@@ -77,7 +77,8 @@ class SpiceNetlister(Netlister):
         for signal in module.signals:
             if signal.name in self.signals_by_name:
                 raise RuntimeError(
-                    f"Duplicate signal definition in Module {module.name}")
+                    f"Duplicate signal definition in Module {module.name}"
+                )
             self.signals_by_name[signal.name] = signal
 
         # Add to our visited lists
@@ -285,8 +286,9 @@ class SpiceNetlister(Netlister):
         self.write("+ ")
         # And write the Instance ports, in that order
         port_order = [pport.signal for pport in module.ports]
-        connection_targets = {connection.portname: connection.target
-                              for connection in pinst.connections}
+        connection_targets = {
+            connection.portname: connection.target for connection in pinst.connections
+        }
         for pname in port_order:
             ptarget = connection_targets.get(pname, None)
             if ptarget is None:
