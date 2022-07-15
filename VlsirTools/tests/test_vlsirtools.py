@@ -4,18 +4,86 @@ Unit Tests
 """
 
 import pytest
-import vlsirtools
-
 from io import StringIO
-from typing import Dict
+from typing import Dict, List
+
+
+import vlsirtools
+import vlsir.circuit_pb2 as vckt
 
 
 def test_version():
     assert vlsirtools.__version__ == "2.0.dev0"
 
 
-def test_netlist1():
-    # Test netlisting, including instantiating primitives
+def test_verilog_netlist1():
+    """ Test netlisting to a handful of formats, including Verilog-compatible contents. """
+
+    from vlsir import Reference
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        ConnectionTarget,
+        Port,
+        Instance,
+        Package,
+    )
+
+    # "Verilog Compatibility" requires:
+    # * All ports must be directed. No "NONE" directions.
+    # * No primitive instances.
+    #
+    # The test here covers module, signal, and port creation,
+    # and basic instantiation of other local Modules.
+
+    def _ports() -> List[vckt.Port]:
+        return [
+            Port(direction="INPUT", signal="inp"),
+            Port(direction="OUTPUT", signal="out"),
+            Port(direction="INOUT", signal="io"),
+        ]
+
+    def _signals() -> List[vckt.Signal]:
+        return [
+            Signal(name="inp", width=1),
+            Signal(name="out", width=1),
+            Signal(name="io", width=1),
+        ]
+
+    pkg = Package(
+        domain="vlsirtools.tests.test_verilog_netlist1",
+        modules=[
+            # Inner, content-less Module, with a port of each direction
+            Module(name="inner", ports=_ports(), signals=_signals(),),
+            # Outer top Module which instantiates `inner`
+            Module(
+                name="top",
+                ports=[],
+                signals=_signals(),
+                instances=[
+                    Instance(
+                        name="inner",
+                        module=Reference(local="inner"),
+                        connections=[
+                            Connection(portname=name, target=ConnectionTarget(sig=name))
+                            for name in ("inp", "out", "io")
+                        ],
+                    )
+                ],
+            ),
+        ],
+    )
+    dest = StringIO()
+    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="verilog")
+    # While verilog is the point here, the other formats should work too:
+    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
+    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spectre")
+    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="xyce")
+
+
+def test_spice_netlist1():
+    """ Test spice netlisting, including instantiating primitives"""
 
     from vlsir import Reference, QualifiedName, ParamValue, Param
     from vlsir.circuit_pb2 import (
@@ -141,11 +209,18 @@ def test_netlist1():
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
-@pytest.mark.xfail(reason="Hdl21 dependency pending deprecation")
 def test_netlist_hdl21_ideal1():
-    # Test netlisting an `hdl21.ideal` element
+    """ Test that netlisting a (deprecated) `hdl21.ideal` element fails with a `RuntimeError`. """
 
-    from vlsir.circuit_pb2 import Module, Signal, ConnectionTarget, Port, Instance, Package
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        ConnectionTarget,
+        Port,
+        Instance,
+        Package,
+    )
     from vlsir.utils_pb2 import Reference, QualifiedName
 
     pkg = Package(
@@ -167,17 +242,22 @@ def test_netlist_hdl21_ideal1():
                                 name="IdealResistor",  # FIXME: being deprecated
                             )
                         ),
-                        connections=dict(
-                            p=ConnectionTarget(sig=Signal(name="vvv", width=1)),
-                            n=ConnectionTarget(sig=Signal(name="VSS", width=1)),
-                        ),
+                        connections=[
+                            Connection(
+                                portname="p", target=ConnectionTarget(sig="vvv")
+                            ),
+                            Connection(
+                                portname="n", target=ConnectionTarget(sig="VSS")
+                            ),
+                        ],
                     ),
                 ],
             )
         ],
     )
     dest = StringIO()
-    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
+    with pytest.raises(RuntimeError):
+        vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
 def empty_testbench_package():
@@ -207,7 +287,7 @@ def empty_testbench_package():
                 Connection(portname="p", target=ConnectionTarget(sig="the_other_node")),
                 Connection(portname="n", target=ConnectionTarget(sig="VSS")),
             ],
-            parameters=[Param(name="r", value=ParamValue(double=1e3))]
+            parameters=[Param(name="r", value=ParamValue(double=1e3))],
         )
 
     return Package(
@@ -228,10 +308,15 @@ def empty_testbench_package():
 
 def test_netlist_empty_testbench():
     """ Test netlisting the empty testbench package, used later for simulation tests """
+
     dest = StringIO()
     vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spice")
     vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spectre")
     vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="xyce")
+
+    # The testbench package is not verilog-compatible; check that it fails.
+    with pytest.raises(RuntimeError):
+        vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="verilog")
 
 
 @pytest.mark.skipif(
