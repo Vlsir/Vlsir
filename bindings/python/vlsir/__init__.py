@@ -12,13 +12,13 @@ from . import raw_pb2 as raw
 from . import tetris_pb2 as tetris
 
 # Add the utility-types to the top-level namespace
-from .utils_pb2 import * 
+from .utils_pb2 import *
 
-# But not the other stuff, as quite a few names conflict, e.g. `Library`, `Package`. 
-# from .spice_pb2 import * 
-# from .circuit_pb2 import * 
-# from .raw_pb2 import * 
-# from .tetris_pb2 import * 
+# But not the other stuff, as quite a few names conflict, e.g. `Library`, `Package`.
+# from .spice_pb2 import *
+# from .circuit_pb2 import *
+# from .raw_pb2 import *
+# from .tetris_pb2 import *
 
 # Primitives
 from . import primitives

@@ -24,7 +24,7 @@ All of Vlsir's schema-definitions live in the [protos](./protos) directory.
 
 ## Language Bindings
 
-_Vlsir_ defines a data schema, which related projects use in code.
+_Vlsir_ defines a [data schema](https://github.com/Vlsir/schema-proto), which related projects use in code.
 Projects using _vlsir_ can be written in any language with protobuf-compiler bindings - 
 which includes essentially every popular programming language. 
 Existing projects have prominently used Python, C++, and Rust.
@@ -43,6 +43,17 @@ The `Vlsir` repository also serves as home for the Python-language [VlsirTools](
 
 * Netlisting to industry-standard formats (SPICE, Verilog, etc.)
 * Drivers and result-parsers for Spice-class simulators
+
+## Building
+
+Run `scripts/build.sh` from the root directory of this repository.
+
+```
+git clone git@github.com:Vlsir/Vlsir
+cd Vlsir
+scripts/build.sh
+```
+
 ## Projects
 
 Ongoing, co-developed projects which use `vlsir`: 

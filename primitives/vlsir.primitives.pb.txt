@@ -6,18 +6,20 @@ ext_modules {
   }
   desc: "\n# Ideal Resistor\n\nPorts: (p, n) \nParams: `r`, resistance (in Ohms)\n\nPrimitive ideal resistor. \nLargely corresponds to the \"R-prefix\" element of Spice-class simulators. \n\nAdditional parameters such as temperature coefficients are allowed, and are to be passed unmodified to netlist formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "r"
@@ -31,18 +33,20 @@ ext_modules {
   }
   desc: "\n# Ideal Capacitor\n\nPorts: (p, n) \nParams: `c`, capacitance (in Farads)\n\nPrimitive ideal capacitor. \nLargely corresponds to the \"C-prefix\" element of Spice-class simulators. \n\nAdditional parameters are allowed, and are to be passed unmodified to netlist formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "c"
@@ -56,18 +60,20 @@ ext_modules {
   }
   desc: "\n# Ideal Inductor\n\nPorts: (p, n) \nParams: `l`, inductance (in Henries)\n\nPrimitive ideal inductor. \nLargely corresponds to the \"L-prefix\" element of Spice-class simulators. \n\nAdditional parameters are allowed, and are to be passed unmodified to netlist formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "l"
@@ -81,32 +87,36 @@ ext_modules {
   }
   desc: "\n# Voltage-Controlled Voltage Source\n\nPorts: (p, n, ctrlp, ctrln) \nParams: `gain`, voltage gain (in Volts/Volt)\n\nLargely corresponds to the \"e-prefix\" element of Spice-class simulators. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrlp"
-      width: 1
-    }
+    signal: "ctrlp"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrln"
-      width: 1
-    }
+    signal: "ctrln"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
+  }
+  signals {
+    name: "ctrlp"
+    width: 1
+  }
+  signals {
+    name: "ctrln"
+    width: 1
   }
   parameters {
     name: "gain"
@@ -120,32 +130,36 @@ ext_modules {
   }
   desc: "\n# Voltage-Controlled Current Source\n\nPorts: (p, n, ctrlp, ctrln) \nParams: `gain`, transconductance gain (in Amps/Volt)\n\nLargely corresponds to the \"g-prefix\" element of Spice-class simulators. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrlp"
-      width: 1
-    }
+    signal: "ctrlp"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrln"
-      width: 1
-    }
+    signal: "ctrln"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
+  }
+  signals {
+    name: "ctrlp"
+    width: 1
+  }
+  signals {
+    name: "ctrln"
+    width: 1
   }
   parameters {
     name: "gain"
@@ -159,32 +173,36 @@ ext_modules {
   }
   desc: "\n# Current-Controlled Current Source\n\nPorts: (p, n, ctrlp, ctrln) \nParams: `gain`, current gain (in Amps/Amp)\n\nLargely corresponds to the \"f-prefix\" element of Spice-class simulators. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrlp"
-      width: 1
-    }
+    signal: "ctrlp"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrln"
-      width: 1
-    }
+    signal: "ctrln"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
+  }
+  signals {
+    name: "ctrlp"
+    width: 1
+  }
+  signals {
+    name: "ctrln"
+    width: 1
   }
   parameters {
     name: "gain"
@@ -198,32 +216,36 @@ ext_modules {
   }
   desc: "\n# Current-Controlled Voltage Source\n\nPorts: (p, n, ctrlp, ctrln) \nParams: `gain`, transresistance gain (in Volts/Amp)\n\nLargely corresponds to the \"h-prefix\" element of Spice-class simulators. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrlp"
-      width: 1
-    }
+    signal: "ctrlp"
     direction: NONE
   }
   ports {
-    signal {
-      name: "ctrln"
-      width: 1
-    }
+    signal: "ctrln"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
+  }
+  signals {
+    name: "ctrlp"
+    width: 1
+  }
+  signals {
+    name: "ctrln"
+    width: 1
   }
   parameters {
     name: "gain"
@@ -237,18 +259,20 @@ ext_modules {
   }
   desc: "\n# Independent Current Source\n\nPorts: (p, n) \nParams: `dc`, dc current (in Amps)\n\nLargely corresponds to the \"i-prefix\" element of Spice-class simulators. \nSole required parameter `dc` sets the DC value. \nAll other parameters are passed unmodifed to netlist-level formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "dc"
@@ -262,18 +286,20 @@ ext_modules {
   }
   desc: "\n# Independent Voltage Source\n\nPorts: (p, n) \nParams: `dc`, dc voltage (in Volts)\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "dc"
@@ -291,18 +317,20 @@ ext_modules {
   }
   desc: "\n# Pulse Voltage Source\nTwo-value time-alternating voltage, with parametrizable rise and fall times and delays.\n\nPorts: (p, n) \nParams: FIXME!\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "v1"
@@ -340,18 +368,20 @@ ext_modules {
   }
   desc: "\n# Sinusoidal Voltage Source\n\nPorts: (p, n) \nParams: FIXME!\n\nAll other parameters are passed unmodifed to netlist-level formats. \n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "voff"
@@ -381,32 +411,36 @@ ext_modules {
   }
   desc: "\n# Mosfet Transistor\n\nPorts: (d, g, s, b), in identical order to SPICE convention \nParams: string modelname\n\n`vlsir.primitives.mos` Largely corresponds to the \"M-prefix\" element of Spice-class simulators. \nEach instance maps to a *spice model* instance (\"`m1`\"), *not* to sub-circuit instance (\"`x1`\"). \nIn many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. \n\nThe *sole* required parameter to each `vlsir.primitives.mos` is its string-valued `modelname`. \nAdditional parameters such as physical dimensions are typically model-specific and vary widely between models. \nConversion from `vlsir.primitives.mos` to spice-netlist formats is to pass all such additional parameters unmodified. \n\nExample instantiation:\n\n```python\nInstance(\n    name=\"mos1\",\n    module=Reference(domain=\"vlsir.primitives\", name=\"mos\"),\n    connections=dict(d=d, g=g, s=s, b=b),\n    parameters=dict(\n        modelname=\"my_favorite_nmos\", \n        w=1e-6, \n        geomod=2, # An example highly model-specific parameter\n    ),\n)\n```\n\nCorresponds to netlist-level content along the lines of: \n\n```spice\n.model my_favorite_nmos     * Model statement provided externally \n+ nmos level=53             * Model parameters\n\n* Instance compiled from `vlsir.primitives.mos`:\nmmos1                       * Note the `m` prefix\n+ d g s b                   * Connections \n+ my_favorite_nmos          * Model name\n+ w=1e-6 geomod=2           * Instance parameters, unmodified\n```\n"
   ports {
-    signal {
-      name: "d"
-      width: 1
-    }
+    signal: "d"
     direction: NONE
   }
   ports {
-    signal {
-      name: "g"
-      width: 1
-    }
+    signal: "g"
     direction: NONE
   }
   ports {
-    signal {
-      name: "s"
-      width: 1
-    }
+    signal: "s"
     direction: NONE
   }
   ports {
-    signal {
-      name: "b"
-      width: 1
-    }
+    signal: "b"
     direction: NONE
+  }
+  signals {
+    name: "d"
+    width: 1
+  }
+  signals {
+    name: "g"
+    width: 1
+  }
+  signals {
+    name: "s"
+    width: 1
+  }
+  signals {
+    name: "b"
+    width: 1
   }
   parameters {
     name: "modelname"
@@ -420,25 +454,28 @@ ext_modules {
   }
   desc: "\n# Bipolar Junction Transistor (BJT)\n\nPorts: (c, b, e), in identical order to SPICE convention \nParams: string modelname\n\n`vlsir.primitives.bipolar` Largely corresponds to the \"Q-prefix\" element of Spice-class simulators. \nEach instance maps to a *spice model* instance (\"`q1`\"), *not* to sub-circuit instance (\"`x1`\"). \nIn many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. \n\nUnlike the SPICE BJT, `vlsir.primitives.bipolar` *does not* include an optional fourth substrate terminal. \n\nThe *sole* required parameter to each `vlsir.primitives.bipolar` is its string-valued `modelname`. \nWhile the level-one BJT model has much more prevalence than any MOS model, \nthere remains a diversity of instance parameters not first-class enumerated here. \n\n"
   ports {
-    signal {
-      name: "c"
-      width: 1
-    }
+    signal: "c"
     direction: NONE
   }
   ports {
-    signal {
-      name: "b"
-      width: 1
-    }
+    signal: "b"
     direction: NONE
   }
   ports {
-    signal {
-      name: "e"
-      width: 1
-    }
+    signal: "e"
     direction: NONE
+  }
+  signals {
+    name: "c"
+    width: 1
+  }
+  signals {
+    name: "b"
+    width: 1
+  }
+  signals {
+    name: "e"
+    width: 1
   }
   parameters {
     name: "modelname"
@@ -452,18 +489,20 @@ ext_modules {
   }
   desc: "\n# Diode\n\nPorts: (p (anode), n (cathode)), in identical order to SPICE convention \nParams: string modelname\n\n`vlsir.primitives.diode` largely corresponds to the \"D-prefix\" element of Spice-class simulators. \nEach instance maps to a *spice model* instance (\"`d1`\"), *not* to sub-circuit instance (\"`x1`\"). \nIn many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. \n\nThe *sole* required parameter to each `vlsir.primitives.diode` is its string-valued `modelname`. \nWhile the level-one diode model has much more prevalence than any MOS model, \nthere remains a diversity of instance parameters not first-class enumerated here. \n\n"
   ports {
-    signal {
-      name: "p"
-      width: 1
-    }
+    signal: "p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "n"
-      width: 1
-    }
+    signal: "n"
     direction: NONE
+  }
+  signals {
+    name: "p"
+    width: 1
+  }
+  signals {
+    name: "n"
+    width: 1
   }
   parameters {
     name: "modelname"
@@ -477,32 +516,36 @@ ext_modules {
   }
   desc: "\n# Transmission Line\n\nPorts: (p1p, p1n, (port 1), p2p, p2n (port 2)), in identical order to SPICE convention \nParams: string modelname\n\nThe *sole* required parameter is the string-valued `modelname`. \nAll other parameters are passed unmodified to netlist-level formats. \n\nThe \"model-based\" tline specification supports lossy lines in all known SPICE-class simulators, \nand lossless lines in many or most. \n\n"
   ports {
-    signal {
-      name: "p1p"
-      width: 1
-    }
+    signal: "p1p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "p1n"
-      width: 1
-    }
+    signal: "p1n"
     direction: NONE
   }
   ports {
-    signal {
-      name: "p2p"
-      width: 1
-    }
+    signal: "p2p"
     direction: NONE
   }
   ports {
-    signal {
-      name: "p2n"
-      width: 1
-    }
+    signal: "p2n"
     direction: NONE
+  }
+  signals {
+    name: "p1p"
+    width: 1
+  }
+  signals {
+    name: "p1n"
+    width: 1
+  }
+  signals {
+    name: "p2p"
+    width: 1
+  }
+  signals {
+    name: "p2n"
+    width: 1
   }
   parameters {
     name: "modelname"

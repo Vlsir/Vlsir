@@ -13,15 +13,22 @@ def test_version():
 def test_sim():
     # Test creation of a `vlsir.spice.SimInput`
 
-    from vlsir.circuit_pb2 import Module, Signal, Connection, Port, Instance
+    from vlsir.circuit_pb2 import (
+        Module,
+        Signal,
+        Connection,
+        ConnectionTarget,
+        Port,
+        Instance,
+    )
     from vlsir.utils_pb2 import Reference, QualifiedName
 
     inp = vlsir.spice.SimInput()
     inp.pkg.modules.append(
         Module(
             name="top",
-            ports=[Port(direction="NONE", signal=Signal(name="VSS", width=1))],
-            signals=[Signal(name="1", width=1)],
+            ports=[Port(direction="NONE", signal="VSS")],
+            signals=[Signal(name="1", width=1), Signal(name="VSS", width=1)],
             instances=[
                 Instance(
                     name="r1",
@@ -30,10 +37,10 @@ def test_sim():
                             domain="vlsir.primitives", name="resistor"
                         )
                     ),
-                    connections=dict(
-                        p=Connection(sig=Signal(name="1", width=1)),
-                        n=Connection(sig=Signal(name="VSS", width=1)),
-                    ),
+                    connections=[
+                        Connection(portname="p", target=ConnectionTarget(sig="1")),
+                        Connection(portname="n", target=ConnectionTarget(sig="VSS")),
+                    ],
                 )
             ],
         )

@@ -2,11 +2,14 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
 goog.provide('proto.vlsir.circuit.ExternalModule');
 
@@ -14,6 +17,7 @@ goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
 goog.require('jspb.Message');
 goog.require('proto.vlsir.circuit.Port');
+goog.require('proto.vlsir.circuit.Signal');
 goog.require('proto.vlsir.utils.Param');
 goog.require('proto.vlsir.utils.QualifiedName');
 
@@ -44,7 +48,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.vlsir.circuit.ExternalModule.repeatedFields_ = [3,5];
+proto.vlsir.circuit.ExternalModule.repeatedFields_ = [3,4,5];
 
 
 
@@ -81,6 +85,8 @@ proto.vlsir.circuit.ExternalModule.toObject = function(includeInstance, msg) {
     desc: jspb.Message.getFieldWithDefault(msg, 2, ""),
     portsList: jspb.Message.toObjectList(msg.getPortsList(),
     proto.vlsir.circuit.Port.toObject, includeInstance),
+    signalsList: jspb.Message.toObjectList(msg.getSignalsList(),
+    proto.vlsir.circuit.Signal.toObject, includeInstance),
     parametersList: jspb.Message.toObjectList(msg.getParametersList(),
     proto.vlsir.utils.Param.toObject, includeInstance)
   };
@@ -132,6 +138,11 @@ proto.vlsir.circuit.ExternalModule.deserializeBinaryFromReader = function(msg, r
       var value = new proto.vlsir.circuit.Port;
       reader.readMessage(value,proto.vlsir.circuit.Port.deserializeBinaryFromReader);
       msg.addPorts(value);
+      break;
+    case 4:
+      var value = new proto.vlsir.circuit.Signal;
+      reader.readMessage(value,proto.vlsir.circuit.Signal.deserializeBinaryFromReader);
+      msg.addSignals(value);
       break;
     case 5:
       var value = new proto.vlsir.utils.Param;
@@ -188,6 +199,14 @@ proto.vlsir.circuit.ExternalModule.serializeBinaryToWriter = function(message, w
       3,
       f,
       proto.vlsir.circuit.Port.serializeBinaryToWriter
+    );
+  }
+  f = message.getSignalsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.vlsir.circuit.Signal.serializeBinaryToWriter
     );
   }
   f = message.getParametersList();
@@ -291,6 +310,44 @@ proto.vlsir.circuit.ExternalModule.prototype.addPorts = function(opt_value, opt_
  */
 proto.vlsir.circuit.ExternalModule.prototype.clearPortsList = function() {
   return this.setPortsList([]);
+};
+
+
+/**
+ * repeated Signal signals = 4;
+ * @return {!Array<!proto.vlsir.circuit.Signal>}
+ */
+proto.vlsir.circuit.ExternalModule.prototype.getSignalsList = function() {
+  return /** @type{!Array<!proto.vlsir.circuit.Signal>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.vlsir.circuit.Signal, 4));
+};
+
+
+/**
+ * @param {!Array<!proto.vlsir.circuit.Signal>} value
+ * @return {!proto.vlsir.circuit.ExternalModule} returns this
+*/
+proto.vlsir.circuit.ExternalModule.prototype.setSignalsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.vlsir.circuit.Signal=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.vlsir.circuit.Signal}
+ */
+proto.vlsir.circuit.ExternalModule.prototype.addSignals = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.vlsir.circuit.Signal, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.vlsir.circuit.ExternalModule} returns this
+ */
+proto.vlsir.circuit.ExternalModule.prototype.clearSignalsList = function() {
+  return this.setSignalsList([]);
 };
 
 

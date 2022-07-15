@@ -17,25 +17,31 @@ def test_version():
 def test_netlist1():
     # Test netlisting, including instantiating primitives
 
-    from vlsir import Reference, QualifiedName, ParamValue
+    from vlsir import Reference, QualifiedName, ParamValue, Param
     from vlsir.circuit_pb2 import (
         Module,
         Signal,
         Connection,
+        ConnectionTarget,
         Port,
         Instance,
         Package,
     )
 
+    def _connections(**kwargs):
+        return [Connection(portname=key, target=value) for key, value in kwargs.items()]
+
+    def _params(**kwargs):
+        return [Param(name=key, value=value) for key, value in kwargs.items()]
+
     def _prim(name: str) -> Reference:
         # Shorthand for a `Reference` to primitive `name`
         return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
 
-    def _conns() -> Dict:
+    def default_conns() -> Dict:
         # Shorthand for connections between node "1" and "VSS", used for many instances below.
-        return dict(
-            p=Connection(sig=Signal(name="vvv", width=1)),
-            n=Connection(sig=Signal(name="VSS", width=1)),
+        return _connections(
+            p=ConnectionTarget(sig="vvv"), n=ConnectionTarget(sig="VSS"),
         )
 
     pkg = Package(
@@ -44,81 +50,87 @@ def test_netlist1():
             Module(
                 name="mid",
                 ports=[
-                    Port(direction="NONE", signal=Signal(name="vvv", width=1)),
-                    Port(direction="NONE", signal=Signal(name="VSS", width=1)),
+                    Port(direction="NONE", signal="vvv"),
+                    Port(direction="NONE", signal="VSS"),
                 ],
-                signals=[],
+                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
                         name="r",
                         module=_prim("resistor"),
-                        connections=_conns(),
-                        parameters=dict(r=ParamValue(double=1e3)),
+                        connections=default_conns(),
+                        parameters=_params(r=ParamValue(double=1e3)),
                     ),
                     Instance(
                         name="c",
                         module=_prim("capacitor"),
-                        connections=_conns(),
-                        parameters=dict(c=ParamValue(double=1e-15)),
+                        connections=default_conns(),
+                        parameters=_params(c=ParamValue(double=1e-15)),
                     ),
                     Instance(
                         name="l",
                         module=_prim("inductor"),
-                        connections=_conns(),
-                        parameters=dict(l=ParamValue(double=1e-9)),
+                        connections=default_conns(),
+                        parameters=_params(l=ParamValue(double=1e-9)),
                     ),
                     Instance(
                         name="v",
                         module=_prim("vdc"),
-                        connections=_conns(),
-                        parameters=dict(dc=ParamValue(double=1.1)),
+                        connections=default_conns(),
+                        parameters=_params(dc=ParamValue(double=1.1)),
                     ),
                     Instance(
                         name="i",
                         module=_prim("isource"),
-                        connections=_conns(),
-                        parameters=dict(dc=ParamValue(double=1e-6)),
+                        connections=default_conns(),
+                        parameters=_params(dc=ParamValue(double=1e-6)),
                     ),
                     Instance(
                         name="m",
                         module=_prim("mos"),
-                        connections=dict(
-                            d=Connection(sig=Signal(name="VSS", width=1)),
-                            g=Connection(sig=Signal(name="VSS", width=1)),
-                            s=Connection(sig=Signal(name="VSS", width=1)),
-                            b=Connection(sig=Signal(name="VSS", width=1)),
+                        connections=_connections(
+                            d=ConnectionTarget(sig="VSS"),
+                            g=ConnectionTarget(sig="VSS"),
+                            s=ConnectionTarget(sig="VSS"),
+                            b=ConnectionTarget(sig="VSS"),
                         ),
-                        parameters=dict(modelname=ParamValue(string="some_model_name")),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                     Instance(
                         name="q",
                         module=_prim("bipolar"),
-                        connections=dict(
-                            c=Connection(sig=Signal(name="VSS", width=1)),
-                            b=Connection(sig=Signal(name="VSS", width=1)),
-                            e=Connection(sig=Signal(name="VSS", width=1)),
+                        connections=_connections(
+                            c=ConnectionTarget(sig="VSS"),
+                            b=ConnectionTarget(sig="VSS"),
+                            e=ConnectionTarget(sig="VSS"),
                         ),
-                        parameters=dict(modelname=ParamValue(string="some_model_name")),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                     Instance(
                         name="d",
                         module=_prim("diode"),
-                        connections=_conns(),
-                        parameters=dict(modelname=ParamValue(string="some_model_name")),
+                        connections=default_conns(),
+                        parameters=_params(
+                            modelname=ParamValue(string="some_model_name")
+                        ),
                     ),
                 ],
             ),
             Module(
                 name="top",
-                ports=[Port(direction="NONE", signal=Signal(name="VSS", width=1)),],
-                signals=[Signal(name="vvv", width=1)],
+                ports=[Port(direction="NONE", signal="VSS"),],
+                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
                         name="imid",
                         module=Reference(local="mid"),
-                        connections=dict(
-                            vvv=Connection(sig=Signal(name="vvv", width=1)),
-                            VSS=Connection(sig=Signal(name="VSS", width=1)),
+                        connections=_connections(
+                            vvv=ConnectionTarget(sig="vvv"),
+                            VSS=ConnectionTarget(sig="VSS"),
                         ),
                     )
                 ],
@@ -142,10 +154,10 @@ def test_netlist_hdl21_ideal1():
             Module(
                 name="mid",
                 ports=[
-                    Port(direction="NONE", signal=Signal(name="vvv", width=1)),
-                    Port(direction="NONE", signal=Signal(name="VSS", width=1)),
+                    Port(direction="NONE", signal="vvv"),
+                    Port(direction="NONE", signal="VSS"),
                 ],
-                signals=[],
+                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
                         name="r1",

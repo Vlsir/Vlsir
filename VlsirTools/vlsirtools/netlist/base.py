@@ -164,6 +164,9 @@ class Netlister:
         self.pkg = pkg
         self.dest = dest
         self.indent = Indent(chars="  ")
+        self.signals_by_name = (
+            dict()
+        )  # Signals in the currently-visited module, by name
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
         self.ext_modules = dict()  # Visited ExternalModules
@@ -297,11 +300,15 @@ class Netlister:
         allowing for "pass-through" parameters not explicitly defined. """
 
         values = dict()
+        # The price of not attaching this as a property of the instance is that we have to recompute it every time.
+        instance_parameters = dict()
+        for param in pinst.parameters:
+            instance_parameters[param.name] = param.value
 
         # Step through each of `pmodule`'s declared parameters first, applying defaults if necessary
         for mparam in pmodule.parameters:
-            if mparam.name in pinst.parameters:  # Specified by the Instance
-                inst_pval = pinst.parameters.pop(mparam.name)
+            if mparam.name in instance_parameters:  # Specified by the Instance
+                inst_pval = instance_parameters.pop(mparam.name)
                 values[mparam.name] = cls.get_param_value(inst_pval)
             else:  # Not specified by the instance. Apply the default, or fail.
                 pdefault = cls.get_param_default(mparam)
@@ -311,7 +318,7 @@ class Netlister:
                 values[mparam.name] = pdefault
 
         # Convert the remaining instance-provided parameters to strings
-        for (pname, pval) in pinst.parameters.items():
+        for (pname, pval) in instance_parameters.items():
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
@@ -409,21 +416,22 @@ class Netlister:
         # Not a Module, not an ExternalModule, not sure what it is
         raise ValueError(f"Invalid Module reference {ref}")
 
-    def format_connection(self, pconn: vlsir.circuit.Connection) -> str:
-        """ Format a `Connection` reference. 
+    def format_connection_target(self, ptarget: vlsir.circuit.ConnectionTarget) -> str:
+        """ Format a `ConnectionTarget` reference. 
         Does not *declare* any new connection objects, but generates references to existing ones. """
         # Connections are a proto `oneof` union
         # which includes signals, slices, and concatenations.
         # Figure out which to import
 
-        stype = pconn.WhichOneof("stype")
+        stype = ptarget.WhichOneof("stype")
         if stype == "sig":
-            return self.format_signal_ref(pconn.sig)
+            signal = self.get_signal(ptarget.sig)
+            return self.format_signal_ref(signal)
         if stype == "slice":
-            return self.format_signal_slice(pconn.slice)
+            return self.format_signal_slice(ptarget.slice)
         if stype == "concat":
-            return self.format_concat(pconn.concat)
-        raise ValueError(f"Invalid Connection Type {stype} for Connection {pconn}")
+            return self.format_concat(ptarget.concat)
+        raise ValueError(f"Invalid Type {stype} for Connection Target {ptarget}")
 
     def write_header(self) -> None:
         """ Write header commentary 
@@ -438,6 +446,14 @@ class Netlister:
         self.write_comment(f"Written by {self.__class__.__name__}")
         self.write_comment("")
         self.writeln("")
+
+    def get_signal(self, name: str) -> vlsir.circuit.Signal:
+        try:
+            return self.signals_by_name[name]
+        except KeyError:
+            raise RuntimeError(
+                f"Unknown signal: {name} in {self.signals_by_name.keys()}"
+            )
 
     """ 
     Virtual `format` Methods 
