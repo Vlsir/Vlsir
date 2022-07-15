@@ -3,6 +3,7 @@
 """
 # Local Imports
 import vlsir
+import vlsir.circuit_pb2 as vckt
 
 # Import the base-class
 from .base import Netlister, SpicePrefix
@@ -20,7 +21,7 @@ class VerilogNetlister(Netlister):
 
         return NetlistFormat.VERILOG
 
-    def write_module_definition(self, module: vlsir.circuit.Module) -> None:
+    def write_module_definition(self, module: vckt.Module) -> None:
         """ Create a Verilog module definition for proto-Module `module` """
 
         # Create the module name
@@ -31,6 +32,9 @@ class VerilogNetlister(Netlister):
         # Add to our visited lists
         self.module_names.add(module_name)
         self.pmodules[module.name] = module
+
+        # Collect and index vckt.Signals in this Module by name.
+        self.collect_signals_by_name(module)
 
         # Create the module header
         self.writeln(f"module {module_name}")
@@ -83,7 +87,7 @@ class VerilogNetlister(Netlister):
         self.writeln("")  # Blank before `endmodule`
         self.writeln(f"endmodule // {module_name} \n\n")
 
-    def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
+    def write_instance(self, pinst: vckt.Instance) -> None:
         """ Format and write Instance `pinst` """
 
         # Get its Module or ExternalModule definition
@@ -115,15 +119,21 @@ class VerilogNetlister(Netlister):
             self.writeln("( ")
             self.indent += 1
             # Get `module`'s port-order
-            port_order = [pport.signal.name for pport in module.ports]
+            port_order = [pport.signal for pport in module.ports]
+            connection_targets = {
+                connection.portname: connection.target
+                for connection in pinst.connections
+            }
             # And write the Instance ports, in that order
             for num, pname in enumerate(port_order):
-                pconn = pinst.connections.get(pname, None)
-                if pconn is None:
+                ptarget = connection_targets.get(pname, None)
+                if ptarget is None:
                     raise RuntimeError(f"Unconnected Port {pname} on {pinst.name}")
                 # Again a trailing comma after the last one is fatal!
                 comma = "" if num == len(port_order) - 1 else ","
-                self.writeln(f".{pname}({self.format_connection(pconn)}){comma} ")
+                self.writeln(
+                    f".{pname}({self.format_connection_target(ptarget)}){comma} "
+                )
             # Close up the ports
             self.indent -= 1
             self.writeln("); ")
@@ -155,22 +165,21 @@ class VerilogNetlister(Netlister):
             rv += f" = {default}"
         return rv
 
-    def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
+    def format_concat(self, pconc: vckt.Concat) -> str:
         """ Format the Concatenation of several other Connections """
         # Verilog { a, b, c } concatenation format
-        parts = [self.format_connection(part) for part in pconc.parts]
+        parts = [self.format_connection_target(part) for part in pconc.parts]
         return "{" + ", ".join(parts) + "}"
 
-    @classmethod
-    def format_port_decl(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_decl(self, pport: vckt.Port) -> str:
         """ Format a `Port` declaration """
 
         # First retrieve and check the validity of its direction
         port_type_to_str = {
-            vlsir.circuit.Port.Direction.Value("INPUT"): "input",
-            vlsir.circuit.Port.Direction.Value("OUTPUT"): "output",
-            vlsir.circuit.Port.Direction.Value("INOUT"): "inout",
-            vlsir.circuit.Port.Direction.Value("NONE"): "NO_DIRECTION",
+            vckt.Port.Direction.Value("INPUT"): "input",
+            vckt.Port.Direction.Value("OUTPUT"): "output",
+            vckt.Port.Direction.Value("INOUT"): "inout",
+            vckt.Port.Direction.Value("NONE"): "NO_DIRECTION",
         }
         dir_ = port_type_to_str.get(pport.direction, None)
         if dir_ is None:
@@ -180,10 +189,9 @@ class VerilogNetlister(Netlister):
             msg = f"Invalid Verilog netlisting for undirected Port {pport}"
             raise RuntimeError(msg)
 
-        return dir_ + " " + cls.format_signal_decl(pport.signal)
+        return dir_ + " " + self.format_signal_decl(self.get_signal(pport.signal))
 
-    @classmethod
-    def format_signal_decl(cls, psig: vlsir.circuit.Signal) -> str:
+    def format_signal_decl(self, psig: vckt.Signal) -> str:
         """ Format a `Signal` declaration """
         rv = "wire"
         if psig.width > 1:
@@ -191,20 +199,19 @@ class VerilogNetlister(Netlister):
         rv += f" {psig.name}"
         return rv
 
-    @classmethod
-    def format_port_ref(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_ref(self, pport: vckt.Port) -> str:
         """ Format a reference to a `Port`. 
         Unlike declarations, this just requires the name of its `Signal`. """
-        return cls.format_signal_ref(pport.signal)
+        return self.format_signal_ref(self.get_signal(pport.signal))
 
     @classmethod
-    def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
+    def format_signal_ref(cls, psig: vckt.Signal) -> str:
         """ Format a reference to a `Signal`. 
         Unlike declarations, this just requires its name. """
         return psig.name
 
     @classmethod
-    def format_signal_slice(cls, pslice: vlsir.circuit.Slice) -> str:
+    def format_signal_slice(cls, pslice: vckt.Slice) -> str:
         """ Format Signal-Slice `pslice` """
         if pslice.top == pslice.bot:  # Single-bit slice
             return f"{pslice.signal}[{pslice.top}]"

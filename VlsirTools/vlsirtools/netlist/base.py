@@ -96,7 +96,7 @@ class ResolvedParams:
         """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
         are forwarded down to the internal `inner` dictionary. """
         return bool(self.inner)
-    
+
     def __contains__(self, key: str) -> bool:
         return key in self.inner
 
@@ -457,18 +457,17 @@ class Netlister:
             raise RuntimeError(
                 f"Unknown signal: {name} in {self.signals_by_name.keys()}"
             )
-    
-    def collect_signals_by_name(self, module: vlsir.circuit.Module) -> Dict[str, vlsir.circuit.Signal]:
-        """ Collect a `Module`'s worth of signals into a dictionary keyed by name. 
-        This often proves important for references to internal Signals, e.g. in Ports and Slices. """ 
 
-        signals_by_name = {}
+    def collect_signals_by_name(self, module: vlsir.circuit.Module):
+        """ Collect a `Module`'s worth of signals into a dictionary keyed by name. 
+        This often proves important for references to internal Signals, e.g. in Ports and Slices. """
+
+        self.signals_by_name = {}
         for signal in module.signals:
-            if signal.name in signals_by_name:
+            if signal.name in self.signals_by_name:
                 msg = f"Duplicate signal definition in Module {module.name}"
                 raise RuntimeError(msg)
-            signals_by_name[signal.name] = signal
-        return signals_by_name
+            self.signals_by_name[signal.name] = signal
 
     """ 
     Virtual `format` Methods 

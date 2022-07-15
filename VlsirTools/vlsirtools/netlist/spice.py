@@ -73,7 +73,7 @@ class SpiceNetlister(Netlister):
             raise RuntimeError(f"Module {module_name} doubly defined")
 
         # Collect and index vlsir.circuit.Signals in this Module by name.
-        self.signals_by_name = self.collect_signals_by_name(module)
+        self.collect_signals_by_name(module)
 
         # Add to our visited lists
         self.module_names.add(module_name)

@@ -96,7 +96,7 @@ class SpectreNetlister(Netlister):
         self.pmodules[module.name] = module
 
         # Collect and index vlsir.circuit.Signals in this Module by name.
-        self.signals_by_name = self.collect_signals_by_name(module)
+        self.collect_signals_by_name(module)
 
         # Create the sub-circuit definition header
         self.writeln(f"subckt {module_name} ")
@@ -162,7 +162,8 @@ class SpectreNetlister(Netlister):
             # And write the Instance ports, in that order
             pconns = []
             connection_targets = {
-                connection.portname: connection.target for connection in pinst.connections
+                connection.portname: connection.target
+                for connection in pinst.connections
             }
             for pname in port_order:
                 pconn = connection_targets.get(pname, None)
@@ -203,7 +204,7 @@ class SpectreNetlister(Netlister):
 
     def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
         """ Get a netlist `Port` definition """
-        # In Spectre, as well as most spice, this syntax is the same as referring to the Port. 
+        # In Spectre, as well as most spice, this syntax is the same as referring to the Port.
         return self.format_port_ref(pport)
 
     def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
