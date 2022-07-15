@@ -145,7 +145,7 @@ def test_netlist1():
 def test_netlist_hdl21_ideal1():
     # Test netlisting an `hdl21.ideal` element
 
-    from vlsir.circuit_pb2 import Module, Signal, Connection, Port, Instance, Package
+    from vlsir.circuit_pb2 import Module, Signal, ConnectionTarget, Port, Instance, Package
     from vlsir.utils_pb2 import Reference, QualifiedName
 
     pkg = Package(
@@ -168,8 +168,8 @@ def test_netlist_hdl21_ideal1():
                             )
                         ),
                         connections=dict(
-                            p=Connection(sig=Signal(name="vvv", width=1)),
-                            n=Connection(sig=Signal(name="VSS", width=1)),
+                            p=ConnectionTarget(sig=Signal(name="vvv", width=1)),
+                            n=ConnectionTarget(sig=Signal(name="VSS", width=1)),
                         ),
                     ),
                 ],
@@ -185,11 +185,12 @@ def empty_testbench_package():
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes. 
     So the simplest test-bench is two resistors, in parallel, between ground and a single "other node". """
 
-    from vlsir import Reference, QualifiedName, ParamValue
+    from vlsir import Reference, QualifiedName, Param, ParamValue
     from vlsir.circuit_pb2 import (
         Module,
         Signal,
         Connection,
+        ConnectionTarget,
         Port,
         Instance,
         Package,
@@ -202,11 +203,11 @@ def empty_testbench_package():
             module=Reference(
                 external=QualifiedName(domain="vlsir.primitives", name="resistor")
             ),
-            connections=dict(
-                p=Connection(sig=Signal(name="the_other_node", width=1)),
-                n=Connection(sig=Signal(name="VSS", width=1)),
-            ),
-            parameters=dict(r=ParamValue(double=1e3)),
+            connections=[
+                Connection(portname="p", target=ConnectionTarget(sig="the_other_node")),
+                Connection(portname="n", target=ConnectionTarget(sig="VSS")),
+            ],
+            parameters=[Param(name="r", value=ParamValue(double=1e3))]
         )
 
     return Package(
@@ -214,12 +215,23 @@ def empty_testbench_package():
         modules=[
             Module(
                 name="empty_testbench",
-                ports=[Port(direction="NONE", signal=Signal(name="VSS", width=1)),],
-                signals=[Signal(name="the_other_node", width=1),],
+                ports=[Port(direction="NONE", signal="VSS"),],
+                signals=[
+                    Signal(name="VSS", width=1),
+                    Signal(name="the_other_node", width=1),
+                ],
                 instances=[_r("r1"), _r("r2"),],
             )
         ],
     )
+
+
+def test_netlist_empty_testbench():
+    """ Test netlisting the empty testbench package, used later for simulation tests """
+    dest = StringIO()
+    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spice")
+    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spectre")
+    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="xyce")
 
 
 @pytest.mark.skipif(

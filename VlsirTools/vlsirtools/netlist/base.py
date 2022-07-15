@@ -419,7 +419,7 @@ class Netlister:
     def format_connection_target(self, ptarget: vlsir.circuit.ConnectionTarget) -> str:
         """ Format a `ConnectionTarget` reference. 
         Does not *declare* any new connection objects, but generates references to existing ones. """
-        # Connections are a proto `oneof` union
+        # `ConnectionTarget`s are a proto `oneof` union
         # which includes signals, slices, and concatenations.
         # Figure out which to import
 
@@ -448,12 +448,27 @@ class Netlister:
         self.writeln("")
 
     def get_signal(self, name: str) -> vlsir.circuit.Signal:
+        """ Get Signal `name` from the current Module's mapping. 
+        Raises a `RuntimeError` if the Signal is not found. """
+
         try:
             return self.signals_by_name[name]
         except KeyError:
             raise RuntimeError(
                 f"Unknown signal: {name} in {self.signals_by_name.keys()}"
             )
+    
+    def collect_signals_by_name(self, module: vlsir.circuit.Module) -> Dict[str, vlsir.circuit.Signal]:
+        """ Collect a `Module`'s worth of signals into a dictionary keyed by name. 
+        This often proves important for references to internal Signals, e.g. in Ports and Slices. """ 
+
+        signals_by_name = {}
+        for signal in module.signals:
+            if signal.name in signals_by_name:
+                msg = f"Duplicate signal definition in Module {module.name}"
+                raise RuntimeError(msg)
+            signals_by_name[signal.name] = signal
+        return signals_by_name
 
     """ 
     Virtual `format` Methods 
