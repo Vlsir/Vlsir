@@ -73,13 +73,7 @@ class SpiceNetlister(Netlister):
             raise RuntimeError(f"Module {module_name} doubly defined")
 
         # Collect and index vlsir.circuit.Signals in this Module by name.
-        self.signals_by_name = {}
-        for signal in module.signals:
-            if signal.name in self.signals_by_name:
-                raise RuntimeError(
-                    f"Duplicate signal definition in Module {module.name}"
-                )
-            self.signals_by_name[signal.name] = signal
+        self.collect_signals_by_name(module)
 
         # Add to our visited lists
         self.module_names.add(module_name)
@@ -323,7 +317,7 @@ class SpiceNetlister(Netlister):
         """ Format the Concatenation of several other Connections """
         out = ""
         for part in pconc.parts:
-            out += self.format_connection(part) + " "
+            out += self.format_connection_target(part) + " "
         return out
 
     def format_port_decl(self, pport: vlsir.circuit.Port) -> str:

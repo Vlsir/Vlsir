@@ -39,6 +39,9 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
             paramvals.rename("tf", "fall")
             paramvals.rename("tpw", "width")
             paramvals.rename("tper", "period")
+        elif vname == "vdc":
+            if "ac" in paramvals:
+                paramvals.rename("ac", "mag")
 
     # Mapping from spice-prefix to spectre-name for fixed-name types
     basics = {
@@ -91,6 +94,9 @@ class SpectreNetlister(Netlister):
         # Add to our visited lists
         self.module_names.add(module_name)
         self.pmodules[module.name] = module
+
+        # Collect and index vlsir.circuit.Signals in this Module by name.
+        self.collect_signals_by_name(module)
 
         # Create the sub-circuit definition header
         self.writeln(f"subckt {module_name} ")
@@ -152,17 +158,21 @@ class SpectreNetlister(Netlister):
         if module.ports:
             self.writeln("+ // Ports: ")
             # Get `module`'s port-order
-            port_order = [pport.signal.name for pport in module.ports]
+            port_order = [pport.signal for pport in module.ports]
             # And write the Instance ports, in that order
             pconns = []
+            connection_targets = {
+                connection.portname: connection.target
+                for connection in pinst.connections
+            }
             for pname in port_order:
-                pconn = pinst.connections.get(pname, None)
+                pconn = connection_targets.get(pname, None)
                 if pconn is None:
                     raise RuntimeError(f"Unconnected Port {pname} on {pinst.name}")
                 pconns.append(pconn)
             self.writeln(
                 "+ ( "
-                + " ".join([self.format_connection(pconn) for pconn in pconns])
+                + " ".join([self.format_connection_target(pconn) for pconn in pconns])
                 + " )"
             )
         else:
@@ -189,18 +199,17 @@ class SpectreNetlister(Netlister):
         """ Format the Concatenation of several other Connections """
         out = ""
         for part in pconc.parts:
-            out += self.format_connection(part) + " "
+            out += self.format_connection_target(part) + " "
         return out
 
-    @classmethod
-    def format_port_decl(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
         """ Get a netlist `Port` definition """
-        return cls.format_signal_ref(pport.signal)
+        # In Spectre, as well as most spice, this syntax is the same as referring to the Port.
+        return self.format_port_ref(pport)
 
-    @classmethod
-    def format_port_ref(cls, pport: vlsir.circuit.Port) -> str:
+    def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
         """ Get a netlist `Port` reference """
-        return cls.format_signal_ref(pport.signal)
+        return self.format_signal_ref(self.get_signal(pport.signal))
 
     @classmethod
     def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:

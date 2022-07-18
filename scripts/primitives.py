@@ -252,8 +252,10 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
-            signals=_signals(("p", "n")),
-            parameters=[Param(name="dc", desc="DC Voltage (Volts)"),],
+            parameters=[
+                Param(name="dc", desc="DC Voltage (Volts)"),
+                Param(name="ac", desc="AC/ Small-Signal Magnitude (Volts)"),
+            ],
         ),
         ExternalModule(
             name=_qname("vpulse"),

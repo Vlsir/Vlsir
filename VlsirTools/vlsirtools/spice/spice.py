@@ -26,19 +26,6 @@ class ResultFormat(Enum):
 SimResultUnion = Union[vsp.SimResult, sd.SimResult]
 
 
-class AnalysisType(Enum):
-    """ Enumerated Analysis-Types 
-    Corresponding to the entries in the `Analysis` type-union. """
-
-    OP = "op"
-    DC = "dc"
-    AC = "ac"
-    TRAN = "tran"
-    MONTE = "monte"
-    SWEEP = "sweep"
-    CUSTOM = "custom"
-
-
 class SupportedSimulators(Enum):
     """ Enumerated, Internally-Defined Spice-Class Simulators """
 
