@@ -116,7 +116,7 @@ class SpectreNetlister(Netlister):
             formatted = " ".join(
                 [
                     self.format_param_decl(name, pparam)
-                    for name, pparam in module.parameters.items()
+                    for name, pparam in module.parameters.items() ## FIXME! schema change breaks this
                 ]
             )
             self.writeln("parameters " + formatted + " ")
