@@ -29,6 +29,6 @@ setup(
     python_requires=">=3.7, <4",
     install_requires=[f"vlsir=={_VLSIR_VERSION}", "numpy==1.21.5"],
     extras_require={
-        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==19.10b0", "twine"]
+        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
     },
 )
