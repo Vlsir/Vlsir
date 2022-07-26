@@ -41,7 +41,7 @@ jobs:
       #     path_to_write_report: ./coverage/codecov_report.txt
       #     verbose: true
 
-jobs:
+  build-bindings:
     name: Build bindings
     runs-on: ubuntu-latest
     strategy:
