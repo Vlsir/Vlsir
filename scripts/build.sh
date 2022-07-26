@@ -11,7 +11,7 @@
 SCHEMA_VERSION=main
  
 if [ ! -d protos ]; then
-  git clone -b "${SCHEMA_VERSION}" git@github.com:Vlsir/schema-proto protos
+  git clone -b "${SCHEMA_VERSION}" https://github.com/Vlsir/schema-proto.git protos
 else
   cd protos
   git fetch
