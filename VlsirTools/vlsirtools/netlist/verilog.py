@@ -104,7 +104,7 @@ class VerilogNetlister(Netlister):
         if pinst.parameters:  # Write the parameter-values
             self.writeln("#( ")
             self.indent += 1
-            for pname, pparam in pinst.parameters.items():
+            for pname, pparam in pinst.parameters.items(): ## FIXME! this is NOT the updated schema 
                 pval = self.get_param_value(pparam)
                 self.writeln(f"{pname}={pval} ")
             self.indent -= 1

@@ -318,7 +318,7 @@ class Netlister:
                 values[mparam.name] = pdefault
 
         # Convert the remaining instance-provided parameters to strings
-        for (pname, pval) in instance_parameters.items():
+        for (pname, pval) in instance_parameters.items(): ## FIXME! schema change breaks this
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object

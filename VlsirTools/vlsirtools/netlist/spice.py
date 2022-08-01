@@ -117,7 +117,7 @@ class SpiceNetlister(Netlister):
         """ Write the parameter declarations for Module `module`. 
         Parameter declaration format: `name1=val1 name2=val2 name3=val3 \n`"""
         self.write("+ ")
-        for name, pparam in module.parameters.items():
+        for name, pparam in module.parameters.items(): ## FIXME! schema change breaks this
             self.write(self.format_param_decl(name, pparam))
         self.write("\n")
 
