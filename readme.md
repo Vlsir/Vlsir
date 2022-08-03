@@ -16,11 +16,11 @@ All of Vlsir's schema-definitions live in the [protos](./protos) directory.
 
 | Schema                                 | Description                     |
 | -------------------------------------- | ------------------------------- |
-| [Circuit](./protos/circuit.proto)      | Circuit / Hardware Descriptions |
-| [Raw Layout](./protos/raw.proto)       | "Raw Polygon" IC Layout         |
-| [Tetris Layout](./protos/tetris.proto) | "Tetris" Gridded IC Layout      |
-| [Spice](./protos/spice.proto)          | Spice-Class Simulator Interface |
-| [Utilities](./protos/utils.proto)      | Shared Utilities                |
+| [Circuit](https://github.com/Vlsir/schema-proto/blob/main/circuit.proto)      | Circuit / Hardware Descriptions |
+| [Raw Layout](https://github.com/Vlsir/schema-proto/blob/main/raw.proto)       | "Raw Polygon" IC Layout         |
+| [Tetris Layout](https://github.com/Vlsir/schema-proto/blob/main/tetris.proto) | "Tetris" Gridded IC Layout      |
+| [Spice](https://github.com/Vlsir/schema-proto/blob/main/spice.proto)          | Spice-Class Simulator Interface |
+| [Utilities](https://github.com/Vlsir/schema-proto/blob/main/utils.proto)      | Shared Utilities                |
 
 ## Language Bindings
 
