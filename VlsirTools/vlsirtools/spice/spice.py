@@ -31,6 +31,7 @@ class SupportedSimulators(Enum):
 
     SPECTRE = "spectre"
     XYCE = "xyce"
+    NGSPICE = "ngspice"
 
 
 def default() -> Optional[SupportedSimulators]:
@@ -91,6 +92,7 @@ async def sim_async(
     """
     from .xyce import XyceSim
     from .spectre import SpectreSim
+    from .ngspice import NGSpiceSim
 
     # Sort out the difference between "One" "OrMore" cases of input
     # For a single `SimInput`, create a list, but note we only want to return a single `SimResult`
@@ -114,6 +116,8 @@ async def sim_async(
         cls = XyceSim
     elif opts.simulator == SupportedSimulators.SPECTRE:
         cls = SpectreSim
+    elif opts.simulator == SupportedSimulators.NGSPICE:
+        cls = NGSpiceSim
     else:
         raise ValueError(f"Unsupported simulator: {opts.simulator}")
 
