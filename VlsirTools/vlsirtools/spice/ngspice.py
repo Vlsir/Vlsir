@@ -278,7 +278,7 @@ class NGSpiceSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """ Run a NGSpice sub-process, executing the simulation """
         # Note the `nutbin` output format is dictated here
-        cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r=netlist.raw"
+        cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw"
         return self.run_subprocess(cmd)
 
 
@@ -400,7 +400,7 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     assert binary_line == "Binary:\n"
     # Data is big endian
     bin_data = np.fromfile(
-        f, dtype=np.dtype(nptype).newbyteorder(">"), count=num_vars * num_pts
+        f, dtype=np.dtype(nptype).newbyteorder("<"), count=num_vars * num_pts
     )
     data = {}
     units = {}
