@@ -93,9 +93,9 @@ class NGSpiceSim(Sim):
         )
         an_name_dispatch = dict(
             op='Plotname: Operating Point\n',
-            dc='Plotname: DC\n',
-            ac='Plotname: AC\n',
-            tran='Plotname: tran\n')
+            dc='Plotname: DC Analysis\n',
+            ac='Plotname: AC Analysis\n',
+            tran='Plotname: Tran Analysis\n')
         results = []
         for an in self.inp.an:
             an_type = an.WhichOneof("an")
@@ -172,7 +172,7 @@ class NGSpiceSim(Sim):
             raise ValueError(f"Invalid `npts` {npts}")
         
         # Write the analysis command
-        line = f".ac start={fstart} stop={fstop} dec={npts}\n\n"
+        line = f".ac dec {npts} {fstart} {fstop}\n\n"
         netlist_file.write(line) 
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
@@ -227,10 +227,10 @@ class NGSpiceSim(Sim):
         measurements = self.get_measurements("*.mt*") 
 
         # Pop the frequence vector out of the data
-        freq = nutbin.data.pop("freq")
+        freq = nutbin.data.pop("frequency")
         # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data. 
         # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts. 
-        if np.any(freq.imag):
+        if not np.allclose(freq.imag, 0):
             raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
         freq = freq.real
 
@@ -311,7 +311,7 @@ class Units(FromStr, Enum):
     SECONDS = "seconds"
     VOLTS = "voltage"
     AMPS = "current"
-    HERTZ = "Hz"
+    HERTZ = "frequency"
     CELSIUS = "C"
 
 
@@ -340,12 +340,12 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
 
     # Parse per-file header info
     # First 2 lines are ascii one line statements
-    _title = f.readline()  # Title, ignored
-    _date = f.readline()  # Run date, ignored
     
     # And parse the rest of the file per-analysis
     rv = {}
     while f:
+        _title = f.readline()  # Title, ignored
+        _date = f.readline()  # Run date, ignored
         plotname = f.readline().decode("ascii")  # Simulation name
         if len(plotname) == 0:
             break
