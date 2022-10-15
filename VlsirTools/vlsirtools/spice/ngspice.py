@@ -314,6 +314,13 @@ class Units(FromStr, Enum):
     HERTZ = "frequency"
     CELSIUS = "C"
 
+    @classmethod
+    def from_str(cls, s: str) -> "FromStr":
+        reversed_l = {v.value: v for v in cls}
+        if s not in reversed_l:
+            return cls.DUMMY
+        return reversed_l[s]
+
 
 @dataclass
 class VarSpec:
