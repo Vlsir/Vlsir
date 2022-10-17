@@ -95,7 +95,7 @@ class NGSpiceSim(Sim):
             op='Plotname: Operating Point\n',
             dc='Plotname: DC Analysis\n',
             ac='Plotname: AC Analysis\n',
-            tran='Plotname: Tran Analysis\n')
+            tran='Plotname: Transient Analysis\n')
         results = []
         for an in self.inp.an:
             an_type = an.WhichOneof("an")
@@ -220,7 +220,7 @@ class NGSpiceSim(Sim):
         if len(an.ic):
             raise NotImplementedError
 
-        netlist_file.write(f".tran stop={an.tstop} \n\n")
+        netlist_file.write(f".tran {an.tstep} {an.tstop} \n\n")
 
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
         # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim! 
