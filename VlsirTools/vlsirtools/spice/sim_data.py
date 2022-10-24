@@ -10,7 +10,7 @@ TODO: Go from proto -> sim_result
 
 
 from typing import List, Mapping, Union, ClassVar
-from enum import Enum 
+from enum import Enum
 from dataclasses import dataclass
 import numpy as np
 
@@ -25,6 +25,7 @@ class AnalysisType(Enum):
     DC = "dc"
     AC = "ac"
     TRAN = "tran"
+    NOISE = "noise"
     MONTE = "monte"
     SWEEP = "sweep"
     CUSTOM = "custom"
@@ -94,6 +95,18 @@ class AcResult:
 
 
 @dataclass
+class NoiseResult:
+    analysis_name: str
+    data: Mapping[str, np.ndarray]
+    integrated_noise: Mapping[str, float]
+    measurements: Mapping[str, float]
+    vlsir_type: ClassVar[AnalysisType] = AnalysisType.NOISE
+
+    def to_proto(self) -> vlsir.spice.AcResult:
+        raise NotImplementedError
+
+
+@dataclass
 class SweepResult:
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.SWEEP
 
@@ -120,7 +133,15 @@ class CustomAnalysisResult:
 
 
 # Type alias for the union of each result-type
-AnalysisResult = Union[AcResult, DcResult, TranResult, OpResult, SweepResult, MonteResult, CustomAnalysisResult]
+AnalysisResult = Union[
+    AcResult,
+    DcResult,
+    TranResult,
+    OpResult,
+    SweepResult,
+    MonteResult,
+    CustomAnalysisResult,
+]
 
 
 @dataclass
@@ -132,7 +153,9 @@ class SimResult:
     def to_proto(self) -> vlsir.spice.SimResult:
         res = vlsir.spice.SimResult()
         for a in self.an:
-            res.an.append(vlsir.spice.AnalysisResult(**{a.vlsir_type.value: a.to_proto()}))
+            res.an.append(
+                vlsir.spice.AnalysisResult(**{a.vlsir_type.value: a.to_proto()})
+            )
         return res
 
     def __getitem__(self, key: int) -> AnalysisResult:

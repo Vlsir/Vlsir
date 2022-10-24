@@ -32,13 +32,15 @@ sys.path.append(str(pybindings))
 # import will break, and we will not be able to generate a new .pb.txt file.
 # A temporary fix is to comment out the code in
 # bindings/python/vlsir/primitives.py.
-from vlsir.utils_pb2 import (QualifiedName, Param,)
+from vlsir.utils_pb2 import (
+    QualifiedName,
+    Param,
+)
 from vlsir.circuit_pb2 import (
     Package,
     ExternalModule,
     Port,
     Signal,
-    
 )
 
 
@@ -183,9 +185,7 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[
-                Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
-            ],
+            parameters=[Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),],
         ),
         ExternalModule(
             name=_qname("cccs"),
@@ -217,9 +217,7 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[
-                Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
-            ],
+            parameters=[Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),],
         ),
         ExternalModule(
             name=_qname("isource"),
@@ -252,6 +250,7 @@ primitives = Package(
                 """
             ),
             ports=_ports(("p", "n")),
+            signals=_signals(("p", "n")),
             parameters=[
                 Param(name="dc", desc="DC Voltage (Volts)"),
                 Param(name="ac", desc="AC/ Small-Signal Magnitude (Volts)"),

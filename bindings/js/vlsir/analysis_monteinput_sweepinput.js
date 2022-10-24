@@ -23,6 +23,7 @@ goog.require('proto.vlsir.spice.AcInput');
 goog.require('proto.vlsir.spice.Control');
 goog.require('proto.vlsir.spice.CustomAnalysisInput');
 goog.require('proto.vlsir.spice.DcInput');
+goog.require('proto.vlsir.spice.NoiseInput');
 goog.require('proto.vlsir.spice.OpInput');
 goog.require('proto.vlsir.spice.Sweep');
 goog.require('proto.vlsir.spice.TranInput');
@@ -99,7 +100,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.vlsir.spice.Analysis.oneofGroups_ = [[1,2,3,4,10,11,20]];
+proto.vlsir.spice.Analysis.oneofGroups_ = [[1,2,3,4,5,10,11,20]];
 
 /**
  * @enum {number}
@@ -110,6 +111,7 @@ proto.vlsir.spice.Analysis.AnCase = {
   DC: 2,
   TRAN: 3,
   AC: 4,
+  NOISE: 5,
   SWEEP: 10,
   MONTE: 11,
   CUSTOM: 20
@@ -157,6 +159,7 @@ proto.vlsir.spice.Analysis.toObject = function(includeInstance, msg) {
     dc: (f = msg.getDc()) && proto.vlsir.spice.DcInput.toObject(includeInstance, f),
     tran: (f = msg.getTran()) && proto.vlsir.spice.TranInput.toObject(includeInstance, f),
     ac: (f = msg.getAc()) && proto.vlsir.spice.AcInput.toObject(includeInstance, f),
+    noise: (f = msg.getNoise()) && proto.vlsir.spice.NoiseInput.toObject(includeInstance, f),
     sweep: (f = msg.getSweep()) && proto.vlsir.spice.SweepInput.toObject(includeInstance, f),
     monte: (f = msg.getMonte()) && proto.vlsir.spice.MonteInput.toObject(includeInstance, f),
     custom: (f = msg.getCustom()) && proto.vlsir.spice.CustomAnalysisInput.toObject(includeInstance, f)
@@ -215,6 +218,11 @@ proto.vlsir.spice.Analysis.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.vlsir.spice.AcInput;
       reader.readMessage(value,proto.vlsir.spice.AcInput.deserializeBinaryFromReader);
       msg.setAc(value);
+      break;
+    case 5:
+      var value = new proto.vlsir.spice.NoiseInput;
+      reader.readMessage(value,proto.vlsir.spice.NoiseInput.deserializeBinaryFromReader);
+      msg.setNoise(value);
       break;
     case 10:
       var value = new proto.vlsir.spice.SweepInput;
@@ -290,6 +298,14 @@ proto.vlsir.spice.Analysis.serializeBinaryToWriter = function(message, writer) {
       4,
       f,
       proto.vlsir.spice.AcInput.serializeBinaryToWriter
+    );
+  }
+  f = message.getNoise();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.vlsir.spice.NoiseInput.serializeBinaryToWriter
     );
   }
   f = message.getSweep();
@@ -464,6 +480,43 @@ proto.vlsir.spice.Analysis.prototype.clearAc = function() {
  */
 proto.vlsir.spice.Analysis.prototype.hasAc = function() {
   return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional NoiseInput noise = 5;
+ * @return {?proto.vlsir.spice.NoiseInput}
+ */
+proto.vlsir.spice.Analysis.prototype.getNoise = function() {
+  return /** @type{?proto.vlsir.spice.NoiseInput} */ (
+    jspb.Message.getWrapperField(this, proto.vlsir.spice.NoiseInput, 5));
+};
+
+
+/**
+ * @param {?proto.vlsir.spice.NoiseInput|undefined} value
+ * @return {!proto.vlsir.spice.Analysis} returns this
+*/
+proto.vlsir.spice.Analysis.prototype.setNoise = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 5, proto.vlsir.spice.Analysis.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.vlsir.spice.Analysis} returns this
+ */
+proto.vlsir.spice.Analysis.prototype.clearNoise = function() {
+  return this.setNoise(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.vlsir.spice.Analysis.prototype.hasNoise = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

@@ -8,14 +8,14 @@ import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
 from dataclasses import dataclass
 from warnings import warn
-from enum import Enum 
+from enum import Enum
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
 from ..netlist import netlist
 from ..netlist.spice import NgspiceNetlister
 from .base import Sim
-from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
+from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, NoiseResult
 from .spice import (
     SupportedSimulators,
     sim,
@@ -41,14 +41,13 @@ class NGSpiceSim(Sim):
         if shutil.which(NGSPICE_EXECUTABLE) is None:
             return False
         try:
-            # And if it's set, check that we can get its version without croaking.
-            # This can often happen because of an inaccessible license server, or just a badly-linked installation.
             subprocess.run(
-                f"{NGSPICE_EXECUTABLE} -V",  # Yes, "version" gets a capital "V" for this program (ascii shrug)
+                f"{NGSPICE_EXECUTABLE} -v",
                 shell=True,
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                timeout=10,
             )
         except Exception:
             # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
@@ -84,22 +83,34 @@ class NGSpiceSim(Sim):
         netlist_file.close()
 
         # Run the simulation
-        await self.run_spectre_process()
+        await self.run_sim_process()
 
         # Parse output data
         data = parse_nutbin(self.open("netlist.raw", "rb"))
         an_type_dispatch = dict(
-            ac=self.parse_ac, dc=self.parse_dc, op=self.parse_op, tran=self.parse_tran
+            ac=self.parse_ac,
+            dc=self.parse_dc,
+            op=self.parse_op,
+            tran=self.parse_tran,
+            noise=self.parse_noise,
         )
         an_name_dispatch = dict(
-            op='Plotname: Operating Point\n',
-            dc='Plotname: DC Analysis\n',
-            ac='Plotname: AC Analysis\n',
-            tran='Plotname: Transient Analysis\n')
+            op="Plotname: Operating Point\n",
+            dc="Plotname: DC Analysis\n",
+            ac="Plotname: AC Analysis\n",
+            tran="Plotname: Transient Analysis\n",
+            noise="FIXME! do we still want this setup?",
+        )
         results = []
         for an in self.inp.an:
             an_type = an.WhichOneof("an")
             inner = getattr(an, an_type)
+
+            if an_type == "noise":
+                # FIXME: I read somewhere that "Special cases aren't special enough to break the rules."
+                results.append(self.parse_noise(inner, data))
+                continue
+
             if an_type not in an_type_dispatch:
                 msg = f"Invalid or Unsupported analysis {an} with type {an_type}"
                 raise RuntimeError(msg)
@@ -149,6 +160,7 @@ class NGSpiceSim(Sim):
             dc=self.netlist_dc,
             op=self.netlist_op,
             tran=self.netlist_tran,
+            noise=self.netlist_noise,
         )
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
@@ -159,7 +171,7 @@ class NGSpiceSim(Sim):
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
-        
+
         # Unpack the analysis / sweep content
         fstart = an.fstart
         if fstart <= 0:
@@ -170,10 +182,10 @@ class NGSpiceSim(Sim):
         npts = an.npts
         if npts <= 0:
             raise ValueError(f"Invalid `npts` {npts}")
-        
+
         # Write the analysis command
         line = f".ac dec {npts} {fstart} {fstop}\n\n"
-        netlist_file.write(line) 
+        netlist_file.write(line)
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
         """ Netlist a DC analysis. """
@@ -190,7 +202,9 @@ class NGSpiceSim(Sim):
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            line = f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            line = (
+                f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            )
             netlist_file.write(line)
         elif sweep_type == "points":
             raise ValueError("NG Spice does not support a DC point sweep")
@@ -222,14 +236,39 @@ class NGSpiceSim(Sim):
 
         netlist_file.write(f".tran {an.tstep} {an.tstop} \n\n")
 
+    def netlist_noise(self, an: vsp.NoiseInput, netlist_file: IO) -> None:
+        """ Netlist a noise analysis. """
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+
+        netlist_file.write(f".save all \n")
+
+        # NgSpice's syntax for a hierarchical reference to a net is (apparently) `v(v.<dot-separated-path>)`
+        # and similarly a source is `v.<dot-separated-path>`.
+        #
+        # In response to "where on earth did you find this?" @avi wrote:
+        # "this isn't really documented anywhere. I figured this out on a hunch from the syntax for saving transistor parameters, which is something like @m.path_to_transistor[param_name]"
+        #
+        if an.output_n:  # Differential output spec
+            noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
+        else:
+            noise_output = f"v(v.xtop.{an.output_p})"
+        noise_input_source = f"v.xtop.{an.input_source}"
+        noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
+        netlist_file.write(
+            f".noise {noise_output} {noise_input_source} {noise_sweep} \n\n"
+        )
+
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
-        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim! 
-        measurements = self.get_measurements("*.mt*") 
+        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!
+        measurements = self.get_measurements("*.mt*")
 
         # Pop the frequence vector out of the data
         freq = nutbin.data.pop("frequency")
-        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data. 
-        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts. 
+        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data.
+        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts.
         if not np.allclose(freq.imag, 0):
             raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
         freq = freq.real
@@ -263,6 +302,25 @@ class NGSpiceSim(Sim):
             analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
         )
 
+    def parse_noise(
+        self, an: vsp.NoiseInput, nutbin: Mapping[str, "NutBinAnalysis"]
+    ) -> NoiseResult:
+        # Noise results come in two "analyses": the frequency-sweep data, and the integrated noise.
+        # Collate them into a `NoiseResult`
+        # FIXME: add measurements (if there are such things?)
+        noise_sweep_data = nutbin.get("Plotname: Noise Spectral Density Curves\n", None)
+        if noise_sweep_data is None:
+            raise RuntimeError
+        integrated_noise = nutbin.get("Plotname: Integrated Noise\n", None)
+        if integrated_noise is None:
+            raise RuntimeError
+        return NoiseResult(
+            analysis_name=an.analysis_name,
+            data=noise_sweep_data,
+            integrated_noise=integrated_noise,
+            measurements={},
+        )
+
     def get_measurements(self, filepat: str) -> Dict[str, float]:
         """ Get the measurements at files matching (glob) `filepat`. 
         Returns only a single files-worth of measurements, and issues a warning if more than one such file exists. 
@@ -275,7 +333,7 @@ class NGSpiceSim(Sim):
             warn(msg)
         return parse_mt0(self.open(meas_files[0], "r"))
 
-    def run_spectre_process(self) -> Awaitable[None]:
+    def run_sim_process(self) -> Awaitable[None]:
         """ Run a NGSpice sub-process, executing the simulation """
         # Note the `nutbin` output format is dictated here
         cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw"
@@ -285,7 +343,7 @@ class NGSpiceSim(Sim):
 class FromStr:
     """ Mix-in for creating `Enum`s from string values. """
 
-    @classmethod 
+    @classmethod
     def from_str(cls, s: str) -> "FromStr":
         reversed = {v.value: v for v in cls}
         if s not in reversed:
@@ -325,12 +383,12 @@ class Units(FromStr, Enum):
 @dataclass
 class VarSpec:
     """ Variable Spec """
-    
-    name: str 
+
+    name: str
     units: Units
 
 
-@dataclass 
+@dataclass
 class NutBinAnalysis:
     """ Analysis result from a NutBin file. """
 
@@ -347,7 +405,7 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
 
     # Parse per-file header info
     # First 2 lines are ascii one line statements
-    
+
     # And parse the rest of the file per-analysis
     rv = {}
     while f:
@@ -366,15 +424,12 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
 
     # Next 4 lines are also ascii one line statements
     # Parse the `Flags` field, which primarily includes the numeric datatype
-    flags = f.readline().decode("ascii") 
+    flags = f.readline().decode("ascii")
     flags = flags.split()
     if len(flags) != 2 or flags[0] != "Flags:":
         raise ValueError(f"Invalid flags {flags}")
     numtype = NumType.from_str(flags[1])
-    nptypes = {
-        NumType.REAL: float,
-        NumType.COMPLEX: complex
-    }
+    nptypes = {NumType.REAL: float, NumType.COMPLEX: complex}
     nptype = nptypes[numtype]
 
     # Parse the number of variables and points
@@ -416,10 +471,7 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
         units[var.name] = var.units
 
     return NutBinAnalysis(
-        analysis_name=sim_name,
-        numtype=numtype,
-        data=data,
-        units=units,
+        analysis_name=sim_name, numtype=numtype, data=data, units=units,
     )
 
 

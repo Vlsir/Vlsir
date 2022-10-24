@@ -8,7 +8,7 @@ import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
 from dataclasses import dataclass
 from warnings import warn
-from enum import Enum 
+from enum import Enum
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -49,6 +49,7 @@ class SpectreSim(Sim):
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                timeout=10,
             )
         except Exception:
             # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
@@ -157,7 +158,7 @@ class SpectreSim(Sim):
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
-        
+
         # Unpack the analysis / sweep content
         fstart = an.fstart
         if fstart <= 0:
@@ -168,10 +169,10 @@ class SpectreSim(Sim):
         npts = an.npts
         if npts <= 0:
             raise ValueError(f"Invalid `npts` {npts}")
-        
+
         # Write the analysis command
         line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}\n\n"
-        netlist_file.write(line) 
+        netlist_file.write(line)
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
         """ Netlist a DC analysis. """
@@ -219,13 +220,13 @@ class SpectreSim(Sim):
         netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
 
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
-        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim! 
-        measurements = self.get_measurements("*.mt*") 
+        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!
+        measurements = self.get_measurements("*.mt*")
 
         # Pop the frequence vector out of the data
         freq = nutbin.data.pop("freq")
-        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data. 
-        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts. 
+        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data.
+        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts.
         if np.any(freq.imag):
             raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
         freq = freq.real
@@ -281,7 +282,7 @@ class SpectreSim(Sim):
 class FromStr:
     """ Mix-in for creating `Enum`s from string values. """
 
-    @classmethod 
+    @classmethod
     def from_str(cls, s: str) -> "FromStr":
         reversed = {v.value: v for v in cls}
         if s not in reversed:
@@ -314,12 +315,12 @@ class Units(FromStr, Enum):
 @dataclass
 class VarSpec:
     """ Variable Spec """
-    
-    name: str 
+
+    name: str
     units: Units
 
 
-@dataclass 
+@dataclass
 class NutBinAnalysis:
     """ Analysis result from a NutBin file. """
 
@@ -338,7 +339,7 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
     # First 2 lines are ascii one line statements
     _title = f.readline()  # Title, ignored
     _date = f.readline()  # Run date, ignored
-    
+
     # And parse the rest of the file per-analysis
     rv = {}
     while f:
@@ -355,15 +356,12 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
 
     # Next 4 lines are also ascii one line statements
     # Parse the `Flags` field, which primarily includes the numeric datatype
-    flags = f.readline().decode("ascii") 
+    flags = f.readline().decode("ascii")
     flags = flags.split()
     if len(flags) != 2 or flags[0] != "Flags:":
         raise ValueError(f"Invalid flags {flags}")
     numtype = NumType.from_str(flags[1])
-    nptypes = {
-        NumType.REAL: float,
-        NumType.COMPLEX: complex
-    }
+    nptypes = {NumType.REAL: float, NumType.COMPLEX: complex}
     nptype = nptypes[numtype]
 
     # Parse the number of variables and points
@@ -405,10 +403,7 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
         units[var.name] = var.units
 
     return NutBinAnalysis(
-        analysis_name=sim_name,
-        numtype=numtype,
-        data=data,
-        units=units,
+        analysis_name=sim_name, numtype=numtype, data=data, units=units,
     )
 
 

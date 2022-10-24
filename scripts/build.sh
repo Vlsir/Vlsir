@@ -8,17 +8,18 @@
 # TODO: you need to run this so that 'protos' exists before you build rust
 # TODO: add the separate Rust build process 
 
-SCHEMA_VERSION=main
+# FIXME: get rid of this git stuff, it be brickin development branches. 
+# SCHEMA_VERSION=main
  
-if [ ! -d protos ]; then
-  git clone -b "${SCHEMA_VERSION}" https://github.com/Vlsir/schema-proto.git protos
-else
-  cd protos
-  git fetch
-  git checkout -q "${SCHEMA_VERSION}"
-  git pull
-  cd ../
-fi
+# if [ ! -d protos ]; then
+#   git clone -b "${SCHEMA_VERSION}" https://github.com/Vlsir/schema-proto.git protos
+# else
+#   cd protos
+#   git fetch
+#   git checkout -q "${SCHEMA_VERSION}"
+#   git pull
+#   cd ../
+# fi
 
 set -eo 
 

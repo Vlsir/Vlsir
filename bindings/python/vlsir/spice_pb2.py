@@ -18,7 +18,7 @@ from . import circuit_pb2 as circuit__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
-    b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x0butils.proto\x1a\rcircuit.proto"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"W\n\nSimOptions\x12\x0c\n\x04temp\x18\x01 \x01(\x01\x12\x0c\n\x04tnom\x18\x02 \x01(\x01\x12\x0c\n\x04gmin\x18\x03 \x01(\x01\x12\x0f\n\x07iabstol\x18\x04 \x01(\x01\x12\x0e\n\x06reltol\x18\x05 \x01(\x01"\xac\x02\n\x08\x41nalysis\x12"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n"\xb9\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x16\n\x14\x43ustomAnalysisResult"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3'
+    b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x0butils.proto\x1a\rcircuit.proto"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"W\n\nSimOptions\x12\x0c\n\x04temp\x18\x01 \x01(\x01\x12\x0c\n\x04tnom\x18\x02 \x01(\x01\x12\x0c\n\x04gmin\x18\x03 \x01(\x01\x12\x0f\n\x07iabstol\x18\x04 \x01(\x01\x12\x0e\n\x06reltol\x18\x05 \x01(\x01"\xd6\x02\n\x08\x41nalysis\x12"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05noise\x18\x05 \x01(\x0b\x32\x17.vlsir.spice.NoiseInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n"\xe4\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05noise\x18\x05 \x01(\x0b\x32\x18.vlsir.spice.NoiseResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xaf\x01\n\nNoiseInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08output_p\x18\x02 \x01(\t\x12\x10\n\x08output_n\x18\x03 \x01(\t\x12\x14\n\x0cinput_source\x18\x04 \x01(\t\x12\x0e\n\x06\x66start\x18\n \x01(\x01\x12\r\n\x05\x66stop\x18\x0b \x01(\x01\x12\x0c\n\x04npts\x18\x0c \x01(\x04\x12#\n\x05\x63trls\x18\x14 \x03(\x0b\x32\x14.vlsir.spice.Control"\xc7\x02\n\x0bNoiseResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12G\n\x10integrated_noise\x18\n \x03(\x0b\x32-.vlsir.spice.NoiseResult.IntegratedNoiseEntry\x12@\n\x0cmeasurements\x18\x0b \x03(\x0b\x32*.vlsir.spice.NoiseResult.MeasurementsEntry\x1a\x36\n\x14IntegratedNoiseEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x16\n\x14\x43ustomAnalysisResult"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3'
 )
 
 
@@ -40,6 +40,12 @@ _COMPLEXNUM = DESCRIPTOR.message_types_by_name["ComplexNum"]
 _ACINPUT = DESCRIPTOR.message_types_by_name["AcInput"]
 _ACRESULT = DESCRIPTOR.message_types_by_name["AcResult"]
 _ACRESULT_MEASUREMENTSENTRY = _ACRESULT.nested_types_by_name["MeasurementsEntry"]
+_NOISEINPUT = DESCRIPTOR.message_types_by_name["NoiseInput"]
+_NOISERESULT = DESCRIPTOR.message_types_by_name["NoiseResult"]
+_NOISERESULT_INTEGRATEDNOISEENTRY = _NOISERESULT.nested_types_by_name[
+    "IntegratedNoiseEntry"
+]
+_NOISERESULT_MEASUREMENTSENTRY = _NOISERESULT.nested_types_by_name["MeasurementsEntry"]
 _SWEEPINPUT = DESCRIPTOR.message_types_by_name["SweepInput"]
 _SWEEPRESULT = DESCRIPTOR.message_types_by_name["SweepResult"]
 _MONTEINPUT = DESCRIPTOR.message_types_by_name["MonteInput"]
@@ -252,6 +258,48 @@ AcResult = _reflection.GeneratedProtocolMessageType(
 _sym_db.RegisterMessage(AcResult)
 _sym_db.RegisterMessage(AcResult.MeasurementsEntry)
 
+NoiseInput = _reflection.GeneratedProtocolMessageType(
+    "NoiseInput",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _NOISEINPUT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.NoiseInput)
+    },
+)
+_sym_db.RegisterMessage(NoiseInput)
+
+NoiseResult = _reflection.GeneratedProtocolMessageType(
+    "NoiseResult",
+    (_message.Message,),
+    {
+        "IntegratedNoiseEntry": _reflection.GeneratedProtocolMessageType(
+            "IntegratedNoiseEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _NOISERESULT_INTEGRATEDNOISEENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.NoiseResult.IntegratedNoiseEntry)
+            },
+        ),
+        "MeasurementsEntry": _reflection.GeneratedProtocolMessageType(
+            "MeasurementsEntry",
+            (_message.Message,),
+            {
+                "DESCRIPTOR": _NOISERESULT_MEASUREMENTSENTRY,
+                "__module__": "spice_pb2"
+                # @@protoc_insertion_point(class_scope:vlsir.spice.NoiseResult.MeasurementsEntry)
+            },
+        ),
+        "DESCRIPTOR": _NOISERESULT,
+        "__module__": "spice_pb2"
+        # @@protoc_insertion_point(class_scope:vlsir.spice.NoiseResult)
+    },
+)
+_sym_db.RegisterMessage(NoiseResult)
+_sym_db.RegisterMessage(NoiseResult.IntegratedNoiseEntry)
+_sym_db.RegisterMessage(NoiseResult.MeasurementsEntry)
+
 SweepInput = _reflection.GeneratedProtocolMessageType(
     "SweepInput",
     (_message.Message,),
@@ -440,6 +488,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _TRANRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
     _ACRESULT_MEASUREMENTSENTRY._options = None
     _ACRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
+    _NOISERESULT_INTEGRATEDNOISEENTRY._options = None
+    _NOISERESULT_INTEGRATEDNOISEENTRY._serialized_options = b"8\001"
+    _NOISERESULT_MEASUREMENTSENTRY._options = None
+    _NOISERESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
     _SIMINPUT._serialized_start = 57
     _SIMINPUT._serialized_end = 228
     _SIMRESULT._serialized_start = 230
@@ -447,71 +499,79 @@ if _descriptor._USE_C_DESCRIPTORS == False:
     _SIMOPTIONS._serialized_start = 284
     _SIMOPTIONS._serialized_end = 371
     _ANALYSIS._serialized_start = 374
-    _ANALYSIS._serialized_end = 674
-    _ANALYSISRESULT._serialized_start = 677
-    _ANALYSISRESULT._serialized_end = 990
-    _OPINPUT._serialized_start = 992
-    _OPINPUT._serialized_end = 1061
-    _OPRESULT._serialized_start = 1063
-    _OPRESULT._serialized_end = 1139
-    _DCINPUT._serialized_start = 1141
-    _DCINPUT._serialized_end = 1265
-    _DCRESULT._serialized_start = 1268
-    _DCRESULT._serialized_end = 1474
-    _DCRESULT_MEASUREMENTSENTRY._serialized_start = 1417
-    _DCRESULT_MEASUREMENTSENTRY._serialized_end = 1468
-    _TRANINPUT._serialized_start = 1477
-    _TRANINPUT._serialized_end = 1665
-    _TRANINPUT_ICENTRY._serialized_start = 1624
-    _TRANINPUT_ICENTRY._serialized_end = 1665
-    _TRANRESULT._serialized_start = 1668
-    _TRANRESULT._serialized_end = 1864
-    _TRANRESULT_MEASUREMENTSENTRY._serialized_start = 1417
-    _TRANRESULT_MEASUREMENTSENTRY._serialized_end = 1468
-    _COMPLEXNUM._serialized_start = 1866
-    _COMPLEXNUM._serialized_end = 1902
-    _ACINPUT._serialized_start = 1904
-    _ACINPUT._serialized_end = 2018
-    _ACRESULT._serialized_start = 2021
-    _ACRESULT._serialized_end = 2246
-    _ACRESULT_MEASUREMENTSENTRY._serialized_start = 1417
-    _ACRESULT_MEASUREMENTSENTRY._serialized_end = 1468
-    _SWEEPINPUT._serialized_start = 2249
-    _SWEEPINPUT._serialized_end = 2409
-    _SWEEPRESULT._serialized_start = 2412
-    _SWEEPRESULT._serialized_end = 2542
-    _MONTEINPUT._serialized_start = 2545
-    _MONTEINPUT._serialized_end = 2680
-    _MONTERESULT._serialized_start = 2683
-    _MONTERESULT._serialized_end = 2813
-    _CUSTOMANALYSISINPUT._serialized_start = 2815
-    _CUSTOMANALYSISINPUT._serialized_end = 2909
-    _CUSTOMANALYSISRESULT._serialized_start = 2911
-    _CUSTOMANALYSISRESULT._serialized_end = 2933
-    _SWEEP._serialized_start = 2936
-    _SWEEP._serialized_end = 3074
-    _LINEARSWEEP._serialized_start = 3076
-    _LINEARSWEEP._serialized_end = 3132
-    _LOGSWEEP._serialized_start = 3134
-    _LOGSWEEP._serialized_end = 3187
-    _POINTSWEEP._serialized_start = 3189
-    _POINTSWEEP._serialized_end = 3245
-    _CONTROL._serialized_start = 3248
-    _CONTROL._serialized_end = 3472
-    _SAVE._serialized_start = 3474
-    _SAVE._serialized_end = 3581
-    _SAVE_SAVEMODE._serialized_start = 3544
-    _SAVE_SAVEMODE._serialized_end = 3573
-    _INCLUDE._serialized_start = 3583
-    _INCLUDE._serialized_end = 3606
-    _LIBINCLUDE._serialized_start = 3608
-    _LIBINCLUDE._serialized_end = 3651
-    _MEAS._serialized_start = 3653
-    _MEAS._serialized_end = 3710
-    _SIGNAL._serialized_start = 3712
-    _SIGNAL._serialized_end = 3830
-    _SIGNAL_QUANTITY._serialized_start = 3784
-    _SIGNAL_QUANTITY._serialized_end = 3830
-    _SPICE._serialized_start = 3832
-    _SPICE._serialized_end = 3893
+    _ANALYSIS._serialized_end = 716
+    _ANALYSISRESULT._serialized_start = 719
+    _ANALYSISRESULT._serialized_end = 1075
+    _OPINPUT._serialized_start = 1077
+    _OPINPUT._serialized_end = 1146
+    _OPRESULT._serialized_start = 1148
+    _OPRESULT._serialized_end = 1224
+    _DCINPUT._serialized_start = 1226
+    _DCINPUT._serialized_end = 1350
+    _DCRESULT._serialized_start = 1353
+    _DCRESULT._serialized_end = 1559
+    _DCRESULT_MEASUREMENTSENTRY._serialized_start = 1502
+    _DCRESULT_MEASUREMENTSENTRY._serialized_end = 1553
+    _TRANINPUT._serialized_start = 1562
+    _TRANINPUT._serialized_end = 1750
+    _TRANINPUT_ICENTRY._serialized_start = 1709
+    _TRANINPUT_ICENTRY._serialized_end = 1750
+    _TRANRESULT._serialized_start = 1753
+    _TRANRESULT._serialized_end = 1949
+    _TRANRESULT_MEASUREMENTSENTRY._serialized_start = 1502
+    _TRANRESULT_MEASUREMENTSENTRY._serialized_end = 1553
+    _COMPLEXNUM._serialized_start = 1951
+    _COMPLEXNUM._serialized_end = 1987
+    _ACINPUT._serialized_start = 1989
+    _ACINPUT._serialized_end = 2103
+    _ACRESULT._serialized_start = 2106
+    _ACRESULT._serialized_end = 2331
+    _ACRESULT_MEASUREMENTSENTRY._serialized_start = 1502
+    _ACRESULT_MEASUREMENTSENTRY._serialized_end = 1553
+    _NOISEINPUT._serialized_start = 2334
+    _NOISEINPUT._serialized_end = 2509
+    _NOISERESULT._serialized_start = 2512
+    _NOISERESULT._serialized_end = 2839
+    _NOISERESULT_INTEGRATEDNOISEENTRY._serialized_start = 2720
+    _NOISERESULT_INTEGRATEDNOISEENTRY._serialized_end = 2774
+    _NOISERESULT_MEASUREMENTSENTRY._serialized_start = 1502
+    _NOISERESULT_MEASUREMENTSENTRY._serialized_end = 1553
+    _SWEEPINPUT._serialized_start = 2842
+    _SWEEPINPUT._serialized_end = 3002
+    _SWEEPRESULT._serialized_start = 3005
+    _SWEEPRESULT._serialized_end = 3135
+    _MONTEINPUT._serialized_start = 3138
+    _MONTEINPUT._serialized_end = 3273
+    _MONTERESULT._serialized_start = 3276
+    _MONTERESULT._serialized_end = 3406
+    _CUSTOMANALYSISINPUT._serialized_start = 3408
+    _CUSTOMANALYSISINPUT._serialized_end = 3502
+    _CUSTOMANALYSISRESULT._serialized_start = 3504
+    _CUSTOMANALYSISRESULT._serialized_end = 3526
+    _SWEEP._serialized_start = 3529
+    _SWEEP._serialized_end = 3667
+    _LINEARSWEEP._serialized_start = 3669
+    _LINEARSWEEP._serialized_end = 3725
+    _LOGSWEEP._serialized_start = 3727
+    _LOGSWEEP._serialized_end = 3780
+    _POINTSWEEP._serialized_start = 3782
+    _POINTSWEEP._serialized_end = 3838
+    _CONTROL._serialized_start = 3841
+    _CONTROL._serialized_end = 4065
+    _SAVE._serialized_start = 4067
+    _SAVE._serialized_end = 4174
+    _SAVE_SAVEMODE._serialized_start = 4137
+    _SAVE_SAVEMODE._serialized_end = 4166
+    _INCLUDE._serialized_start = 4176
+    _INCLUDE._serialized_end = 4199
+    _LIBINCLUDE._serialized_start = 4201
+    _LIBINCLUDE._serialized_end = 4244
+    _MEAS._serialized_start = 4246
+    _MEAS._serialized_end = 4303
+    _SIGNAL._serialized_start = 4305
+    _SIGNAL._serialized_end = 4423
+    _SIGNAL_QUANTITY._serialized_start = 4377
+    _SIGNAL_QUANTITY._serialized_end = 4423
+    _SPICE._serialized_start = 4425
+    _SPICE._serialized_end = 4486
 # @@protoc_insertion_point(module_scope)

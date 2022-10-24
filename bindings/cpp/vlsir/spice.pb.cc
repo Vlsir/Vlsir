@@ -264,6 +264,63 @@ struct AcResultDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AcResultDefaultTypeInternal _AcResult_default_instance_;
+constexpr NoiseInput::NoiseInput(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : ctrls_()
+  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , output_p_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , output_n_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , input_source_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , fstart_(0)
+  , fstop_(0)
+  , npts_(uint64_t{0u}){}
+struct NoiseInputDefaultTypeInternal {
+  constexpr NoiseInputDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NoiseInputDefaultTypeInternal() {}
+  union {
+    NoiseInput _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NoiseInputDefaultTypeInternal _NoiseInput_default_instance_;
+constexpr NoiseResult_IntegratedNoiseEntry_DoNotUse::NoiseResult_IntegratedNoiseEntry_DoNotUse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct NoiseResult_IntegratedNoiseEntry_DoNotUseDefaultTypeInternal {
+  constexpr NoiseResult_IntegratedNoiseEntry_DoNotUseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NoiseResult_IntegratedNoiseEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    NoiseResult_IntegratedNoiseEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NoiseResult_IntegratedNoiseEntry_DoNotUseDefaultTypeInternal _NoiseResult_IntegratedNoiseEntry_DoNotUse_default_instance_;
+constexpr NoiseResult_MeasurementsEntry_DoNotUse::NoiseResult_MeasurementsEntry_DoNotUse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct NoiseResult_MeasurementsEntry_DoNotUseDefaultTypeInternal {
+  constexpr NoiseResult_MeasurementsEntry_DoNotUseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NoiseResult_MeasurementsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    NoiseResult_MeasurementsEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NoiseResult_MeasurementsEntry_DoNotUseDefaultTypeInternal _NoiseResult_MeasurementsEntry_DoNotUse_default_instance_;
+constexpr NoiseResult::NoiseResult(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : signals_()
+  , data_()
+  , integrated_noise_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
+  , measurements_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
+  , analysis_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct NoiseResultDefaultTypeInternal {
+  constexpr NoiseResultDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NoiseResultDefaultTypeInternal() {}
+  union {
+    NoiseResult _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NoiseResultDefaultTypeInternal _NoiseResult_default_instance_;
 constexpr SweepInput::SweepInput(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : an_()
@@ -484,7 +541,7 @@ struct SignalDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SignalDefaultTypeInternal _Signal_default_instance_;
 }  // namespace spice
 }  // namespace vlsir
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[34];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spice_2eproto[38];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_spice_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spice_2eproto = nullptr;
 
@@ -531,6 +588,7 @@ const uint32_t TableStruct_spice_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::Analysis, an_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AnalysisResult, _internal_metadata_),
@@ -538,6 +596,7 @@ const uint32_t TableStruct_spice_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AnalysisResult, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
@@ -675,6 +734,51 @@ const uint32_t TableStruct_spice_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, signals_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, data_),
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::AcResult, measurements_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, analysis_name_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, output_p_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, output_n_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, input_source_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, fstart_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, fstop_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, npts_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseInput, ctrls_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse, value_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, analysis_name_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, signals_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, data_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, integrated_noise_),
+  PROTOBUF_FIELD_OFFSET(::vlsir::spice::NoiseResult, measurements_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::spice::SweepInput, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -829,36 +933,40 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 11, -1, -1, sizeof(::vlsir::spice::SimResult)},
   { 18, -1, -1, sizeof(::vlsir::spice::SimOptions)},
   { 29, -1, -1, sizeof(::vlsir::spice::Analysis)},
-  { 43, -1, -1, sizeof(::vlsir::spice::AnalysisResult)},
-  { 57, -1, -1, sizeof(::vlsir::spice::OpInput)},
-  { 65, -1, -1, sizeof(::vlsir::spice::OpResult)},
-  { 74, -1, -1, sizeof(::vlsir::spice::DcInput)},
-  { 84, 92, -1, sizeof(::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse)},
-  { 94, -1, -1, sizeof(::vlsir::spice::DcResult)},
-  { 105, 113, -1, sizeof(::vlsir::spice::TranInput_IcEntry_DoNotUse)},
-  { 115, -1, -1, sizeof(::vlsir::spice::TranInput)},
-  { 126, 134, -1, sizeof(::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse)},
-  { 136, -1, -1, sizeof(::vlsir::spice::TranResult)},
-  { 146, -1, -1, sizeof(::vlsir::spice::ComplexNum)},
-  { 154, -1, -1, sizeof(::vlsir::spice::AcInput)},
-  { 165, 173, -1, sizeof(::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse)},
-  { 175, -1, -1, sizeof(::vlsir::spice::AcResult)},
-  { 186, -1, -1, sizeof(::vlsir::spice::SweepInput)},
-  { 197, -1, -1, sizeof(::vlsir::spice::SweepResult)},
-  { 207, -1, -1, sizeof(::vlsir::spice::MonteInput)},
-  { 218, -1, -1, sizeof(::vlsir::spice::MonteResult)},
-  { 228, -1, -1, sizeof(::vlsir::spice::CustomAnalysisInput)},
-  { 237, -1, -1, sizeof(::vlsir::spice::CustomAnalysisResult)},
-  { 243, -1, -1, sizeof(::vlsir::spice::Sweep)},
-  { 253, -1, -1, sizeof(::vlsir::spice::LinearSweep)},
-  { 262, -1, -1, sizeof(::vlsir::spice::LogSweep)},
-  { 271, -1, -1, sizeof(::vlsir::spice::PointSweep)},
-  { 280, -1, -1, sizeof(::vlsir::spice::Control)},
-  { 293, -1, -1, sizeof(::vlsir::spice::Save)},
-  { 302, -1, -1, sizeof(::vlsir::spice::Include)},
-  { 309, -1, -1, sizeof(::vlsir::spice::LibInclude)},
-  { 317, -1, -1, sizeof(::vlsir::spice::Meas)},
-  { 326, -1, -1, sizeof(::vlsir::spice::Signal)},
+  { 44, -1, -1, sizeof(::vlsir::spice::AnalysisResult)},
+  { 59, -1, -1, sizeof(::vlsir::spice::OpInput)},
+  { 67, -1, -1, sizeof(::vlsir::spice::OpResult)},
+  { 76, -1, -1, sizeof(::vlsir::spice::DcInput)},
+  { 86, 94, -1, sizeof(::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse)},
+  { 96, -1, -1, sizeof(::vlsir::spice::DcResult)},
+  { 107, 115, -1, sizeof(::vlsir::spice::TranInput_IcEntry_DoNotUse)},
+  { 117, -1, -1, sizeof(::vlsir::spice::TranInput)},
+  { 128, 136, -1, sizeof(::vlsir::spice::TranResult_MeasurementsEntry_DoNotUse)},
+  { 138, -1, -1, sizeof(::vlsir::spice::TranResult)},
+  { 148, -1, -1, sizeof(::vlsir::spice::ComplexNum)},
+  { 156, -1, -1, sizeof(::vlsir::spice::AcInput)},
+  { 167, 175, -1, sizeof(::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse)},
+  { 177, -1, -1, sizeof(::vlsir::spice::AcResult)},
+  { 188, -1, -1, sizeof(::vlsir::spice::NoiseInput)},
+  { 202, 210, -1, sizeof(::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse)},
+  { 212, 220, -1, sizeof(::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse)},
+  { 222, -1, -1, sizeof(::vlsir::spice::NoiseResult)},
+  { 233, -1, -1, sizeof(::vlsir::spice::SweepInput)},
+  { 244, -1, -1, sizeof(::vlsir::spice::SweepResult)},
+  { 254, -1, -1, sizeof(::vlsir::spice::MonteInput)},
+  { 265, -1, -1, sizeof(::vlsir::spice::MonteResult)},
+  { 275, -1, -1, sizeof(::vlsir::spice::CustomAnalysisInput)},
+  { 284, -1, -1, sizeof(::vlsir::spice::CustomAnalysisResult)},
+  { 290, -1, -1, sizeof(::vlsir::spice::Sweep)},
+  { 300, -1, -1, sizeof(::vlsir::spice::LinearSweep)},
+  { 309, -1, -1, sizeof(::vlsir::spice::LogSweep)},
+  { 318, -1, -1, sizeof(::vlsir::spice::PointSweep)},
+  { 327, -1, -1, sizeof(::vlsir::spice::Control)},
+  { 340, -1, -1, sizeof(::vlsir::spice::Save)},
+  { 349, -1, -1, sizeof(::vlsir::spice::Include)},
+  { 356, -1, -1, sizeof(::vlsir::spice::LibInclude)},
+  { 364, -1, -1, sizeof(::vlsir::spice::Meas)},
+  { 373, -1, -1, sizeof(::vlsir::spice::Signal)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -880,6 +988,10 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_AcInput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_AcResult_MeasurementsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_AcResult_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_NoiseInput_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_NoiseResult_IntegratedNoiseEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_NoiseResult_MeasurementsEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_NoiseResult_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_SweepInput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_SweepResult_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vlsir::spice::_MonteInput_default_instance_),
@@ -908,95 +1020,110 @@ const char descriptor_table_protodef_spice_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "t\022\'\n\002an\030\001 \003(\0132\033.vlsir.spice.AnalysisResu"
   "lt\"W\n\nSimOptions\022\014\n\004temp\030\001 \001(\001\022\014\n\004tnom\030\002"
   " \001(\001\022\014\n\004gmin\030\003 \001(\001\022\017\n\007iabstol\030\004 \001(\001\022\016\n\006r"
-  "eltol\030\005 \001(\001\"\254\002\n\010Analysis\022\"\n\002op\030\001 \001(\0132\024.v"
+  "eltol\030\005 \001(\001\"\326\002\n\010Analysis\022\"\n\002op\030\001 \001(\0132\024.v"
   "lsir.spice.OpInputH\000\022\"\n\002dc\030\002 \001(\0132\024.vlsir"
   ".spice.DcInputH\000\022&\n\004tran\030\003 \001(\0132\026.vlsir.s"
   "pice.TranInputH\000\022\"\n\002ac\030\004 \001(\0132\024.vlsir.spi"
-  "ce.AcInputH\000\022(\n\005sweep\030\n \001(\0132\027.vlsir.spic"
-  "e.SweepInputH\000\022(\n\005monte\030\013 \001(\0132\027.vlsir.sp"
-  "ice.MonteInputH\000\0222\n\006custom\030\024 \001(\0132 .vlsir"
-  ".spice.CustomAnalysisInputH\000B\004\n\002an\"\271\002\n\016A"
-  "nalysisResult\022#\n\002op\030\001 \001(\0132\025.vlsir.spice."
-  "OpResultH\000\022#\n\002dc\030\002 \001(\0132\025.vlsir.spice.DcR"
-  "esultH\000\022\'\n\004tran\030\003 \001(\0132\027.vlsir.spice.Tran"
-  "ResultH\000\022#\n\002ac\030\004 \001(\0132\025.vlsir.spice.AcRes"
-  "ultH\000\022)\n\005sweep\030\n \001(\0132\030.vlsir.spice.Sweep"
-  "ResultH\000\022)\n\005monte\030\013 \001(\0132\030.vlsir.spice.Mo"
-  "nteResultH\000\0223\n\006custom\030\024 \001(\0132!.vlsir.spic"
-  "e.CustomAnalysisResultH\000B\004\n\002an\"E\n\007OpInpu"
-  "t\022\025\n\ranalysis_name\030\001 \001(\t\022#\n\005ctrls\030\005 \003(\0132"
-  "\024.vlsir.spice.Control\"L\n\010OpResult\022\025\n\rana"
-  "lysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004dat"
-  "a\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"|\n\007DcInput\022\025\n\ranalys"
-  "is_name\030\001 \001(\t\022\022\n\nindep_name\030\002 \001(\t\022!\n\005swe"
-  "ep\030\003 \001(\0132\022.vlsir.spice.Sweep\022#\n\005ctrls\030\005 "
-  "\003(\0132\024.vlsir.spice.Control\"\316\001\n\010DcResult\022\025"
-  "\n\ranalysis_name\030\001 \001(\t\022\022\n\nindep_name\030\002 \001("
-  "\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001\022=\n\014meas"
-  "urements\030\n \003(\0132\'.vlsir.spice.DcResult.Me"
-  "asurementsEntry\0323\n\021MeasurementsEntry\022\013\n\003"
-  "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004\020\005\"\274\001\n\tT"
-  "ranInput\022\025\n\ranalysis_name\030\001 \001(\t\022\r\n\005tstop"
-  "\030\002 \001(\001\022\r\n\005tstep\030\003 \001(\001\022*\n\002ic\030\004 \003(\0132\036.vlsi"
-  "r.spice.TranInput.IcEntry\022#\n\005ctrls\030\005 \003(\013"
-  "2\024.vlsir.spice.Control\032)\n\007IcEntry\022\013\n\003key"
-  "\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001\"\304\001\n\nTranResult"
-  "\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t"
-  "\022\014\n\004data\030\005 \003(\001\022\?\n\014measurements\030\n \003(\0132).v"
-  "lsir.spice.TranResult.MeasurementsEntry\032"
-  "3\n\021MeasurementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-  "ue\030\002 \001(\001:\0028\001J\004\010\002\020\003J\004\010\004\020\005\"$\n\nComplexNum\022\n"
-  "\n\002re\030\001 \001(\001\022\n\n\002im\030\002 \001(\001\"r\n\007AcInput\022\025\n\rana"
-  "lysis_name\030\001 \001(\t\022\016\n\006fstart\030\002 \001(\001\022\r\n\005fsto"
-  "p\030\003 \001(\001\022\014\n\004npts\030\004 \001(\004\022#\n\005ctrls\030\005 \003(\0132\024.v"
-  "lsir.spice.Control\"\341\001\n\010AcResult\022\025\n\ranaly"
-  "sis_name\030\001 \001(\t\022\014\n\004freq\030\002 \003(\001\022\017\n\007signals\030"
-  "\003 \003(\t\022%\n\004data\030\005 \003(\0132\027.vlsir.spice.Comple"
-  "xNum\022=\n\014measurements\030\n \003(\0132\'.vlsir.spice"
-  ".AcResult.MeasurementsEntry\0323\n\021Measureme"
-  "ntsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001"
-  "J\004\010\004\020\005\"\240\001\n\nSweepInput\022\025\n\ranalysis_name\030\001"
-  " \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022."
-  "vlsir.spice.Sweep\022!\n\002an\030\004 \003(\0132\025.vlsir.sp"
-  "ice.Analysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spic"
-  "e.Control\"\202\001\n\013SweepResult\022\025\n\ranalysis_na"
-  "me\030\001 \001(\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001("
-  "\0132\022.vlsir.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsi"
-  "r.spice.AnalysisResult\"\207\001\n\nMonteInput\022\025\n"
-  "\ranalysis_name\030\001 \001(\t\022\014\n\004npts\030\002 \001(\003\022\014\n\004se"
-  "ed\030\003 \001(\003\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Analy"
-  "sis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Control"
-  "\"\202\001\n\013MonteResult\022\025\n\ranalysis_name\030\001 \001(\t\022"
-  "\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir"
-  ".spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice.A"
-  "nalysisResult\"^\n\023CustomAnalysisInput\022\025\n\r"
-  "analysis_name\030\001 \001(\t\022\013\n\003cmd\030\002 \001(\t\022#\n\005ctrl"
-  "s\030\005 \003(\0132\024.vlsir.spice.Control\"\026\n\024CustomA"
-  "nalysisResult\"\212\001\n\005Sweep\022*\n\006linear\030\001 \001(\0132"
-  "\030.vlsir.spice.LinearSweepH\000\022$\n\003log\030\002 \001(\013"
-  "2\025.vlsir.spice.LogSweepH\000\022)\n\006points\030\003 \001("
-  "\0132\027.vlsir.spice.PointSweepH\000B\004\n\002tp\"8\n\013Li"
-  "nearSweep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014"
-  "\n\004step\030\003 \001(\001\"5\n\010LogSweep\022\r\n\005start\030\001 \001(\001\022"
-  "\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPointSwee"
-  "p\022\016\n\006points\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030"
-  "\003 \001(\001\"\340\001\n\007Control\022\'\n\007include\030\001 \001(\0132\024.vls"
-  "ir.spice.IncludeH\000\022&\n\003lib\030\002 \001(\0132\027.vlsir."
-  "spice.LibIncludeH\000\022!\n\004save\030\005 \001(\0132\021.vlsir"
-  ".spice.SaveH\000\022!\n\004meas\030\006 \001(\0132\021.vlsir.spic"
-  "e.MeasH\000\022#\n\005param\030\007 \001(\0132\022.vlsir.utils.Pa"
-  "ramH\000\022\021\n\007literal\030\n \001(\tH\000B\006\n\004ctrl\"k\n\004Save"
-  "\022*\n\004mode\030\001 \001(\0162\032.vlsir.spice.Save.SaveMo"
-  "deH\000\022\020\n\006signal\030\002 \001(\tH\000\"\035\n\010SaveMode\022\010\n\004NO"
-  "NE\020\000\022\007\n\003ALL\020\001B\006\n\004save\"\027\n\007Include\022\014\n\004path"
-  "\030\001 \001(\t\"+\n\nLibInclude\022\014\n\004path\030\001 \001(\t\022\017\n\007se"
-  "ction\030\002 \001(\t\"9\n\004Meas\022\025\n\ranalysis_type\030\001 \001"
-  "(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004expr\030\003 \001(\t\"v\n\006Signal"
-  "\022\014\n\004name\030\001 \001(\t\022.\n\010quantity\030\002 \001(\0162\034.vlsir"
-  ".spice.Signal.Quantity\".\n\010Quantity\022\013\n\007VO"
-  "LTAGE\020\000\022\013\n\007CURRENT\020\001\022\010\n\004NONE\020\0032=\n\005Spice\022"
-  "4\n\003Sim\022\025.vlsir.spice.SimInput\032\026.vlsir.sp"
-  "ice.SimResultb\006proto3"
+  "ce.AcInputH\000\022(\n\005noise\030\005 \001(\0132\027.vlsir.spic"
+  "e.NoiseInputH\000\022(\n\005sweep\030\n \001(\0132\027.vlsir.sp"
+  "ice.SweepInputH\000\022(\n\005monte\030\013 \001(\0132\027.vlsir."
+  "spice.MonteInputH\000\0222\n\006custom\030\024 \001(\0132 .vls"
+  "ir.spice.CustomAnalysisInputH\000B\004\n\002an\"\344\002\n"
+  "\016AnalysisResult\022#\n\002op\030\001 \001(\0132\025.vlsir.spic"
+  "e.OpResultH\000\022#\n\002dc\030\002 \001(\0132\025.vlsir.spice.D"
+  "cResultH\000\022\'\n\004tran\030\003 \001(\0132\027.vlsir.spice.Tr"
+  "anResultH\000\022#\n\002ac\030\004 \001(\0132\025.vlsir.spice.AcR"
+  "esultH\000\022)\n\005noise\030\005 \001(\0132\030.vlsir.spice.Noi"
+  "seResultH\000\022)\n\005sweep\030\n \001(\0132\030.vlsir.spice."
+  "SweepResultH\000\022)\n\005monte\030\013 \001(\0132\030.vlsir.spi"
+  "ce.MonteResultH\000\0223\n\006custom\030\024 \001(\0132!.vlsir"
+  ".spice.CustomAnalysisResultH\000B\004\n\002an\"E\n\007O"
+  "pInput\022\025\n\ranalysis_name\030\001 \001(\t\022#\n\005ctrls\030\005"
+  " \003(\0132\024.vlsir.spice.Control\"L\n\010OpResult\022\025"
+  "\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014"
+  "\n\004data\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"|\n\007DcInput\022\025\n\ra"
+  "nalysis_name\030\001 \001(\t\022\022\n\nindep_name\030\002 \001(\t\022!"
+  "\n\005sweep\030\003 \001(\0132\022.vlsir.spice.Sweep\022#\n\005ctr"
+  "ls\030\005 \003(\0132\024.vlsir.spice.Control\"\316\001\n\010DcRes"
+  "ult\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n\nindep_name"
+  "\030\002 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001\022=\n"
+  "\014measurements\030\n \003(\0132\'.vlsir.spice.DcResu"
+  "lt.MeasurementsEntry\0323\n\021MeasurementsEntr"
+  "y\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\004\020\005\""
+  "\274\001\n\tTranInput\022\025\n\ranalysis_name\030\001 \001(\t\022\r\n\005"
+  "tstop\030\002 \001(\001\022\r\n\005tstep\030\003 \001(\001\022*\n\002ic\030\004 \003(\0132\036"
+  ".vlsir.spice.TranInput.IcEntry\022#\n\005ctrls\030"
+  "\005 \003(\0132\024.vlsir.spice.Control\032)\n\007IcEntry\022\013"
+  "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001\"\304\001\n\nTranR"
+  "esult\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030"
+  "\003 \003(\t\022\014\n\004data\030\005 \003(\001\022\?\n\014measurements\030\n \003("
+  "\0132).vlsir.spice.TranResult.MeasurementsE"
+  "ntry\0323\n\021MeasurementsEntry\022\013\n\003key\030\001 \001(\t\022\r"
+  "\n\005value\030\002 \001(\001:\0028\001J\004\010\002\020\003J\004\010\004\020\005\"$\n\nComplex"
+  "Num\022\n\n\002re\030\001 \001(\001\022\n\n\002im\030\002 \001(\001\"r\n\007AcInput\022\025"
+  "\n\ranalysis_name\030\001 \001(\t\022\016\n\006fstart\030\002 \001(\001\022\r\n"
+  "\005fstop\030\003 \001(\001\022\014\n\004npts\030\004 \001(\004\022#\n\005ctrls\030\005 \003("
+  "\0132\024.vlsir.spice.Control\"\341\001\n\010AcResult\022\025\n\r"
+  "analysis_name\030\001 \001(\t\022\014\n\004freq\030\002 \003(\001\022\017\n\007sig"
+  "nals\030\003 \003(\t\022%\n\004data\030\005 \003(\0132\027.vlsir.spice.C"
+  "omplexNum\022=\n\014measurements\030\n \003(\0132\'.vlsir."
+  "spice.AcResult.MeasurementsEntry\0323\n\021Meas"
+  "urementsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001("
+  "\001:\0028\001J\004\010\004\020\005\"\257\001\n\nNoiseInput\022\025\n\ranalysis_n"
+  "ame\030\001 \001(\t\022\020\n\010output_p\030\002 \001(\t\022\020\n\010output_n\030"
+  "\003 \001(\t\022\024\n\014input_source\030\004 \001(\t\022\016\n\006fstart\030\n "
+  "\001(\001\022\r\n\005fstop\030\013 \001(\001\022\014\n\004npts\030\014 \001(\004\022#\n\005ctrl"
+  "s\030\024 \003(\0132\024.vlsir.spice.Control\"\307\002\n\013NoiseR"
+  "esult\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030"
+  "\003 \003(\t\022\014\n\004data\030\005 \003(\001\022G\n\020integrated_noise\030"
+  "\n \003(\0132-.vlsir.spice.NoiseResult.Integrat"
+  "edNoiseEntry\022@\n\014measurements\030\013 \003(\0132*.vls"
+  "ir.spice.NoiseResult.MeasurementsEntry\0326"
+  "\n\024IntegratedNoiseEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
+  "alue\030\002 \001(\001:\0028\001\0323\n\021MeasurementsEntry\022\013\n\003k"
+  "ey\030\001 \001(\t\022\r\n\005value\030\002 \001(\001:\0028\001J\004\010\002\020\003J\004\010\004\020\005\""
+  "\240\001\n\nSweepInput\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n"
+  "\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.s"
+  "pice.Sweep\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Ana"
+  "lysis\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Contr"
+  "ol\"\202\001\n\013SweepResult\022\025\n\ranalysis_name\030\001 \001("
+  "\t\022\020\n\010variable\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vls"
+  "ir.spice.Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice"
+  ".AnalysisResult\"\207\001\n\nMonteInput\022\025\n\ranalys"
+  "is_name\030\001 \001(\t\022\014\n\004npts\030\002 \001(\003\022\014\n\004seed\030\003 \001("
+  "\003\022!\n\002an\030\004 \003(\0132\025.vlsir.spice.Analysis\022#\n\005"
+  "ctrls\030\005 \003(\0132\024.vlsir.spice.Control\"\202\001\n\013Mo"
+  "nteResult\022\025\n\ranalysis_name\030\001 \001(\t\022\020\n\010vari"
+  "able\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spice."
+  "Sweep\022\'\n\002an\030\004 \003(\0132\033.vlsir.spice.Analysis"
+  "Result\"^\n\023CustomAnalysisInput\022\025\n\ranalysi"
+  "s_name\030\001 \001(\t\022\013\n\003cmd\030\002 \001(\t\022#\n\005ctrls\030\005 \003(\013"
+  "2\024.vlsir.spice.Control\"\026\n\024CustomAnalysis"
+  "Result\"\212\001\n\005Sweep\022*\n\006linear\030\001 \001(\0132\030.vlsir"
+  ".spice.LinearSweepH\000\022$\n\003log\030\002 \001(\0132\025.vlsi"
+  "r.spice.LogSweepH\000\022)\n\006points\030\003 \001(\0132\027.vls"
+  "ir.spice.PointSweepH\000B\004\n\002tp\"8\n\013LinearSwe"
+  "ep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004step\030"
+  "\003 \001(\001\"5\n\010LogSweep\022\r\n\005start\030\001 \001(\001\022\014\n\004stop"
+  "\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"8\n\nPointSweep\022\016\n\006po"
+  "ints\030\001 \003(\001\022\014\n\004stop\030\002 \001(\001\022\014\n\004npts\030\003 \001(\001\"\340"
+  "\001\n\007Control\022\'\n\007include\030\001 \001(\0132\024.vlsir.spic"
+  "e.IncludeH\000\022&\n\003lib\030\002 \001(\0132\027.vlsir.spice.L"
+  "ibIncludeH\000\022!\n\004save\030\005 \001(\0132\021.vlsir.spice."
+  "SaveH\000\022!\n\004meas\030\006 \001(\0132\021.vlsir.spice.MeasH"
+  "\000\022#\n\005param\030\007 \001(\0132\022.vlsir.utils.ParamH\000\022\021"
+  "\n\007literal\030\n \001(\tH\000B\006\n\004ctrl\"k\n\004Save\022*\n\004mod"
+  "e\030\001 \001(\0162\032.vlsir.spice.Save.SaveModeH\000\022\020\n"
+  "\006signal\030\002 \001(\tH\000\"\035\n\010SaveMode\022\010\n\004NONE\020\000\022\007\n"
+  "\003ALL\020\001B\006\n\004save\"\027\n\007Include\022\014\n\004path\030\001 \001(\t\""
+  "+\n\nLibInclude\022\014\n\004path\030\001 \001(\t\022\017\n\007section\030\002"
+  " \001(\t\"9\n\004Meas\022\025\n\ranalysis_type\030\001 \001(\t\022\014\n\004n"
+  "ame\030\002 \001(\t\022\014\n\004expr\030\003 \001(\t\"v\n\006Signal\022\014\n\004nam"
+  "e\030\001 \001(\t\022.\n\010quantity\030\002 \001(\0162\034.vlsir.spice."
+  "Signal.Quantity\".\n\010Quantity\022\013\n\007VOLTAGE\020\000"
+  "\022\013\n\007CURRENT\020\001\022\010\n\004NONE\020\0032=\n\005Spice\0224\n\003Sim\022"
+  "\025.vlsir.spice.SimInput\032\026.vlsir.spice.Sim"
+  "Resultb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spice_2eproto_deps[2] = {
   &::descriptor_table_circuit_2eproto,
@@ -1004,8 +1131,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spice_2eproto = {
-  false, false, 3901, descriptor_table_protodef_spice_2eproto, "spice.proto", 
-  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_deps, 2, 34,
+  false, false, 4494, descriptor_table_protodef_spice_2eproto, "spice.proto", 
+  &descriptor_table_spice_2eproto_once, descriptor_table_spice_2eproto_deps, 2, 38,
   schemas, file_default_instances, TableStruct_spice_2eproto::offsets,
   file_level_metadata_spice_2eproto, file_level_enum_descriptors_spice_2eproto, file_level_service_descriptors_spice_2eproto,
 };
@@ -1738,31 +1865,51 @@ uint8_t* SimOptions::_InternalSerialize(
   (void) cached_has_bits;
 
   // double temp = 1;
-  if (!(this->_internal_temp() <= 0 && this->_internal_temp() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_temp = this->_internal_temp();
+  uint64_t raw_temp;
+  memcpy(&raw_temp, &tmp_temp, sizeof(tmp_temp));
+  if (raw_temp != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_temp(), target);
   }
 
   // double tnom = 2;
-  if (!(this->_internal_tnom() <= 0 && this->_internal_tnom() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tnom = this->_internal_tnom();
+  uint64_t raw_tnom;
+  memcpy(&raw_tnom, &tmp_tnom, sizeof(tmp_tnom));
+  if (raw_tnom != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_tnom(), target);
   }
 
   // double gmin = 3;
-  if (!(this->_internal_gmin() <= 0 && this->_internal_gmin() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_gmin = this->_internal_gmin();
+  uint64_t raw_gmin;
+  memcpy(&raw_gmin, &tmp_gmin, sizeof(tmp_gmin));
+  if (raw_gmin != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_gmin(), target);
   }
 
   // double iabstol = 4;
-  if (!(this->_internal_iabstol() <= 0 && this->_internal_iabstol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_iabstol = this->_internal_iabstol();
+  uint64_t raw_iabstol;
+  memcpy(&raw_iabstol, &tmp_iabstol, sizeof(tmp_iabstol));
+  if (raw_iabstol != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_iabstol(), target);
   }
 
   // double reltol = 5;
-  if (!(this->_internal_reltol() <= 0 && this->_internal_reltol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_reltol = this->_internal_reltol();
+  uint64_t raw_reltol;
+  memcpy(&raw_reltol, &tmp_reltol, sizeof(tmp_reltol));
+  if (raw_reltol != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_reltol(), target);
   }
@@ -1784,27 +1931,47 @@ size_t SimOptions::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double temp = 1;
-  if (!(this->_internal_temp() <= 0 && this->_internal_temp() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_temp = this->_internal_temp();
+  uint64_t raw_temp;
+  memcpy(&raw_temp, &tmp_temp, sizeof(tmp_temp));
+  if (raw_temp != 0) {
     total_size += 1 + 8;
   }
 
   // double tnom = 2;
-  if (!(this->_internal_tnom() <= 0 && this->_internal_tnom() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tnom = this->_internal_tnom();
+  uint64_t raw_tnom;
+  memcpy(&raw_tnom, &tmp_tnom, sizeof(tmp_tnom));
+  if (raw_tnom != 0) {
     total_size += 1 + 8;
   }
 
   // double gmin = 3;
-  if (!(this->_internal_gmin() <= 0 && this->_internal_gmin() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_gmin = this->_internal_gmin();
+  uint64_t raw_gmin;
+  memcpy(&raw_gmin, &tmp_gmin, sizeof(tmp_gmin));
+  if (raw_gmin != 0) {
     total_size += 1 + 8;
   }
 
   // double iabstol = 4;
-  if (!(this->_internal_iabstol() <= 0 && this->_internal_iabstol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_iabstol = this->_internal_iabstol();
+  uint64_t raw_iabstol;
+  memcpy(&raw_iabstol, &tmp_iabstol, sizeof(tmp_iabstol));
+  if (raw_iabstol != 0) {
     total_size += 1 + 8;
   }
 
   // double reltol = 5;
-  if (!(this->_internal_reltol() <= 0 && this->_internal_reltol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_reltol = this->_internal_reltol();
+  uint64_t raw_reltol;
+  memcpy(&raw_reltol, &tmp_reltol, sizeof(tmp_reltol));
+  if (raw_reltol != 0) {
     total_size += 1 + 8;
   }
 
@@ -1830,19 +1997,39 @@ void SimOptions::MergeFrom(const SimOptions& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_temp() <= 0 && from._internal_temp() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_temp = from._internal_temp();
+  uint64_t raw_temp;
+  memcpy(&raw_temp, &tmp_temp, sizeof(tmp_temp));
+  if (raw_temp != 0) {
     _internal_set_temp(from._internal_temp());
   }
-  if (!(from._internal_tnom() <= 0 && from._internal_tnom() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tnom = from._internal_tnom();
+  uint64_t raw_tnom;
+  memcpy(&raw_tnom, &tmp_tnom, sizeof(tmp_tnom));
+  if (raw_tnom != 0) {
     _internal_set_tnom(from._internal_tnom());
   }
-  if (!(from._internal_gmin() <= 0 && from._internal_gmin() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_gmin = from._internal_gmin();
+  uint64_t raw_gmin;
+  memcpy(&raw_gmin, &tmp_gmin, sizeof(tmp_gmin));
+  if (raw_gmin != 0) {
     _internal_set_gmin(from._internal_gmin());
   }
-  if (!(from._internal_iabstol() <= 0 && from._internal_iabstol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_iabstol = from._internal_iabstol();
+  uint64_t raw_iabstol;
+  memcpy(&raw_iabstol, &tmp_iabstol, sizeof(tmp_iabstol));
+  if (raw_iabstol != 0) {
     _internal_set_iabstol(from._internal_iabstol());
   }
-  if (!(from._internal_reltol() <= 0 && from._internal_reltol() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_reltol = from._internal_reltol();
+  uint64_t raw_reltol;
+  memcpy(&raw_reltol, &tmp_reltol, sizeof(tmp_reltol));
+  if (raw_reltol != 0) {
     _internal_set_reltol(from._internal_reltol());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1884,6 +2071,7 @@ class Analysis::_Internal {
   static const ::vlsir::spice::DcInput& dc(const Analysis* msg);
   static const ::vlsir::spice::TranInput& tran(const Analysis* msg);
   static const ::vlsir::spice::AcInput& ac(const Analysis* msg);
+  static const ::vlsir::spice::NoiseInput& noise(const Analysis* msg);
   static const ::vlsir::spice::SweepInput& sweep(const Analysis* msg);
   static const ::vlsir::spice::MonteInput& monte(const Analysis* msg);
   static const ::vlsir::spice::CustomAnalysisInput& custom(const Analysis* msg);
@@ -1904,6 +2092,10 @@ Analysis::_Internal::tran(const Analysis* msg) {
 const ::vlsir::spice::AcInput&
 Analysis::_Internal::ac(const Analysis* msg) {
   return *msg->an_.ac_;
+}
+const ::vlsir::spice::NoiseInput&
+Analysis::_Internal::noise(const Analysis* msg) {
+  return *msg->an_.noise_;
 }
 const ::vlsir::spice::SweepInput&
 Analysis::_Internal::sweep(const Analysis* msg) {
@@ -1976,6 +2168,21 @@ void Analysis::set_allocated_ac(::vlsir::spice::AcInput* ac) {
     an_.ac_ = ac;
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.ac)
+}
+void Analysis::set_allocated_noise(::vlsir::spice::NoiseInput* noise) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_an();
+  if (noise) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::NoiseInput>::GetOwningArena(noise);
+    if (message_arena != submessage_arena) {
+      noise = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, noise, submessage_arena);
+    }
+    set_has_noise();
+    an_.noise_ = noise;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.Analysis.noise)
 }
 void Analysis::set_allocated_sweep(::vlsir::spice::SweepInput* sweep) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -2052,6 +2259,10 @@ Analysis::Analysis(const Analysis& from)
       _internal_mutable_ac()->::vlsir::spice::AcInput::MergeFrom(from._internal_ac());
       break;
     }
+    case kNoise: {
+      _internal_mutable_noise()->::vlsir::spice::NoiseInput::MergeFrom(from._internal_noise());
+      break;
+    }
     case kSweep: {
       _internal_mutable_sweep()->::vlsir::spice::SweepInput::MergeFrom(from._internal_sweep());
       break;
@@ -2126,6 +2337,12 @@ void Analysis::clear_an() {
       }
       break;
     }
+    case kNoise: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete an_.noise_;
+      }
+      break;
+    }
     case kSweep: {
       if (GetArenaForAllocation() == nullptr) {
         delete an_.sweep_;
@@ -2196,6 +2413,14 @@ const char* Analysis::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_ac(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .vlsir.spice.NoiseInput noise = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_noise(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2285,6 +2510,14 @@ uint8_t* Analysis::_InternalSerialize(
         4, _Internal::ac(this), target, stream);
   }
 
+  // .vlsir.spice.NoiseInput noise = 5;
+  if (_internal_has_noise()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::noise(this), target, stream);
+  }
+
   // .vlsir.spice.SweepInput sweep = 10;
   if (_internal_has_sweep()) {
     target = stream->EnsureSpace(target);
@@ -2354,6 +2587,13 @@ size_t Analysis::ByteSizeLong() const {
           *an_.ac_);
       break;
     }
+    // .vlsir.spice.NoiseInput noise = 5;
+    case kNoise: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *an_.noise_);
+      break;
+    }
     // .vlsir.spice.SweepInput sweep = 10;
     case kSweep: {
       total_size += 1 +
@@ -2418,6 +2658,10 @@ void Analysis::MergeFrom(const Analysis& from) {
       _internal_mutable_ac()->::vlsir::spice::AcInput::MergeFrom(from._internal_ac());
       break;
     }
+    case kNoise: {
+      _internal_mutable_noise()->::vlsir::spice::NoiseInput::MergeFrom(from._internal_noise());
+      break;
+    }
     case kSweep: {
       _internal_mutable_sweep()->::vlsir::spice::SweepInput::MergeFrom(from._internal_sweep());
       break;
@@ -2469,6 +2713,7 @@ class AnalysisResult::_Internal {
   static const ::vlsir::spice::DcResult& dc(const AnalysisResult* msg);
   static const ::vlsir::spice::TranResult& tran(const AnalysisResult* msg);
   static const ::vlsir::spice::AcResult& ac(const AnalysisResult* msg);
+  static const ::vlsir::spice::NoiseResult& noise(const AnalysisResult* msg);
   static const ::vlsir::spice::SweepResult& sweep(const AnalysisResult* msg);
   static const ::vlsir::spice::MonteResult& monte(const AnalysisResult* msg);
   static const ::vlsir::spice::CustomAnalysisResult& custom(const AnalysisResult* msg);
@@ -2489,6 +2734,10 @@ AnalysisResult::_Internal::tran(const AnalysisResult* msg) {
 const ::vlsir::spice::AcResult&
 AnalysisResult::_Internal::ac(const AnalysisResult* msg) {
   return *msg->an_.ac_;
+}
+const ::vlsir::spice::NoiseResult&
+AnalysisResult::_Internal::noise(const AnalysisResult* msg) {
+  return *msg->an_.noise_;
 }
 const ::vlsir::spice::SweepResult&
 AnalysisResult::_Internal::sweep(const AnalysisResult* msg) {
@@ -2561,6 +2810,21 @@ void AnalysisResult::set_allocated_ac(::vlsir::spice::AcResult* ac) {
     an_.ac_ = ac;
   }
   // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.ac)
+}
+void AnalysisResult::set_allocated_noise(::vlsir::spice::NoiseResult* noise) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_an();
+  if (noise) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vlsir::spice::NoiseResult>::GetOwningArena(noise);
+    if (message_arena != submessage_arena) {
+      noise = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, noise, submessage_arena);
+    }
+    set_has_noise();
+    an_.noise_ = noise;
+  }
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.AnalysisResult.noise)
 }
 void AnalysisResult::set_allocated_sweep(::vlsir::spice::SweepResult* sweep) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -2637,6 +2901,10 @@ AnalysisResult::AnalysisResult(const AnalysisResult& from)
       _internal_mutable_ac()->::vlsir::spice::AcResult::MergeFrom(from._internal_ac());
       break;
     }
+    case kNoise: {
+      _internal_mutable_noise()->::vlsir::spice::NoiseResult::MergeFrom(from._internal_noise());
+      break;
+    }
     case kSweep: {
       _internal_mutable_sweep()->::vlsir::spice::SweepResult::MergeFrom(from._internal_sweep());
       break;
@@ -2711,6 +2979,12 @@ void AnalysisResult::clear_an() {
       }
       break;
     }
+    case kNoise: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete an_.noise_;
+      }
+      break;
+    }
     case kSweep: {
       if (GetArenaForAllocation() == nullptr) {
         delete an_.sweep_;
@@ -2781,6 +3055,14 @@ const char* AnalysisResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_ac(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .vlsir.spice.NoiseResult noise = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_noise(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2870,6 +3152,14 @@ uint8_t* AnalysisResult::_InternalSerialize(
         4, _Internal::ac(this), target, stream);
   }
 
+  // .vlsir.spice.NoiseResult noise = 5;
+  if (_internal_has_noise()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::noise(this), target, stream);
+  }
+
   // .vlsir.spice.SweepResult sweep = 10;
   if (_internal_has_sweep()) {
     target = stream->EnsureSpace(target);
@@ -2939,6 +3229,13 @@ size_t AnalysisResult::ByteSizeLong() const {
           *an_.ac_);
       break;
     }
+    // .vlsir.spice.NoiseResult noise = 5;
+    case kNoise: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *an_.noise_);
+      break;
+    }
     // .vlsir.spice.SweepResult sweep = 10;
     case kSweep: {
       total_size += 1 +
@@ -3001,6 +3298,10 @@ void AnalysisResult::MergeFrom(const AnalysisResult& from) {
     }
     case kAc: {
       _internal_mutable_ac()->::vlsir::spice::AcResult::MergeFrom(from._internal_ac());
+      break;
+    }
+    case kNoise: {
+      _internal_mutable_noise()->::vlsir::spice::NoiseResult::MergeFrom(from._internal_noise());
       break;
     }
     case kSweep: {
@@ -4494,13 +4795,21 @@ uint8_t* TranInput::_InternalSerialize(
   }
 
   // double tstop = 2;
-  if (!(this->_internal_tstop() <= 0 && this->_internal_tstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstop = this->_internal_tstop();
+  uint64_t raw_tstop;
+  memcpy(&raw_tstop, &tmp_tstop, sizeof(tmp_tstop));
+  if (raw_tstop != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_tstop(), target);
   }
 
   // double tstep = 3;
-  if (!(this->_internal_tstep() <= 0 && this->_internal_tstep() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstep = this->_internal_tstep();
+  uint64_t raw_tstep;
+  memcpy(&raw_tstep, &tmp_tstep, sizeof(tmp_tstep));
+  if (raw_tstep != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_tstep(), target);
   }
@@ -4595,12 +4904,20 @@ size_t TranInput::ByteSizeLong() const {
   }
 
   // double tstop = 2;
-  if (!(this->_internal_tstop() <= 0 && this->_internal_tstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstop = this->_internal_tstop();
+  uint64_t raw_tstop;
+  memcpy(&raw_tstop, &tmp_tstop, sizeof(tmp_tstop));
+  if (raw_tstop != 0) {
     total_size += 1 + 8;
   }
 
   // double tstep = 3;
-  if (!(this->_internal_tstep() <= 0 && this->_internal_tstep() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstep = this->_internal_tstep();
+  uint64_t raw_tstep;
+  memcpy(&raw_tstep, &tmp_tstep, sizeof(tmp_tstep));
+  if (raw_tstep != 0) {
     total_size += 1 + 8;
   }
 
@@ -4631,10 +4948,18 @@ void TranInput::MergeFrom(const TranInput& from) {
   if (!from._internal_analysis_name().empty()) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!(from._internal_tstop() <= 0 && from._internal_tstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstop = from._internal_tstop();
+  uint64_t raw_tstop;
+  memcpy(&raw_tstop, &tmp_tstop, sizeof(tmp_tstop));
+  if (raw_tstop != 0) {
     _internal_set_tstop(from._internal_tstop());
   }
-  if (!(from._internal_tstep() <= 0 && from._internal_tstep() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_tstep = from._internal_tstep();
+  uint64_t raw_tstep;
+  memcpy(&raw_tstep, &tmp_tstep, sizeof(tmp_tstep));
+  if (raw_tstep != 0) {
     _internal_set_tstep(from._internal_tstep());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -5154,13 +5479,21 @@ uint8_t* ComplexNum::_InternalSerialize(
   (void) cached_has_bits;
 
   // double re = 1;
-  if (!(this->_internal_re() <= 0 && this->_internal_re() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_re = this->_internal_re();
+  uint64_t raw_re;
+  memcpy(&raw_re, &tmp_re, sizeof(tmp_re));
+  if (raw_re != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_re(), target);
   }
 
   // double im = 2;
-  if (!(this->_internal_im() <= 0 && this->_internal_im() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_im = this->_internal_im();
+  uint64_t raw_im;
+  memcpy(&raw_im, &tmp_im, sizeof(tmp_im));
+  if (raw_im != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_im(), target);
   }
@@ -5182,12 +5515,20 @@ size_t ComplexNum::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double re = 1;
-  if (!(this->_internal_re() <= 0 && this->_internal_re() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_re = this->_internal_re();
+  uint64_t raw_re;
+  memcpy(&raw_re, &tmp_re, sizeof(tmp_re));
+  if (raw_re != 0) {
     total_size += 1 + 8;
   }
 
   // double im = 2;
-  if (!(this->_internal_im() <= 0 && this->_internal_im() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_im = this->_internal_im();
+  uint64_t raw_im;
+  memcpy(&raw_im, &tmp_im, sizeof(tmp_im));
+  if (raw_im != 0) {
     total_size += 1 + 8;
   }
 
@@ -5213,10 +5554,18 @@ void ComplexNum::MergeFrom(const ComplexNum& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_re() <= 0 && from._internal_re() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_re = from._internal_re();
+  uint64_t raw_re;
+  memcpy(&raw_re, &tmp_re, sizeof(tmp_re));
+  if (raw_re != 0) {
     _internal_set_re(from._internal_re());
   }
-  if (!(from._internal_im() <= 0 && from._internal_im() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_im = from._internal_im();
+  uint64_t raw_im;
+  memcpy(&raw_im, &tmp_im, sizeof(tmp_im));
+  if (raw_im != 0) {
     _internal_set_im(from._internal_im());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -5424,13 +5773,21 @@ uint8_t* AcInput::_InternalSerialize(
   }
 
   // double fstart = 2;
-  if (!(this->_internal_fstart() <= 0 && this->_internal_fstart() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = this->_internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_fstart(), target);
   }
 
   // double fstop = 3;
-  if (!(this->_internal_fstop() <= 0 && this->_internal_fstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = this->_internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_fstop(), target);
   }
@@ -5480,12 +5837,20 @@ size_t AcInput::ByteSizeLong() const {
   }
 
   // double fstart = 2;
-  if (!(this->_internal_fstart() <= 0 && this->_internal_fstart() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = this->_internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
     total_size += 1 + 8;
   }
 
   // double fstop = 3;
-  if (!(this->_internal_fstop() <= 0 && this->_internal_fstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = this->_internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
     total_size += 1 + 8;
   }
 
@@ -5520,10 +5885,18 @@ void AcInput::MergeFrom(const AcInput& from) {
   if (!from._internal_analysis_name().empty()) {
     _internal_set_analysis_name(from._internal_analysis_name());
   }
-  if (!(from._internal_fstart() <= 0 && from._internal_fstart() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = from._internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
     _internal_set_fstart(from._internal_fstart());
   }
-  if (!(from._internal_fstop() <= 0 && from._internal_fstop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = from._internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
     _internal_set_fstop(from._internal_fstop());
   }
   if (from._internal_npts() != 0) {
@@ -5964,6 +6337,940 @@ void AcResult::InternalSwap(AcResult* other) {
 
 // ===================================================================
 
+class NoiseInput::_Internal {
+ public:
+};
+
+NoiseInput::NoiseInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  ctrls_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vlsir.spice.NoiseInput)
+}
+NoiseInput::NoiseInput(const NoiseInput& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      ctrls_(from.ctrls_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_analysis_name().empty()) {
+    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
+      GetArenaForAllocation());
+  }
+  output_p_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    output_p_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_output_p().empty()) {
+    output_p_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_output_p(), 
+      GetArenaForAllocation());
+  }
+  output_n_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    output_n_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_output_n().empty()) {
+    output_n_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_output_n(), 
+      GetArenaForAllocation());
+  }
+  input_source_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    input_source_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_input_source().empty()) {
+    input_source_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_input_source(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&fstart_, &from.fstart_,
+    static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
+    reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
+  // @@protoc_insertion_point(copy_constructor:vlsir.spice.NoiseInput)
+}
+
+inline void NoiseInput::SharedCtor() {
+analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+output_p_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  output_p_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+output_n_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  output_n_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+input_source_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  input_source_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&fstart_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&npts_) -
+    reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
+}
+
+NoiseInput::~NoiseInput() {
+  // @@protoc_insertion_point(destructor:vlsir.spice.NoiseInput)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void NoiseInput::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  output_p_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  output_n_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  input_source_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void NoiseInput::ArenaDtor(void* object) {
+  NoiseInput* _this = reinterpret_cast< NoiseInput* >(object);
+  (void)_this;
+}
+void NoiseInput::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void NoiseInput::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NoiseInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:vlsir.spice.NoiseInput)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ctrls_.Clear();
+  analysis_name_.ClearToEmpty();
+  output_p_.ClearToEmpty();
+  output_n_.ClearToEmpty();
+  input_source_.ClearToEmpty();
+  ::memset(&fstart_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&npts_) -
+      reinterpret_cast<char*>(&fstart_)) + sizeof(npts_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* NoiseInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string analysis_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_analysis_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseInput.analysis_name"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string output_p = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_output_p();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseInput.output_p"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string output_n = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_output_n();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseInput.output_n"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string input_source = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_input_source();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseInput.input_source"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // double fstart = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 81)) {
+          fstart_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double fstop = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 89)) {
+          fstop_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 npts = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          npts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vlsir.spice.Control ctrls = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_ctrls(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<162>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NoiseInput::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.NoiseInput)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string analysis_name = 1;
+  if (!this->_internal_analysis_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseInput.analysis_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_analysis_name(), target);
+  }
+
+  // string output_p = 2;
+  if (!this->_internal_output_p().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_output_p().data(), static_cast<int>(this->_internal_output_p().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseInput.output_p");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_output_p(), target);
+  }
+
+  // string output_n = 3;
+  if (!this->_internal_output_n().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_output_n().data(), static_cast<int>(this->_internal_output_n().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseInput.output_n");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_output_n(), target);
+  }
+
+  // string input_source = 4;
+  if (!this->_internal_input_source().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_input_source().data(), static_cast<int>(this->_internal_input_source().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseInput.input_source");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_input_source(), target);
+  }
+
+  // double fstart = 10;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = this->_internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(10, this->_internal_fstart(), target);
+  }
+
+  // double fstop = 11;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = this->_internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(11, this->_internal_fstop(), target);
+  }
+
+  // uint64 npts = 12;
+  if (this->_internal_npts() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(12, this->_internal_npts(), target);
+  }
+
+  // repeated .vlsir.spice.Control ctrls = 20;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_ctrls_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(20, this->_internal_ctrls(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.NoiseInput)
+  return target;
+}
+
+size_t NoiseInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.NoiseInput)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .vlsir.spice.Control ctrls = 20;
+  total_size += 2UL * this->_internal_ctrls_size();
+  for (const auto& msg : this->ctrls_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string analysis_name = 1;
+  if (!this->_internal_analysis_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_analysis_name());
+  }
+
+  // string output_p = 2;
+  if (!this->_internal_output_p().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_output_p());
+  }
+
+  // string output_n = 3;
+  if (!this->_internal_output_n().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_output_n());
+  }
+
+  // string input_source = 4;
+  if (!this->_internal_input_source().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_input_source());
+  }
+
+  // double fstart = 10;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = this->_internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double fstop = 11;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = this->_internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
+    total_size += 1 + 8;
+  }
+
+  // uint64 npts = 12;
+  if (this->_internal_npts() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_npts());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NoiseInput::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    NoiseInput::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NoiseInput::GetClassData() const { return &_class_data_; }
+
+void NoiseInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<NoiseInput *>(to)->MergeFrom(
+      static_cast<const NoiseInput &>(from));
+}
+
+
+void NoiseInput::MergeFrom(const NoiseInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.NoiseInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  ctrls_.MergeFrom(from.ctrls_);
+  if (!from._internal_analysis_name().empty()) {
+    _internal_set_analysis_name(from._internal_analysis_name());
+  }
+  if (!from._internal_output_p().empty()) {
+    _internal_set_output_p(from._internal_output_p());
+  }
+  if (!from._internal_output_n().empty()) {
+    _internal_set_output_n(from._internal_output_n());
+  }
+  if (!from._internal_input_source().empty()) {
+    _internal_set_input_source(from._internal_input_source());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstart = from._internal_fstart();
+  uint64_t raw_fstart;
+  memcpy(&raw_fstart, &tmp_fstart, sizeof(tmp_fstart));
+  if (raw_fstart != 0) {
+    _internal_set_fstart(from._internal_fstart());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_fstop = from._internal_fstop();
+  uint64_t raw_fstop;
+  memcpy(&raw_fstop, &tmp_fstop, sizeof(tmp_fstop));
+  if (raw_fstop != 0) {
+    _internal_set_fstop(from._internal_fstop());
+  }
+  if (from._internal_npts() != 0) {
+    _internal_set_npts(from._internal_npts());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void NoiseInput::CopyFrom(const NoiseInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.NoiseInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NoiseInput::IsInitialized() const {
+  return true;
+}
+
+void NoiseInput::InternalSwap(NoiseInput* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ctrls_.InternalSwap(&other->ctrls_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &analysis_name_, lhs_arena,
+      &other->analysis_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &output_p_, lhs_arena,
+      &other->output_p_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &output_n_, lhs_arena,
+      &other->output_n_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &input_source_, lhs_arena,
+      &other->input_source_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(NoiseInput, npts_)
+      + sizeof(NoiseInput::npts_)
+      - PROTOBUF_FIELD_OFFSET(NoiseInput, fstart_)>(
+          reinterpret_cast<char*>(&fstart_),
+          reinterpret_cast<char*>(&other->fstart_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata NoiseInput::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
+      file_level_metadata_spice_2eproto[18]);
+}
+
+// ===================================================================
+
+NoiseResult_IntegratedNoiseEntry_DoNotUse::NoiseResult_IntegratedNoiseEntry_DoNotUse() {}
+NoiseResult_IntegratedNoiseEntry_DoNotUse::NoiseResult_IntegratedNoiseEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void NoiseResult_IntegratedNoiseEntry_DoNotUse::MergeFrom(const NoiseResult_IntegratedNoiseEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata NoiseResult_IntegratedNoiseEntry_DoNotUse::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
+      file_level_metadata_spice_2eproto[19]);
+}
+
+// ===================================================================
+
+NoiseResult_MeasurementsEntry_DoNotUse::NoiseResult_MeasurementsEntry_DoNotUse() {}
+NoiseResult_MeasurementsEntry_DoNotUse::NoiseResult_MeasurementsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void NoiseResult_MeasurementsEntry_DoNotUse::MergeFrom(const NoiseResult_MeasurementsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata NoiseResult_MeasurementsEntry_DoNotUse::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
+      file_level_metadata_spice_2eproto[20]);
+}
+
+// ===================================================================
+
+class NoiseResult::_Internal {
+ public:
+};
+
+NoiseResult::NoiseResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  signals_(arena),
+  data_(arena),
+  integrated_noise_(arena),
+  measurements_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vlsir.spice.NoiseResult)
+}
+NoiseResult::NoiseResult(const NoiseResult& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      signals_(from.signals_),
+      data_(from.data_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  integrated_noise_.MergeFrom(from.integrated_noise_);
+  measurements_.MergeFrom(from.measurements_);
+  analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_analysis_name().empty()) {
+    analysis_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_analysis_name(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:vlsir.spice.NoiseResult)
+}
+
+inline void NoiseResult::SharedCtor() {
+analysis_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  analysis_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+NoiseResult::~NoiseResult() {
+  // @@protoc_insertion_point(destructor:vlsir.spice.NoiseResult)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void NoiseResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  analysis_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void NoiseResult::ArenaDtor(void* object) {
+  NoiseResult* _this = reinterpret_cast< NoiseResult* >(object);
+  (void)_this;
+  _this->integrated_noise_. ~MapField();
+  _this->measurements_. ~MapField();
+}
+inline void NoiseResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
+  if (arena != nullptr) {
+    arena->OwnCustomDestructor(this, &NoiseResult::ArenaDtor);
+  }
+}
+void NoiseResult::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NoiseResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:vlsir.spice.NoiseResult)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  signals_.Clear();
+  data_.Clear();
+  integrated_noise_.Clear();
+  measurements_.Clear();
+  analysis_name_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* NoiseResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string analysis_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_analysis_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseResult.analysis_name"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string signals = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signals();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vlsir.spice.NoiseResult.signals"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double data = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_data(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 41) {
+          _internal_add_data(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // map<string, double> integrated_noise = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&integrated_noise_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // map<string, double> measurements = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&measurements_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NoiseResult::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vlsir.spice.NoiseResult)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string analysis_name = 1;
+  if (!this->_internal_analysis_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_analysis_name().data(), static_cast<int>(this->_internal_analysis_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseResult.analysis_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_analysis_name(), target);
+  }
+
+  // repeated string signals = 3;
+  for (int i = 0, n = this->_internal_signals_size(); i < n; i++) {
+    const auto& s = this->_internal_signals(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.NoiseResult.signals");
+    target = stream->WriteString(3, s, target);
+  }
+
+  // repeated double data = 5;
+  if (this->_internal_data_size() > 0) {
+    target = stream->WriteFixedPacked(5, _internal_data(), target);
+  }
+
+  // map<string, double> integrated_noise = 10;
+  if (!this->_internal_integrated_noise().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        (void)p;
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "vlsir.spice.NoiseResult.IntegratedNoiseEntry.key");
+      }
+    };
+
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_integrated_noise().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_integrated_noise().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+          it = this->_internal_integrated_noise().begin();
+          it != this->_internal_integrated_noise().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = NoiseResult_IntegratedNoiseEntry_DoNotUse::Funcs::InternalSerialize(10, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+          it = this->_internal_integrated_noise().begin();
+          it != this->_internal_integrated_noise().end(); ++it) {
+        target = NoiseResult_IntegratedNoiseEntry_DoNotUse::Funcs::InternalSerialize(10, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
+  }
+
+  // map<string, double> measurements = 11;
+  if (!this->_internal_measurements().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        (void)p;
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "vlsir.spice.NoiseResult.MeasurementsEntry.key");
+      }
+    };
+
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_measurements().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_measurements().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+          it = this->_internal_measurements().begin();
+          it != this->_internal_measurements().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = NoiseResult_MeasurementsEntry_DoNotUse::Funcs::InternalSerialize(11, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+          it = this->_internal_measurements().begin();
+          it != this->_internal_measurements().end(); ++it) {
+        target = NoiseResult_MeasurementsEntry_DoNotUse::Funcs::InternalSerialize(11, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vlsir.spice.NoiseResult)
+  return target;
+}
+
+size_t NoiseResult::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vlsir.spice.NoiseResult)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string signals = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signals_.size());
+  for (int i = 0, n = signals_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signals_.Get(i));
+  }
+
+  // repeated double data = 5;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_data_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // map<string, double> integrated_noise = 10;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_integrated_noise_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+      it = this->_internal_integrated_noise().begin();
+      it != this->_internal_integrated_noise().end(); ++it) {
+    total_size += NoiseResult_IntegratedNoiseEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  // map<string, double> measurements = 11;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_measurements_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, double >::const_iterator
+      it = this->_internal_measurements().begin();
+      it != this->_internal_measurements().end(); ++it) {
+    total_size += NoiseResult_MeasurementsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  // string analysis_name = 1;
+  if (!this->_internal_analysis_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_analysis_name());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NoiseResult::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    NoiseResult::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NoiseResult::GetClassData() const { return &_class_data_; }
+
+void NoiseResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<NoiseResult *>(to)->MergeFrom(
+      static_cast<const NoiseResult &>(from));
+}
+
+
+void NoiseResult::MergeFrom(const NoiseResult& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vlsir.spice.NoiseResult)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  signals_.MergeFrom(from.signals_);
+  data_.MergeFrom(from.data_);
+  integrated_noise_.MergeFrom(from.integrated_noise_);
+  measurements_.MergeFrom(from.measurements_);
+  if (!from._internal_analysis_name().empty()) {
+    _internal_set_analysis_name(from._internal_analysis_name());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void NoiseResult::CopyFrom(const NoiseResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vlsir.spice.NoiseResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NoiseResult::IsInitialized() const {
+  return true;
+}
+
+void NoiseResult::InternalSwap(NoiseResult* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  signals_.InternalSwap(&other->signals_);
+  data_.InternalSwap(&other->data_);
+  integrated_noise_.InternalSwap(&other->integrated_noise_);
+  measurements_.InternalSwap(&other->measurements_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &analysis_name_, lhs_arena,
+      &other->analysis_name_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata NoiseResult::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
+      file_level_metadata_spice_2eproto[21]);
+}
+
+// ===================================================================
+
 class SweepInput::_Internal {
  public:
   static const ::vlsir::spice::Sweep& sweep(const SweepInput* msg);
@@ -6320,7 +7627,7 @@ void SweepInput::InternalSwap(SweepInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[18]);
+      file_level_metadata_spice_2eproto[22]);
 }
 
 // ===================================================================
@@ -6648,7 +7955,7 @@ void SweepResult::InternalSwap(SweepResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SweepResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[19]);
+      file_level_metadata_spice_2eproto[23]);
 }
 
 // ===================================================================
@@ -6977,7 +8284,7 @@ void MonteInput::InternalSwap(MonteInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[20]);
+      file_level_metadata_spice_2eproto[24]);
 }
 
 // ===================================================================
@@ -7305,7 +8612,7 @@ void MonteResult::InternalSwap(MonteResult* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonteResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[21]);
+      file_level_metadata_spice_2eproto[25]);
 }
 
 // ===================================================================
@@ -7590,7 +8897,7 @@ void CustomAnalysisInput::InternalSwap(CustomAnalysisInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisInput::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[22]);
+      file_level_metadata_spice_2eproto[26]);
 }
 
 // ===================================================================
@@ -7629,7 +8936,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CustomAnalysisResult::GetClass
 ::PROTOBUF_NAMESPACE_ID::Metadata CustomAnalysisResult::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[23]);
+      file_level_metadata_spice_2eproto[27]);
 }
 
 // ===================================================================
@@ -7986,7 +9293,7 @@ void Sweep::InternalSwap(Sweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Sweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[24]);
+      file_level_metadata_spice_2eproto[28]);
 }
 
 // ===================================================================
@@ -8113,19 +9420,31 @@ uint8_t* LinearSweep::_InternalSerialize(
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_start(), target);
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double step = 3;
-  if (!(this->_internal_step() <= 0 && this->_internal_step() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_step = this->_internal_step();
+  uint64_t raw_step;
+  memcpy(&raw_step, &tmp_step, sizeof(tmp_step));
+  if (raw_step != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_step(), target);
   }
@@ -8147,17 +9466,29 @@ size_t LinearSweep::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     total_size += 1 + 8;
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     total_size += 1 + 8;
   }
 
   // double step = 3;
-  if (!(this->_internal_step() <= 0 && this->_internal_step() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_step = this->_internal_step();
+  uint64_t raw_step;
+  memcpy(&raw_step, &tmp_step, sizeof(tmp_step));
+  if (raw_step != 0) {
     total_size += 1 + 8;
   }
 
@@ -8183,13 +9514,25 @@ void LinearSweep::MergeFrom(const LinearSweep& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_start() <= 0 && from._internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = from._internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     _internal_set_start(from._internal_start());
   }
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = from._internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_step() <= 0 && from._internal_step() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_step = from._internal_step();
+  uint64_t raw_step;
+  memcpy(&raw_step, &tmp_step, sizeof(tmp_step));
+  if (raw_step != 0) {
     _internal_set_step(from._internal_step());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -8220,7 +9563,7 @@ void LinearSweep::InternalSwap(LinearSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LinearSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[25]);
+      file_level_metadata_spice_2eproto[29]);
 }
 
 // ===================================================================
@@ -8347,19 +9690,31 @@ uint8_t* LogSweep::_InternalSerialize(
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_start(), target);
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = this->_internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_npts(), target);
   }
@@ -8381,17 +9736,29 @@ size_t LogSweep::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // double start = 1;
-  if (!(this->_internal_start() <= 0 && this->_internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     total_size += 1 + 8;
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     total_size += 1 + 8;
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = this->_internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     total_size += 1 + 8;
   }
 
@@ -8417,13 +9784,25 @@ void LogSweep::MergeFrom(const LogSweep& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from._internal_start() <= 0 && from._internal_start() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = from._internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
     _internal_set_start(from._internal_start());
   }
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = from._internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_npts() <= 0 && from._internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = from._internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     _internal_set_npts(from._internal_npts());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -8454,7 +9833,7 @@ void LogSweep::InternalSwap(LogSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LogSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[26]);
+      file_level_metadata_spice_2eproto[30]);
 }
 
 // ===================================================================
@@ -8592,13 +9971,21 @@ uint8_t* PointSweep::_InternalSerialize(
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_stop(), target);
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = this->_internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_npts(), target);
   }
@@ -8632,12 +10019,20 @@ size_t PointSweep::ByteSizeLong() const {
   }
 
   // double stop = 2;
-  if (!(this->_internal_stop() <= 0 && this->_internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = this->_internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     total_size += 1 + 8;
   }
 
   // double npts = 3;
-  if (!(this->_internal_npts() <= 0 && this->_internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = this->_internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     total_size += 1 + 8;
   }
 
@@ -8664,10 +10059,18 @@ void PointSweep::MergeFrom(const PointSweep& from) {
   (void) cached_has_bits;
 
   points_.MergeFrom(from.points_);
-  if (!(from._internal_stop() <= 0 && from._internal_stop() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_stop = from._internal_stop();
+  uint64_t raw_stop;
+  memcpy(&raw_stop, &tmp_stop, sizeof(tmp_stop));
+  if (raw_stop != 0) {
     _internal_set_stop(from._internal_stop());
   }
-  if (!(from._internal_npts() <= 0 && from._internal_npts() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_npts = from._internal_npts();
+  uint64_t raw_npts;
+  memcpy(&raw_npts, &tmp_npts, sizeof(tmp_npts));
+  if (raw_npts != 0) {
     _internal_set_npts(from._internal_npts());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -8699,7 +10102,7 @@ void PointSweep::InternalSwap(PointSweep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PointSweep::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[27]);
+      file_level_metadata_spice_2eproto[31]);
 }
 
 // ===================================================================
@@ -9219,7 +10622,7 @@ void Control::InternalSwap(Control* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Control::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[28]);
+      file_level_metadata_spice_2eproto[32]);
 }
 
 // ===================================================================
@@ -9478,7 +10881,7 @@ void Save::InternalSwap(Save* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Save::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[29]);
+      file_level_metadata_spice_2eproto[33]);
 }
 
 // ===================================================================
@@ -9681,7 +11084,7 @@ void Include::InternalSwap(Include* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Include::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[30]);
+      file_level_metadata_spice_2eproto[34]);
 }
 
 // ===================================================================
@@ -9933,7 +11336,7 @@ void LibInclude::InternalSwap(LibInclude* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LibInclude::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[31]);
+      file_level_metadata_spice_2eproto[35]);
 }
 
 // ===================================================================
@@ -10234,7 +11637,7 @@ void Meas::InternalSwap(Meas* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Meas::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[32]);
+      file_level_metadata_spice_2eproto[36]);
 }
 
 // ===================================================================
@@ -10466,7 +11869,7 @@ void Signal::InternalSwap(Signal* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Signal::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spice_2eproto_getter, &descriptor_table_spice_2eproto_once,
-      file_level_metadata_spice_2eproto[33]);
+      file_level_metadata_spice_2eproto[37]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -10526,6 +11929,18 @@ template<> PROTOBUF_NOINLINE ::vlsir::spice::AcResult_MeasurementsEntry_DoNotUse
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::AcResult* Arena::CreateMaybeMessage< ::vlsir::spice::AcResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::AcResult >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vlsir::spice::NoiseInput* Arena::CreateMaybeMessage< ::vlsir::spice::NoiseInput >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vlsir::spice::NoiseInput >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse* Arena::CreateMaybeMessage< ::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vlsir::spice::NoiseResult_IntegratedNoiseEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse* Arena::CreateMaybeMessage< ::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vlsir::spice::NoiseResult_MeasurementsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vlsir::spice::NoiseResult* Arena::CreateMaybeMessage< ::vlsir::spice::NoiseResult >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vlsir::spice::NoiseResult >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vlsir::spice::SweepInput* Arena::CreateMaybeMessage< ::vlsir::spice::SweepInput >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vlsir::spice::SweepInput >(arena);
