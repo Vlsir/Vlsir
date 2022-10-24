@@ -359,6 +359,9 @@ def test_spectre_import():
     from vlsirtools.spectre import sim
 
 
+@pytest.mark.skipif(
+    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+)
 def test_noise1():
     """ Test the Noise analysis """
 
