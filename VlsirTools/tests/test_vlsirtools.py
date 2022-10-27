@@ -9,7 +9,40 @@ from typing import Dict, List
 
 
 import vlsirtools
+import vlsir.utils_pb2 as vutils
 import vlsir.circuit_pb2 as vckt
+import vlsir.spice_pb2 as vsp
+
+
+from vlsir import Reference, QualifiedName, ParamValue, Param
+from vlsir.circuit_pb2 import (
+    Module,
+    Signal,
+    Connection,
+    ConnectionTarget,
+    Port,
+    Instance,
+    Package,
+)
+
+"""
+## Utility & Helper Functions
+"""
+
+
+def _connections(**kwargs):
+    """Create a list of `Connection`s from keyword args of the form `portname=conn_target`, where `conn_target` is a `ConnectionTarget`."""
+    return [Connection(portname=key, target=value) for key, value in kwargs.items()]
+
+
+def _params(**kwargs):
+    """ Create a list of `Param`s from keyword args of the form `r=ParamValue(double=1e3)`"""
+    return [Param(name=key, value=value) for key, value in kwargs.items()]
+
+
+def _prim(name: str) -> Reference:
+    """Create a `Reference` to primitive `name`"""
+    return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
 
 
 def test_version():
@@ -18,17 +51,6 @@ def test_version():
 
 def test_verilog_netlist1():
     """ Test netlisting to a handful of formats, including Verilog-compatible contents. """
-
-    from vlsir import Reference
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-        Package,
-    )
 
     # "Verilog Compatibility" requires:
     # * All ports must be directed. No "NONE" directions.
@@ -55,7 +77,20 @@ def test_verilog_netlist1():
         domain="vlsirtools.tests.test_verilog_netlist1",
         modules=[
             # Inner, content-less Module, with a port of each direction
-            Module(name="inner", ports=_ports(), signals=_signals(),),
+            Module(
+                name="inner",
+                parameters=_params(
+                    a=ParamValue(integer=3),
+                    b=ParamValue(double=1e-9),
+                    c=ParamValue(string="c"),
+                    d=ParamValue(literal="d"),
+                    e=ParamValue(
+                        prefixed=vutils.Prefixed(prefix="MICRO", string="11.11")
+                    ),
+                ),
+                ports=_ports(),
+                signals=_signals(),
+            ),
             # Outer top Module which instantiates `inner`
             Module(
                 name="top",
@@ -85,29 +120,8 @@ def test_verilog_netlist1():
 def test_spice_netlist1():
     """ Test spice netlisting, including instantiating primitives"""
 
-    from vlsir import Reference, QualifiedName, ParamValue, Param
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-        Package,
-    )
-
-    def _connections(**kwargs):
-        return [Connection(portname=key, target=value) for key, value in kwargs.items()]
-
-    def _params(**kwargs):
-        return [Param(name=key, value=value) for key, value in kwargs.items()]
-
-    def _prim(name: str) -> Reference:
-        # Shorthand for a `Reference` to primitive `name`
-        return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
-
     def default_conns() -> Dict:
-        # Shorthand for connections between node "1" and "VSS", used for many instances below.
+        # Shorthand for connections between node "vvv" and "VSS", used for many instances below.
         return _connections(
             p=ConnectionTarget(sig="vvv"), n=ConnectionTarget(sig="VSS"),
         )
@@ -117,6 +131,11 @@ def test_spice_netlist1():
         modules=[
             Module(
                 name="mid",
+                parameters=_params(
+                    r=ParamValue(double=1e3),
+                    l=ParamValue(double=1e-9),
+                    c=ParamValue(double=1e-15),
+                ),
                 ports=[
                     Port(direction="NONE", signal="vvv"),
                     Port(direction="NONE", signal="VSS"),
@@ -130,16 +149,16 @@ def test_spice_netlist1():
                         parameters=_params(r=ParamValue(double=1e3)),
                     ),
                     Instance(
-                        name="c",
-                        module=_prim("capacitor"),
-                        connections=default_conns(),
-                        parameters=_params(c=ParamValue(double=1e-15)),
-                    ),
-                    Instance(
                         name="l",
                         module=_prim("inductor"),
                         connections=default_conns(),
                         parameters=_params(l=ParamValue(double=1e-9)),
+                    ),
+                    Instance(
+                        name="c",
+                        module=_prim("capacitor"),
+                        connections=default_conns(),
+                        parameters=_params(c=ParamValue(double=1e-15)),
                     ),
                     Instance(
                         name="v",
