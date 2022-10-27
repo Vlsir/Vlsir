@@ -16,11 +16,11 @@ All of Vlsir's schema-definitions live in the [protos](./protos) directory.
 
 | Schema                                 | Description                     |
 | -------------------------------------- | ------------------------------- |
-| [Circuit](./protos/circuit.proto)      | Circuit / Hardware Descriptions |
-| [Raw Layout](./protos/raw.proto)       | "Raw Polygon" IC Layout         |
-| [Tetris Layout](./protos/tetris.proto) | "Tetris" Gridded IC Layout      |
-| [Spice](./protos/spice.proto)          | Spice-Class Simulator Interface |
-| [Utilities](./protos/utils.proto)      | Shared Utilities                |
+| [Circuit](https://github.com/Vlsir/schema-proto/blob/main/circuit.proto)      | Circuit / Hardware Descriptions |
+| [Raw Layout](https://github.com/Vlsir/schema-proto/blob/main/layout/raw.proto)       | "Raw Polygon" IC Layout         |
+| [Tetris Layout](https://github.com/Vlsir/schema-proto/blob/main/layout/tetris.proto) | "Tetris" Gridded IC Layout      |
+| [Spice](https://github.com/Vlsir/schema-proto/blob/main/spice.proto)          | Spice-Class Simulator Interface |
+| [Utilities](https://github.com/Vlsir/schema-proto/blob/main/utils.proto)      | Shared Utilities                |
 
 ## Language Bindings
 
@@ -62,4 +62,4 @@ Ongoing, co-developed projects which use `vlsir`:
 | -------- | ----------- | -------- |
 | [Hdl21](https://github.com/dan-fritchman/Hdl21)        | Generator-Based Hardware Description Library | Python |
 | [Layout21](https://github.com/dan-fritchman/Layout21)  | Multi-Layered Layout-Programming | Rust |
-| [BFG](https://github.com/growly/bfg)         | Layout Generation for Open-Source FPGAs (and other cool stuff too) | C++ |
+| [BFG](https://github.com/growly/bfg)         | Layout Generation for Open-Source FPGAs | C++ |
