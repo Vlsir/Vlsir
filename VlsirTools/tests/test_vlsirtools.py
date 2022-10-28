@@ -36,7 +36,7 @@ def _connections(**kwargs):
 
 
 def _params(**kwargs):
-    """ Create a list of `Param`s from keyword args of the form `r=ParamValue(double=1e3)`"""
+    """Create a list of `Param`s from keyword args of the form `r=ParamValue(double=1e3)`"""
     return [Param(name=key, value=value) for key, value in kwargs.items()]
 
 
@@ -50,7 +50,7 @@ def test_version():
 
 
 def test_verilog_netlist1():
-    """ Test netlisting to a handful of formats, including Verilog-compatible contents. """
+    """Test netlisting to a handful of formats, including Verilog-compatible contents."""
 
     # "Verilog Compatibility" requires:
     # * All ports must be directed. No "NONE" directions.
@@ -117,7 +117,7 @@ def test_verilog_netlist1():
         ],
     )
     dest = StringIO()
-    vlsirtools.netlist(pkg=pkg, dest=open("scratch.v", "w"), fmt="verilog")
+    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="verilog")
     print(dest.getvalue())
     # While verilog is the point here, the other formats should work too:
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
@@ -126,12 +126,13 @@ def test_verilog_netlist1():
 
 
 def test_spice_netlist1():
-    """ Test spice netlisting, including instantiating primitives"""
+    """Test spice netlisting, including instantiating primitives"""
 
     def default_conns() -> Dict:
         # Shorthand for connections between node "vvv" and "VSS", used for many instances below.
         return _connections(
-            p=ConnectionTarget(sig="vvv"), n=ConnectionTarget(sig="VSS"),
+            p=ConnectionTarget(sig="vvv"),
+            n=ConnectionTarget(sig="VSS"),
         )
 
     pkg = Package(
@@ -217,7 +218,9 @@ def test_spice_netlist1():
             ),
             Module(
                 name="top",
-                ports=[Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
@@ -237,7 +240,7 @@ def test_spice_netlist1():
 
 
 def test_netlist_hdl21_ideal1():
-    """ Test that netlisting a (deprecated) `hdl21.ideal` element fails with a `RuntimeError`. """
+    """Test that netlisting a (deprecated) `hdl21.ideal` element fails with a `RuntimeError`."""
 
     from vlsir.circuit_pb2 import (
         Module,
@@ -288,9 +291,9 @@ def test_netlist_hdl21_ideal1():
 
 
 def empty_testbench_package():
-    """ Create and return a `circuit.Package` with a single, (near) empty testbench module. 
-    Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes. 
-    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node". """
+    """Create and return a `circuit.Package` with a single, (near) empty testbench module.
+    Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes.
+    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node"."""
 
     from vlsir import Reference, QualifiedName, Param, ParamValue
     from vlsir.circuit_pb2 import (
@@ -322,19 +325,24 @@ def empty_testbench_package():
         modules=[
             Module(
                 name="empty_testbench",
-                ports=[Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[
                     Signal(name="VSS", width=1),
                     Signal(name="the_other_node", width=1),
                 ],
-                instances=[_r("r1"), _r("r2"),],
+                instances=[
+                    _r("r1"),
+                    _r("r2"),
+                ],
             )
         ],
     )
 
 
 def test_netlist_empty_testbench():
-    """ Test netlisting the empty testbench package, used later for simulation tests """
+    """Test netlisting the empty testbench package, used later for simulation tests"""
 
     dest = StringIO()
     vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spice")
@@ -347,26 +355,38 @@ def test_netlist_empty_testbench():
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spectre.available(), reason="No spectre installation on path",
+    not vlsirtools.spectre.available(),
+    reason="No spectre installation on path",
 )
 def test_spectre1():
-    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`. """
+    """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.spectre import sim
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 
 @pytest.mark.skipif(
-    not vlsirtools.xyce.available(), reason="No Xyce installation on path",
+    not vlsirtools.xyce.available(),
+    reason="No Xyce installation on path",
 )
 def test_xyce1():
-    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`. """
+    """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.xyce import sim
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 

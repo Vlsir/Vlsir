@@ -11,18 +11,18 @@ from .base import Netlister, SpicePrefix, ResolvedParams
 
 class VerilogNetlister(Netlister):
     """
-    # Structural Verilog Netlister 
+    # Structural Verilog Netlister
     """
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.VERILOG
 
     def write_module_definition(self, module: vckt.Module) -> None:
-        """ Create a Verilog module definition for proto-Module `module` """
+        """Create a Verilog module definition for proto-Module `module`"""
 
         # Create the module name
         module_name = self.get_module_name(module)
@@ -82,7 +82,7 @@ class VerilogNetlister(Netlister):
             self.writeln(self.format_signal_decl(psig) + "; ")
 
     def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
-        """ Write the parameter declarations for Module `module`. """
+        """Write the parameter declarations for Module `module`."""
 
         if not len(module.parameters):  # No parameters
             # Note we check `len` because `module.parameters` is a protobuf thing, and *who knows* how it converts to `bool`.
@@ -101,7 +101,7 @@ class VerilogNetlister(Netlister):
         self.writeln(") \n")
 
     def write_instance(self, pinst: vckt.Instance) -> None:
-        """ Format and write Instance `pinst` """
+        """Format and write Instance `pinst`"""
 
         # Get its Module or ExternalModule definition
         rmodule = self.resolve_reference(pinst.module)
@@ -151,7 +151,7 @@ class VerilogNetlister(Netlister):
         self.writeln("")  # Post-Instance blank line
 
     def write_instance_params(self, pvals: ResolvedParams) -> None:
-        """ Write Instance parameters `pvals` """
+        """Write Instance parameters `pvals`"""
         if not pvals:
             return self.writeln("// No parameters ")
 
@@ -166,7 +166,7 @@ class VerilogNetlister(Netlister):
 
     @classmethod
     def format_param_type(cls, pparam: vlsir.Param) -> str:
-        """ Verilog type-string for `Parameter` `param`. """
+        """Verilog type-string for `Parameter` `param`."""
         ptype = pparam.WhichOneof("value")
         if ptype == "integer":
             return "longint"
@@ -178,7 +178,7 @@ class VerilogNetlister(Netlister):
 
     @classmethod
     def format_param_decl(cls, param: vlsir.Param) -> str:
-        """ Format a parameter-declaration """
+        """Format a parameter-declaration"""
         rv = f"parameter {param.name}"
         # FIXME: whether to include datatype
         # dtype = cls.format_param_type(param)
@@ -188,13 +188,13 @@ class VerilogNetlister(Netlister):
         return rv
 
     def format_concat(self, pconc: vckt.Concat) -> str:
-        """ Format the Concatenation of several other Connections """
+        """Format the Concatenation of several other Connections"""
         # Verilog { a, b, c } concatenation format
         parts = [self.format_connection_target(part) for part in pconc.parts]
         return "{" + ", ".join(parts) + "}"
 
     def format_port_decl(self, pport: vckt.Port) -> str:
-        """ Format a `Port` declaration """
+        """Format a `Port` declaration"""
 
         # First retrieve and check the validity of its direction
         port_type_to_str = {
@@ -214,7 +214,7 @@ class VerilogNetlister(Netlister):
         return dir_ + " " + self.format_signal_decl(self.get_signal(pport.signal))
 
     def format_signal_decl(self, psig: vckt.Signal) -> str:
-        """ Format a `Signal` declaration """
+        """Format a `Signal` declaration"""
         rv = "wire"
         if psig.width > 1:
             rv += f" [{psig.width-1}:0]"
@@ -222,30 +222,30 @@ class VerilogNetlister(Netlister):
         return rv
 
     def format_port_ref(self, pport: vckt.Port) -> str:
-        """ Format a reference to a `Port`. 
-        Unlike declarations, this just requires the name of its `Signal`. """
+        """Format a reference to a `Port`.
+        Unlike declarations, this just requires the name of its `Signal`."""
         return self.format_signal_ref(self.get_signal(pport.signal))
 
     @classmethod
     def format_signal_ref(cls, psig: vckt.Signal) -> str:
-        """ Format a reference to a `Signal`. 
-        Unlike declarations, this just requires its name. """
+        """Format a reference to a `Signal`.
+        Unlike declarations, this just requires its name."""
         return psig.name
 
     @classmethod
     def format_signal_slice(cls, pslice: vckt.Slice) -> str:
-        """ Format Signal-Slice `pslice` """
+        """Format Signal-Slice `pslice`"""
         if pslice.top == pslice.bot:  # Single-bit slice
             return f"{pslice.signal}[{pslice.top}]"
         return f"{pslice.signal}[{pslice.top}:{pslice.bot}]"  # Multi-bit slice
 
     def write_comment(self, comment: str) -> None:
-        """ Verilog uses C-style line comments, beginning with `//` """
+        """Verilog uses C-style line comments, beginning with `//`"""
         self.write(f"// {comment}\n")
 
     @classmethod
     def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
-        """ Format a `SIPrefix` to a string """
+        """Format a `SIPrefix` to a string"""
         # Verilog does not have the SI prefixes built in. Always write the exponent value.
         map = {
             # Single-character aliases, supported by every SPICE we know
@@ -275,4 +275,3 @@ class VerilogNetlister(Netlister):
             raise ValueError(f"Invalid or Unsupported SIPrefix {pre}")
 
         return map[pre]
-

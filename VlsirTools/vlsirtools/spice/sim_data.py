@@ -10,7 +10,7 @@ TODO: Go from proto -> sim_result
 
 
 from typing import List, Mapping, Union, ClassVar
-from enum import Enum 
+from enum import Enum
 from dataclasses import dataclass
 import numpy as np
 
@@ -18,8 +18,8 @@ import vlsir
 
 
 class AnalysisType(Enum):
-    """ Enumerated Analysis-Types 
-    Values are equal to the keys of the VLSIR `Analysis` type-union. """
+    """Enumerated Analysis-Types
+    Values are equal to the keys of the VLSIR `Analysis` type-union."""
 
     OP = "op"
     DC = "dc"
@@ -111,28 +111,38 @@ class MonteResult:
 
 @dataclass
 class CustomAnalysisResult:
-    """ Custom Analysis "Results" 
-    No data is returned from these simulator-specific analyses; 
-    an empty `CustomAnalysisResult` is simply added to their overall results-list 
-    to pair with its input analysis, keeping all others aligned. """
+    """Custom Analysis "Results"
+    No data is returned from these simulator-specific analyses;
+    an empty `CustomAnalysisResult` is simply added to their overall results-list
+    to pair with its input analysis, keeping all others aligned."""
 
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.CUSTOM
 
 
 # Type alias for the union of each result-type
-AnalysisResult = Union[AcResult, DcResult, TranResult, OpResult, SweepResult, MonteResult, CustomAnalysisResult]
+AnalysisResult = Union[
+    AcResult,
+    DcResult,
+    TranResult,
+    OpResult,
+    SweepResult,
+    MonteResult,
+    CustomAnalysisResult,
+]
 
 
 @dataclass
 class SimResult:
-    """ Results from a Mult-Analysis `Sim` """
+    """Results from a Mult-Analysis `Sim`"""
 
     an: List[AnalysisResult]
 
     def to_proto(self) -> vlsir.spice.SimResult:
         res = vlsir.spice.SimResult()
         for a in self.an:
-            res.an.append(vlsir.spice.AnalysisResult(**{a.vlsir_type.value: a.to_proto()}))
+            res.an.append(
+                vlsir.spice.AnalysisResult(**{a.vlsir_type.value: a.to_proto()})
+            )
         return res
 
     def __getitem__(self, key: int) -> AnalysisResult:

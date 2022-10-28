@@ -17,7 +17,7 @@ ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
 
 
 class SpicePrefix(Enum):
-    """ Enumerated Spice Primitives and their Instance-Name Prefixes """
+    """Enumerated Spice Primitives and their Instance-Name Prefixes"""
 
     # Sub-circits, either from `Module`s or `ExternalModule`s
     SUBCKT = "x"
@@ -43,8 +43,8 @@ class SpicePrefix(Enum):
 
 @dataclass
 class ResolvedModule:
-    """ Resolved reference to a `Module` or `ExternalModule`. 
-    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name. """
+    """Resolved reference to a `Module` or `ExternalModule`.
+    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name."""
 
     module: ModuleLike
     module_name: str
@@ -53,38 +53,38 @@ class ResolvedModule:
 
 @dataclass
 class ResolvedParams:
-    """ Resolved Instance-Parameter Values 
-    Factoring in defaults, and converted to strings. 
-    Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing. """
+    """Resolved Instance-Parameter Values
+    Factoring in defaults, and converted to strings.
+    Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing."""
 
     inner: Dict[str, str]
 
     def set(self, key: str, val: str) -> None:
-        """ Set the value of `key` to `val` in the resolved parameters. """
+        """Set the value of `key` to `val` in the resolved parameters."""
         self.inner[key] = val
 
     def get(self, key: str) -> str:
-        """ Get the value of `key` from the resolved parameters. 
-        Raises `RuntimeError` if `key` is not present. """
+        """Get the value of `key` from the resolved parameters.
+        Raises `RuntimeError` if `key` is not present."""
         if key not in self.inner:
             raise RuntimeError(f"Missing parameter {key}")
         return self.inner[key]
 
     def pop(self, key: str) -> str:
-        """ Get the value of `key` from the resolved parameters, and remove it from the `ResolvedParams`. 
-        Raises `RuntimeError` if `key` is not present. """
+        """Get the value of `key` from the resolved parameters, and remove it from the `ResolvedParams`.
+        Raises `RuntimeError` if `key` is not present."""
         if key not in self.inner:
             raise RuntimeError(f"Missing parameter {key}")
         return self.inner.pop(key)
 
     def pop_many(self, keys: Iterable[str]) -> Dict[str, str]:
-        """ Get the values of `keys` from the resolved parameters, and remove them from the `ResolvedParams`. 
-        Raises `RuntimeError` if any `key` is not present. """
+        """Get the values of `keys` from the resolved parameters, and remove them from the `ResolvedParams`.
+        Raises `RuntimeError` if any `key` is not present."""
         return {key: self.pop(key) for key in keys}
 
     def rename(self, old: str, new: str) -> None:
-        """ Rename a key from `old` to `new`. 
-        Raises an exception if `old` is not a key. """
+        """Rename a key from `old` to `new`.
+        Raises an exception if `old` is not a key."""
         val = self.pop(old)
         self.set(new, val)
 
@@ -93,8 +93,8 @@ class ResolvedParams:
         return self.inner.items
 
     def __bool__(self) -> bool:
-        """ Boolean conversions, generally through the `not` keyword or `bool` constructor, 
-        are forwarded down to the internal `inner` dictionary. """
+        """Boolean conversions, generally through the `not` keyword or `bool` constructor,
+        are forwarded down to the internal `inner` dictionary."""
         return bool(self.inner)
 
     def __contains__(self, key: str) -> bool:
@@ -103,17 +103,17 @@ class ResolvedParams:
 
 @dataclass
 class Indent:
-    """ 
-    # Indentation Helper 
-    
-    Supports in-place addition and subtraction of indentation levels, e.g. via 
+    """
+    # Indentation Helper
+
+    Supports in-place addition and subtraction of indentation levels, e.g. via
     ```python
     indent = Indent()
     indent += 1 # Adds one "tab", or indentation level
     indent += 1 # Adds another
     indent -= 1 # Drops back by one
     ```
-    The current indentation-string is available via the `state` attribute. 
+    The current indentation-string is available via the `state` attribute.
     Writers using such an indenter will likely be of the form:
     ```python
     dest.write(f"{indent.state}{content}")
@@ -131,13 +131,13 @@ class Indent:
         self.state = self.chars * self.num
 
     def __iadd__(self, other: int) -> None:
-        """ In-place add, i.e. `indent += 1` """
+        """In-place add, i.e. `indent += 1`"""
         self.num += other
         self.state = self.chars * self.num
         return self
 
     def __isub__(self, other: int) -> None:
-        """ In-place subtract, i.e. `indent -= 1` """
+        """In-place subtract, i.e. `indent -= 1`"""
         self.num = self.num - other
         if self.num < 0:
             raise ValueError("Negative indentation")
@@ -146,18 +146,18 @@ class Indent:
 
 
 class Netlister:
-    """ # Abstract Base `Netlister` Class 
+    """# Abstract Base `Netlister` Class
 
-    `Netlister` is not directly instantiable, and none of its sub-classes are intended 
-    for usage outside the `netlist` package. The primary API method `netlist` is designed to 
-    create, use, and drop a `Netlister` instance. 
-    Once instantiated a `Netlister`'s primary API method is `netlist`. 
-    This writes all content in its `pkg` field to destination `dest`. 
-    
+    `Netlister` is not directly instantiable, and none of its sub-classes are intended
+    for usage outside the `netlist` package. The primary API method `netlist` is designed to
+    create, use, and drop a `Netlister` instance.
+    Once instantiated a `Netlister`'s primary API method is `netlist`.
+    This writes all content in its `pkg` field to destination `dest`.
+
     Internal methods come in three primary flavors:
-    * `write_*` methods, which write to `self.dest`. These methods are generally format-specific. 
-    * `format_*` methods, which return format-specific strings, but *do not* write to `dest`. 
-    * `get_*` methods, which retrieve some internal data, e.g. extracting the type of a `Connection`. 
+    * `write_*` methods, which write to `self.dest`. These methods are generally format-specific.
+    * `format_*` methods, which return format-specific strings, but *do not* write to `dest`.
+    * `get_*` methods, which retrieve some internal data, e.g. extracting the type of a `Connection`.
     """
 
     def __init__(self, pkg: vlsir.circuit.Package, dest: IO):
@@ -184,8 +184,8 @@ class Netlister:
         self.port_names = set()  # : Set[str]
 
     def netlist(self) -> None:
-        """ Primary API Method.
-        Convert everything in `self.pkg` and write to `self.dest`. """
+        """Primary API Method.
+        Convert everything in `self.pkg` and write to `self.dest`."""
 
         # First visit any externally-defined Modules,
         # Ensuring we have their port-orders.
@@ -203,18 +203,18 @@ class Netlister:
         self.dest.flush()
 
     def write(self, s: str) -> None:
-        """ Helper/wrapper, passing to `self.dest` """
+        """Helper/wrapper, passing to `self.dest`"""
         self.dest.write(s)
 
     def writeln(self, s: str) -> None:
-        """ Write `s` as a line, at our current `indent` level. """
+        """Write `s` as a line, at our current `indent` level."""
         self.write(f"{self.indent.state}{s}\n")
 
     def get_external_module(self, emod: vlsir.circuit.ExternalModule) -> None:
-        """ Visit an ExternalModule definition.
+        """Visit an ExternalModule definition.
         "Netlisting" these doesn't actually write anything,
         but just stores a reference  in internal dictionary `ext_modules`
-        for future references to them. """
+        for future references to them."""
         key = (emod.name.domain, emod.name.name)
         if key in self.ext_modules:
             raise RuntimeError(f"Invalid doubly-defined external module {emod}")
@@ -222,14 +222,14 @@ class Netlister:
 
     @classmethod
     def get_param_default(cls, pparam: vlsir.Param) -> Optional[str]:
-        """ Get the default value of `pparam`. Returns `None` for no default. """
+        """Get the default value of `pparam`. Returns `None` for no default."""
         if pparam.value.WhichOneof("value") is None:
             return None
         return cls.get_param_value(pparam.value)
 
     @classmethod
     def get_param_value(cls, ppval: vlsir.ParamValue) -> str:
-        """ Get a string representation of a parameter-value """
+        """Get a string representation of a parameter-value"""
         ptype = ppval.WhichOneof("value")
         if ptype == "integer":
             return str(int(ppval.integer))
@@ -267,11 +267,11 @@ class Netlister:
     def get_instance_params(
         cls, pinst: vlsir.circuit.Instance, pmodule: ModuleLike
     ) -> ResolvedParams:
-        """ Resolve the parameters of `pinst` to their values, including default values provided by `pmodule`. 
-        Raises a `RuntimeError` if any required parameter is not defined. 
+        """Resolve the parameters of `pinst` to their values, including default values provided by `pmodule`.
+        Raises a `RuntimeError` if any required parameter is not defined.
 
-        Note this method *does not* raise errors for parameters *not specified* in `pmodule`, 
-        allowing for "pass-through" parameters not explicitly defined. """
+        Note this method *does not* raise errors for parameters *not specified* in `pmodule`,
+        allowing for "pass-through" parameters not explicitly defined."""
 
         values = dict()
         # The price of not attaching this as a property of the instance is that we have to recompute it every time.
@@ -300,7 +300,7 @@ class Netlister:
 
     @classmethod
     def get_module_name(cls, module: vlsir.circuit.Module) -> str:
-        """ Create a netlist-compatible name for proto-Module `module` """
+        """Create a netlist-compatible name for proto-Module `module`"""
 
         # Create the module name
         # Replace all format-invalid characters with underscores
@@ -311,7 +311,7 @@ class Netlister:
         return name
 
     def resolve_reference(self, ref: vlsir.utils.Reference) -> ResolvedModule:
-        """ Resolve the `ModuleLike` referent of `ref`. """
+        """Resolve the `ModuleLike` referent of `ref`."""
 
         if ref.WhichOneof("to") == "local":  # Internally-defined Module
             module = self.pmodules.get(ref.local, None)
@@ -391,8 +391,8 @@ class Netlister:
         raise ValueError(f"Invalid Module reference {ref}")
 
     def format_connection_target(self, ptarget: vlsir.circuit.ConnectionTarget) -> str:
-        """ Format a `ConnectionTarget` reference. 
-        Does not *declare* any new connection objects, but generates references to existing ones. """
+        """Format a `ConnectionTarget` reference.
+        Does not *declare* any new connection objects, but generates references to existing ones."""
         # `ConnectionTarget`s are a proto `oneof` union
         # which includes signals, slices, and concatenations.
         # Figure out which to import
@@ -408,10 +408,10 @@ class Netlister:
         raise ValueError(f"Invalid Type {stype} for Connection Target {ptarget}")
 
     def write_header(self) -> None:
-        """ Write header commentary 
-        This proves particularly important for many Spice-like formats, 
-        which *always* interpret the first line of an input-file as a comment (among many other dumb things). 
-        So, always write one there right off the bat. """
+        """Write header commentary
+        This proves particularly important for many Spice-like formats,
+        which *always* interpret the first line of an input-file as a comment (among many other dumb things).
+        So, always write one there right off the bat."""
 
         if self.pkg.domain:
             self.write_comment(f"circuit.Package {self.pkg.domain}")
@@ -422,8 +422,8 @@ class Netlister:
         self.writeln("")
 
     def get_signal(self, name: str) -> vlsir.circuit.Signal:
-        """ Get Signal `name` from the current Module's mapping. 
-        Raises a `RuntimeError` if the Signal is not found. """
+        """Get Signal `name` from the current Module's mapping.
+        Raises a `RuntimeError` if the Signal is not found."""
 
         sig = self.signals_by_name.get(name, None)
         if sig is None:
@@ -432,8 +432,8 @@ class Netlister:
         return sig
 
     def collect_signals_by_name(self, module: vlsir.circuit.Module):
-        """ Collect a `Module`'s worth of signals into a dictionary keyed by name. 
-        This often proves important for references to internal Signals, e.g. in Ports and Slices. """
+        """Collect a `Module`'s worth of signals into a dictionary keyed by name.
+        This often proves important for references to internal Signals, e.g. in Ports and Slices."""
 
         # Reset the state of our mappings
         self.signals_by_name = {}
@@ -461,46 +461,46 @@ class Netlister:
 
     @classmethod
     def format_param_decl(cls, param: vlsir.Param) -> str:
-        """ Format a named `Parameter` definition """
+        """Format a named `Parameter` definition"""
         raise NotImplementedError
 
     @classmethod
     def format_port_decl(cls, pport: vlsir.circuit.Port) -> str:
-        """ Format a declaration of a `Port` """
+        """Format a declaration of a `Port`"""
         raise NotImplementedError
 
     @classmethod
     def format_port_ref(cls, pport: vlsir.circuit.Port) -> str:
-        """ Format a reference to a `Port` """
+        """Format a reference to a `Port`"""
         raise NotImplementedError
 
     @classmethod
     def format_signal_decl(cls, psig: vlsir.circuit.Signal) -> str:
-        """ Format a declaration of Signal `psig` """
+        """Format a declaration of Signal `psig`"""
         raise NotImplementedError
 
     @classmethod
     def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
-        """ Format a reference to Signal `psig` """
+        """Format a reference to Signal `psig`"""
         raise NotImplementedError
 
     @classmethod
     def format_signal_slice(cls, pslice: vlsir.circuit.Slice) -> str:
-        """ Format Signal-Slice `pslice` """
+        """Format Signal-Slice `pslice`"""
         raise NotImplementedError
 
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
-        """ Format the Concatenation of several other Connections """
+        """Format the Concatenation of several other Connections"""
         raise NotImplementedError
 
     @classmethod
     def format_bus_bit(cls, index: Union[int, str]) -> str:
-        """ Format bus-bit `index` """
+        """Format bus-bit `index`"""
         raise NotImplementedError
 
     @classmethod
     def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
-        """ Format a `SIPrefix` to a string """
+        """Format a `SIPrefix` to a string"""
         raise NotImplementedError
 
     """ 
@@ -508,25 +508,25 @@ class Netlister:
     """
 
     def write_comment(self, comment: str) -> None:
-        """ Format and string a string comment. 
-        "Line comments" are the sole supported variety, which fit within a line, and extend to the end of that line. 
-        The `write_comment` method assumes responsibility for closing the line. """
+        """Format and string a string comment.
+        "Line comments" are the sole supported variety, which fit within a line, and extend to the end of that line.
+        The `write_comment` method assumes responsibility for closing the line."""
         raise NotImplementedError
 
     def write_module_definition(self, pmodule: vlsir.circuit.Module) -> None:
-        """ Write Module `module` """
+        """Write Module `module`"""
         raise NotImplementedError
 
     def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
-        """ Write all parameter declarations for `module` """
+        """Write all parameter declarations for `module`"""
         raise NotImplementedError
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> str:
-        """ Write Instance `pinst` """
+        """Write Instance `pinst`"""
         raise NotImplementedError
 
     def write_instance_params(self, pvals: ResolvedParams) -> None:
-        """ Write Instance parameters `pvals` """
+        """Write Instance parameters `pvals`"""
         raise NotImplementedError
 
     """ 
@@ -535,5 +535,5 @@ class Netlister:
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         raise NotImplementedError

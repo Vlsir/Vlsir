@@ -3,12 +3,12 @@ from .base import Netlister
 
 
 class SpectreSpiceShared(Netlister):
-    """ Shared logic between Spectre and Spice netlisters. 
-    Designed to be a parent class of both. """
+    """Shared logic between Spectre and Spice netlisters.
+    Designed to be a parent class of both."""
 
     @classmethod
     def format_param_decl(cls, param: vlsir.Param) -> str:
-        """ Format a parameter-declaration. The `value` field serves as the default value. """
+        """Format a parameter-declaration. The `value` field serves as the default value."""
         default = cls.get_param_default(param)
         if default is None:
             # FIXME: this may not be a requirement for *every* Spice netlist syntax.
@@ -20,7 +20,7 @@ class SpectreSpiceShared(Netlister):
 
     @classmethod
     def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
-        """ Format a `SIPrefix` to a string """
+        """Format a `SIPrefix` to a string"""
         # Use the single-character string where we can, and the exponent otherwise.
         map = {
             # Single-character aliases, supported by every SPICE we know

@@ -8,7 +8,7 @@ import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
 from dataclasses import dataclass
 from warnings import warn
-from enum import Enum 
+from enum import Enum
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -37,7 +37,7 @@ class SpectreSim(Sim):
 
     @staticmethod
     def available() -> bool:
-        """ Boolean indication of whether the current running environment includes the simulator executable. """
+        """Boolean indication of whether the current running environment includes the simulator executable."""
         if shutil.which(SPECTRE_EXECUTABLE) is None:
             return False
         try:
@@ -60,7 +60,7 @@ class SpectreSim(Sim):
         return SupportedSimulators.SPECTRE
 
     async def run(self) -> Awaitable[SimResult]:
-        """ Run the specified `SimInput` in directory `self.rundir`, returning its results. """
+        """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         netlist_file = self.open("netlist.scs", "w")
         netlist_file.write("// Test Netlist \n\n")
@@ -111,7 +111,7 @@ class SpectreSim(Sim):
         return SimResult(an=results)
 
     def write_control_elements(self, netlist_file: IO) -> None:
-        """ Write control elements to the netlist """
+        """Write control elements to the netlist"""
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
@@ -139,7 +139,7 @@ class SpectreSim(Sim):
                 raise RuntimeError(f"Unknown control type: {inner}")
 
     def netlist_analysis(self, an: vsp.Analysis, netlist_file: IO) -> None:
-        """ Netlist an `Analysis`, largely dispatching its content to a type-specific method. """
+        """Netlist an `Analysis`, largely dispatching its content to a type-specific method."""
 
         inner = an.WhichOneof("an")
         inner_dispatch = dict(
@@ -151,13 +151,13 @@ class SpectreSim(Sim):
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
     def netlist_ac(self, an: vsp.AcInput, netlist_file: IO) -> None:
-        """ Run an AC analysis. """
+        """Run an AC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
-        
+
         # Unpack the analysis / sweep content
         fstart = an.fstart
         if fstart <= 0:
@@ -168,13 +168,13 @@ class SpectreSim(Sim):
         npts = an.npts
         if npts <= 0:
             raise ValueError(f"Invalid `npts` {npts}")
-        
+
         # Write the analysis command
         line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}\n\n"
-        netlist_file.write(line) 
+        netlist_file.write(line)
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
-        """ Netlist a DC analysis. """
+        """Netlist a DC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -199,7 +199,7 @@ class SpectreSim(Sim):
             raise ValueError("Invalid sweep type")
 
     def netlist_op(self, an: vsp.OpInput, netlist_file: IO) -> None:
-        """ Netlist a single point DC analysis """
+        """Netlist a single point DC analysis"""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -219,13 +219,13 @@ class SpectreSim(Sim):
         netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
 
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
-        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim! 
-        measurements = self.get_measurements("*.mt*") 
+        # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!
+        measurements = self.get_measurements("*.mt*")
 
         # Pop the frequence vector out of the data
         freq = nutbin.data.pop("freq")
-        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data. 
-        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts. 
+        # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data.
+        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts.
         if np.any(freq.imag):
             raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
         freq = freq.real
@@ -253,16 +253,16 @@ class SpectreSim(Sim):
         )
 
     def parse_tran(self, an: vsp.TranInput, nutbin: "NutBinAnalysis") -> TranResult:
-        """ Extract the results for Analysis `an` from `data`. """
+        """Extract the results for Analysis `an` from `data`."""
         measurements = self.get_measurements("*.mt*")
         return TranResult(
             analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
         )
 
     def get_measurements(self, filepat: str) -> Dict[str, float]:
-        """ Get the measurements at files matching (glob) `filepat`. 
-        Returns only a single files-worth of measurements, and issues a warning if more than one such file exists. 
-        Returns an empty dictionary if no matching files are found. """
+        """Get the measurements at files matching (glob) `filepat`.
+        Returns only a single files-worth of measurements, and issues a warning if more than one such file exists.
+        Returns an empty dictionary if no matching files are found."""
         meas_files = list(self.glob(filepat))
         if not meas_files:
             return dict()
@@ -272,16 +272,16 @@ class SpectreSim(Sim):
         return parse_mt0(self.open(meas_files[0], "r"))
 
     def run_spectre_process(self) -> Awaitable[None]:
-        """ Run a Spectre sub-process, executing the simulation """
+        """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
         cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
         return self.run_subprocess(cmd)
 
 
 class FromStr:
-    """ Mix-in for creating `Enum`s from string values. """
+    """Mix-in for creating `Enum`s from string values."""
 
-    @classmethod 
+    @classmethod
     def from_str(cls, s: str) -> "FromStr":
         reversed = {v.value: v for v in cls}
         if s not in reversed:
@@ -291,16 +291,16 @@ class FromStr:
 
 
 class NumType(FromStr, Enum):
-    """ # Numeric Datatypes 
-    Values equal the strings used in NutBin data files. """
+    """# Numeric Datatypes
+    Values equal the strings used in NutBin data files."""
 
     REAL = "real"
     COMPLEX = "complex"
 
 
 class Units(FromStr, Enum):
-    """ # Unit Types
-    Values equal the strings used in NutBin data files. """
+    """# Unit Types
+    Values equal the strings used in NutBin data files."""
 
     DUMMY = "dummy"
     SWEEP = "sweep"
@@ -313,15 +313,15 @@ class Units(FromStr, Enum):
 
 @dataclass
 class VarSpec:
-    """ Variable Spec """
-    
-    name: str 
+    """Variable Spec"""
+
+    name: str
     units: Units
 
 
-@dataclass 
+@dataclass
 class NutBinAnalysis:
-    """ Analysis result from a NutBin file. """
+    """Analysis result from a NutBin file."""
 
     analysis_name: str  # Analysis name
     numtype: NumType  # Numeric type in `data` field
@@ -330,15 +330,15 @@ class NutBinAnalysis:
 
 
 def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
-    """ Parse a `nutbin` format set of simulation results. 
-    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`. 
-    Note this is paired with the simulator invocation commands, which include `format=nutbin`. """
+    """Parse a `nutbin` format set of simulation results.
+    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`.
+    Note this is paired with the simulator invocation commands, which include `format=nutbin`."""
 
     # Parse per-file header info
     # First 2 lines are ascii one line statements
     _title = f.readline()  # Title, ignored
     _date = f.readline()  # Run date, ignored
-    
+
     # And parse the rest of the file per-analysis
     rv = {}
     while f:
@@ -351,19 +351,16 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
 
 
 def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
-    """ Parse a `NutBinAnalysis` from an open nutbin-format file `f`. """
+    """Parse a `NutBinAnalysis` from an open nutbin-format file `f`."""
 
     # Next 4 lines are also ascii one line statements
     # Parse the `Flags` field, which primarily includes the numeric datatype
-    flags = f.readline().decode("ascii") 
+    flags = f.readline().decode("ascii")
     flags = flags.split()
     if len(flags) != 2 or flags[0] != "Flags:":
         raise ValueError(f"Invalid flags {flags}")
     numtype = NumType.from_str(flags[1])
-    nptypes = {
-        NumType.REAL: float,
-        NumType.COMPLEX: complex
-    }
+    nptypes = {NumType.REAL: float, NumType.COMPLEX: complex}
     nptype = nptypes[numtype]
 
     # Parse the number of variables and points
@@ -374,12 +371,14 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     # Find the number of variables and number of points
     num_vars = int(
         re.match(
-            r"No. Variables:\s+(?P<num_vars>\d+)\n", num_vars_line.decode("ascii"),
+            r"No. Variables:\s+(?P<num_vars>\d+)\n",
+            num_vars_line.decode("ascii"),
         ).group("num_vars")
     )
     num_pts = int(
         re.match(
-            r"No. Points:\s+(?P<num_pts>\d+)\n", num_pts_line.decode("ascii"),
+            r"No. Points:\s+(?P<num_pts>\d+)\n",
+            num_pts_line.decode("ascii"),
         ).group("num_pts")
     )
 
@@ -422,7 +421,7 @@ def _read_var_spec(line: str) -> VarSpec:
 
 
 def parse_mt0(file: IO) -> Dict[str, float]:
-    """ Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs. """
+    """Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs."""
 
     file.readline()  # Header
     file.readline()  # Netlist Title
@@ -431,7 +430,7 @@ def parse_mt0(file: IO) -> Dict[str, float]:
     values = file.readline()  # Measurement Values Line
 
     def convert(s: str) -> float:
-        """ Convert a string to a float, converting failing cases to `NaN` """
+        """Convert a string to a float, converting failing cases to `NaN`"""
         try:
             return float(s)
         except:

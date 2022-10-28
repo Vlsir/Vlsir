@@ -14,18 +14,22 @@ from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
 
 
 def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
-    """ Map a primitive into Spectre's supported names and parameters. 
-    Returns the "apparent module name" for instances of the primitive. 
-    Argument `paramvals` is often modified along the way. 
+    """Map a primitive into Spectre's supported names and parameters.
+    Returns the "apparent module name" for instances of the primitive.
+    Argument `paramvals` is often modified along the way.
 
-    Note spectre syntax is such that the "apparent module name" can be either of: 
-    (a) a fixed name per spice-prefix, for basic types (r, c, l, etc), or 
-    (b) the *model* name for model-based devices, (mos, bjt, diode, etc) """
+    Note spectre syntax is such that the "apparent module name" can be either of:
+    (a) a fixed name per spice-prefix, for basic types (r, c, l, etc), or
+    (b) the *model* name for model-based devices, (mos, bjt, diode, etc)"""
 
     # For voltage sources, add spectre's "type" parameter, and potentially rename several parameters
     if rmodule.spice_prefix == SpicePrefix.VSOURCE:
         vname = rmodule.module_name
-        vtypes = dict(vdc="dc", vpulse="pulse", vsin="sine",)
+        vtypes = dict(
+            vdc="dc",
+            vpulse="pulse",
+            vsin="sine",
+        )
         if vname not in vtypes:
             msg = f"Invalid or unsupported voltage-source type {vname}"
             raise ValueError(msg)
@@ -75,17 +79,17 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
 
 
 class SpectreNetlister(SpectreSpiceShared):
-    """ Spectre-Format Netlister """
+    """Spectre-Format Netlister"""
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.SPECTRE
 
     def write_module_definition(self, module: vlsir.circuit.Module) -> None:
-        """ Create a Spectre-format definition for proto-Module `module` """
+        """Create a Spectre-format definition for proto-Module `module`"""
 
         # Create the module name
         module_name = self.get_module_name(module)
@@ -185,7 +189,7 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln("")
 
     def write_instance_params(self, pvals: ResolvedParams) -> None:
-        """ Write Instance parameters `pvals` """
+        """Write Instance parameters `pvals`"""
         if not pvals:
             return self.writeln("+ // No parameters ")
         # Write its parameter-values
@@ -193,24 +197,24 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln("+  " + formatted + " ")
 
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
-        """ Format the Concatenation of several other Connections """
+        """Format the Concatenation of several other Connections"""
         out = ""
         for part in pconc.parts:
             out += self.format_connection_target(part) + " "
         return out
 
     def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
-        """ Get a netlist `Port` definition """
+        """Get a netlist `Port` definition"""
         # In Spectre, as well as most spice, this syntax is the same as referring to the Port.
         return self.format_port_ref(pport)
 
     def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
-        """ Get a netlist `Port` reference """
+        """Get a netlist `Port` reference"""
         return self.format_signal_ref(self.get_signal(pport.signal))
 
     @classmethod
     def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
-        """ Get a netlist definition for Signal `psig` """
+        """Get a netlist definition for Signal `psig`"""
         if psig.width < 1:
             raise RuntimeError
         if psig.width == 1:  # width==1, i.e. a scalar signal
@@ -231,11 +235,11 @@ class SpectreNetlister(SpectreSpiceShared):
 
     @classmethod
     def format_bus_bit(cls, index: Union[int, str]) -> str:
-        """ Format-specific string-representation of a bus bit-index"""
+        """Format-specific string-representation of a bus bit-index"""
         # Spectre netlisting uses an underscore prefix, e.g. `bus_0`
         return "_" + str(index)
 
     def write_comment(self, comment: str) -> None:
-        """ While Spectre *can* do a bunch of other comment-styles, 
-        the canonical one is generally the C-style line comment beginning with `//`. """
+        """While Spectre *can* do a bunch of other comment-styles,
+        the canonical one is generally the C-style line comment beginning with `//`."""
         self.writeln(f"// {comment}")
