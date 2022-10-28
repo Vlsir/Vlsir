@@ -36,6 +36,7 @@ proto.vlsir.utils.SIPrefix = {
   PETA: 16,
   EXA: 17,
   ZETTA: 18,
-  YOTTA: 19
+  YOTTA: 19,
+  UNIT: 20
 };
 

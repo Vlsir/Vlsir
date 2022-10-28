@@ -9,6 +9,7 @@ from typing import Union, List
 import vlsir
 
 # Import the base-class
+from .spectre_spice_shared import SpectreSpiceShared
 from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
 
 
@@ -73,7 +74,7 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
     raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
 
 
-class SpectreNetlister(Netlister):
+class SpectreNetlister(SpectreSpiceShared):
     """ Spectre-Format Netlister """
 
     @property
@@ -113,12 +114,8 @@ class SpectreNetlister(Netlister):
 
         # Create its parameters, if defined
         if module.parameters:
-            formatted = " ".join(
-                [
-                    self.format_param_decl(name, pparam)
-                    for name, pparam in module.parameters.items() ## FIXME! schema change breaks this
-                ]
-            )
+            formatted = [self.format_param_decl(pparam) for pparam in module.parameters]
+            formatted = " ".join(formatted)
             self.writeln("parameters " + formatted + " ")
         else:
             self.writeln("+ // No parameters ")
@@ -178,22 +175,22 @@ class SpectreNetlister(Netlister):
         else:
             self.writeln("+ // No ports ")
 
+        # Write the instance parameters
+        self.write_instance_params(resolved_instance_parameters)
+
         # Write the module-name
         self.writeln("+  " + module_name + " ")
 
-        if resolved_instance_parameters:  # Write its parameter-values
-            formatted = " ".join(
-                [
-                    f"{pname}={pval}"
-                    for pname, pval in resolved_instance_parameters.items()
-                ]
-            )
-            self.writeln("+  " + formatted + " ")
-        else:
-            self.writeln("+ // No parameters ")
-
         # And add a post-instance blank line
         self.writeln("")
+
+    def write_instance_params(self, pvals: ResolvedParams) -> None:
+        """ Write Instance parameters `pvals` """
+        if not pvals:
+            return self.writeln("+ // No parameters ")
+        # Write its parameter-values
+        formatted = " ".join([f"{pname}={pval}" for pname, pval in pvals.items()])
+        self.writeln("+  " + formatted + " ")
 
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
         """ Format the Concatenation of several other Connections """

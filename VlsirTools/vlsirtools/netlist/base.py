@@ -154,7 +154,7 @@ class Netlister:
     Once instantiated a `Netlister`'s primary API method is `netlist`. 
     This writes all content in its `pkg` field to destination `dest`. 
     
-    Internal methods come in two primary flavors:
+    Internal methods come in three primary flavors:
     * `write_*` methods, which write to `self.dest`. These methods are generally format-specific. 
     * `format_*` methods, which return format-specific strings, but *do not* write to `dest`. 
     * `get_*` methods, which retrieve some internal data, e.g. extracting the type of a `Connection`. 
@@ -164,15 +164,24 @@ class Netlister:
         self.pkg = pkg
         self.dest = dest
         self.indent = Indent(chars="  ")
-        self.signals_by_name = (
-            dict()
-        )  # Signals in the currently-visited module, by name
+
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
+
+        # FIXME: are we really using both of these?
         self.ext_modules = dict()  # Visited ExternalModules
-        self.ext_module_names = (
-            dict()
-        )  # Visited ExternalModule names, checked for duplicates
+        # Visited ExternalModule names, checked for duplicates
+        self.ext_module_names = dict()
+
+        # Attributes of the currently-netlisted Module
+
+        # Signals in the currently-visited module, keyed by name
+        # Includes *all* ports and internal signals
+        self.signals_by_name: Dict[str, vlsir.circuit.Signal] = dict()
+        # Internal signals, keyed by name, *excluding* ports
+        self.internal_signals_by_name: Dict[str, vlsir.circuit.Signal] = dict()
+        # Names of all ports, for membership testing
+        self.port_names = set()  # : Set[str]
 
     def netlist(self) -> None:
         """ Primary API Method.
@@ -227,8 +236,10 @@ class Netlister:
         if ptype == "double":
             return str(float(ppval.double))
         if ptype == "string":
-            return str(ppval.string)
+            # String-valued parameters get embedded in double-quotes
+            return f'"{str(ppval.string)}"'
         if ptype == "literal":
+            # Whereas *literal* strings, e.g. "22.22e6-11e-1", do not.
             return str(ppval.literal)
         if ptype == "prefixed":
             return cls.format_prefixed(ppval.prefixed)
@@ -251,43 +262,6 @@ class Netlister:
         # e.g. "5u", "11K".
         # (Calling it a *pre*-fix refers to *units*, not to numeric values)
         return f"{num}{prefix}"
-
-    @classmethod
-    def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
-        """ Format a `SIPrefix` to a string """
-        # Some of these are valid in principle, but wedunno whether netlist languages support them.
-        # Eventually convert these to other prefixes, e.g. EXA => 1000 * PETA
-        unsupported = {
-            vlsir.SIPrefix.YOCTO,
-            vlsir.SIPrefix.ZEPTO,
-            vlsir.SIPrefix.ZETTA,
-            vlsir.SIPrefix.YOTTA,
-            vlsir.SIPrefix.CENTI,
-            vlsir.SIPrefix.DECI,
-            vlsir.SIPrefix.DECA,
-            vlsir.SIPrefix.HECTO,
-            vlsir.SIPrefix.EXA,
-        }
-        if pre in unsupported:
-            raise RuntimeError(f"Unsupported SIPrefix for netlisting: {pre}")
-
-        map = {
-            vlsir.SIPrefix.ATTO: "a",
-            vlsir.SIPrefix.FEMTO: "f",
-            vlsir.SIPrefix.PICO: "p",
-            vlsir.SIPrefix.NANO: "n",
-            vlsir.SIPrefix.MICRO: "u",
-            vlsir.SIPrefix.MILLI: "m",
-            vlsir.SIPrefix.KILO: "K",
-            vlsir.SIPrefix.MEGA: "M",
-            vlsir.SIPrefix.GIGA: "G",
-            vlsir.SIPrefix.TERA: "T",
-            vlsir.SIPrefix.PETA: "P",
-        }
-        if pre not in map:
-            raise ValueError(f"Invalid or Unsupported SIPrefix {pre}")
-
-        return map[pre]
 
     @classmethod
     def get_instance_params(
@@ -318,7 +292,7 @@ class Netlister:
                 values[mparam.name] = pdefault
 
         # Convert the remaining instance-provided parameters to strings
-        for (pname, pval) in instance_parameters.items(): ## FIXME! schema change breaks this
+        for (pname, pval) in instance_parameters.items():
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
@@ -451,30 +425,42 @@ class Netlister:
         """ Get Signal `name` from the current Module's mapping. 
         Raises a `RuntimeError` if the Signal is not found. """
 
-        try:
-            return self.signals_by_name[name]
-        except KeyError:
-            raise RuntimeError(
-                f"Unknown signal: {name} in {self.signals_by_name.keys()}"
-            )
+        sig = self.signals_by_name.get(name, None)
+        if sig is None:
+            msg = f"Unknown signal: {name} in {self.signals_by_name.keys()}"
+            raise RuntimeError(msg)
+        return sig
 
     def collect_signals_by_name(self, module: vlsir.circuit.Module):
         """ Collect a `Module`'s worth of signals into a dictionary keyed by name. 
         This often proves important for references to internal Signals, e.g. in Ports and Slices. """
 
+        # Reset the state of our mappings
         self.signals_by_name = {}
+        self.port_names = set()
+        self.internal_signals_by_name = {}
+
+        # Collect all the port-names into our set
+        for port in module.ports:
+            if port.signal in self.port_names:
+                raise RuntimeError(f"Duplicate Port {port.signal}")
+            self.port_names.add(port.signal)
+
+        # Collect all Signals into dictionaries
         for signal in module.signals:
             if signal.name in self.signals_by_name:
                 msg = f"Duplicate signal definition in Module {module.name}"
                 raise RuntimeError(msg)
             self.signals_by_name[signal.name] = signal
+            if signal.name not in self.port_names:
+                self.internal_signals_by_name[signal.name] = signal
 
     """ 
     Virtual `format` Methods 
     """
 
     @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
+    def format_param_decl(cls, param: vlsir.Param) -> str:
         """ Format a named `Parameter` definition """
         raise NotImplementedError
 
@@ -512,6 +498,11 @@ class Netlister:
         """ Format bus-bit `index` """
         raise NotImplementedError
 
+    @classmethod
+    def format_prefix(cls, pre: vlsir.SIPrefix) -> str:
+        """ Format a `SIPrefix` to a string """
+        raise NotImplementedError
+
     """ 
     Virtual `write` Methods 
     """
@@ -526,8 +517,16 @@ class Netlister:
         """ Write Module `module` """
         raise NotImplementedError
 
+    def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
+        """ Write all parameter declarations for `module` """
+        raise NotImplementedError
+
     def write_instance(self, pinst: vlsir.circuit.Instance) -> str:
         """ Write Instance `pinst` """
+        raise NotImplementedError
+
+    def write_instance_params(self, pvals: ResolvedParams) -> None:
+        """ Write Instance parameters `pvals` """
         raise NotImplementedError
 
     """ 

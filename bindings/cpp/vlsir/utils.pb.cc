@@ -223,17 +223,17 @@ const char descriptor_table_protodef_utils_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\030\001 \001(\t\022\022\n\ncell_names\030\n \003(\t\022+\n\006author\030\024 \001"
   "(\0132\033.vlsir.utils.AuthorMetadata\"D\n\016Autho"
   "rMetadata\022\016\n\006author\030\001 \001(\t\022\021\n\tcopyright\030\n"
-  " \001(\t\022\017\n\007license\030\013 \001(\t*\332\001\n\010SIPrefix\022\t\n\005YO"
+  " \001(\t\022\017\n\007license\030\013 \001(\t*\344\001\n\010SIPrefix\022\t\n\005YO"
   "CTO\020\000\022\t\n\005ZEPTO\020\001\022\010\n\004ATTO\020\002\022\t\n\005FEMTO\020\003\022\010\n"
   "\004PICO\020\004\022\010\n\004NANO\020\005\022\t\n\005MICRO\020\006\022\t\n\005MILLI\020\007\022"
   "\t\n\005CENTI\020\010\022\010\n\004DECI\020\t\022\010\n\004DECA\020\n\022\t\n\005HECTO\020"
   "\013\022\010\n\004KILO\020\014\022\010\n\004MEGA\020\r\022\010\n\004GIGA\020\016\022\010\n\004TERA\020"
   "\017\022\010\n\004PETA\020\020\022\007\n\003EXA\020\021\022\t\n\005ZETTA\020\022\022\t\n\005YOTTA"
-  "\020\023b\006proto3"
+  "\020\023\022\010\n\004UNIT\020\024b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_utils_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_utils_2eproto = {
-  false, false, 890, descriptor_table_protodef_utils_2eproto, "utils.proto", 
+  false, false, 900, descriptor_table_protodef_utils_2eproto, "utils.proto", 
   &descriptor_table_utils_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_utils_2eproto::offsets,
   file_level_metadata_utils_2eproto, file_level_enum_descriptors_utils_2eproto, file_level_service_descriptors_utils_2eproto,
@@ -272,6 +272,7 @@ bool SIPrefix_IsValid(int value) {
     case 17:
     case 18:
     case 19:
+    case 20:
       return true;
     default:
       return false;

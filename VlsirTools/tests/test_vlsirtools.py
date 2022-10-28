@@ -82,8 +82,7 @@ def test_verilog_netlist1():
                 parameters=_params(
                     a=ParamValue(integer=3),
                     b=ParamValue(double=1e-9),
-                    c=ParamValue(string="c"),
-                    d=ParamValue(literal="d"),
+                    d=ParamValue(literal="1+1"),
                     e=ParamValue(
                         prefixed=vutils.Prefixed(prefix="MICRO", string="11.11")
                     ),
@@ -100,6 +99,14 @@ def test_verilog_netlist1():
                     Instance(
                         name="inner",
                         module=Reference(local="inner"),
+                        parameters=_params(
+                            a=ParamValue(integer=4),
+                            b=ParamValue(double=2e-9),
+                            d=ParamValue(literal="2+2"),
+                            e=ParamValue(
+                                prefixed=vutils.Prefixed(prefix="MICRO", string="22.22")
+                            ),
+                        ),
                         connections=[
                             Connection(portname=name, target=ConnectionTarget(sig=name))
                             for name in ("inp", "out", "io")
@@ -110,7 +117,8 @@ def test_verilog_netlist1():
         ],
     )
     dest = StringIO()
-    vlsirtools.netlist(pkg=pkg, dest=dest, fmt="verilog")
+    vlsirtools.netlist(pkg=pkg, dest=open("scratch.v", "w"), fmt="verilog")
+    print(dest.getvalue())
     # While verilog is the point here, the other formats should work too:
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spectre")

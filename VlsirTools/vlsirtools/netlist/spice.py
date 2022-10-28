@@ -39,10 +39,11 @@ from typing import Dict, Union
 import vlsir
 
 # Import the base-class
+from .spectre_spice_shared import SpectreSpiceShared
 from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
 
 
-class SpiceNetlister(Netlister):
+class SpiceNetlister(SpectreSpiceShared):
     """
     # "Generic" Spice Netlister 
     and base-class for Spice dialects.
@@ -117,8 +118,8 @@ class SpiceNetlister(Netlister):
         """ Write the parameter declarations for Module `module`. 
         Parameter declaration format: `name1=val1 name2=val2 name3=val3 \n`"""
         self.write("+ ")
-        for name, pparam in module.parameters.items(): ## FIXME! schema change breaks this
-            self.write(self.format_param_decl(name, pparam))
+        for pparam in module.parameters:
+            self.write(self.format_param_decl(pparam))
         self.write("\n")
 
     def write_instance_name(
@@ -357,15 +358,6 @@ class SpiceNetlister(Netlister):
         # Spectre netlisting uses an underscore prefix, e.g. `bus_0`
         return "_" + str(index)
 
-    @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
-        """ Format a parameter-declaration """
-        default = cls.get_param_default(param)
-        if default is None:
-            msg = f"Invalid non-default parameter {param} for Spice netlisting"
-            raise RuntimeError(msg)
-        return f"{name}={default}"
-
     def write_comment(self, comment: str) -> None:
         """ While dialects vary, the *generic* Spice-comment begins with the asterisk. """
         self.write(f"* {comment}\n")
@@ -419,11 +411,11 @@ class XyceNetlister(SpiceNetlister):
         + PARAMS: name1=val1 name2=val2 name3=val3 \n
         """
         self.write("+ PARAMS: ")  # <= Xyce-specific
-        for name, pparam in module.parameters.items():
-            self.write(self.format_param_decl(name, pparam))
+        for pparam in module.parameters:
+            self.write(self.format_param_decl(pparam))
         self.write("\n")
 
-    def write_instance_params(self, pvals: Dict[str, str]) -> None:
+    def write_instance_params(self, pvals: ResolvedParams) -> None:
         """ Write the parameter-values for Instance `pinst`. 
 
         Parameter-values format:
