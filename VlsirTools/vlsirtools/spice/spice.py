@@ -16,7 +16,7 @@ from . import sim_data as sd
 
 
 class ResultFormat(Enum):
-    """ Enumerated Result Formats """
+    """Enumerated Result Formats"""
 
     SIM_DATA = "sim_data"  # Types defined in the `sim_data` module
     VLSIR_PROTO = "vlsir_proto"  # `vsp.SimResults` and related protobuf-defined types
@@ -27,17 +27,18 @@ SimResultUnion = Union[vsp.SimResult, sd.SimResult]
 
 
 class SupportedSimulators(Enum):
-    """ Enumerated, Internally-Defined Spice-Class Simulators """
+    """Enumerated, Internally-Defined Spice-Class Simulators"""
 
     SPECTRE = "spectre"
     XYCE = "xyce"
+    NGSPICE = "ngspice"
 
 
 def default() -> Optional[SupportedSimulators]:
-    """ Get the default simulator, for this Python-process and its environment. 
-    This largely consists of a priority-ordered walk through `SupportedSimulators`, 
-    returning the first whose `available()` method indicates its availability. 
-    Returns `None` if no such simulator appears available. """
+    """Get the default simulator, for this Python-process and its environment.
+    This largely consists of a priority-ordered walk through `SupportedSimulators`,
+    returning the first whose `available()` method indicates its availability.
+    Returns `None` if no such simulator appears available."""
 
     from .spectre import available as spectre_available
     from .xyce import available as xyce_available
@@ -51,9 +52,9 @@ def default() -> Optional[SupportedSimulators]:
 
 @dataclass
 class SimOptions:
-    """ Options to `vsp.Sim` which are *not* passed along to the simulator. 
-    I.e. options which effect the Python-process invoking simulation, 
-    but not the internals of the simulation itself. """
+    """Options to `vsp.Sim` which are *not* passed along to the simulator.
+    I.e. options which effect the Python-process invoking simulation,
+    but not the internals of the simulation itself."""
 
     # Simulator. FIXME: debatable whether to include this.
     simulator: SupportedSimulators = field(default_factory=default)
@@ -74,8 +75,8 @@ def sim(
     inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
 ) -> OneOrMore[SimResultUnion]:
     """
-    Execute one or more `vlir.spice.Sim`. 
-    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`. 
+    Execute one or more `vlir.spice.Sim`.
+    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
     return asyncio.run(sim_async(inp, opts))
@@ -85,12 +86,13 @@ async def sim_async(
     inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
 ) -> Awaitable[OneOrMore[SimResultUnion]]:
     """
-    Asynchronously execute one or more `vlir.spice.Sim`. 
-    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`. 
+    Asynchronously execute one or more `vlir.spice.Sim`.
+    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
     from .xyce import XyceSim
     from .spectre import SpectreSim
+    from .ngspice import NGSpiceSim
 
     # Sort out the difference between "One" "OrMore" cases of input
     # For a single `SimInput`, create a list, but note we only want to return a single `SimResult`
@@ -114,6 +116,8 @@ async def sim_async(
         cls = XyceSim
     elif opts.simulator == SupportedSimulators.SPECTRE:
         cls = SpectreSim
+    elif opts.simulator == SupportedSimulators.NGSPICE:
+        cls = NGSpiceSim
     else:
         raise ValueError(f"Unsupported simulator: {opts.simulator}")
 
@@ -136,7 +140,7 @@ async def sim_async(
 
 
 class SimError(Exception):
-    """ Exception raised when a simulation fails. """
+    """Exception raised when a simulation fails."""
 
     def __init__(self, sim: "Sim", stdout: bytes, stderr: bytes) -> None:
         s = dedent(
@@ -153,7 +157,7 @@ class SimError(Exception):
 
 
 class SimProcessError(SimError):
-    """ Exception raised when an external simulator process fails. """
+    """Exception raised when an external simulator process fails."""
 
     def __init__(self, sim: "Sim", e: subprocess.CalledProcessError) -> None:
         super().__init__(sim=sim, stdout=e.stdout, stderr=e.stderr)

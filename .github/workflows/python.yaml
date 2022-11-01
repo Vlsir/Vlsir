@@ -17,29 +17,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install Icarus Verilog
+        run: sudo apt install iverilog
+      
       - name: pytest `bindings/python`
         run: |
           cd bindings/python
           pip install -e ".[dev]"
           pytest -sv --cov=./ --cov-report=xml
+      
       - name: pytest `VlsirTools`
         run: |
           cd VlsirTools
           pip install -e ".[dev]"
           pytest -sv --cov=./ --cov-report=xml
-      # - name: Upload coverage to Codecov # Adapted from https://github.com/codecov/codecov-action#usage
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     files: ./coverage.xml
-      #     env_vars: OS,PYTHON
-      #     name: codecov-umbrella
-      #     fail_ci_if_error: true
-      #     path_to_write_report: ./coverage/codecov_report.txt
-      #     verbose: true
 
   build-bindings:
     name: Build bindings

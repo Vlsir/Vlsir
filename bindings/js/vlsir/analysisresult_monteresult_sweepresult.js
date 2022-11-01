@@ -22,6 +22,7 @@ goog.require('jspb.Message');
 goog.require('proto.vlsir.spice.AcResult');
 goog.require('proto.vlsir.spice.CustomAnalysisResult');
 goog.require('proto.vlsir.spice.DcResult');
+goog.require('proto.vlsir.spice.NoiseResult');
 goog.require('proto.vlsir.spice.OpResult');
 goog.require('proto.vlsir.spice.Sweep');
 goog.require('proto.vlsir.spice.TranResult');
@@ -98,7 +99,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.vlsir.spice.AnalysisResult.oneofGroups_ = [[1,2,3,4,10,11,20]];
+proto.vlsir.spice.AnalysisResult.oneofGroups_ = [[1,2,3,4,5,10,11,20]];
 
 /**
  * @enum {number}
@@ -109,6 +110,7 @@ proto.vlsir.spice.AnalysisResult.AnCase = {
   DC: 2,
   TRAN: 3,
   AC: 4,
+  NOISE: 5,
   SWEEP: 10,
   MONTE: 11,
   CUSTOM: 20
@@ -156,6 +158,7 @@ proto.vlsir.spice.AnalysisResult.toObject = function(includeInstance, msg) {
     dc: (f = msg.getDc()) && proto.vlsir.spice.DcResult.toObject(includeInstance, f),
     tran: (f = msg.getTran()) && proto.vlsir.spice.TranResult.toObject(includeInstance, f),
     ac: (f = msg.getAc()) && proto.vlsir.spice.AcResult.toObject(includeInstance, f),
+    noise: (f = msg.getNoise()) && proto.vlsir.spice.NoiseResult.toObject(includeInstance, f),
     sweep: (f = msg.getSweep()) && proto.vlsir.spice.SweepResult.toObject(includeInstance, f),
     monte: (f = msg.getMonte()) && proto.vlsir.spice.MonteResult.toObject(includeInstance, f),
     custom: (f = msg.getCustom()) && proto.vlsir.spice.CustomAnalysisResult.toObject(includeInstance, f)
@@ -214,6 +217,11 @@ proto.vlsir.spice.AnalysisResult.deserializeBinaryFromReader = function(msg, rea
       var value = new proto.vlsir.spice.AcResult;
       reader.readMessage(value,proto.vlsir.spice.AcResult.deserializeBinaryFromReader);
       msg.setAc(value);
+      break;
+    case 5:
+      var value = new proto.vlsir.spice.NoiseResult;
+      reader.readMessage(value,proto.vlsir.spice.NoiseResult.deserializeBinaryFromReader);
+      msg.setNoise(value);
       break;
     case 10:
       var value = new proto.vlsir.spice.SweepResult;
@@ -289,6 +297,14 @@ proto.vlsir.spice.AnalysisResult.serializeBinaryToWriter = function(message, wri
       4,
       f,
       proto.vlsir.spice.AcResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getNoise();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.vlsir.spice.NoiseResult.serializeBinaryToWriter
     );
   }
   f = message.getSweep();
@@ -463,6 +479,43 @@ proto.vlsir.spice.AnalysisResult.prototype.clearAc = function() {
  */
 proto.vlsir.spice.AnalysisResult.prototype.hasAc = function() {
   return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional NoiseResult noise = 5;
+ * @return {?proto.vlsir.spice.NoiseResult}
+ */
+proto.vlsir.spice.AnalysisResult.prototype.getNoise = function() {
+  return /** @type{?proto.vlsir.spice.NoiseResult} */ (
+    jspb.Message.getWrapperField(this, proto.vlsir.spice.NoiseResult, 5));
+};
+
+
+/**
+ * @param {?proto.vlsir.spice.NoiseResult|undefined} value
+ * @return {!proto.vlsir.spice.AnalysisResult} returns this
+*/
+proto.vlsir.spice.AnalysisResult.prototype.setNoise = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 5, proto.vlsir.spice.AnalysisResult.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.vlsir.spice.AnalysisResult} returns this
+ */
+proto.vlsir.spice.AnalysisResult.prototype.clearNoise = function() {
+  return this.setNoise(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.vlsir.spice.AnalysisResult.prototype.hasNoise = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

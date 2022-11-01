@@ -8,6 +8,7 @@
 # TODO: you need to run this so that 'protos' exists before you build rust
 # TODO: add the separate Rust build process 
 
+# FIXME: get rid of this git stuff, it be brickin development branches. 
 SCHEMA_VERSION=main
  
 if [ ! -d protos ]; then

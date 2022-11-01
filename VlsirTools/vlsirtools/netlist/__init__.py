@@ -25,8 +25,8 @@ from .spice import (
 
 
 class NetlistFormat(Enum):
-    """ Enumeration of available formats. 
-    Includes string-value conversion. """
+    """Enumeration of available formats.
+    Includes string-value conversion."""
 
     VERILOG = "verilog"
     SPECTRE = "spectre"
@@ -40,14 +40,14 @@ class NetlistFormat(Enum):
 
     @staticmethod
     def get(spec: "NetlistFormatSpec") -> "NetlistFormat":
-        """ Get the format specified by `spec`, in either enum or string terms. 
-        Only does real work in the case when `spec` is a string, otherwise returns it unchanged. """
+        """Get the format specified by `spec`, in either enum or string terms.
+        Only does real work in the case when `spec` is a string, otherwise returns it unchanged."""
         if isinstance(spec, (NetlistFormat, str)):
             return NetlistFormat(spec)
         raise TypeError
 
     def netlister(self) -> type:
-        """ Get the paired netlister-class """
+        """Get the paired netlister-class"""
         if self == NetlistFormat.SPECTRE:
             return SpectreNetlister
         if self == NetlistFormat.VERILOG:
@@ -67,7 +67,7 @@ class NetlistFormat(Enum):
 
 @dataclass
 class NetlistOptions:
-    """ Options for netlisting. """
+    """Options for netlisting."""
 
     indent: str = 2 * " "  # Indentation. Defaults to two spaces.
     width: int = 80  # Line-width. Defaults to 80.
@@ -83,9 +83,9 @@ def netlist(
     fmt: NetlistFormatSpec = "spectre",
     opts: Optional[NetlistOptions] = None,
 ) -> None:
-    """ Netlist proto-Package `pkg` to destination `dest`. 
+    """Netlist proto-Package `pkg` to destination `dest`.
 
-    Example usages: 
+    Example usages:
     ```python
     h.netlist(pkg, dest=open('mynetlist.v', 'w'), fmt='verilog')
     ```
@@ -98,11 +98,11 @@ def netlist(
     h.netlist(pkg, dest=sys.stdout, fmt='spice')
     ```
 
-    Primary argument `pkg` must be a `vlsir.circuit.Package`.  
-    Destination `dest` may be anything that supports the `typing.IO` bundle, 
-    commonly including open file-handles. `StringIO` is particularly helpful 
-    for producing a netlist in an in-memory string.  
-    Format-specifier `fmt` may be any of the `NetlistFormatSpec` enumerated values 
+    Primary argument `pkg` must be a `vlsir.circuit.Package`.
+    Destination `dest` may be anything that supports the `typing.IO` bundle,
+    commonly including open file-handles. `StringIO` is particularly helpful
+    for producing a netlist in an in-memory string.
+    Format-specifier `fmt` may be any of the `NetlistFormatSpec` enumerated values
     or their string equivalents.
     """
 

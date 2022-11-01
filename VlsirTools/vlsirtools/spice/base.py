@@ -15,26 +15,26 @@ from . import SimResultUnion, SupportedSimulators, SimOptions, ResultFormat
 
 class Sim:
     """
-    # Simulator State Base-Class 
+    # Simulator State Base-Class
 
-    Shared basic functionality for simulators, including: 
-    * Creating run-directories, and named files within them 
+    Shared basic functionality for simulators, including:
+    * Creating run-directories, and named files within them
     * Asynchronously invoking simulation subprocesses
-    * Finding a valid top-level module 
+    * Finding a valid top-level module
     * Exception/ Error types for common simulator errors
 
-    Each `SupportedSimulator` is generally implemented as a sub-class of `Sim`. 
+    Each `SupportedSimulator` is generally implemented as a sub-class of `Sim`.
     The interface between the `Sim` base-class and its implementing sub-class is such that:
 
-    * The base-class `Sim.sim` class-method should really be the entry point for everything! It will: 
+    * The base-class `Sim.sim` class-method should really be the entry point for everything! It will:
       * Create the class instance
       * Set up the run-directory via `setup()`
       * Invoke the primary sub-class-specific method `run`
-      * After completion, perform any clean-up activites via `cleanup()`. 
-    * All other methods are implemented by the sub-classes. 
+      * After completion, perform any clean-up activites via `cleanup()`.
+    * All other methods are implemented by the sub-classes.
       * The only required method is `run`, which performs the actual simulation.
-      * Other methods will generally do things including: writing simulator-specific netlist-content, launching a sim process, parsing results. 
-      * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods. 
+      * Other methods will generally do things including: writing simulator-specific netlist-content, launching a sim process, parsing results.
+      * At no point should the sub-classes need to know any more about the `Sim` base-class, or call any of its `super` methods.
     """
 
     @classmethod
@@ -45,9 +45,9 @@ class Sim:
     async def sim(
         cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
     ) -> Awaitable[SimResultUnion]:
-        """ Sim-invoking class method. 
-        Creates an instance of `cls` as a context manager, run in its simulation directory. 
-        This should be invoked by typical implementations of a free-standing `sim` function. """
+        """Sim-invoking class method.
+        Creates an instance of `cls` as a context manager, run in its simulation directory.
+        This should be invoked by typical implementations of a free-standing `sim` function."""
 
         if opts is None:  # Create the default `SimOptions`
             opts = SimOptions(simulator=cls.enum())
@@ -79,7 +79,7 @@ class Sim:
         self.subprocesses: List[asyncio.Process] = []
 
     def setup(self):
-        """ Perform simulation setup, including the simulation directory and top-level Module validation. """
+        """Perform simulation setup, including the simulation directory and top-level Module validation."""
 
         # Set up the simulation directory
         if self.rundir is not None:  # User-specified `rundir`
@@ -95,14 +95,14 @@ class Sim:
         self.validate_top()
 
     def cleanup(self):
-        """ On completion, clean up after ourselves. """
+        """On completion, clean up after ourselves."""
         if self.tmpdir is not None:
             self.tmpdir.cleanup()
 
     def validate_top(self) -> None:
-        """ Ensure that the `top` module exists,
-        and adheres to the "Spice top-level" port-interface: a single port for ground / VSS / node-zero. 
-        Sets the `self.top` attribute when successful, or raises a `RuntimeError` when not. """
+        """Ensure that the `top` module exists,
+        and adheres to the "Spice top-level" port-interface: a single port for ground / VSS / node-zero.
+        Sets the `self.top` attribute when successful, or raises a `RuntimeError` when not."""
 
         if not self.inp.top:
             raise RuntimeError(f"No top-level module specified")
@@ -123,8 +123,8 @@ class Sim:
             raise RuntimeError(msg)
 
     async def run_subprocess(self, cmd: str) -> Awaitable[None]:
-        """ Asynchronously run a shell subprocess invoking command `cmd`. 
-        All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`. """
+        """Asynchronously run a shell subprocess invoking command `cmd`.
+        All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`."""
 
         proc = await asyncio.create_subprocess_shell(
             cmd,
@@ -143,13 +143,13 @@ class Sim:
         return None
 
     def open(self, name: str, mode: str = "r") -> IO:
-        """ Open a file in the simulation directory. """
+        """Open a file in the simulation directory."""
         return self.path(name).open(mode)
 
     def path(self, name: str) -> Path:
-        """ Return a path in the simulation directory. """
+        """Return a path in the simulation directory."""
         return Path(self.rundir) / Path(name)
 
     def glob(self, pat: str):
-        """ Return a list of paths in the simulation directory matching `pat`. """
+        """Return a list of paths in the simulation directory matching `pat`."""
         return Path(self.rundir).glob(pat)

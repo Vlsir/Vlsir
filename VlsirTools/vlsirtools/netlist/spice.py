@@ -39,32 +39,33 @@ from typing import Dict, Union
 import vlsir
 
 # Import the base-class
+from .spectre_spice_shared import SpectreSpiceShared
 from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
 
 
-class SpiceNetlister(Netlister):
+class SpiceNetlister(SpectreSpiceShared):
     """
-    # "Generic" Spice Netlister 
+    # "Generic" Spice Netlister
     and base-class for Spice dialects.
 
-    Performs nearly all data-model traversal, 
-    offloading syntax-specifics to dialect-specific sub-classes. 
+    Performs nearly all data-model traversal,
+    offloading syntax-specifics to dialect-specific sub-classes.
 
-    Attempts to write only the "generic" subset of Spice-content, 
-    in the "most generic" methods as perceived by the authors. 
-    This may not work for *any* particular simulator; see the simulator-specific dialects below, 
-    and the module-level commentary above for more on why. 
+    Attempts to write only the "generic" subset of Spice-content,
+    in the "most generic" methods as perceived by the authors.
+    This may not work for *any* particular simulator; see the simulator-specific dialects below,
+    and the module-level commentary above for more on why.
     """
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.SPICE
 
     def write_module_definition(self, module: vlsir.circuit.Module) -> None:
-        """ Write the `SUBCKT` definition for `Module` `module`."""
+        """Write the `SUBCKT` definition for `Module` `module`."""
 
         # Create the module name
         module_name = self.get_module_name(module)
@@ -86,14 +87,12 @@ class SpiceNetlister(Netlister):
         if module.ports:
             self.write_port_declarations(module)
         else:
-            self.write("+ ")
             self.write_comment("No ports")
 
         # Create its parameters, if any are defined
         if module.parameters:
             self.write_param_declarations(module)
         else:
-            self.write("+ ")
             self.write_comment("No parameters")
 
         # End the `subckt` header-content with a blank line
@@ -107,28 +106,28 @@ class SpiceNetlister(Netlister):
         self.write(".ENDS\n\n")
 
     def write_port_declarations(self, module: vlsir.circuit.Module) -> None:
-        """ Write the port declarations for Module `module`. """
+        """Write the port declarations for Module `module`."""
         self.write("+ ")
         for pport in module.ports:
             self.write(self.format_port_decl(pport) + " ")
         self.write("\n")
 
     def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
-        """ Write the parameter declarations for Module `module`. 
+        """Write the parameter declarations for Module `module`.
         Parameter declaration format: `name1=val1 name2=val2 name3=val3 \n`"""
         self.write("+ ")
-        for name, pparam in module.parameters.items():
-            self.write(self.format_param_decl(name, pparam))
+        for pparam in module.parameters:
+            self.write(self.format_param_decl(pparam))
         self.write("\n")
 
     def write_instance_name(
         self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
     ) -> None:
-        """ Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix. """
+        """Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix."""
         self.write(f"{rmodule.spice_prefix.value}{pinst.name} \n")
 
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
-        """ Create and return a netlist-string for Instance `pinst`"""
+        """Create and return a netlist-string for Instance `pinst`"""
 
         # Get its Module or ExternalModule definition,
         resolved = self.resolve_reference(pinst.module)
@@ -147,7 +146,7 @@ class SpiceNetlister(Netlister):
     def write_subckt_instance(
         self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
     ) -> None:
-        """ Write sub-circuit-instance `pinst` of `rmodule`. """
+        """Write sub-circuit-instance `pinst` of `rmodule`."""
 
         # Write the instance name
         self.write_instance_name(pinst, rmodule)
@@ -168,9 +167,9 @@ class SpiceNetlister(Netlister):
     def write_primitive_instance(
         self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
     ) -> None:
-        """ Write primitive-instance `pinst` of `rmodule`. 
-        Note spice's primitive instances often differn syntactically from sub-circuit instances, 
-        in that they can have positional (only) parameters. """
+        """Write primitive-instance `pinst` of `rmodule`.
+        Note spice's primitive instances often differn syntactically from sub-circuit instances,
+        in that they can have positional (only) parameters."""
 
         # Write the instance name
         self.write_instance_name(pinst, rmodule)
@@ -220,10 +219,12 @@ class SpiceNetlister(Netlister):
         self.write("\n")
 
     def write_voltage_source_instance(
-        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule,
+        self,
+        pinst: vlsir.circuit.Instance,
+        rmodule: ResolvedModule,
     ) -> None:
-        """ Write a voltage-source instance `pinst`.
-        Throws an Exception if `rmodule` is not a known voltage-source type. """
+        """Write a voltage-source instance `pinst`.
+        Throws an Exception if `rmodule` is not a known voltage-source type."""
 
         # Resolve its parameter values
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
@@ -270,7 +271,7 @@ class SpiceNetlister(Netlister):
     def write_instance_conns(
         self, pinst: vlsir.circuit.Instance, module: ModuleLike
     ) -> None:
-        """ Write the port-connections for Instance `pinst` """
+        """Write the port-connections for Instance `pinst`"""
 
         # Write a quick comment for port-less modules
         if not module.ports:
@@ -291,21 +292,21 @@ class SpiceNetlister(Netlister):
         self.write("\n")
 
     def write_instance_params(self, pvals: ResolvedParams) -> None:
-        """ 
-        Format and write the parameter-values in dictionary `pvals`. 
-        
+        """
+        Format and write the parameter-values in dictionary `pvals`.
+
         Parameter-values format:
         ```
-        XNAME 
-        + <ports> 
-        + <subckt-name> 
-        + name1=val1 name2=val2 name3=val3 
+        XNAME
+        + <ports>
+        + <subckt-name>
+        + name1=val1 name2=val2 name3=val3
         """
-
-        self.write("+ ")
 
         if not pvals:  # Write a quick comment for no parameters
             self.write_comment("No parameters")
+        else:
+            self.write("+ ")
 
         # And write them
         for (pname, pval) in pvals.items():
@@ -314,25 +315,25 @@ class SpiceNetlister(Netlister):
         self.write("\n")
 
     def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
-        """ Format the Concatenation of several other Connections """
+        """Format the Concatenation of several other Connections"""
         out = ""
         for part in pconc.parts:
             out += self.format_connection_target(part) + " "
         return out
 
     def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
-        """ Get a netlist `Port` definition """
+        """Get a netlist `Port` definition"""
         signal = self.get_signal(pport.signal)
         return self.format_signal_ref(signal)
 
     def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
-        """ Get a netlist `Port` reference """
+        """Get a netlist `Port` reference"""
         signal = self.get_signal(pport.signal)
         return self.format_signal_ref(signal)
 
     @classmethod
     def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
-        """ Get a netlist definition for Signal `psig` """
+        """Get a netlist definition for Signal `psig`"""
         if psig.width < 1:
             raise RuntimeError
         if psig.width == 1:  # width==1, i.e. a scalar signal
@@ -344,7 +345,7 @@ class SpiceNetlister(Netlister):
 
     @classmethod
     def format_signal_slice(cls, pslice: vlsir.circuit.Slice) -> str:
-        """ Get a netlist definition for Signal-Slice `pslice` """
+        """Get a netlist definition for Signal-Slice `pslice`"""
         base = pslice.signal
         indices = list(reversed(range(pslice.bot, pslice.top + 1)))
         if not len(indices):
@@ -353,34 +354,25 @@ class SpiceNetlister(Netlister):
 
     @classmethod
     def format_bus_bit(cls, index: Union[int, str]) -> str:
-        """ Format-specific string-representation of a bus bit-index """
+        """Format-specific string-representation of a bus bit-index"""
         # Spectre netlisting uses an underscore prefix, e.g. `bus_0`
         return "_" + str(index)
 
-    @classmethod
-    def format_param_decl(cls, name: str, param: vlsir.Param) -> str:
-        """ Format a parameter-declaration """
-        default = cls.get_param_default(param)
-        if default is None:
-            msg = f"Invalid non-default parameter {param} for Spice netlisting"
-            raise RuntimeError(msg)
-        return f"{name}={default}"
-
     def write_comment(self, comment: str) -> None:
-        """ While dialects vary, the *generic* Spice-comment begins with the asterisk. """
+        """While dialects vary, the *generic* Spice-comment begins with the asterisk."""
         self.write(f"* {comment}\n")
 
     def format_expression(self, expr: str) -> str:
-        """ Format a string such that the target format interprets it as an expression. 
+        """Format a string such that the target format interprets it as an expression.
         Example:
         ```
         * Parameter Declarations
         .param v0=1 v1='v0+1' * <= Here
-        * Instance with the same name 
-        v0 1 0 dc='v0+2*v1' * <= And here 
-        ``` 
-        Note the latter case includes the star character (`*`) for multiplication, 
-        where in many other contexts it is treated as the comment-character. 
+        * Instance with the same name
+        v0 1 0 dc='v0+2*v1' * <= And here
+        ```
+        Note the latter case includes the star character (`*`) for multiplication,
+        where in many other contexts it is treated as the comment-character.
         """
         # The base class does what (we think) is the most common practice:
         # wrapping expressions in single-tick quotes.
@@ -389,49 +381,49 @@ class SpiceNetlister(Netlister):
 
 class HspiceNetlister(SpiceNetlister):
     """
-    # Hspice-Format Netlister 
-    
-    Other than its `NetlistFormat` enumeration, `HspiceNetlister` is identical to the base `SpiceNetlister`. 
+    # Hspice-Format Netlister
+
+    Other than its `NetlistFormat` enumeration, `HspiceNetlister` is identical to the base `SpiceNetlister`.
     """
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.HSPICE
 
 
 class XyceNetlister(SpiceNetlister):
-    """ Xyce-Format Netlister """
+    """Xyce-Format Netlister"""
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.XYCE
 
     def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
-        """ Write the parameter declarations for Module `module`. 
+        """Write the parameter declarations for Module `module`.
         Parameter declaration format:
-        .SUBCKT <name> <ports> 
+        .SUBCKT <name> <ports>
         + PARAMS: name1=val1 name2=val2 name3=val3 \n
         """
         self.write("+ PARAMS: ")  # <= Xyce-specific
-        for name, pparam in module.parameters.items():
-            self.write(self.format_param_decl(name, pparam))
+        for pparam in module.parameters:
+            self.write(self.format_param_decl(pparam))
         self.write("\n")
 
-    def write_instance_params(self, pvals: Dict[str, str]) -> None:
-        """ Write the parameter-values for Instance `pinst`. 
+    def write_instance_params(self, pvals: ResolvedParams) -> None:
+        """Write the parameter-values for Instance `pinst`.
 
         Parameter-values format:
         ```
-        XNAME 
-        + <ports> 
-        + <subckt-name> 
-        + PARAMS: name1=val1 name2=val2 name3=val3 
+        XNAME
+        + <ports>
+        + <subckt-name>
+        + PARAMS: name1=val1 name2=val2 name3=val3
         """
 
         self.write("+ ")
@@ -445,10 +437,10 @@ class XyceNetlister(SpiceNetlister):
         self.write("\n")
 
     def write_comment(self, comment: str) -> None:
-        """ Xyce comments *kinda* support the Spice-typical `*` charater, 
-        but *only* as the first character in a line. 
-        Any mid-line-starting comments must use `;` instead. 
-        So, just use it all the time. """
+        """Xyce comments *kinda* support the Spice-typical `*` charater,
+        but *only* as the first character in a line.
+        Any mid-line-starting comments must use `;` instead.
+        So, just use it all the time."""
         self.write(f"; {comment}\n")
 
     def format_expression(self, expr: str) -> str:
@@ -457,28 +449,28 @@ class XyceNetlister(SpiceNetlister):
 
 
 class NgspiceNetlister(SpiceNetlister):
-    """ FIXME: Ngspice-Format Netlister """
-
-    def __init__(self, *_, **__):
-        raise NotImplementedError
+    """
+    Ngspice-Format Netlister
+    Should be identical to the base Spice netlister
+    """
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.NGSPICE
 
 
 class CdlNetlister(SpiceNetlister):
-    """ FIXME: CDL-Format Netlister """
+    """FIXME: CDL-Format Netlister"""
 
     def __init__(self, *_, **__):
         raise NotImplementedError
 
     @property
     def enum(self):
-        """ Get our entry in the `NetlistFormat` enumeration """
+        """Get our entry in the `NetlistFormat` enumeration"""
         from . import NetlistFormat
 
         return NetlistFormat.CDL

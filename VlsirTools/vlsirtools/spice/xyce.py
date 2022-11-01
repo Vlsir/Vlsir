@@ -28,20 +28,21 @@ def available() -> bool:
 
 
 class XyceSim(Sim):
-    """ 
-    State and execution logic for a Xyce-call to `vsp.Sim`. 
-    
-    Xyce can, in principle, run multiple analyses per process, 
-    but seems to commonly confuse outputs or disallow saving them
-    from multiple analyses. 
+    """
+    State and execution logic for a Xyce-call to `vsp.Sim`.
 
-    Execution therefore instead occurs one Xyce-process per analysis. 
-    Results from each analysis-process are collated into a single `SimResult`. 
+    Xyce can, in principle, run multiple analyses per process,
+    but seems to commonly confuse outputs or disallow saving them
+    from multiple analyses.
+
+    Execution therefore instead occurs one Xyce-process per analysis.
+    Results from each analysis-process are collated into a single `SimResult`.
     """
 
     @staticmethod
     def available() -> bool:
-        """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
+        """Boolean indication of whether the current running environment includes the simulator executable on its path."""
+        # FIXME: add an attempt to execute it, get the version string etc, like Spectre and NgSpice do.
         return shutil.which(XYCE_EXECUTABLE) is not None
 
     @classmethod
@@ -49,8 +50,8 @@ class XyceSim(Sim):
         return SupportedSimulators.XYCE
 
     async def run(self) -> Awaitable[vsp.SimResult]:
-        """ Run the specified `SimInput` in directory `self.rundir`, 
-        returning its results. """
+        """Run the specified `SimInput` in directory `self.rundir`,
+        returning its results."""
 
         if self.opts.fmt != ResultFormat.VLSIR_PROTO:
             raise RuntimeError(f"Unsupported ResultFormat: {self.opts.fmt} for Xyce")
@@ -103,7 +104,7 @@ class XyceSim(Sim):
                 raise RuntimeError(f"Unknown control type: {inner}")
 
     def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
-        """ Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`. """
+        """Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`."""
 
         # `Analysis` is a Union (protobuf `oneof`) of the analysis-types.
         # Unwrap it, and dispatch based on the type.
@@ -123,7 +124,7 @@ class XyceSim(Sim):
         raise RuntimeError(f"Unknown analysis type: {inner}")
 
     async def ac(self, an: vsp.AcInput) -> Awaitable[vsp.AcResult]:
-        """ Run an AC analysis. """
+        """Run an AC analysis."""
 
         # Unpack the `AcInput`
         analysis_name = an.analysis_name or "ac"
@@ -179,7 +180,7 @@ class XyceSim(Sim):
         )
 
     async def dc(self, an: vsp.DcInput) -> Awaitable[vsp.DcResult]:
-        """ Run a DC analysis. """
+        """Run a DC analysis."""
 
         # Unpack the `DcInput`
         analysis_name = an.analysis_name or "dc"
@@ -235,9 +236,9 @@ class XyceSim(Sim):
         return vsp.DcResult(signals=signals, data=data, measurements=measurements)
 
     async def op(self, an: vsp.OpInput) -> Awaitable[vsp.OpResult]:
-        """ Run an operating-point analysis. 
-        Xyce describes the `.op` analysis as "partially supported". 
-        Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep. """
+        """Run an operating-point analysis.
+        Xyce describes the `.op` analysis as "partially supported".
+        Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
 
         # Unpack the `OpInput`
         analysis_name = an.analysis_name or "op"
@@ -274,7 +275,7 @@ class XyceSim(Sim):
         return vsp.OpResult(signals=signals, data=data)
 
     async def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
-        """ Run a transient analysis. """
+        """Run a transient analysis."""
 
         # Extract fields from our `TranInput`
         analysis_name = an.analysis_name or "tran"
@@ -324,7 +325,7 @@ class XyceSim(Sim):
         )
 
     def run_xyce_process(self, name: str) -> Awaitable[None]:
-        """ Run a `Xyce` sub-process executing the simulation. """
+        """Run a `Xyce` sub-process executing the simulation."""
         return self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp ")
 
     def parse_measurements(self, analysis_name: str) -> Dict[str, float]:
@@ -341,7 +342,7 @@ class XyceSim(Sim):
 
 
 def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
-    """ Read a text-header + float CSV from file-handle `handle`. """
+    """Read a text-header + float CSV from file-handle `handle`."""
 
     # Get the header-list of strings
     header_line = handle.readline().strip()
@@ -358,7 +359,7 @@ def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
 
 
 def parse_meas(file: IO) -> Dict[str, float]:
-    """ Parse an (open) measurement-file to a {name: value} dictionary. """
+    """Parse an (open) measurement-file to a {name: value} dictionary."""
     rv = {}
     for line in file.readlines():
         contents = line.split()
