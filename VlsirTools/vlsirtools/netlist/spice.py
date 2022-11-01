@@ -87,14 +87,12 @@ class SpiceNetlister(SpectreSpiceShared):
         if module.ports:
             self.write_port_declarations(module)
         else:
-            self.write("+ ")
             self.write_comment("No ports")
 
         # Create its parameters, if any are defined
         if module.parameters:
             self.write_param_declarations(module)
         else:
-            self.write("+ ")
             self.write_comment("No parameters")
 
         # End the `subckt` header-content with a blank line
@@ -305,10 +303,11 @@ class SpiceNetlister(SpectreSpiceShared):
         + name1=val1 name2=val2 name3=val3
         """
 
-        self.write("+ ")
 
         if not pvals:  # Write a quick comment for no parameters
             self.write_comment("No parameters")
+        else: 
+            self.write("+ ")
 
         # And write them
         for (pname, pval) in pvals.items():
@@ -451,10 +450,10 @@ class XyceNetlister(SpiceNetlister):
 
 
 class NgspiceNetlister(SpiceNetlister):
-    """FIXME: Ngspice-Format Netlister"""
-
-    def __init__(self, *_, **__):
-        raise NotImplementedError
+    """ 
+    Ngspice-Format Netlister 
+    Should be identical to the base Spice netlister
+    """
 
     @property
     def enum(self):

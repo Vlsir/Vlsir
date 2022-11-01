@@ -13,8 +13,9 @@ import vlsir.utils_pb2 as vutils
 import vlsir.circuit_pb2 as vckt
 import vlsir.spice_pb2 as vsp
 
-
 from vlsir import Reference, QualifiedName, ParamValue, Param
+from vlsirtools.spice import SimOptions, SupportedSimulators, ResultFormat
+
 from vlsir.circuit_pb2 import (
     Module,
     Signal,
@@ -43,6 +44,7 @@ def _params(**kwargs):
 def _prim(name: str) -> Reference:
     """Create a `Reference` to primitive `name`"""
     return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
+from vlsir.utils_pb2 import Reference, QualifiedName, ParamValue, Param
 
 
 def test_version():
@@ -50,7 +52,7 @@ def test_version():
 
 
 def test_verilog_netlist1():
-    """Test netlisting to a handful of formats, including Verilog-compatible contents."""
+    """ Test netlisting to a handful of formats, including Verilog-compatible contents. """
 
     # "Verilog Compatibility" requires:
     # * All ports must be directed. No "NONE" directions.
@@ -118,7 +120,6 @@ def test_verilog_netlist1():
     )
     dest = StringIO()
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="verilog")
-    print(dest.getvalue())
     # While verilog is the point here, the other formats should work too:
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spectre")
@@ -173,7 +174,9 @@ def test_spice_netlist1():
                         name="v",
                         module=_prim("vdc"),
                         connections=default_conns(),
-                        parameters=_params(dc=ParamValue(double=1.1)),
+                        parameters=_params(
+                            dc=ParamValue(double=1.1), ac=ParamValue(double=0)
+                        ),
                     ),
                     Instance(
                         name="i",
@@ -241,17 +244,6 @@ def test_spice_netlist1():
 
 def test_netlist_hdl21_ideal1():
     """Test that netlisting a (deprecated) `hdl21.ideal` element fails with a `RuntimeError`."""
-
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-        Package,
-    )
-    from vlsir.utils_pb2 import Reference, QualifiedName
 
     pkg = Package(
         domain="vlsir.tests.test_netlist_hdl21_ideal1",
@@ -361,7 +353,7 @@ def test_netlist_empty_testbench():
 def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
     from vlsir.spice_pb2 import SimInput, SimResult
-    from vlsirtools.spectre import sim
+    from vlsirtools.spectre import sim  # FIXME: this does not specify simulator!
 
     results = sim(
         SimInput(
@@ -379,7 +371,19 @@ def test_spectre1():
 def test_xyce1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     from vlsir.spice_pb2 import SimInput, SimResult
-    from vlsirtools.xyce import sim
+    from vlsirtools.xyce import sim  # FIXME: this does not specify simulator!
+
+    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    assert isinstance(results, SimResult)
+
+
+@pytest.mark.skipif(
+    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+)
+def test_ngspice1():
+    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`. """
+    from vlsir.spice_pb2 import SimInput, SimResult
+    from vlsirtools.spice.ngspice import sim  # FIXME: this does not specify simulator!
 
     results = sim(
         SimInput(
@@ -398,3 +402,91 @@ def test_xyce_import():
 def test_spectre_import():
     # Just test importing from the `vlsirtools.spectre` path
     from vlsirtools.spectre import sim
+
+
+@pytest.mark.skipif(
+    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+)
+def test_noise1():
+    """ Test the Noise analysis """
+
+    # A very complicated testbench: a voltage source and resistor in parallel.
+    pkg = vckt.Package(
+        domain="vlsirtools.tests.test_noise1",
+        modules=[
+            vckt.Module(
+                name="noisetb",
+                ports=[vckt.Port(direction="NONE", signal="VSS"),],
+                signals=[
+                    vckt.Signal(name="VSS", width=1),
+                    vckt.Signal(name="the_other_node", width=1),
+                ],
+                instances=[
+                    Instance(
+                        name="r1",
+                        module=Reference(
+                            external=QualifiedName(
+                                domain="vlsir.primitives", name="resistor"
+                            )
+                        ),
+                        connections=[
+                            Connection(
+                                portname="p",
+                                target=ConnectionTarget(sig="the_other_node"),
+                            ),
+                            Connection(
+                                portname="n", target=ConnectionTarget(sig="VSS")
+                            ),
+                        ],
+                        parameters=[Param(name="r", value=ParamValue(double=1e3))],
+                    ),
+                    Instance(
+                        name="v1",
+                        module=Reference(
+                            external=QualifiedName(
+                                domain="vlsir.primitives", name="vdc"
+                            )
+                        ),
+                        connections=[
+                            Connection(
+                                portname="p",
+                                target=ConnectionTarget(sig="the_other_node"),
+                            ),
+                            Connection(
+                                portname="n", target=ConnectionTarget(sig="VSS")
+                            ),
+                        ],
+                        parameters=[
+                            Param(name="dc", value=ParamValue(double=0)),
+                            Param(name="ac", value=ParamValue(double=0)),
+                        ],
+                    ),
+                ],
+            )
+        ],
+    )
+    sim_input = vsp.SimInput(
+        pkg=pkg,
+        top="noisetb",
+        an=[
+            vsp.Analysis(
+                noise=vsp.NoiseInput(
+                    analysis_name="noise1",
+                    output_p="the_other_node",
+                    output_n="VSS",
+                    input_source="vv1",  # FIXME: naming prepending this extra "v". We should make this line up with the VLSIR data, regardless of whether the simulator requires an additional prefix.
+                    fstart=1,
+                    fstop=1e10,
+                    npts=10,
+                    ctrls=[],
+                )
+            )
+        ],
+    )
+    vlsirtools.spice.sim(
+        sim_input,
+        opts=SimOptions(
+            simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
+        ),
+    )
+

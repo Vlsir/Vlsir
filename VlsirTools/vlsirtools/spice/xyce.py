@@ -41,7 +41,8 @@ class XyceSim(Sim):
 
     @staticmethod
     def available() -> bool:
-        """Boolean indication of whether the current running environment includes the simulator executable on its path."""
+        """ Boolean indication of whether the current running environment includes the simulator executable on its path. """
+        # FIXME: add an attempt to execute it, get the version string etc, like Spectre and NgSpice do.
         return shutil.which(XYCE_EXECUTABLE) is not None
 
     @classmethod

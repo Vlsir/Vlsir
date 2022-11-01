@@ -25,6 +25,7 @@ class AnalysisType(Enum):
     DC = "dc"
     AC = "ac"
     TRAN = "tran"
+    NOISE = "noise"
     MONTE = "monte"
     SWEEP = "sweep"
     CUSTOM = "custom"
@@ -88,6 +89,18 @@ class AcResult:
     data: Mapping[str, np.ndarray]
     measurements: Mapping[str, float]
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.AC
+
+    def to_proto(self) -> vlsir.spice.AcResult:
+        raise NotImplementedError
+
+
+@dataclass
+class NoiseResult:
+    analysis_name: str
+    data: Mapping[str, np.ndarray]
+    integrated_noise: Mapping[str, float]
+    measurements: Mapping[str, float]
+    vlsir_type: ClassVar[AnalysisType] = AnalysisType.NOISE
 
     def to_proto(self) -> vlsir.spice.AcResult:
         raise NotImplementedError
