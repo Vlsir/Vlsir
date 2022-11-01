@@ -303,10 +303,9 @@ class SpiceNetlister(SpectreSpiceShared):
         + name1=val1 name2=val2 name3=val3
         """
 
-
         if not pvals:  # Write a quick comment for no parameters
             self.write_comment("No parameters")
-        else: 
+        else:
             self.write("+ ")
 
         # And write them
@@ -450,8 +449,8 @@ class XyceNetlister(SpiceNetlister):
 
 
 class NgspiceNetlister(SpiceNetlister):
-    """ 
-    Ngspice-Format Netlister 
+    """
+    Ngspice-Format Netlister
     Should be identical to the base Spice netlister
     """
 

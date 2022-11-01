@@ -44,6 +44,8 @@ def _params(**kwargs):
 def _prim(name: str) -> Reference:
     """Create a `Reference` to primitive `name`"""
     return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
+
+
 from vlsir.utils_pb2 import Reference, QualifiedName, ParamValue, Param
 
 
@@ -52,7 +54,7 @@ def test_version():
 
 
 def test_verilog_netlist1():
-    """ Test netlisting to a handful of formats, including Verilog-compatible contents. """
+    """Test netlisting to a handful of formats, including Verilog-compatible contents."""
 
     # "Verilog Compatibility" requires:
     # * All ports must be directed. No "NONE" directions.
@@ -373,15 +375,21 @@ def test_xyce1():
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.xyce import sim  # FIXME: this does not specify simulator!
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+    not vlsirtools.spice.ngspice.available(),
+    reason="No ngspice installation on path",
 )
 def test_ngspice1():
-    """ Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`. """
+    """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.spice.ngspice import sim  # FIXME: this does not specify simulator!
 
@@ -405,10 +413,11 @@ def test_spectre_import():
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+    not vlsirtools.spice.ngspice.available(),
+    reason="No ngspice installation on path",
 )
 def test_noise1():
-    """ Test the Noise analysis """
+    """Test the Noise analysis"""
 
     # A very complicated testbench: a voltage source and resistor in parallel.
     pkg = vckt.Package(
@@ -416,7 +425,9 @@ def test_noise1():
         modules=[
             vckt.Module(
                 name="noisetb",
-                ports=[vckt.Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    vckt.Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[
                     vckt.Signal(name="VSS", width=1),
                     vckt.Signal(name="the_other_node", width=1),
@@ -489,4 +500,3 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
-

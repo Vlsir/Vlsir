@@ -37,7 +37,7 @@ class NGSpiceSim(Sim):
 
     @staticmethod
     def available() -> bool:
-        """ Boolean indication of whether the current running environment includes the simulator executable. """
+        """Boolean indication of whether the current running environment includes the simulator executable."""
         if shutil.which(NGSPICE_EXECUTABLE) is None:
             return False
         try:
@@ -59,7 +59,7 @@ class NGSpiceSim(Sim):
         return SupportedSimulators.NGSPICE
 
     async def run(self) -> Awaitable[SimResult]:
-        """ Run the specified `SimInput` in directory `self.rundir`, returning its results. """
+        """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         netlist_file = self.open("netlist.sp", "w")
         netlist_file.write("* Test Netlist \n\n")
@@ -126,7 +126,7 @@ class NGSpiceSim(Sim):
         return SimResult(an=results)
 
     def write_control_elements(self, netlist_file: IO) -> None:
-        """ Write control elements to the netlist """
+        """Write control elements to the netlist"""
         for ctrl in self.inp.ctrls:
             inner = ctrl.WhichOneof("ctrl")
             if inner == "include":
@@ -152,7 +152,7 @@ class NGSpiceSim(Sim):
                 raise RuntimeError(f"Unknown control type: {inner}")
 
     def netlist_analysis(self, an: vsp.Analysis, netlist_file: IO) -> None:
-        """ Netlist an `Analysis`, largely dispatching its content to a type-specific method. """
+        """Netlist an `Analysis`, largely dispatching its content to a type-specific method."""
 
         inner = an.WhichOneof("an")
         inner_dispatch = dict(
@@ -165,7 +165,7 @@ class NGSpiceSim(Sim):
         inner_dispatch[inner](getattr(an, inner), netlist_file)
 
     def netlist_ac(self, an: vsp.AcInput, netlist_file: IO) -> None:
-        """ Run an AC analysis. """
+        """Run an AC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -188,7 +188,7 @@ class NGSpiceSim(Sim):
         netlist_file.write(line)
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
-        """ Netlist a DC analysis. """
+        """Netlist a DC analysis."""
 
         raise ValueError("At this time, DC analyses are not supported in NGSPICE")
         if not an.analysis_name:
@@ -217,7 +217,7 @@ class NGSpiceSim(Sim):
             raise ValueError("Invalid sweep type")
 
     def netlist_op(self, an: vsp.OpInput, netlist_file: IO) -> None:
-        """ Netlist a single point DC analysis """
+        """Netlist a single point DC analysis"""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -237,7 +237,7 @@ class NGSpiceSim(Sim):
         netlist_file.write(f".tran {an.tstep} {an.tstop} \n\n")
 
     def netlist_noise(self, an: vsp.NoiseInput, netlist_file: IO) -> None:
-        """ Netlist a noise analysis. """
+        """Netlist a noise analysis."""
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
@@ -296,7 +296,7 @@ class NGSpiceSim(Sim):
         )
 
     def parse_tran(self, an: vsp.TranInput, nutbin: "NutBinAnalysis") -> TranResult:
-        """ Extract the results for Analysis `an` from `data`. """
+        """Extract the results for Analysis `an` from `data`."""
         measurements = self.get_measurements("*.mt*")
         return TranResult(
             analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
@@ -322,9 +322,9 @@ class NGSpiceSim(Sim):
         )
 
     def get_measurements(self, filepat: str) -> Dict[str, float]:
-        """ Get the measurements at files matching (glob) `filepat`. 
-        Returns only a single files-worth of measurements, and issues a warning if more than one such file exists. 
-        Returns an empty dictionary if no matching files are found. """
+        """Get the measurements at files matching (glob) `filepat`.
+        Returns only a single files-worth of measurements, and issues a warning if more than one such file exists.
+        Returns an empty dictionary if no matching files are found."""
         meas_files = list(self.glob(filepat))
         if not meas_files:
             return dict()
@@ -334,14 +334,14 @@ class NGSpiceSim(Sim):
         return parse_mt0(self.open(meas_files[0], "r"))
 
     def run_sim_process(self) -> Awaitable[None]:
-        """ Run a NGSpice sub-process, executing the simulation """
+        """Run a NGSpice sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
         cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw"
         return self.run_subprocess(cmd)
 
 
 class FromStr:
-    """ Mix-in for creating `Enum`s from string values. """
+    """Mix-in for creating `Enum`s from string values."""
 
     @classmethod
     def from_str(cls, s: str) -> "FromStr":
@@ -353,16 +353,16 @@ class FromStr:
 
 
 class NumType(FromStr, Enum):
-    """ # Numeric Datatypes 
-    Values equal the strings used in NutBin data files. """
+    """# Numeric Datatypes
+    Values equal the strings used in NutBin data files."""
 
     REAL = "real"
     COMPLEX = "complex"
 
 
 class Units(FromStr, Enum):
-    """ # Unit Types
-    Values equal the strings used in NutBin data files. """
+    """# Unit Types
+    Values equal the strings used in NutBin data files."""
 
     DUMMY = "dummy"
     SWEEP = "sweep"
@@ -382,7 +382,7 @@ class Units(FromStr, Enum):
 
 @dataclass
 class VarSpec:
-    """ Variable Spec """
+    """Variable Spec"""
 
     name: str
     units: Units
@@ -390,7 +390,7 @@ class VarSpec:
 
 @dataclass
 class NutBinAnalysis:
-    """ Analysis result from a NutBin file. """
+    """Analysis result from a NutBin file."""
 
     analysis_name: str  # Analysis name
     numtype: NumType  # Numeric type in `data` field
@@ -399,9 +399,9 @@ class NutBinAnalysis:
 
 
 def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
-    """ Parse a `nutbin` format set of simulation results. 
-    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`. 
-    Note this is paired with the simulator invocation commands, which include `format=nutbin`. """
+    """Parse a `nutbin` format set of simulation results.
+    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`.
+    Note this is paired with the simulator invocation commands, which include `format=nutbin`."""
 
     # Parse per-file header info
     # First 2 lines are ascii one line statements
@@ -420,7 +420,7 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
 
 
 def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
-    """ Parse a `NutBinAnalysis` from an open nutbin-format file `f`. """
+    """Parse a `NutBinAnalysis` from an open nutbin-format file `f`."""
 
     # Next 4 lines are also ascii one line statements
     # Parse the `Flags` field, which primarily includes the numeric datatype
@@ -440,12 +440,14 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     # Find the number of variables and number of points
     num_vars = int(
         re.match(
-            r"No. Variables:\s+(?P<num_vars>\d+)\s*\n", num_vars_line.decode("ascii"),
+            r"No. Variables:\s+(?P<num_vars>\d+)\s*\n",
+            num_vars_line.decode("ascii"),
         ).group("num_vars")
     )
     num_pts = int(
         re.match(
-            r"No. Points:\s+(?P<num_pts>\d+)\s*\n", num_pts_line.decode("ascii"),
+            r"No. Points:\s+(?P<num_pts>\d+)\s*\n",
+            num_pts_line.decode("ascii"),
         ).group("num_pts")
     )
 
@@ -471,7 +473,10 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
         units[var.name] = var.units
 
     return NutBinAnalysis(
-        analysis_name=sim_name, numtype=numtype, data=data, units=units,
+        analysis_name=sim_name,
+        numtype=numtype,
+        data=data,
+        units=units,
     )
 
 
@@ -485,7 +490,7 @@ def _read_var_spec(line: str) -> VarSpec:
 
 
 def parse_mt0(file: IO) -> Dict[str, float]:
-    """ Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs. """
+    """Parse an (open) "mt0-format" measurement-file into a set of {name: value} pairs."""
 
     file.readline()  # Header
     file.readline()  # Netlist Title
@@ -494,7 +499,7 @@ def parse_mt0(file: IO) -> Dict[str, float]:
     values = file.readline()  # Measurement Values Line
 
     def convert(s: str) -> float:
-        """ Convert a string to a float, converting failing cases to `NaN` """
+        """Convert a string to a float, converting failing cases to `NaN`"""
         try:
             return float(s)
         except:

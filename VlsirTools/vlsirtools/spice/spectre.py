@@ -314,7 +314,7 @@ class Units(FromStr, Enum):
 
 @dataclass
 class VarSpec:
-    """ Variable Spec """
+    """Variable Spec"""
 
     name: str
     units: Units
@@ -405,7 +405,10 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
         units[var.name] = var.units
 
     return NutBinAnalysis(
-        analysis_name=sim_name, numtype=numtype, data=data, units=units,
+        analysis_name=sim_name,
+        numtype=numtype,
+        data=data,
+        units=units,
     )
 
 
