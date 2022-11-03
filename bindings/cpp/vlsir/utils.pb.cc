@@ -127,7 +127,6 @@ const uint32_t TableStruct_utils_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::vlsir::utils::Prefixed, prefix_),
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::vlsir::utils::Prefixed, number_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vlsir::utils::ParamValue, _internal_metadata_),
@@ -188,12 +187,12 @@ const uint32_t TableStruct_utils_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vlsir::utils::Prefixed)},
-  { 11, -1, -1, sizeof(::vlsir::utils::ParamValue)},
-  { 23, -1, -1, sizeof(::vlsir::utils::Param)},
-  { 32, -1, -1, sizeof(::vlsir::utils::QualifiedName)},
-  { 40, -1, -1, sizeof(::vlsir::utils::Reference)},
-  { 49, -1, -1, sizeof(::vlsir::utils::LibraryMetadata)},
-  { 58, -1, -1, sizeof(::vlsir::utils::AuthorMetadata)},
+  { 10, -1, -1, sizeof(::vlsir::utils::ParamValue)},
+  { 22, -1, -1, sizeof(::vlsir::utils::Param)},
+  { 31, -1, -1, sizeof(::vlsir::utils::QualifiedName)},
+  { 39, -1, -1, sizeof(::vlsir::utils::Reference)},
+  { 48, -1, -1, sizeof(::vlsir::utils::LibraryMetadata)},
+  { 57, -1, -1, sizeof(::vlsir::utils::AuthorMetadata)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -207,33 +206,33 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_utils_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013utils.proto\022\013vlsir.utils\"r\n\010Prefixed\022%"
+  "\n\013utils.proto\022\013vlsir.utils\"`\n\010Prefixed\022%"
   "\n\006prefix\030\001 \001(\0162\025.vlsir.utils.SIPrefix\022\021\n"
-  "\007integer\030\002 \001(\003H\000\022\020\n\006double\030\003 \001(\001H\000\022\020\n\006st"
-  "ring\030\004 \001(\tH\000B\010\n\006number\"\212\001\n\nParamValue\022\021\n"
-  "\007integer\030\002 \001(\003H\000\022\020\n\006double\030\003 \001(\001H\000\022\020\n\006st"
-  "ring\030\004 \001(\tH\000\022\021\n\007literal\030\005 \001(\tH\000\022)\n\010prefi"
-  "xed\030\006 \001(\0132\025.vlsir.utils.PrefixedH\000B\007\n\005va"
-  "lue\"K\n\005Param\022\014\n\004name\030\001 \001(\t\022&\n\005value\030\002 \001("
-  "\0132\027.vlsir.utils.ParamValue\022\014\n\004desc\030\003 \001(\t"
-  "\"-\n\rQualifiedName\022\016\n\006domain\030\001 \001(\t\022\014\n\004nam"
-  "e\030\002 \001(\t\"R\n\tReference\022\017\n\005local\030\001 \001(\tH\000\022.\n"
-  "\010external\030\002 \001(\0132\032.vlsir.utils.QualifiedN"
-  "ameH\000B\004\n\002to\"b\n\017LibraryMetadata\022\016\n\006domain"
-  "\030\001 \001(\t\022\022\n\ncell_names\030\n \003(\t\022+\n\006author\030\024 \001"
-  "(\0132\033.vlsir.utils.AuthorMetadata\"D\n\016Autho"
-  "rMetadata\022\016\n\006author\030\001 \001(\t\022\021\n\tcopyright\030\n"
-  " \001(\t\022\017\n\007license\030\013 \001(\t*\344\001\n\010SIPrefix\022\t\n\005YO"
-  "CTO\020\000\022\t\n\005ZEPTO\020\001\022\010\n\004ATTO\020\002\022\t\n\005FEMTO\020\003\022\010\n"
-  "\004PICO\020\004\022\010\n\004NANO\020\005\022\t\n\005MICRO\020\006\022\t\n\005MILLI\020\007\022"
-  "\t\n\005CENTI\020\010\022\010\n\004DECI\020\t\022\010\n\004DECA\020\n\022\t\n\005HECTO\020"
-  "\013\022\010\n\004KILO\020\014\022\010\n\004MEGA\020\r\022\010\n\004GIGA\020\016\022\010\n\004TERA\020"
-  "\017\022\010\n\004PETA\020\020\022\007\n\003EXA\020\021\022\t\n\005ZETTA\020\022\022\t\n\005YOTTA"
-  "\020\023\022\010\n\004UNIT\020\024b\006proto3"
+  "\007integer\030\002 \001(\003H\000\022\020\n\006string\030\004 \001(\tH\000B\010\n\006nu"
+  "mber\"\212\001\n\nParamValue\022\021\n\007integer\030\002 \001(\003H\000\022\020"
+  "\n\006double\030\003 \001(\001H\000\022\020\n\006string\030\004 \001(\tH\000\022\021\n\007li"
+  "teral\030\005 \001(\tH\000\022)\n\010prefixed\030\006 \001(\0132\025.vlsir."
+  "utils.PrefixedH\000B\007\n\005value\"K\n\005Param\022\014\n\004na"
+  "me\030\001 \001(\t\022&\n\005value\030\002 \001(\0132\027.vlsir.utils.Pa"
+  "ramValue\022\014\n\004desc\030\003 \001(\t\"-\n\rQualifiedName\022"
+  "\016\n\006domain\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"R\n\tReferen"
+  "ce\022\017\n\005local\030\001 \001(\tH\000\022.\n\010external\030\002 \001(\0132\032."
+  "vlsir.utils.QualifiedNameH\000B\004\n\002to\"b\n\017Lib"
+  "raryMetadata\022\016\n\006domain\030\001 \001(\t\022\022\n\ncell_nam"
+  "es\030\n \003(\t\022+\n\006author\030\024 \001(\0132\033.vlsir.utils.A"
+  "uthorMetadata\"D\n\016AuthorMetadata\022\016\n\006autho"
+  "r\030\001 \001(\t\022\021\n\tcopyright\030\n \001(\t\022\017\n\007license\030\013 "
+  "\001(\t*\344\001\n\010SIPrefix\022\t\n\005YOCTO\020\000\022\t\n\005ZEPTO\020\001\022\010"
+  "\n\004ATTO\020\002\022\t\n\005FEMTO\020\003\022\010\n\004PICO\020\004\022\010\n\004NANO\020\005\022"
+  "\t\n\005MICRO\020\006\022\t\n\005MILLI\020\007\022\t\n\005CENTI\020\010\022\010\n\004DECI"
+  "\020\t\022\010\n\004DECA\020\n\022\t\n\005HECTO\020\013\022\010\n\004KILO\020\014\022\010\n\004MEG"
+  "A\020\r\022\010\n\004GIGA\020\016\022\010\n\004TERA\020\017\022\010\n\004PETA\020\020\022\007\n\003EXA"
+  "\020\021\022\t\n\005ZETTA\020\022\022\t\n\005YOTTA\020\023\022\010\n\004UNIT\020\024b\006prot"
+  "o3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_utils_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_utils_2eproto = {
-  false, false, 900, descriptor_table_protodef_utils_2eproto, "utils.proto", 
+  false, false, 882, descriptor_table_protodef_utils_2eproto, "utils.proto", 
   &descriptor_table_utils_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_utils_2eproto::offsets,
   file_level_metadata_utils_2eproto, file_level_enum_descriptors_utils_2eproto, file_level_service_descriptors_utils_2eproto,
@@ -305,10 +304,6 @@ Prefixed::Prefixed(const Prefixed& from)
       _internal_set_integer(from._internal_integer());
       break;
     }
-    case kDouble: {
-      _internal_set_double_(from._internal_double_());
-      break;
-    }
     case kString: {
       _internal_set_string(from._internal_string());
       break;
@@ -356,10 +351,6 @@ void Prefixed::clear_number() {
       // No need to clear
       break;
     }
-    case kDouble: {
-      // No need to clear
-      break;
-    }
     case kString: {
       number_.string_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
       break;
@@ -403,14 +394,6 @@ const char* Prefixed::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _internal_set_integer(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // double double = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
-          _internal_set_double_(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
-          ptr += sizeof(double);
         } else
           goto handle_unusual;
         continue;
@@ -466,12 +449,6 @@ uint8_t* Prefixed::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_integer(), target);
   }
 
-  // double double = 3;
-  if (_internal_has_double_()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_double_(), target);
-  }
-
   // string string = 4;
   if (_internal_has_string()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -508,11 +485,6 @@ size_t Prefixed::ByteSizeLong() const {
     // int64 integer = 2;
     case kInteger: {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_integer());
-      break;
-    }
-    // double double = 3;
-    case kDouble: {
-      total_size += 1 + 8;
       break;
     }
     // string string = 4;
@@ -554,10 +526,6 @@ void Prefixed::MergeFrom(const Prefixed& from) {
   switch (from.number_case()) {
     case kInteger: {
       _internal_set_integer(from._internal_integer());
-      break;
-    }
-    case kDouble: {
-      _internal_set_double_(from._internal_double_());
       break;
     }
     case kString: {

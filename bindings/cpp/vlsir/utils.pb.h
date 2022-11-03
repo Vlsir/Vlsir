@@ -182,7 +182,6 @@ class Prefixed final :
   }
   enum NumberCase {
     kInteger = 2,
-    kDouble = 3,
     kString = 4,
     NUMBER_NOT_SET = 0,
   };
@@ -268,7 +267,6 @@ class Prefixed final :
   enum : int {
     kPrefixFieldNumber = 1,
     kIntegerFieldNumber = 2,
-    kDoubleFieldNumber = 3,
     kStringFieldNumber = 4,
   };
   // .vlsir.utils.SIPrefix prefix = 1;
@@ -291,19 +289,6 @@ class Prefixed final :
   private:
   int64_t _internal_integer() const;
   void _internal_set_integer(int64_t value);
-  public:
-
-  // double double = 3;
-  bool has_double_() const;
-  private:
-  bool _internal_has_double_() const;
-  public:
-  void clear_double_();
-  double double_() const;
-  void set_double_(double value);
-  private:
-  double _internal_double_() const;
-  void _internal_set_double_(double value);
   public:
 
   // string string = 4;
@@ -330,7 +315,6 @@ class Prefixed final :
  private:
   class _Internal;
   void set_has_integer();
-  void set_has_double_();
   void set_has_string();
 
   inline bool has_number() const;
@@ -344,7 +328,6 @@ class Prefixed final :
     constexpr NumberUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     int64_t integer_;
-    double double__;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_;
   } number_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -1597,44 +1580,6 @@ inline int64_t Prefixed::integer() const {
 inline void Prefixed::set_integer(int64_t value) {
   _internal_set_integer(value);
   // @@protoc_insertion_point(field_set:vlsir.utils.Prefixed.integer)
-}
-
-// double double = 3;
-inline bool Prefixed::_internal_has_double_() const {
-  return number_case() == kDouble;
-}
-inline bool Prefixed::has_double_() const {
-  return _internal_has_double_();
-}
-inline void Prefixed::set_has_double_() {
-  _oneof_case_[0] = kDouble;
-}
-inline void Prefixed::clear_double_() {
-  if (_internal_has_double_()) {
-    number_.double__ = 0;
-    clear_has_number();
-  }
-}
-inline double Prefixed::_internal_double_() const {
-  if (_internal_has_double_()) {
-    return number_.double__;
-  }
-  return 0;
-}
-inline void Prefixed::_internal_set_double_(double value) {
-  if (!_internal_has_double_()) {
-    clear_number();
-    set_has_double_();
-  }
-  number_.double__ = value;
-}
-inline double Prefixed::double_() const {
-  // @@protoc_insertion_point(field_get:vlsir.utils.Prefixed.double)
-  return _internal_double_();
-}
-inline void Prefixed::set_double_(double value) {
-  _internal_set_double_(value);
-  // @@protoc_insertion_point(field_set:vlsir.utils.Prefixed.double)
 }
 
 // string string = 4;
