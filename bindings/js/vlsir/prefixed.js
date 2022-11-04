@@ -49,7 +49,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.vlsir.utils.Prefixed.oneofGroups_ = [[2,4]];
+proto.vlsir.utils.Prefixed.oneofGroups_ = [[2,3,4]];
 
 /**
  * @enum {number}
@@ -57,6 +57,7 @@ proto.vlsir.utils.Prefixed.oneofGroups_ = [[2,4]];
 proto.vlsir.utils.Prefixed.NumberCase = {
   NUMBER_NOT_SET: 0,
   INTEGER: 2,
+  DOUBLE: 3,
   STRING: 4
 };
 
@@ -100,6 +101,7 @@ proto.vlsir.utils.Prefixed.toObject = function(includeInstance, msg) {
   var f, obj = {
     prefix: jspb.Message.getFieldWithDefault(msg, 1, 0),
     integer: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    pb_double: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
     string: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
@@ -145,6 +147,10 @@ proto.vlsir.utils.Prefixed.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readInt64());
       msg.setInteger(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setDouble(value);
+      break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setString(value);
@@ -189,6 +195,13 @@ proto.vlsir.utils.Prefixed.serializeBinaryToWriter = function(message, writer) {
   if (f != null) {
     writer.writeInt64(
       2,
+      f
+    );
+  }
+  f = /** @type {number} */ (jspb.Message.getField(message, 3));
+  if (f != null) {
+    writer.writeDouble(
+      3,
       f
     );
   }
@@ -253,6 +266,42 @@ proto.vlsir.utils.Prefixed.prototype.clearInteger = function() {
  */
 proto.vlsir.utils.Prefixed.prototype.hasInteger = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional double double = 3;
+ * @return {number}
+ */
+proto.vlsir.utils.Prefixed.prototype.getDouble = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.vlsir.utils.Prefixed} returns this
+ */
+proto.vlsir.utils.Prefixed.prototype.setDouble = function(value) {
+  return jspb.Message.setOneofField(this, 3, proto.vlsir.utils.Prefixed.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.vlsir.utils.Prefixed} returns this
+ */
+proto.vlsir.utils.Prefixed.prototype.clearDouble = function() {
+  return jspb.Message.setOneofField(this, 3, proto.vlsir.utils.Prefixed.oneofGroups_[0], undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.vlsir.utils.Prefixed.prototype.hasDouble = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
