@@ -250,11 +250,11 @@ class Netlister:
         prefix = cls.format_prefix(pre.prefix)
         numtp = pre.WhichOneof("number")
         if numtp == "integer":
-            num = str(int(pre.integer))
-        elif numtp == "double":
-            num = str(float(pre.double))
+            num = str(pre.integer)
         elif numtp == "string":
             num = str(pre.string)
+        elif numtp == "double":
+            raise ValueError(f"Deprecated double-valued Prefixed parameter {pre}")
         else:
             raise ValueError(f"Invalid `Prefixed` number type {numtp}")
 

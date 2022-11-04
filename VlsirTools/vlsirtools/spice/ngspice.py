@@ -255,7 +255,11 @@ class NGSpiceSim(Sim):
             noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
         else:
             noise_output = f"v(v.xtop.{an.output_p})"
-        noise_input_source = f"v.xtop.{an.input_source}"
+
+        # NOTE: the `noise_input_source` being a *voltage* source is functionally encoded here, 
+        # particularly by the "v" prepended to its name. 
+        # Should we ever support current source noise inputs, we'll need to change this.
+        noise_input_source = f"v.xtop.v{an.input_source}"
         noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
         netlist_file.write(
             f".noise {noise_output} {noise_input_source} {noise_sweep} \n\n"
