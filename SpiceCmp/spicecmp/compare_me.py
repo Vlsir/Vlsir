@@ -26,15 +26,15 @@ from .errormode import ErrorMode
 
 @dataclass
 class CompareMe:
-    """ Pair of Pdk-Simulator Combos to be Compared. 
-    One always uses spectre, and the other always uses xyce. 
-    
-    Exposes two primary methods, both of which operate over a list of `TestCase`s: 
+    """Pair of Pdk-Simulator Combos to be Compared.
+    One always uses spectre, and the other always uses xyce.
 
-    * `run` netlists and runs the test-case simulations, as well as it can. 
-        * To date `SpiceCmp` is yet to meet a single computer which can run all its target simulators, 
-          and so in many cases reverts to just netlisting their input for offline execution. 
-    * `compare` gathers the results of each `TestCase`, compares them measurement-by-measurement, creates and saves a summary table. 
+    Exposes two primary methods, both of which operate over a list of `TestCase`s:
+
+    * `run` netlists and runs the test-case simulations, as well as it can.
+        * To date `SpiceCmp` is yet to meet a single computer which can run all its target simulators,
+          and so in many cases reverts to just netlisting their input for offline execution.
+    * `compare` gathers the results of each `TestCase`, compares them measurement-by-measurement, creates and saves a summary table.
     """
 
     # The PDK-simulator combinations under comparison
@@ -62,7 +62,7 @@ class CompareMe:
             raise RuntimeError(f"Unsupported sim-pdk combination {self.xyce}")
 
     def run_test_case(self, testcase: TestCase, ps: PdkSimCombo) -> None:
-        """ Run a single test-case, with a single `PdkSimCombo`. """
+        """Run a single test-case, with a single `PdkSimCombo`."""
         run = TestCaseRun(
             testcase=testcase,
             pdk=ps.pdk,
@@ -73,13 +73,13 @@ class CompareMe:
         testcase.run_func(run)
 
     def run(self, testcases: List[TestCase]) -> None:
-        """ Run all test cases (or at least "run" as much as we can). """
+        """Run all test cases (or at least "run" as much as we can)."""
         for ps in (self.xyce, self.spectre):
             for testcase in testcases:
                 self.run_test_case(testcase, ps)
 
     def run_one_combo(self, testcases: List[TestCase], which: Simulators) -> None:
-        """ Run all the test-cases for one `PdkSimCombo`, denoted by an enumerated `Simulator`. """
+        """Run all the test-cases for one `PdkSimCombo`, denoted by an enumerated `Simulator`."""
         if which == Simulators.XYCE:
             ps = self.xyce
         elif which == Simulators.SPECTRE:
@@ -91,7 +91,7 @@ class CompareMe:
             self.run_test_case(testcase, ps)
 
     def compare(self, testcases: List[TestCase]) -> pd.DataFrame:
-        """ Perform comparisons between results, and save to a data-table. """
+        """Perform comparisons between results, and save to a data-table."""
 
         comparisons = []
         for testcase in testcases:

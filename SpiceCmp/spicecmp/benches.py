@@ -34,11 +34,11 @@ class DcIvParams:
 
 
 def dc_iv(params: DcIvParams) -> None:
-    """ Transistor I-V Curve Test """
+    """Transistor I-V Curve Test"""
 
     @h.module
     class DcIvTestbench:
-        """ Transistor I-V Testbench """
+        """Transistor I-V Testbench"""
 
         vss = h.Port()  # The VLSIR "testbench interface", a sole port: VSS
         d, g = h.Signals(2)  # Drain and Gate Signals
@@ -98,7 +98,7 @@ class MosDut:
 
 
 def mosiv_test(run: TestCaseRun) -> None:
-    """ MOS DC I-V Test Case """
+    """MOS DC I-V Test Case"""
     testcase = run.testcase
     pdk = run.pdk
     simulator = run.simulator
@@ -121,7 +121,7 @@ def mosiv_test(run: TestCaseRun) -> None:
 
 
 def mosiv_meas(inp: Dict[str, float]) -> Dict[str, float]:
-    """ MOS DC I-V Measurement Manipulations """
+    """MOS DC I-V Measurement Manipulations"""
     # Primarily sets everything positive,
     # as some measured parameters tend to vary in polarity for PMOS vs NMOS.
     # This could more intelligently edit values, if offered some more info.
@@ -133,9 +133,9 @@ mosiv_test = Test(name="MosIv", run_func=mosiv_test, meas_func=mosiv_meas)
 
 @h.paramclass
 class InvParams:
-    """ Inverter Generation Parameters 
-    Note both transistors are `h.Instantiable`, which means that any parameterization 
-    has been applied before being passed into this class. """
+    """Inverter Generation Parameters
+    Note both transistors are `h.Instantiable`, which means that any parameterization
+    has been applied before being passed into this class."""
 
     pmos = h.Param(dtype=h.Instantiable, desc="PMOS to be instantiated")
     nmos = h.Param(dtype=h.Instantiable, desc="NMOS to be instantiated")
@@ -157,8 +157,8 @@ def Inv(params: InvParams) -> h.Module:
 
 @h.generator
 def Nor2Stg(params: InvParams) -> h.Module:
-    """ NOR2, arranged to be an RO Stage, with one input tied low. 
-    Tests the "slow input", i.e. the one furthest from the output. """
+    """NOR2, arranged to be an RO Stage, with one input tied low.
+    Tests the "slow input", i.e. the one furthest from the output."""
 
     @h.module
     class Nor2Stg:
@@ -177,8 +177,8 @@ def Nor2Stg(params: InvParams) -> h.Module:
 
 @h.generator
 def Nand2Stg(params: InvParams) -> h.Module:
-    """ Nand2, arranged to be an RO Stage, with one input tied high. 
-    Tests the "slow input", i.e. the one furthest from the output. """
+    """Nand2, arranged to be an RO Stage, with one input tied high.
+    Tests the "slow input", i.e. the one furthest from the output."""
 
     @h.module
     class Nand2Stg:
@@ -212,14 +212,14 @@ class StdCellRoParams:
 
 
 def std_cell_ro(params: StdCellRoParams) -> None:
-    """ Standard-Cell Ring Oscillator Test """
+    """Standard-Cell Ring Oscillator Test"""
 
     if params.nstg % 2 != 1:
         raise RuntimeError("Need an odd number of stages")
 
     @h.module
     class RoTb:
-        """ RO Testbench """
+        """RO Testbench"""
 
         vss = h.Port()  # The VLSIR "testbench interface", a sole port: VSS
 
@@ -301,7 +301,7 @@ def std_cell_ro(params: StdCellRoParams) -> None:
 
 def ro_test(run: TestCaseRun) -> None:
     """ "TestCase Interface" for the RO Tests
-    Largely a thin wrapper around `std_cell_ro`. """
+    Largely a thin wrapper around `std_cell_ro`."""
     testcase = run.testcase
     pdk = run.pdk
     simulator = run.simulator
@@ -322,7 +322,7 @@ def ro_test(run: TestCaseRun) -> None:
 
 
 def ro_meas(inp: Dict[str, float]) -> Dict[str, float]:
-    """ Convert the measurements made directly by SPICE into others that we actually care about. """
+    """Convert the measurements made directly by SPICE into others that we actually care about."""
 
     # Get the two relevant values
     trise15 = inp["trise15"]
@@ -335,4 +335,3 @@ def ro_meas(inp: Dict[str, float]) -> Dict[str, float]:
 
 
 ro_test = Test(name="Ro", run_func=ro_test, meas_func=ro_meas)
-

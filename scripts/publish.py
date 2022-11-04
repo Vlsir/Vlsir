@@ -21,9 +21,9 @@ from pathlib import Path
 
 VLSIR_VERSION = "2.0.dev0"
 
-# Figure out the shared parent directory of Vlsir and Hdl21 
+# Figure out the shared parent directory of Vlsir and Hdl21
 # __file__ = this.py, parent = scripts/, parent**2 = Vlsir, parent**3 = the "workspace"!
-workspace_path = Path(__file__).parent.parent.parent 
+workspace_path = Path(__file__).parent.parent.parent
 if not (workspace_path / "Vlsir").exists():
     raise RuntimeError(f"Something wrong here with this Path")
 
@@ -38,8 +38,9 @@ packages = [
     ("spicecmp", Path("Vlsir/SpiceCmp")),
 ]
 
+
 def install():
-    """ Create dev installs of everything in `packages`, in order. """
+    """Create dev installs of everything in `packages`, in order."""
 
     os.chdir(workspace_path)
     for pkgname, path in packages:
@@ -53,17 +54,19 @@ def publish():
     PASS = os.environ["PYPI_PASSWORD"]
 
     os.chdir(workspace_path)
+
     def publish_pkg(pkgname: str, path: Path):
         os.chdir(path)
         os.system("python setup.py sdist")
-        os.system(f"twine upload -u {USER} -p {PASS} dist/{pkgname}-{VLSIR_VERSION}.tar.gz")
+        os.system(
+            f"twine upload -u {USER} -p {PASS} dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
+        )
         os.chdir(workspace_path)
 
-
     for pkgname, path in packages:
-        # Publish the package 
+        # Publish the package
         publish_pkg(pkgname, path)
-        # And sit here a minute to let it really sink into that server 
+        # And sit here a minute to let it really sink into that server
         os.system("sleep 10")
 
     # Rust
@@ -71,4 +74,3 @@ def publish():
     # cargo publish
 
     # FIXME/ Coming Soon: JS. And C++, maybe, to some package-manager to be named.
-

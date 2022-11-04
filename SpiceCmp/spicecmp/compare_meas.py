@@ -14,11 +14,11 @@ from .pdk_sim_combo import PdkSimCombo
 
 @dataclass
 class MeasComparison:
-    """ Comparison of a Measurement in one of our Tests. 
+    """Comparison of a Measurement in one of our Tests.
 
-    Serves as the row-type for the comparison table. 
-    Yes, these field-names are non-Pythonic, 
-    but they are designed to be nice header-fields in a table. """
+    Serves as the row-type for the comparison table.
+    Yes, these field-names are non-Pythonic,
+    but they are designed to be nice header-fields in a table."""
 
     Test: str  # Test/ Test-Bench
     Dut: str  # Device Under Test
@@ -37,8 +37,8 @@ def compare_case(
     spectre_combo: PdkSimCombo,
     rundirs: Path,
 ) -> List[MeasComparison]:
-    """ Compare each measurement in test-case `testcase`, 
-    creating and returning a list of `MeasComparison`s. """
+    """Compare each measurement in test-case `testcase`,
+    creating and returning a list of `MeasComparison`s."""
 
     # Collect up the measurement-data
     simdir = rundirs / xyce_combo.name / testcase.dirname
@@ -65,8 +65,8 @@ def compare_case(
     spectre_results = testcase.meas_func(spectre_results)
 
     def comp(measname: str, xyce: float, spectre: float) -> MeasComparison:
-        """ Closure for creating a `MeasComparison`, 
-        with all the data shared by each measurement in this test. """
+        """Closure for creating a `MeasComparison`,
+        with all the data shared by each measurement in this test."""
 
         # Take the normalized difference, divided by the average
         diff = (xyce - spectre) * 2 / (xyce + spectre)
@@ -91,4 +91,3 @@ def compare_case(
         spectre_val = spectre_results[name]
         comparisons.append(comp(name, xyce_val, spectre_val))
     return comparisons
-
