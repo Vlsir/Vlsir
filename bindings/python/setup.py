@@ -15,7 +15,7 @@ here = pathlib.Path(__file__).parent.resolve()
 # Get the long description from the README file
 long_description = (here / "readme.md").read_text(encoding="utf-8")
 
-_VLSIR_VERSION = "2.0.dev0"
+_VLSIR_VERSION = "3.0.dev0"
 
 setup(
     name="vlsir",
@@ -25,6 +25,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Vlsir/Vlsir",
     author="Dan Fritchman",
+    author_email="dan@fritch.mn",
     packages=find_packages(),
     package_data={
         # Include the primitive protobuf-text literals, which are loaded at runtime
