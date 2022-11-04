@@ -134,7 +134,8 @@ def test_spice_netlist1():
     def default_conns() -> Dict:
         # Shorthand for connections between node "vvv" and "VSS", used for many instances below.
         return _connections(
-            p=ConnectionTarget(sig="vvv"), n=ConnectionTarget(sig="VSS"),
+            p=ConnectionTarget(sig="vvv"),
+            n=ConnectionTarget(sig="VSS"),
         )
 
     pkg = Package(
@@ -222,7 +223,9 @@ def test_spice_netlist1():
             ),
             Module(
                 name="top",
-                ports=[Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
                 instances=[
                     Instance(
@@ -316,12 +319,17 @@ def empty_testbench_package():
         modules=[
             Module(
                 name="empty_testbench",
-                ports=[Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[
                     Signal(name="VSS", width=1),
                     Signal(name="the_other_node", width=1),
                 ],
-                instances=[_r("r1"), _r("r2"),],
+                instances=[
+                    _r("r1"),
+                    _r("r2"),
+                ],
             )
         ],
     )
@@ -341,38 +349,56 @@ def test_netlist_empty_testbench():
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spectre.available(), reason="No spectre installation on path",
+    not vlsirtools.spectre.available(),
+    reason="No spectre installation on path",
 )
 def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.spectre import sim  # FIXME: this does not specify simulator!
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 
 @pytest.mark.skipif(
-    not vlsirtools.xyce.available(), reason="No Xyce installation on path",
+    not vlsirtools.xyce.available(),
+    reason="No Xyce installation on path",
 )
 def test_xyce1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.xyce import sim  # FIXME: this does not specify simulator!
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+    not vlsirtools.spice.ngspice.available(),
+    reason="No ngspice installation on path",
 )
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     from vlsir.spice_pb2 import SimInput, SimResult
     from vlsirtools.spice.ngspice import sim  # FIXME: this does not specify simulator!
 
-    results = sim(SimInput(top="empty_testbench", pkg=empty_testbench_package(),))
+    results = sim(
+        SimInput(
+            top="empty_testbench",
+            pkg=empty_testbench_package(),
+        )
+    )
     assert isinstance(results, SimResult)
 
 
@@ -387,7 +413,8 @@ def test_spectre_import():
 
 
 @pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(), reason="No ngspice installation on path",
+    not vlsirtools.spice.ngspice.available(),
+    reason="No ngspice installation on path",
 )
 def test_noise1():
     """Test the Noise analysis"""
@@ -398,7 +425,9 @@ def test_noise1():
         modules=[
             vckt.Module(
                 name="noisetb",
-                ports=[vckt.Port(direction="NONE", signal="VSS"),],
+                ports=[
+                    vckt.Port(direction="NONE", signal="VSS"),
+                ],
                 signals=[
                     vckt.Signal(name="VSS", width=1),
                     vckt.Signal(name="the_other_node", width=1),

@@ -18,7 +18,7 @@ from .simulator import Simulator, Simulators
 
 @dataclass
 class PdkSimCombo:
-    """ Combination of a PDK and a supported simulator. """
+    """Combination of a PDK and a supported simulator."""
 
     pdk: Pdk
     sim: Simulator
@@ -31,4 +31,3 @@ class PdkSimCombo:
     @property
     def name(self):
         return self.pdk.name + "_" + self.sim.enum.value
-

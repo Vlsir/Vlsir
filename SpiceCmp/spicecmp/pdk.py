@@ -17,8 +17,8 @@ from .mos import MosModel
 
 @dataclass
 class Pdk:
-    """ Process Development Kit Dataclass 
-    Specifies corner names, include-file-paths, parameters, and supported simulators. """
+    """Process Development Kit Dataclass
+    Specifies corner names, include-file-paths, parameters, and supported simulators."""
 
     # Process Name
     name: str
@@ -34,7 +34,7 @@ class Pdk:
     vdd: str
 
     def include(self, sim: Simulators, corner: Corner) -> Control:
-        """ Generate a `LibInclude` statement for the combination of `sim` and `corner`. """
+        """Generate a `LibInclude` statement for the combination of `sim` and `corner`."""
         path = self.model_libs.get(sim, None)
         if path is None:
             raise ValueError(f"Unsupported simulator {sim} for Pdk {self}")
@@ -50,18 +50,18 @@ class Pdk:
 
 @h.paramclass
 class PdkParam:
-    """ A single-element `paramclass`, for generators whose sole parameter is a `Pdk`. 
-    FIXME: this doesn't totally work as a generator parameter yet, 
-    seemingly due to the types of some of the `Pdk` fields not playing nice. """
+    """A single-element `paramclass`, for generators whose sole parameter is a `Pdk`.
+    FIXME: this doesn't totally work as a generator parameter yet,
+    seemingly due to the types of some of the `Pdk` fields not playing nice."""
 
     pdk = h.Param(dtype=Pdk, desc="PDK Object")
 
 
 @dataclass
 class PdkGeneratorWrapper:
-    """ A wrapper to call an Hdl21 `Generator` inside a `Pdk`-dependent function. 
-    FIXME: Ideally `Pdk` could just be a parameter to `Generator` object instead, 
-    and we wouldn't need this type. But can't be, yet. """
+    """A wrapper to call an Hdl21 `Generator` inside a `Pdk`-dependent function.
+    FIXME: Ideally `Pdk` could just be a parameter to `Generator` object instead,
+    and we wouldn't need this type. But can't be, yet."""
 
     # Outer, wrapper function, of the signature `def wrapper(pdk: Pdk) -> h.Module`
     wrapper: Callable[[Pdk], h.Module]
@@ -74,4 +74,3 @@ class PdkGeneratorWrapper:
     @property
     def name(self):
         return self.inner.name
-

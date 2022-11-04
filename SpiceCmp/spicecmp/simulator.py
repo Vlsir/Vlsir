@@ -9,7 +9,7 @@ from vlsirtools.spice import SupportedSimulators
 
 
 class Simulators(Enum):
-    """ Enumerated Simulators tested for Comparison """
+    """Enumerated Simulators tested for Comparison"""
 
     XYCE = "xyce"
     SPECTRE = "spectre"
@@ -17,17 +17,23 @@ class Simulators(Enum):
 
 @dataclass
 class Simulator:
-    """ Data associated with each Simulator program. 
-    Generally file-system include-paths, control cards, and the like. """
+    """Data associated with each Simulator program.
+    Generally file-system include-paths, control cards, and the like."""
 
     enum: Simulators  # Enumerated value/ name
     vlsirtools: SupportedSimulators  # Format-tag from `vlsirtools`
     ctrls: List[Control]  # Simulator control cards
 
 
-xyce = Simulator(enum=Simulators.XYCE, vlsirtools=SupportedSimulators.XYCE, ctrls=[],)
+xyce = Simulator(
+    enum=Simulators.XYCE,
+    vlsirtools=SupportedSimulators.XYCE,
+    ctrls=[],
+)
 spectre = Simulator(
-    enum=Simulators.SPECTRE, vlsirtools=SupportedSimulators.SPECTRE, ctrls=[],
+    enum=Simulators.SPECTRE,
+    vlsirtools=SupportedSimulators.SPECTRE,
+    ctrls=[],
 )
 
 simulators = [xyce, spectre]

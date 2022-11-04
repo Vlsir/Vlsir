@@ -115,7 +115,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n")),
             signals=_signals(("p", "n")),
-            parameters=[Param(name="r", desc="Resistance (Ohms)"),],
+            parameters=[
+                Param(name="r", desc="Resistance (Ohms)"),
+            ],
         ),
         ExternalModule(
             name=_qname("capacitor"),
@@ -134,7 +136,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n")),
             signals=_signals(("p", "n")),
-            parameters=[Param(name="c", desc="Capacitance (Farads)"),],
+            parameters=[
+                Param(name="c", desc="Capacitance (Farads)"),
+            ],
         ),
         ExternalModule(
             name=_qname("inductor"),
@@ -153,7 +157,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n")),
             signals=_signals(("p", "n")),
-            parameters=[Param(name="l", desc="Inductance (Henries)"),],
+            parameters=[
+                Param(name="l", desc="Inductance (Henries)"),
+            ],
         ),
         ExternalModule(
             name=_qname("vcvs"),
@@ -169,7 +175,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Param(name="gain", desc="Voltage Gain (Volts/Volt)"),],
+            parameters=[
+                Param(name="gain", desc="Voltage Gain (Volts/Volt)"),
+            ],
         ),
         ExternalModule(
             name=_qname("vccs"),
@@ -185,7 +193,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),],
+            parameters=[
+                Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
+            ],
         ),
         ExternalModule(
             name=_qname("cccs"),
@@ -201,7 +211,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Param(name="gain", desc="Current Gain (Amps/Amp)"),],
+            parameters=[
+                Param(name="gain", desc="Current Gain (Amps/Amp)"),
+            ],
         ),
         ExternalModule(
             name=_qname("ccvs"),
@@ -217,7 +229,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n", "ctrlp", "ctrln")),
             signals=_signals(("p", "n", "ctrlp", "ctrln")),
-            parameters=[Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),],
+            parameters=[
+                Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
+            ],
         ),
         ExternalModule(
             name=_qname("isource"),
@@ -235,7 +249,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n")),
             signals=_signals(("p", "n")),
-            parameters=[Param(name="dc", desc="DC Current (Amps)"),],
+            parameters=[
+                Param(name="dc", desc="DC Current (Amps)"),
+            ],
         ),
         ExternalModule(
             name=_qname("vdc"),
@@ -369,7 +385,9 @@ primitives = Package(
             ),
             ports=_ports(["d", "g", "s", "b"]),
             signals=_signals(["d", "g", "s", "b"]),
-            parameters=[Param(name="modelname", desc="Model Name (string)"),],
+            parameters=[
+                Param(name="modelname", desc="Model Name (string)"),
+            ],
         ),
         ExternalModule(
             name=_qname("bipolar"),
@@ -394,7 +412,9 @@ primitives = Package(
             ),
             ports=_ports(("c", "b", "e")),
             signals=_signals(("c", "b", "e")),
-            parameters=[Param(name="modelname", desc="Model Name (string)"),],
+            parameters=[
+                Param(name="modelname", desc="Model Name (string)"),
+            ],
         ),
         ExternalModule(
             name=_qname("diode"),
@@ -417,7 +437,9 @@ primitives = Package(
             ),
             ports=_ports(("p", "n")),
             signals=_signals(("p", "n")),
-            parameters=[Param(name="modelname", desc="Model Name (string)"),],
+            parameters=[
+                Param(name="modelname", desc="Model Name (string)"),
+            ],
         ),
         ExternalModule(
             name=_qname("tline"),
@@ -436,9 +458,25 @@ primitives = Package(
 
                 """
             ),
-            ports=_ports(("p1p", "p1n", "p2p", "p2n",)),
-            signals=_signals(("p1p", "p1n", "p2p", "p2n",)),
-            parameters=[Param(name="modelname", desc="Model Name (string)"),],
+            ports=_ports(
+                (
+                    "p1p",
+                    "p1n",
+                    "p2p",
+                    "p2n",
+                )
+            ),
+            signals=_signals(
+                (
+                    "p1p",
+                    "p1n",
+                    "p2p",
+                    "p2n",
+                )
+            ),
+            parameters=[
+                Param(name="modelname", desc="Model Name (string)"),
+            ],
         ),
     ],
 )
@@ -458,4 +496,3 @@ assert p2 == primitives
 txtpath = here / "primitives" / "vlsir.primitives.pb.txt"
 with open(str(txtpath), "w") as txtfile:
     txtfile.write(proto_text)
-

@@ -17,7 +17,7 @@ from .simulator import Simulator, Simulators
 
 @dataclass(frozen=True, eq=True)
 class MosModel:
-    """ Fields which dictate a Mos Model, at least in this context: mos-type and threshold. """
+    """Fields which dictate a Mos Model, at least in this context: mos-type and threshold."""
 
     mos_type: MosType
     mos_vth: MosVth
