@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package vlsir.tech;
+
+message Technology {
+  // Skywater130, S130, Sky130, etc
+  string name = 1;
+  
+  repeated Package packages = 11;
+
+  repeated LayerInfo layers = 101;
+}
+
+message Package {
+  // sky130_fd_sc_hd, sk130_fd_sc_hs, etc
+  string name = 1;
+
+  // Other package-specific stuff goes here.
+}
+
+enum LayerPurposeType {
+  UNKNOWN = 0;
+  LABEL = 1;  // Layers identified as LABEL will be used to attach net labels.
+  DRAWING = 2;
+  PIN = 3;
+  OBSTRUCTION = 4;
+  OUTLINE = 5;
+}
+
+message LayerPurpose {
+  // Short-hand description of the purpose of the sub-layer, e.g. "drawing".
+  string description = 1;
+  
+  LayerPurposeType type  = 2;
+}
+
+// Layers in PDKs roughly correspond to physical layers in the semiconductor
+// fabrication process. In this schema, a "layer" is a pair: first, some major
+// layer (like "the first metal layer") and second, some sub-index into that
+// layer distinguishing the various purposes objects serve on the major layor.
+message LayerInfo {
+  // A canonical shorthand name for the layer, e.g. "met1".
+  string name = 1;
+
+  // Here you might put other variations of the layer name for different
+  // programs, e.g. whatever magic should call the layer.
+
+  LayerPurpose purpose = 11;
+
+  // An integer index identifying the major layer.
+  uint64 index = 21;
+
+  // An integer index identifying the sub layer, or purpose.
+  uint64 sub_index = 31;
+}
