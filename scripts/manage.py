@@ -6,6 +6,8 @@ An crucial element is the dependency-ordered `packages` list,
 which enumerates a valid order for installing or publishing this set of packages 
 which tightly depend on one another. 
 
+* Build 
+    * Run the bindings build script
 * Installation 
     * Creates "dev mode" `pip install`s for each package 
 * Publication 
@@ -17,13 +19,24 @@ i.e. that the two have a shared parent directory.
 """
 
 import os
+from enum import Enum
 from pathlib import Path
 
 VLSIR_VERSION = "2.0.dev0"
 
+
+class Actions(Enum):
+    # The available command-line actions
+    # Could this be a more elaborate CLI library thing? Sure.
+    BUILD = "build"
+    INSTALL = "install"
+    PUBLISH = "publish"
+
+
 # Figure out the shared parent directory of Vlsir and Hdl21
-# __file__ = this.py, parent = scripts/, parent**2 = Vlsir, parent**3 = the "workspace"!
-workspace_path = Path(__file__).parent.parent.parent
+# __file__ = manage.py, parent = scripts/, parent**2 = Vlsir, parent**3 = the "workspace"!
+vlsir_path = Path(__file__).parent.parent
+workspace_path = vlsir_path.parent
 if not (workspace_path / "Vlsir").exists():
     raise RuntimeError(f"Something wrong here with this Path")
 
@@ -39,6 +52,13 @@ packages = [
 ]
 
 
+def build():
+    """Build the bindings."""
+    # Just invokes `scripts/build.sh`
+    os.chdir(vlsir_path)
+    os.system("./scripts/build.sh")
+
+
 def install():
     """Create dev installs of everything in `packages`, in order."""
 
@@ -50,6 +70,8 @@ def install():
 
 
 def publish():
+    """Publish all Python packages to PyPi"""
+
     USER = os.environ["PYPI_USERNAME"]
     PASS = os.environ["PYPI_PASSWORD"]
 
@@ -74,3 +96,24 @@ def publish():
     # cargo publish
 
     # FIXME/ Coming Soon: JS. And C++, maybe, to some package-manager to be named.
+
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action", choices=[a.value for a in Actions])
+    args = parser.parse_args()
+
+    if args.action == Actions.BUILD.value:
+        return build()
+    if args.action == Actions.INSTALL.value:
+        return install()
+    if args.action == Actions.PUBLISH.value:
+        return publish()
+
+    raise ValueError(f"Invalid manage.py action {args.action}")
+
+
+if __name__ == "__main__":
+    main()
