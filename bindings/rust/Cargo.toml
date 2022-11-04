@@ -5,8 +5,7 @@ authors = ["Dan Fritchman <dan@fritch.mn>"]
 edition = "2018"
 license = "BSD-3-Clause"
 repository = "https://github.com/Vlsir/Vlsir"
-version = "2.0.1" # FIXME: Rust / Cargo do not support "dev versions" such as the "X.Y.dev0" used elsewhere
-
+version = "2.0.0" # _VLSIR_VERSION FIXME: Rust / Cargo do not support "dev versions" such as the "X.Y.dev0" used elsewhere
 
 [dependencies]
 prost = "0.8.0"
