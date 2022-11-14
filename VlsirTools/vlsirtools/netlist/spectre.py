@@ -179,11 +179,11 @@ class SpectreNetlister(SpectreSpiceShared):
         else:
             self.writeln("+ // No ports ")
 
-        # Write the instance parameters
-        self.write_instance_params(resolved_instance_parameters)
-
         # Write the module-name
         self.writeln("+  " + module_name + " ")
+        
+        # Write the instance parameters
+        self.write_instance_params(resolved_instance_parameters)
 
         # And add a post-instance blank line
         self.writeln("")
