@@ -173,8 +173,8 @@ primitives = Package(
                 Largely corresponds to the "e-prefix" element of Spice-class simulators. 
                 """
             ),
-            ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            signals=_signals(("p", "n", "ctrlp", "ctrln")),
+            ports=_ports(("p", "n", "cp", "cn")),
+            signals=_signals(("p", "n", "cp", "cn")),
             parameters=[
                 Param(name="gain", desc="Voltage Gain (Volts/Volt)"),
             ],
@@ -191,8 +191,8 @@ primitives = Package(
                 Largely corresponds to the "g-prefix" element of Spice-class simulators. 
                 """
             ),
-            ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            signals=_signals(("p", "n", "ctrlp", "ctrln")),
+            ports=_ports(("p", "n", "cp", "cn")),
+            signals=_signals(("p", "n", "cp", "cn")),
             parameters=[
                 Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
             ],
@@ -209,8 +209,8 @@ primitives = Package(
                 Largely corresponds to the "f-prefix" element of Spice-class simulators. 
                 """
             ),
-            ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            signals=_signals(("p", "n", "ctrlp", "ctrln")),
+            ports=_ports(("p", "n", "cp", "cn")),
+            signals=_signals(("p", "n", "cp", "cn")),
             parameters=[
                 Param(name="gain", desc="Current Gain (Amps/Amp)"),
             ],
@@ -227,8 +227,8 @@ primitives = Package(
                 Largely corresponds to the "h-prefix" element of Spice-class simulators. 
                 """
             ),
-            ports=_ports(("p", "n", "ctrlp", "ctrln")),
-            signals=_signals(("p", "n", "ctrlp", "ctrln")),
+            ports=_ports(("p", "n", "cp", "cn")),
+            signals=_signals(("p", "n", "cp", "cn")),
             parameters=[
                 Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
             ],

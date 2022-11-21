@@ -95,11 +95,11 @@ ext_modules {
     direction: NONE
   }
   ports {
-    signal: "ctrlp"
+    signal: "cp"
     direction: NONE
   }
   ports {
-    signal: "ctrln"
+    signal: "cn"
     direction: NONE
   }
   signals {
@@ -111,11 +111,11 @@ ext_modules {
     width: 1
   }
   signals {
-    name: "ctrlp"
+    name: "cp"
     width: 1
   }
   signals {
-    name: "ctrln"
+    name: "cn"
     width: 1
   }
   parameters {
@@ -138,11 +138,11 @@ ext_modules {
     direction: NONE
   }
   ports {
-    signal: "ctrlp"
+    signal: "cp"
     direction: NONE
   }
   ports {
-    signal: "ctrln"
+    signal: "cn"
     direction: NONE
   }
   signals {
@@ -154,11 +154,11 @@ ext_modules {
     width: 1
   }
   signals {
-    name: "ctrlp"
+    name: "cp"
     width: 1
   }
   signals {
-    name: "ctrln"
+    name: "cn"
     width: 1
   }
   parameters {
@@ -181,11 +181,11 @@ ext_modules {
     direction: NONE
   }
   ports {
-    signal: "ctrlp"
+    signal: "cp"
     direction: NONE
   }
   ports {
-    signal: "ctrln"
+    signal: "cn"
     direction: NONE
   }
   signals {
@@ -197,11 +197,11 @@ ext_modules {
     width: 1
   }
   signals {
-    name: "ctrlp"
+    name: "cp"
     width: 1
   }
   signals {
-    name: "ctrln"
+    name: "cn"
     width: 1
   }
   parameters {
@@ -224,11 +224,11 @@ ext_modules {
     direction: NONE
   }
   ports {
-    signal: "ctrlp"
+    signal: "cp"
     direction: NONE
   }
   ports {
-    signal: "ctrln"
+    signal: "cn"
     direction: NONE
   }
   signals {
@@ -240,11 +240,11 @@ ext_modules {
     width: 1
   }
   signals {
-    name: "ctrlp"
+    name: "cp"
     width: 1
   }
   signals {
-    name: "ctrln"
+    name: "cn"
     width: 1
   }
   parameters {
