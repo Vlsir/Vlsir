@@ -147,6 +147,8 @@ message OpResult {
   reserved 4;
   // Data values, in `signals` order 
   repeated double data = 5;
+  // Optional raw string for netlisting
+  optional string raw = 6;
 }
 
 // ############################################################################
@@ -163,6 +165,8 @@ message DcInput {
   Sweep sweep = 3;
   // Control Elements 
   repeated Control ctrls = 5;
+  // Optional raw string for netlisting
+  optional string raw = 6;
 }
 // # Dc Sweep Result 
 // 
@@ -197,6 +201,8 @@ message TranInput {
   map <string, double> ic = 4; 
   // Control Elements 
   repeated Control ctrls = 5;
+  // Optional raw string for netlisting
+  optional string raw = 6;
 }
 // # Transient Analysis Results 
 message TranResult {
@@ -234,6 +240,8 @@ message AcInput {
   uint64 npts = 4;
   // Control Elements 
   repeated Control ctrls = 5; 
+  // Optional raw string for netlisting
+  optional string raw = 6;
 }
 // # AC Analysis Results 
 // 
@@ -279,6 +287,8 @@ message NoiseInput {
   uint64 npts = 12;
   // Control Elements 
   repeated Control ctrls = 20; 
+  // Optional raw string for netlisting
+  optional string raw = 6;
 }
 // # Noise Analysis Results 
 // 
