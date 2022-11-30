@@ -14,8 +14,17 @@ from enum import Enum
 import vlsir.spice_pb2 as vsp
 from ..netlist.spectre import SpectreNetlister
 from .base import Sim
+<<<<<<< HEAD
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
 from .spice import SupportedSimulators, sim
+=======
+from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, CustomAnalysisResult
+from .spice import (
+    SupportedSimulators,
+    sim,
+    sim_async,  # Not directly used here, but "re-exported"
+)
+>>>>>>> fixing issues in sim_data and spectre
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 
@@ -85,7 +94,8 @@ class SpectreSim(Sim):
         # Parse output data
         data = parse_nutbin(self.open("netlist.raw", "rb"))
         an_type_dispatch = dict(
-            ac=self.parse_ac, dc=self.parse_dc, op=self.parse_op, tran=self.parse_tran
+            ac=self.parse_ac, dc=self.parse_dc, op=self.parse_op,
+            tran=self.parse_tran, custom=self.parse_custom,
         )
         results = []
         for an in self.inp.an:
@@ -165,7 +175,7 @@ class SpectreSim(Sim):
             raise ValueError(f"Invalid `npts` {npts}")
 
         # Write the analysis command
-        line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}\n\n"
+        line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts} {an.raw}\n\n"
         netlist_file.write(line)
 
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
@@ -182,11 +192,11 @@ class SpectreSim(Sim):
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step} {an.raw}\n\n"
             netlist_file.write(line)
         elif sweep_type == "points":
             sweep = an.sweep.points
-            line = f"{an.analysis_name} dc values=[{sweep.points}]\n\n"
+            line = f"{an.analysis_name} dc values=[{sweep.points}] {an.raw}\n\n"
             netlist_file.write(line)
         elif sweep_type == "log":
             raise NotImplementedError
@@ -201,7 +211,7 @@ class SpectreSim(Sim):
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
-        netlist_file.write(f"{an.analysis_name} dc oppoint=rawfile\n\n")
+        netlist_file.write(f"{an.analysis_name} dc oppoint=rawfile {an.raw}\n\n")
 
     def netlist_tran(self, an: vsp.TranInput, netlist_file: IO) -> None:
         if not an.analysis_name:
@@ -211,7 +221,7 @@ class SpectreSim(Sim):
         if len(an.ic):
             raise NotImplementedError
 
-        netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
+        netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} {an.raw}\n\n")
 
     def netlist_custom(self, an: vsp.CustomAnalysisInput, netlist_file: IO) -> None:
         if not an.analysis_name:
@@ -219,7 +229,7 @@ class SpectreSim(Sim):
         if len(an.ctrls):
             raise NotImplementedError
 
-        netlist_file.write(f"{an.analysis_name} {an.cmd}\n\n")
+        netlist_file.write(f"{an.cmd}\n\n")
 
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
         # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!
@@ -262,8 +272,8 @@ class SpectreSim(Sim):
             analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
         )
 
-    def parse_custom(self, an: vsp.CustomAnalysisInput, 
-                     nutbin: "NutBinAnalysis") -> CustomResult:
+    def parse_custom(self, an: vsp.CustomAnalysisInput,
+                     nutbin: "NutBinAnalysis") -> CustomAnalysisResult:
         return CustomAnalysisResult(data=nutbin.data)
 
     def get_measurements(self, filepat: str) -> Dict[str, float]:

@@ -11,7 +11,7 @@ TODO: Go from proto -> sim_result
 
 from enum import Enum
 from dataclasses import dataclass, field
-from typing import List, Mapping, Union, ClassVar, Dict, Optional
+from typing import List, Mapping, Union, ClassVar, Dict, Optional, Any
 
 import numpy as np
 
