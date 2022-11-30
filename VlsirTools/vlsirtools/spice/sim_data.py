@@ -142,6 +142,10 @@ class CustomAnalysisResult:
     to pair with its input analysis, keeping all others aligned."""
 
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.CUSTOM
+    data: Any
+    
+    def to_proto(self) -> vlsir.spice.AcResult:
+        return {}
 
 
 # Type alias for the union of each result-type

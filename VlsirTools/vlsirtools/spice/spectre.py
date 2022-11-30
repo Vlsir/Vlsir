@@ -104,6 +104,123 @@ class SpectreSim(Sim):
 
         return SimResult(an=results)
 
+    def write_control_elements(self, netlist_file: IO) -> None:
+        """Write control elements to the netlist"""
+        for ctrl in self.inp.ctrls:
+            inner = ctrl.WhichOneof("ctrl")
+            if inner == "include":
+                netlist_file.write(f'include "{ctrl.include.path}" \n')
+            elif inner == "lib":
+                txt = f'include "{ctrl.lib.path}" section={ctrl.lib.section} \n'
+                netlist_file.write(txt)
+            elif inner == "literal":
+                netlist_file.write(ctrl.literal + "\n")
+            elif inner == "param":
+                # txt = f"parameters {ctrl.param.name}={str(ctrl.param.value)} \n"
+                txt = f"parameters  {ctrl.param.name}={SpectreNetlister.get_param_value(ctrl.param.value)} \n"
+                netlist_file.write(txt)
+            elif inner == "meas":
+                # Measurements are written in Spice syntax; wrap them in "simulator lang".
+                netlist_file.write(f"simulator lang=spice \n")
+                txt = f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
+                netlist_file.write(txt)
+                netlist_file.write(f"simulator lang=spectre \n")
+            elif inner in ("save"):
+                raise NotImplementedError(
+                    f"Unimplemented control card {ctrl} for {self}"
+                )  # FIXME!
+            else:
+                raise RuntimeError(f"Unknown control type: {inner}")
+
+    def netlist_analysis(self, an: vsp.Analysis, netlist_file: IO) -> None:
+        """Netlist an `Analysis`, largely dispatching its content to a type-specific method."""
+
+        inner = an.WhichOneof("an")
+        inner_dispatch = dict(
+            ac=self.netlist_ac,
+            dc=self.netlist_dc,
+            op=self.netlist_op,
+            tran=self.netlist_tran,
+            custom=self.netlist_custom,
+        )
+        inner_dispatch[inner](getattr(an, inner), netlist_file)
+
+    def netlist_ac(self, an: vsp.AcInput, netlist_file: IO) -> None:
+        """Run an AC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Unpack the analysis / sweep content
+        fstart = an.fstart
+        if fstart <= 0:
+            raise ValueError(f"Invalid `fstart` {fstart}")
+        fstop = an.fstop
+        if fstop <= 0:
+            raise ValueError(f"Invalid `fstop` {fstop}")
+        npts = an.npts
+        if npts <= 0:
+            raise ValueError(f"Invalid `npts` {npts}")
+
+        # Write the analysis command
+        line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}\n\n"
+        netlist_file.write(line)
+
+    def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
+        """Netlist a DC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            netlist_file.write(line)
+        elif sweep_type == "points":
+            sweep = an.sweep.points
+            line = f"{an.analysis_name} dc values=[{sweep.points}]\n\n"
+            netlist_file.write(line)
+        elif sweep_type == "log":
+            raise NotImplementedError
+        else:
+            raise ValueError("Invalid sweep type")
+
+    def netlist_op(self, an: vsp.OpInput, netlist_file: IO) -> None:
+        """Netlist a single point DC analysis"""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        netlist_file.write(f"{an.analysis_name} dc oppoint=rawfile\n\n")
+
+    def netlist_tran(self, an: vsp.TranInput, netlist_file: IO) -> None:
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+        if len(an.ic):
+            raise NotImplementedError
+
+        netlist_file.write(f"{an.analysis_name} tran stop={an.tstop} \n\n")
+
+    def netlist_custom(self, an: vsp.CustomAnalysisInput, netlist_file: IO) -> None:
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+
+        netlist_file.write(f"{an.analysis_name} {an.cmd}\n\n")
+
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
         # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!
         measurements = self.get_measurements("*.mt*")
@@ -144,6 +261,10 @@ class SpectreSim(Sim):
         return TranResult(
             analysis_name=an.analysis_name, data=nutbin.data, measurements=measurements
         )
+
+    def parse_custom(self, an: vsp.CustomAnalysisInput, 
+                     nutbin: "NutBinAnalysis") -> CustomResult:
+        return CustomAnalysisResult(data=nutbin.data)
 
     def get_measurements(self, filepat: str) -> Dict[str, float]:
         """Get the measurements at files matching (glob) `filepat`.
