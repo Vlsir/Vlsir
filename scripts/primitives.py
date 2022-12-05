@@ -32,10 +32,7 @@ sys.path.append(str(pybindings))
 # import will break, and we will not be able to generate a new .pb.txt file.
 # A temporary fix is to comment out the code in
 # bindings/python/vlsir/primitives.py.
-from vlsir.utils_pb2 import (
-    QualifiedName,
-    Param,
-)
+from vlsir.utils_pb2 import QualifiedName, Param, ParamValue
 from vlsir.circuit_pb2 import (
     Package,
     ExternalModule,
@@ -269,7 +266,11 @@ primitives = Package(
             signals=_signals(("p", "n")),
             parameters=[
                 Param(name="dc", desc="DC Voltage (Volts)"),
-                Param(name="ac", desc="AC/ Small-Signal Magnitude (Volts)"),
+                Param(
+                    name="ac",
+                    desc="AC/ Small-Signal Magnitude (Volts)",
+                    value=ParamValue(integer=0),
+                ),
             ],
         ),
         ExternalModule(
