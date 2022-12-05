@@ -240,6 +240,8 @@ class SpiceNetlister(SpectreSpiceShared):
         if name == "vdc":
             dc = resolved_param_values.pop("dc")
             self.write(f"+ dc {self.format_expression(dc)} \n")
+            ac = resolved_param_values.pop("ac")
+            self.write(f"+ ac {self.format_expression(ac)} \n")
 
         elif name == "vpulse":
             keys = ["v1", "v2", "td", "tr", "tf", "tpw", "tper"]

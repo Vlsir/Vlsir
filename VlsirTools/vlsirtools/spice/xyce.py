@@ -103,7 +103,7 @@ class XyceSim(Sim):
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
-    def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
+    async def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
         """Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`."""
 
         # `Analysis` is a Union (protobuf `oneof`) of the analysis-types.
@@ -112,13 +112,13 @@ class XyceSim(Sim):
         inner = an.WhichOneof("an")
 
         if inner == "op":
-            return AR(op=self.op(an.op))
+            return AR(op=await self.op(an.op))
         if inner == "dc":
-            return AR(dc=self.dc(an.dc))
+            return AR(dc=await self.dc(an.dc))
         if inner == "ac":
-            return AR(ac=self.ac(an.ac))
+            return AR(ac=await self.ac(an.ac))
         if inner == "tran":
-            return AR(tran=self.tran(an.tran))
+            return AR(tran=await self.tran(an.tran))
         if inner in ("sweep", "monte", "custom"):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
@@ -132,7 +132,7 @@ class XyceSim(Sim):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        shutil.copy("dut", f"{analysis_name}.sp")
+        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
         netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command
@@ -189,8 +189,9 @@ class XyceSim(Sim):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        shutil.copy("dut", f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist_path = self.path(f"{analysis_name}.sp")
+        shutil.copy(self.path("dut"), netlist_path)
+        netlist = self.open(netlist_path, "a")
 
         # Write the analysis command
         param = an.indep_name
@@ -246,7 +247,7 @@ class XyceSim(Sim):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        shutil.copy("dut", f"{analysis_name}.sp")
+        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
         netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Create the dummy parameter, and "sweep" a single value of it
@@ -291,7 +292,7 @@ class XyceSim(Sim):
             raise NotImplementedError
 
         # Copy and append to the existing DUT netlist
-        shutil.copy("dut", f"{analysis_name}.sp")
+        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
         netlist = self.open(f"{analysis_name}.sp", "a")
 
         # Write the analysis command

@@ -307,6 +307,9 @@ ext_modules {
   }
   parameters {
     name: "ac"
+    value {
+      integer: 0
+    }
     desc: "AC/ Small-Signal Magnitude (Volts)"
   }
 }

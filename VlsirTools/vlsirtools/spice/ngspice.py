@@ -190,7 +190,6 @@ class NGSpiceSim(Sim):
     def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
         """Netlist a DC analysis."""
 
-        raise ValueError("At this time, DC analyses are not supported in NGSPICE")
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):

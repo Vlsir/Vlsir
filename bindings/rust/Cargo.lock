@@ -311,7 +311,7 @@ checksum = "8ccb82d61f80a663efe1f787a51b16b5a51e3314d6ac365b08639f52387b33f3"
 
 [[package]]
 name = "vlsir"
-version = "2.0.0"
+version = "3.0.0"
 dependencies = [
  "prost 0.8.0",
  "prost-build",
