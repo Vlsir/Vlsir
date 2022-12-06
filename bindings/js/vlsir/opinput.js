@@ -70,7 +70,8 @@ proto.vlsir.spice.OpInput.toObject = function(includeInstance, msg) {
   var f, obj = {
     analysisName: jspb.Message.getFieldWithDefault(msg, 1, ""),
     ctrlsList: jspb.Message.toObjectList(msg.getCtrlsList(),
-    proto.vlsir.spice.Control.toObject, includeInstance)
+    proto.vlsir.spice.Control.toObject, includeInstance),
+    raw: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -116,6 +117,10 @@ proto.vlsir.spice.OpInput.deserializeBinaryFromReader = function(msg, reader) {
       reader.readMessage(value,proto.vlsir.spice.Control.deserializeBinaryFromReader);
       msg.addCtrls(value);
       break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRaw(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -158,6 +163,13 @@ proto.vlsir.spice.OpInput.serializeBinaryToWriter = function(message, writer) {
       5,
       f,
       proto.vlsir.spice.Control.serializeBinaryToWriter
+    );
+  }
+  f = message.getRaw();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
     );
   }
 };
@@ -206,6 +218,21 @@ proto.vlsir.spice.OpInput.prototype.addCtrls = function(opt_value, opt_index) {
 
 proto.vlsir.spice.OpInput.prototype.clearCtrlsList = function() {
   this.setCtrlsList([]);
+};
+
+
+/**
+ * optional string raw = 6;
+ * @return {string}
+ */
+proto.vlsir.spice.OpInput.prototype.getRaw = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.vlsir.spice.OpInput.prototype.setRaw = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
 };
 
 

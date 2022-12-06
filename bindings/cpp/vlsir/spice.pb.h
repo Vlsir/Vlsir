@@ -1235,12 +1235,27 @@ class OpInput : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   ::std::string* release_analysis_name();
   void set_allocated_analysis_name(::std::string* analysis_name);
 
+  // string raw = 6;
+  void clear_raw();
+  static const int kRawFieldNumber = 6;
+  const ::std::string& raw() const;
+  void set_raw(const ::std::string& value);
+  #if LANG_CXX11
+  void set_raw(::std::string&& value);
+  #endif
+  void set_raw(const char* value);
+  void set_raw(const char* value, size_t size);
+  ::std::string* mutable_raw();
+  ::std::string* release_raw();
+  void set_allocated_raw(::std::string* raw);
+
   // @@protoc_insertion_point(class_scope:vlsir.spice.OpInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::vlsir::spice::Control > ctrls_;
   ::google::protobuf::internal::ArenaStringPtr analysis_name_;
+  ::google::protobuf::internal::ArenaStringPtr raw_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_spice_2eproto::TableStruct;
 };
@@ -1381,20 +1396,6 @@ class OpResult : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::std::string* release_analysis_name();
   void set_allocated_analysis_name(::std::string* analysis_name);
 
-  // string raw = 6;
-  void clear_raw();
-  static const int kRawFieldNumber = 6;
-  const ::std::string& raw() const;
-  void set_raw(const ::std::string& value);
-  #if LANG_CXX11
-  void set_raw(::std::string&& value);
-  #endif
-  void set_raw(const char* value);
-  void set_raw(const char* value, size_t size);
-  ::std::string* mutable_raw();
-  ::std::string* release_raw();
-  void set_allocated_raw(::std::string* raw);
-
   // @@protoc_insertion_point(class_scope:vlsir.spice.OpResult)
  private:
 
@@ -1403,7 +1404,6 @@ class OpResult : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::google::protobuf::RepeatedField< double > data_;
   mutable int _data_cached_byte_size_;
   ::google::protobuf::internal::ArenaStringPtr analysis_name_;
-  ::google::protobuf::internal::ArenaStringPtr raw_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_spice_2eproto::TableStruct;
 };
@@ -6435,6 +6435,59 @@ OpInput::ctrls() const {
   return ctrls_;
 }
 
+// string raw = 6;
+inline void OpInput::clear_raw() {
+  raw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& OpInput::raw() const {
+  // @@protoc_insertion_point(field_get:vlsir.spice.OpInput.raw)
+  return raw_.GetNoArena();
+}
+inline void OpInput::set_raw(const ::std::string& value) {
+  
+  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:vlsir.spice.OpInput.raw)
+}
+#if LANG_CXX11
+inline void OpInput::set_raw(::std::string&& value) {
+  
+  raw_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:vlsir.spice.OpInput.raw)
+}
+#endif
+inline void OpInput::set_raw(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:vlsir.spice.OpInput.raw)
+}
+inline void OpInput::set_raw(const char* value, size_t size) {
+  
+  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.OpInput.raw)
+}
+inline ::std::string* OpInput::mutable_raw() {
+  
+  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpInput.raw)
+  return raw_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* OpInput::release_raw() {
+  // @@protoc_insertion_point(field_release:vlsir.spice.OpInput.raw)
+  
+  return raw_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void OpInput::set_allocated_raw(::std::string* raw) {
+  if (raw != NULL) {
+    
+  } else {
+    
+  }
+  raw_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), raw);
+  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.OpInput.raw)
+}
+
 // -------------------------------------------------------------------
 
 // OpResult
@@ -6589,59 +6642,6 @@ inline ::google::protobuf::RepeatedField< double >*
 OpResult::mutable_data() {
   // @@protoc_insertion_point(field_mutable_list:vlsir.spice.OpResult.data)
   return &data_;
-}
-
-// string raw = 6;
-inline void OpResult::clear_raw() {
-  raw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& OpResult::raw() const {
-  // @@protoc_insertion_point(field_get:vlsir.spice.OpResult.raw)
-  return raw_.GetNoArena();
-}
-inline void OpResult::set_raw(const ::std::string& value) {
-  
-  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:vlsir.spice.OpResult.raw)
-}
-#if LANG_CXX11
-inline void OpResult::set_raw(::std::string&& value) {
-  
-  raw_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:vlsir.spice.OpResult.raw)
-}
-#endif
-inline void OpResult::set_raw(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:vlsir.spice.OpResult.raw)
-}
-inline void OpResult::set_raw(const char* value, size_t size) {
-  
-  raw_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:vlsir.spice.OpResult.raw)
-}
-inline ::std::string* OpResult::mutable_raw() {
-  
-  // @@protoc_insertion_point(field_mutable:vlsir.spice.OpResult.raw)
-  return raw_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* OpResult::release_raw() {
-  // @@protoc_insertion_point(field_release:vlsir.spice.OpResult.raw)
-  
-  return raw_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void OpResult::set_allocated_raw(::std::string* raw) {
-  if (raw != NULL) {
-    
-  } else {
-    
-  }
-  raw_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), raw);
-  // @@protoc_insertion_point(field_set_allocated:vlsir.spice.OpResult.raw)
 }
 
 // -------------------------------------------------------------------

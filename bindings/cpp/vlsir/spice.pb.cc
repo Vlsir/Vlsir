@@ -918,6 +918,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpInput, analysis_name_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpInput, ctrls_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpInput, raw_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpResult, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -926,7 +927,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpResult, analysis_name_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpResult, signals_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpResult, data_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::OpResult, raw_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::vlsir::spice::DcInput, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1213,7 +1213,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 26, -1, sizeof(::vlsir::spice::Analysis)},
   { 40, -1, sizeof(::vlsir::spice::AnalysisResult)},
   { 54, -1, sizeof(::vlsir::spice::OpInput)},
-  { 61, -1, sizeof(::vlsir::spice::OpResult)},
+  { 62, -1, sizeof(::vlsir::spice::OpResult)},
   { 70, -1, sizeof(::vlsir::spice::DcInput)},
   { 80, 87, sizeof(::vlsir::spice::DcResult_MeasurementsEntry_DoNotUse)},
   { 89, -1, sizeof(::vlsir::spice::DcResult)},
@@ -1335,11 +1335,11 @@ void AddDescriptorsImpl() {
       "seResultH\000\022)\n\005sweep\030\n \001(\0132\030.vlsir.spice."
       "SweepResultH\000\022)\n\005monte\030\013 \001(\0132\030.vlsir.spi"
       "ce.MonteResultH\000\0223\n\006custom\030\024 \001(\0132!.vlsir"
-      ".spice.CustomAnalysisResultH\000B\004\n\002an\"E\n\007O"
+      ".spice.CustomAnalysisResultH\000B\004\n\002an\"R\n\007O"
       "pInput\022\025\n\ranalysis_name\030\001 \001(\t\022#\n\005ctrls\030\005"
-      " \003(\0132\024.vlsir.spice.Control\"Y\n\010OpResult\022\025"
-      "\n\ranalysis_name\030\001 \001(\t\022\017\n\007signals\030\003 \003(\t\022\014"
-      "\n\004data\030\005 \003(\001\022\013\n\003raw\030\006 \001(\tJ\004\010\002\020\003J\004\010\004\020\005\"\211\001"
+      " \003(\0132\024.vlsir.spice.Control\022\013\n\003raw\030\006 \001(\t\""
+      "L\n\010OpResult\022\025\n\ranalysis_name\030\001 \001(\t\022\017\n\007si"
+      "gnals\030\003 \003(\t\022\014\n\004data\030\005 \003(\001J\004\010\002\020\003J\004\010\004\020\005\"\211\001"
       "\n\007DcInput\022\025\n\ranalysis_name\030\001 \001(\t\022\022\n\ninde"
       "p_name\030\002 \001(\t\022!\n\005sweep\030\003 \001(\0132\022.vlsir.spic"
       "e.Sweep\022#\n\005ctrls\030\005 \003(\0132\024.vlsir.spice.Con"
@@ -3934,6 +3934,7 @@ void OpInput::InitAsDefaultInstance() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int OpInput::kAnalysisNameFieldNumber;
 const int OpInput::kCtrlsFieldNumber;
+const int OpInput::kRawFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 OpInput::OpInput()
@@ -3952,11 +3953,16 @@ OpInput::OpInput(const OpInput& from)
   if (from.analysis_name().size() > 0) {
     analysis_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.analysis_name_);
   }
+  raw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.raw().size() > 0) {
+    raw_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.raw_);
+  }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.OpInput)
 }
 
 void OpInput::SharedCtor() {
   analysis_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  raw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 OpInput::~OpInput() {
@@ -3966,6 +3972,7 @@ OpInput::~OpInput() {
 
 void OpInput::SharedDtor() {
   analysis_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  raw_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void OpInput::SetCachedSize(int size) const {
@@ -3990,6 +3997,7 @@ void OpInput::Clear() {
 
   ctrls_.Clear();
   analysis_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  raw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -4025,6 +4033,22 @@ bool OpInput::MergePartialFromCodedStream(
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_ctrls()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string raw = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_raw()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->raw().data(), static_cast<int>(this->raw().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "vlsir.spice.OpInput.raw"));
         } else {
           goto handle_unusual;
         }
@@ -4076,6 +4100,16 @@ void OpInput::SerializeWithCachedSizes(
       output);
   }
 
+  // string raw = 6;
+  if (this->raw().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->raw().data(), static_cast<int>(this->raw().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.OpInput.raw");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->raw(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -4107,6 +4141,17 @@ void OpInput::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         5, this->ctrls(static_cast<int>(i)), deterministic, target);
+  }
+
+  // string raw = 6;
+  if (this->raw().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->raw().data(), static_cast<int>(this->raw().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "vlsir.spice.OpInput.raw");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->raw(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -4144,6 +4189,13 @@ size_t OpInput::ByteSizeLong() const {
         this->analysis_name());
   }
 
+  // string raw = 6;
+  if (this->raw().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->raw());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -4176,6 +4228,10 @@ void OpInput::MergeFrom(const OpInput& from) {
 
     analysis_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.analysis_name_);
   }
+  if (from.raw().size() > 0) {
+
+    raw_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.raw_);
+  }
 }
 
 void OpInput::CopyFrom(const ::google::protobuf::Message& from) {
@@ -4205,6 +4261,8 @@ void OpInput::InternalSwap(OpInput* other) {
   CastToBase(&ctrls_)->InternalSwap(CastToBase(&other->ctrls_));
   analysis_name_.Swap(&other->analysis_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  raw_.Swap(&other->raw_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
@@ -4222,7 +4280,6 @@ void OpResult::InitAsDefaultInstance() {
 const int OpResult::kAnalysisNameFieldNumber;
 const int OpResult::kSignalsFieldNumber;
 const int OpResult::kDataFieldNumber;
-const int OpResult::kRawFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 OpResult::OpResult()
@@ -4242,16 +4299,11 @@ OpResult::OpResult(const OpResult& from)
   if (from.analysis_name().size() > 0) {
     analysis_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.analysis_name_);
   }
-  raw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.raw().size() > 0) {
-    raw_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.raw_);
-  }
   // @@protoc_insertion_point(copy_constructor:vlsir.spice.OpResult)
 }
 
 void OpResult::SharedCtor() {
   analysis_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  raw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 OpResult::~OpResult() {
@@ -4261,7 +4313,6 @@ OpResult::~OpResult() {
 
 void OpResult::SharedDtor() {
   analysis_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  raw_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void OpResult::SetCachedSize(int size) const {
@@ -4287,7 +4338,6 @@ void OpResult::Clear() {
   signals_.Clear();
   data_.Clear();
   analysis_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  raw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -4353,22 +4403,6 @@ bool OpResult::MergePartialFromCodedStream(
         break;
       }
 
-      // string raw = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_raw()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->raw().data(), static_cast<int>(this->raw().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "vlsir.spice.OpResult.raw"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -4424,16 +4458,6 @@ void OpResult::SerializeWithCachedSizes(
       this->data().data(), this->data_size(), output);
   }
 
-  // string raw = 6;
-  if (this->raw().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->raw().data(), static_cast<int>(this->raw().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "vlsir.spice.OpResult.raw");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->raw(), output);
-  }
-
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -4480,17 +4504,6 @@ void OpResult::SerializeWithCachedSizes(
             _data_cached_byte_size_), target);
     target = ::google::protobuf::internal::WireFormatLite::
       WriteDoubleNoTagToArray(this->data_, target);
-  }
-
-  // string raw = 6;
-  if (this->raw().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->raw().data(), static_cast<int>(this->raw().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "vlsir.spice.OpResult.raw");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->raw(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -4541,13 +4554,6 @@ size_t OpResult::ByteSizeLong() const {
         this->analysis_name());
   }
 
-  // string raw = 6;
-  if (this->raw().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->raw());
-  }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -4581,10 +4587,6 @@ void OpResult::MergeFrom(const OpResult& from) {
 
     analysis_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.analysis_name_);
   }
-  if (from.raw().size() > 0) {
-
-    raw_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.raw_);
-  }
 }
 
 void OpResult::CopyFrom(const ::google::protobuf::Message& from) {
@@ -4614,8 +4616,6 @@ void OpResult::InternalSwap(OpResult* other) {
   signals_.InternalSwap(CastToBase(&other->signals_));
   data_.InternalSwap(&other->data_);
   analysis_name_.Swap(&other->analysis_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  raw_.Swap(&other->raw_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
