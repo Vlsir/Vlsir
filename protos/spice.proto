@@ -136,6 +136,8 @@ message OpInput {
   string analysis_name = 1;
   // Control Elements 
   repeated Control ctrls = 5;
+  // Optional raw string for netlisting
+  string raw = 6;
 }
 // Operating Point Results 
 message OpResult {
@@ -147,8 +149,6 @@ message OpResult {
   reserved 4;
   // Data values, in `signals` order 
   repeated double data = 5;
-  // Optional raw string for netlisting
-  string raw = 6;
 }
 
 // ############################################################################
