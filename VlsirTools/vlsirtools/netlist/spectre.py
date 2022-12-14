@@ -181,7 +181,7 @@ class SpectreNetlister(SpectreSpiceShared):
 
         # Write the module-name
         self.writeln("+  " + module_name + " ")
-        
+
         # Write the instance parameters
         self.write_instance_params(resolved_instance_parameters)
 

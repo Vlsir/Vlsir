@@ -190,8 +190,8 @@ class XyceSim(Sim):
         # Pull together separate real/imaginary parts into complex numbers
         keys = list(csv_data.keys())
         for re, im in zip(keys[::2], keys[1::2]):
-            # Check that node-names match, or fail. 
-            # Peel out "Re(" and "Im(" from the beginning, and a trailing ")" from the end. 
+            # Check that node-names match, or fail.
+            # Peel out "Re(" and "Im(" from the beginning, and a trailing ")" from the end.
             if re[3:-1] != im[3:-1]:
                 raise RuntimeError(f"Unmatched complex number: {re}, {im}")
             name = re[3:-1]
@@ -309,7 +309,7 @@ class XyceSim(Sim):
             csv_data = read_csv(csv_handle)
 
         # Each value in `csv_data` will be a single-element list.
-        # Pull those single elements out. 
+        # Pull those single elements out.
         data = {k: v[0] for k, v in csv_data.items()}
 
         # And arrange them in an `OpResult`

@@ -458,16 +458,6 @@ def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
     dummy_sim_tests(SupportedSimulators.XYCE)
 
-    # inp = dummy_sim()
-    # results = sim(
-    #     inp=inp,
-    #     opts=SimOptions(
-    #         simulator=SupportedSimulators.SPECTRE,
-    #         fmt=ResultFormat.VLSIR_PROTO,
-    #     ),
-    # )
-    # assert isinstance(results, SimResult)
-
 
 @pytest.mark.skipif(
     not vlsirtools.xyce.available(),
@@ -485,17 +475,6 @@ def test_xyce1():
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     dummy_sim_tests(SupportedSimulators.NGSPICE, skip=[AnalysisType.DC])
-
-    # inp = dummy_sim(skip=[AnalysisType.DC])
-    # results = sim(
-    #     inp=inp,
-    #     # Note NgSpice DC is weird, and not supported.
-    #     opts=SimOptions(
-    #         simulator=SupportedSimulators.NGSPICE,
-    #         fmt=ResultFormat.VLSIR_PROTO,
-    #     ),
-    # )
-    # assert isinstance(results, SimResult)
 
 
 def test_xyce_import():
@@ -598,3 +577,11 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
+
+
+@pytest.mark.xfail(reason="#41 https://github.com/Vlsir/Vlsir/issues/41")
+def test_theres_a_simulator_available():
+    """Test that there is at least one simulator available for testing.
+    This is... debatable whether we wanna do it? A good idea, but tough to set up e.g. on CI servers.
+    And basically impossible for anything with a paid license."""
+    assert vlsirtools.spice.default() is not None
