@@ -3,14 +3,26 @@ Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import random, shutil, csv
-from typing import List, Tuple, IO, Dict, Awaitable
+import subprocess, random, shutil, csv
 from glob import glob
+from os import PathLike
+from typing import List, Tuple, IO, Dict, Awaitable, Union
+
+import numpy as np
+import pandas as pd
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
 from ..netlist import netlist, XyceNetlister
 from .base import Sim
+from .sim_data import (
+    TranResult,
+    OpResult,
+    SimResult,
+    AcResult,
+    DcResult,
+    AnalysisResult,
+)
 from .spice import (
     ResultFormat,
     SupportedSimulators,
@@ -43,18 +55,30 @@ class XyceSim(Sim):
     def available() -> bool:
         """Boolean indication of whether the current running environment includes the simulator executable on its path."""
         # FIXME: add an attempt to execute it, get the version string etc, like Spectre and NgSpice do.
-        return shutil.which(XYCE_EXECUTABLE) is not None
+        if shutil.which(XYCE_EXECUTABLE) is None:
+            return False
+        try:
+            # And if it's set, check that we can get its version without croaking.
+            subprocess.run(
+                f"{XYCE_EXECUTABLE} -v",  # Get the version,
+                shell=True,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=10,
+            )
+        except Exception:
+            # Indicate "not available" for any Exception. Usually this will be a `subprocess.CalledProcessError`.
+            return False
+        return True  # Otherwise, installation looks good.
 
     @classmethod
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.XYCE
 
-    async def run(self) -> Awaitable[vsp.SimResult]:
+    async def run(self) -> Awaitable[SimResult]:
         """Run the specified `SimInput` in directory `self.rundir`,
         returning its results."""
-
-        if self.opts.fmt != ResultFormat.VLSIR_PROTO:
-            raise RuntimeError(f"Unsupported ResultFormat: {self.opts.fmt} for Xyce")
 
         netlist_file = self.open("dut", "w")
         netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
@@ -74,7 +98,7 @@ class XyceSim(Sim):
         netlist_file.flush()
 
         # Run each analysis in the input
-        results = vsp.SimResult()
+        results = SimResult()
         for an in self.inp.an:
             an_results = await self.analysis(an)
             results.an.append(an_results)
@@ -103,22 +127,24 @@ class XyceSim(Sim):
             else:
                 raise RuntimeError(f"Unknown control type: {inner}")
 
-    async def analysis(self, an: vsp.Analysis) -> vsp.AnalysisResult:
-        """Execute a `vsp.Analysis`, returning its `vsp.AnalysisResult`."""
+    def analysis(self, an: vsp.Analysis) -> Awaitable[AnalysisResult]:
+        """Execute a `vsp.Analysis`, returning its `AnalysisResult`.
+        Note that while this method is not explicitly `async`,
+        its inner methods `dc`, `ac`, `tran`, etc, all are,
+        and hence return an `Awaitable` future."""
 
         # `Analysis` is a Union (protobuf `oneof`) of the analysis-types.
         # Unwrap it, and dispatch based on the type.
-        AR = vsp.AnalysisResult  # Quick shorthand
         inner = an.WhichOneof("an")
 
         if inner == "op":
-            return AR(op=await self.op(an.op))
+            return self.op(an.op)
         if inner == "dc":
-            return AR(dc=await self.dc(an.dc))
+            return self.dc(an.dc)
         if inner == "ac":
-            return AR(ac=await self.ac(an.ac))
+            return self.ac(an.ac)
         if inner == "tran":
-            return AR(tran=await self.tran(an.tran))
+            return self.tran(an.tran)
         if inner in ("sweep", "monte", "custom"):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
@@ -127,13 +153,14 @@ class XyceSim(Sim):
         """Run an AC analysis."""
 
         # Unpack the `AcInput`
-        analysis_name = an.analysis_name or "ac"
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = self.copy_dut_netlist(f"{analysis_name}.sp")
 
         # Write the analysis command
         npts = an.npts
@@ -154,44 +181,47 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
-            (signals, data) = read_csv(csv_handle)
+            csv_data = read_csv(csv_handle)
 
         # Separate Frequency vector
-        n_sigs = len(signals)  # Get length of signals vector because...
-        freq = data[::n_sigs]  # ...every n-th data pt is a freq pt
-        del data[::n_sigs]  # Clean the list of data of all frequencies
-        signals.pop(0)  # Remove "Frequency" from list of signals
+        freq: np.ndarray = csv_data.pop("FREQ")
+        data: Dict[str, np.ndarray] = {}
 
-        # Build ComplexNumbers for each data point
-        reals = data[::2]
-        imags = data[1::2]
-        if not len(reals) == len(imags):  # Sanity check
-            raise RuntimeError("Unpaired complex number in data")
-        cplx_data = [
-            vsp.ComplexNum(re=real, im=imag) for real, imag in zip(reals, imags)
-        ]
+        # Pull together separate real/imaginary parts into complex numbers
+        keys = list(csv_data.keys())
+        for re, im in zip(keys[::2], keys[1::2]):
+            # Check that node-names match, or fail. 
+            # Peel out "Re(" and "Im(" from the beginning, and a trailing ")" from the end. 
+            if re[3:-1] != im[3:-1]:
+                raise RuntimeError(f"Unmatched complex number: {re}, {im}")
+            name = re[3:-1]
+            data[name] = np.array(
+                [complex(r, i) for r, i in zip(csv_data[re], csv_data[im])]
+            )
 
         # Parse any scalar measurement results
         measurements = self.parse_measurements(analysis_name)
 
         # And arrange them in an `AcResult`
-        return vsp.AcResult(
-            freq=freq, signals=signals, data=cplx_data, measurements=measurements
+        return AcResult(
+            analysis_name=an.analysis_name,
+            freq=freq,
+            data=data,
+            measurements=measurements,
         )
 
-    async def dc(self, an: vsp.DcInput) -> Awaitable[vsp.DcResult]:
+    async def dc(self, an: vsp.DcInput) -> Awaitable[DcResult]:
         """Run a DC analysis."""
 
         # Unpack the `DcInput`
-        analysis_name = an.analysis_name or "dc"
-
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        netlist_path = self.path(f"{analysis_name}.sp")
-        shutil.copy(self.path("dut"), netlist_path)
-        netlist = self.open(netlist_path, "a")
+        netlist = self.copy_dut_netlist(f"{analysis_name}.sp")
 
         # Write the analysis command
         param = an.indep_name
@@ -228,27 +258,33 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = read_csv(csv_handle)
+            csv_data = read_csv(csv_handle)
 
         # Parse any scalar measurement results
         measurements = self.parse_measurements(analysis_name)
 
         # And arrange them in an `OpResult`
-        return vsp.DcResult(signals=signals, data=data, measurements=measurements)
+        return DcResult(
+            analysis_name=an.analysis_name,
+            indep_name=an.indep_name,
+            data=csv_data,
+            measurements=measurements,
+        )
 
-    async def op(self, an: vsp.OpInput) -> Awaitable[vsp.OpResult]:
+    async def op(self, an: vsp.OpInput) -> Awaitable[OpResult]:
         """Run an operating-point analysis.
         Xyce describes the `.op` analysis as "partially supported".
         Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
 
         # Unpack the `OpInput`
-        analysis_name = an.analysis_name or "op"
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
         if len(an.ctrls):
             raise NotImplementedError  # FIXME!
 
         # Copy and append to the existing DUT netlist
-        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = self.copy_dut_netlist(f"{analysis_name}.sp")
 
         # Create the dummy parameter, and "sweep" a single value of it
         dummy_param = f"_dummy_{random.randint(0,65536)}_"
@@ -270,16 +306,25 @@ class XyceSim(Sim):
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = read_csv(csv_handle)
+            csv_data = read_csv(csv_handle)
+
+        # Each value in `csv_data` will be a single-element list.
+        # Pull those single elements out. 
+        data = {k: v[0] for k, v in csv_data.items()}
 
         # And arrange them in an `OpResult`
-        return vsp.OpResult(signals=signals, data=data)
+        return OpResult(
+            analysis_name=an.analysis_name,
+            data=data,
+        )
 
     async def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
         """Run a transient analysis."""
 
         # Extract fields from our `TranInput`
-        analysis_name = an.analysis_name or "tran"
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
 
         # Why not make tstop/tstep required?
         if not an.tstop or not an.tstep:
@@ -292,8 +337,7 @@ class XyceSim(Sim):
             raise NotImplementedError
 
         # Copy and append to the existing DUT netlist
-        shutil.copy(self.path("dut"), f"{analysis_name}.sp")
-        netlist = self.open(f"{analysis_name}.sp", "a")
+        netlist = self.copy_dut_netlist(f"{analysis_name}.sp")
 
         # Write the analysis command
         netlist.write(f".tran {tstep} {tstop} \n\n")
@@ -312,17 +356,14 @@ class XyceSim(Sim):
         # Parse and organize our results
         # First pull them in from CSV
         with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
-            (signals, data) = read_csv(csv_handle)
+            csv_data = read_csv(csv_handle)
 
         # Parse any scalar measurement results
         measurements = self.parse_measurements(analysis_name)
 
-        # And organize them into a `TranResult` message
-        return vsp.TranResult(
-            analysis_name=analysis_name,
-            signals=signals,
-            data=data,
-            measurements=measurements,
+        # And organize them into a `TranResult`
+        return TranResult(
+            analysis_name=an.analysis_name, data=csv_data, measurements=measurements
         )
 
     def run_xyce_process(self, name: str) -> Awaitable[None]:
@@ -341,22 +382,18 @@ class XyceSim(Sim):
         # No measurement-file, return an empty result
         return {}
 
+    def copy_dut_netlist(self, path: str) -> IO:
+        """Copy the `DUT` part of the netlist to file `path`,
+        in our working directory, and return a file-handle to it."""
+        shutil.copy(self.path("dut"), self.path(path))
+        return self.open(path, "a")
 
-def read_csv(handle: IO) -> Tuple[List[str], List[float]]:
-    """Read a text-header + float CSV from file-handle `handle`."""
 
-    # Get the header-list of strings
-    header_line = handle.readline().strip()
-    headers = header_line.split(",")
+def read_csv(handle: Union[IO, PathLike]) -> Dict[str, np.ndarray]:
+    """Read CSV from file-handle `handle` into a dictionary of {header: array}s."""
 
-    # The remaining rows are data-values. Append them to the (single-dimension) list of results.
-    data = []
-    results_csv = csv.reader(handle, quoting=csv.QUOTE_NONNUMERIC)
-    for row in results_csv:
-        data.extend(row)
-
-    # And return the two as a tuple
-    return (headers, data)
+    df = pd.read_csv(handle)
+    return {n: np.array(c) for n, c in df.items()}
 
 
 def parse_meas(file: IO) -> Dict[str, float]:
