@@ -9,12 +9,13 @@ TODO: Go from proto -> sim_result
 """
 
 
-from typing import List, Mapping, Union, ClassVar
 from enum import Enum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import List, Mapping, Union, ClassVar, Dict, Optional
+
 import numpy as np
 
-import vlsir
+import vlsir.spice_pb2 as vsp
 
 
 class AnalysisType(Enum):
@@ -37,8 +38,8 @@ class OpResult:
     data: Mapping[str, float]
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.OP
 
-    def to_proto(self) -> vlsir.spice.OpResult:
-        res = vlsir.spice.OpResult(analysis_name=self.analysis_name)
+    def to_proto(self) -> vsp.OpResult:
+        res = vsp.OpResult(analysis_name=self.analysis_name)
         for k, v in self.data.items():
             res.signals.append(k)
             res.data.append(v)
@@ -53,10 +54,8 @@ class DcResult:
     measurements: Mapping[str, float]
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.DC
 
-    def to_proto(self) -> vlsir.spice.DcResult:
-        res = vlsir.spice.DcResult(
-            analysis_name=self.analysis_name, indep_name=self.indep_name
-        )
+    def to_proto(self) -> vsp.DcResult:
+        res = vsp.DcResult(analysis_name=self.analysis_name, indep_name=self.indep_name)
         for k, v in self.data.items():
             res.signals.append(k)
             for d in v:
@@ -72,8 +71,8 @@ class TranResult:
     measurements: Mapping[str, float]
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.TRAN
 
-    def to_proto(self) -> vlsir.spice.TranResult:
-        res = vlsir.spice.TranResult(analysis_name=self.analysis_name)
+    def to_proto(self) -> vsp.TranResult:
+        res = vsp.TranResult(analysis_name=self.analysis_name)
         for k, v in self.data.items():
             res.signals.append(k)
             for d in v:
@@ -84,14 +83,27 @@ class TranResult:
 
 @dataclass
 class AcResult:
-    analysis_name: str
-    freq: np.ndarray
-    data: Mapping[str, np.ndarray]
-    measurements: Mapping[str, float]
+    analysis_name: str  # Analysis name
+    freq: np.ndarray  # Real/ float-valued frequency data
+    data: Mapping[str, np.ndarray]  # Complex-valued signal data
+    measurements: Mapping[str, float]  # Measurement data
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.AC
 
-    def to_proto(self) -> vlsir.spice.AcResult:
-        raise NotImplementedError
+    def to_proto(self) -> vsp.AcResult:
+        """Convert to a VLSIR `AcResult` proto object
+        Primarily "flattens" the complex-valued data into a single list."""
+
+        data: List[vsp.ComplexNum] = []
+        for v in self.data.values():
+            data.extend([vsp.ComplexNum(re=c.real, im=c.imag) for c in v])
+
+        return vsp.AcResult(
+            analysis_name=self.analysis_name,
+            freq=self.freq,
+            signals=list(self.data.keys()),
+            data=data,
+            measurements=self.measurements,
+        )
 
 
 @dataclass
@@ -102,7 +114,7 @@ class NoiseResult:
     measurements: Mapping[str, float]
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.NOISE
 
-    def to_proto(self) -> vlsir.spice.AcResult:
+    def to_proto(self) -> vsp.AcResult:
         raise NotImplementedError
 
 
@@ -144,19 +156,82 @@ AnalysisResult = Union[
 ]
 
 
+# Type union for indexing into AnalysisResults
+AnalysisIndex = Union[int, str, AnalysisType, vsp.Analysis]
+
+
+@dataclass
+class AnalysisResultsTable:
+    """# Multi-Indexed Table of Analysis Results
+    Accessible by analysis-type, index, and name."""
+
+    order: List[AnalysisResult]
+    # In-order list of results, as ordered in `SimInput`.
+    names: Dict[str, AnalysisResult]
+    # Mapping by analysis-name
+    types: Dict[AnalysisType, List[AnalysisResult]]
+    # Mapping by analysis-type. Note there can be more than one of each type.
+
+    @classmethod
+    def create(cls, results: "SimResult") -> "AnalysisResultsTable":
+        """Create an index from a `SimResult` object."""
+        order = results.an
+        names = {r.analysis_name: r for r in order}
+        # "By type" is different, since there can be several of each type.
+        types = {}
+        for r in order:
+            if r.vlsir_type in types:
+                types[r.vlsir_type].append(r)
+            else:
+                types[r.vlsir_type] = [r]
+        return cls(order, names, types)
+
+    def get(self, key: AnalysisIndex) -> AnalysisResult:
+        """Index into our results by type, index, or name."""
+
+        if isinstance(key, int):
+            return self.order[key]
+        if isinstance(key, str):
+            return self.names[key]
+        if isinstance(key, AnalysisType):
+            if key not in self.types:
+                raise ValueError(f"No results for AnalysisType {key}")
+            if len(self.types[key]) != 1:
+                raise RuntimeError(f"Multiple results of type {key}")
+            return self.types[key][0]
+        raise TypeError(f"Invalid index into SimResults: {key} ({type(key)})")
+
+
 @dataclass
 class SimResult:
     """Results from a Mult-Analysis `Sim`"""
 
-    an: List[AnalysisResult]
+    an: List[AnalysisResult] = field(default_factory=list)
+    # List of per-analysis results, in the same order specified in `SimInput.an`.
 
-    def to_proto(self) -> vlsir.spice.SimResult:
-        res = vlsir.spice.SimResult()
-        for a in self.an:
-            res.an.append(
-                vlsir.spice.AnalysisResult(**{a.vlsir_type.value: a.to_proto()})
-            )
+    def __post_init__(self):
+        # Our multi-indexed table of results.
+        # Unset until accessed with `get or __getitem__`
+        self._table: Optional[AnalysisResultsTable] = None
+
+    def index(self):
+        """Recreate our multi-index table. Generally required on changes to primary list `an`."""
+        self._table = AnalysisResultsTable.create(self)
+
+    def __getitem__(self, key: AnalysisIndex) -> AnalysisResult:
+        """Index into our results by type, index, or name."""
+        return self.get(key)
+
+    def get(self, key: AnalysisIndex) -> AnalysisResult:
+        """Get one of our analysis-results by type, index, or name."""
+        if self._table is None:
+            self.index()
+        return self._table.get(key)
+
+    def to_proto(self) -> vsp.SimResult:
+        """Convert to a VLSIR `SimResult` proto object."""
+        res = vsp.SimResult()
+        for an in self.an:
+            ar = vsp.AnalysisResult(**{an.vlsir_type.value: an.to_proto()})
+            res.an.append(ar)
         return res
-
-    def __getitem__(self, key: int) -> AnalysisResult:
-        return self.an[key]

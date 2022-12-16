@@ -5,17 +5,12 @@ Unit Tests
 
 import pytest
 from io import StringIO
-from typing import Dict, List
+from pathlib import Path
+from typing import Dict, List, Optional
 
-
-import vlsirtools
 import vlsir.utils_pb2 as vutils
+from vlsir.utils_pb2 import Reference, QualifiedName, ParamValue, Param
 import vlsir.circuit_pb2 as vckt
-import vlsir.spice_pb2 as vsp
-
-from vlsir import Reference, QualifiedName, ParamValue, Param
-from vlsirtools.spice import SimOptions, SupportedSimulators, ResultFormat
-
 from vlsir.circuit_pb2 import (
     Module,
     Signal,
@@ -25,6 +20,18 @@ from vlsir.circuit_pb2 import (
     Instance,
     Package,
 )
+import vlsir.spice_pb2 as vsp
+
+import vlsirtools
+from vlsirtools.spice import (
+    SupportedSimulators,
+    SimOptions,
+    ResultFormat,
+    sim,
+)
+import vlsirtools.spice.sim_data as sd
+from vlsirtools.spice.sim_data import AnalysisType
+
 
 """
 ## Utility & Helper Functions
@@ -44,9 +51,6 @@ def _params(**kwargs):
 def _prim(name: str) -> Reference:
     """Create a `Reference` to primitive `name`"""
     return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
-
-
-from vlsir.utils_pb2 import Reference, QualifiedName, ParamValue, Param
 
 
 def test_version():
@@ -284,21 +288,10 @@ def test_netlist_hdl21_ideal1():
         vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
-def empty_testbench_package():
+def dummy_testbench_package():
     """Create and return a `circuit.Package` with a single, (near) empty testbench module.
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes.
     So the simplest test-bench is two resistors, in parallel, between ground and a single "other node"."""
-
-    from vlsir import Reference, QualifiedName, Param, ParamValue
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-        Package,
-    )
 
     def _r(name: str) -> Instance:
         # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
@@ -315,10 +308,10 @@ def empty_testbench_package():
         )
 
     return Package(
-        domain="vlsirtools.tests.empty_testbench_package",
+        domain="vlsirtools.tests.dummy_testbench_package",
         modules=[
             Module(
-                name="empty_testbench",
+                name="dummy_testbench",
                 ports=[
                     Port(direction="NONE", signal="VSS"),
                 ],
@@ -335,17 +328,126 @@ def empty_testbench_package():
     )
 
 
-def test_netlist_empty_testbench():
+def test_netlist_dummy_testbench():
     """Test netlisting the empty testbench package, used later for simulation tests"""
 
     dest = StringIO()
-    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spice")
-    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="spectre")
-    vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="xyce")
+    vlsirtools.netlist(pkg=dummy_testbench_package(), dest=dest, fmt="spice")
+    vlsirtools.netlist(pkg=dummy_testbench_package(), dest=dest, fmt="spectre")
+    vlsirtools.netlist(pkg=dummy_testbench_package(), dest=dest, fmt="xyce")
 
     # The testbench package is not verilog-compatible; check that it fails.
     with pytest.raises(RuntimeError):
-        vlsirtools.netlist(pkg=empty_testbench_package(), dest=dest, fmt="verilog")
+        vlsirtools.netlist(pkg=dummy_testbench_package(), dest=dest, fmt="verilog")
+
+
+def dummy_sim(skip: Optional[List[AnalysisType]] = None):
+    """Create a dummy `SimInput` for the `dummy_testbench` package."""
+
+    if skip is None:
+        skip = []
+
+    # Set up an `analysis` for each analysis-type to run on the empty testbench.
+    # FIXME: add noise, sweep, etc.
+    analyses_by_type: Dict[AnalysisType, vsp.Analysis] = {
+        AnalysisType.OP: vsp.Analysis(
+            op=vsp.OpInput(
+                analysis_name="op1",
+                ctrls=[],
+            )
+        ),
+        AnalysisType.DC: vsp.Analysis(
+            dc=vsp.DcInput(
+                analysis_name="dc1",
+                indep_name="DUMMY",
+                sweep=vsp.Sweep(
+                    linear=vsp.LinearSweep(
+                        start=0.0,
+                        stop=1.0,
+                        step=0.1,
+                    ),
+                ),
+                ctrls=[],
+            )
+        ),
+        AnalysisType.TRAN: vsp.Analysis(
+            tran=vsp.TranInput(
+                analysis_name="tr1",
+                tstop=1e-9,
+                tstep=1e-12,
+                ic={},
+                ctrls=[],
+            )
+        ),
+        AnalysisType.AC: vsp.Analysis(
+            ac=vsp.AcInput(
+                analysis_name="ac1",
+                fstart=1e3,
+                fstop=1e6,
+                npts=10,
+                ctrls=[],
+            )
+        ),
+    }
+    # Rejigger those into a list, skipping any that are in the `skip` list.
+    an = [a for t, a in analyses_by_type.items() if t not in skip]
+
+    return vsp.SimInput(
+        top="dummy_testbench",
+        pkg=dummy_testbench_package(),
+        an=an,
+        ctrls=[
+            vsp.Control(param=Param(name="DUMMY", value=ParamValue(integer=0))),
+            # This parameter "DUMMY" is the sweep-variable for the DC analysis above.
+        ],
+    )
+
+
+def dummy_sim_tests(
+    simulator: SupportedSimulators, skip: Optional[List[AnalysisType]] = None
+) -> sd.SimResult:
+    """Run the `dummy_sim` input for simulator `simulator`.
+    Returns the `sim_data.SimResult` object for any further inspection."""
+    if skip is None:
+        skip = []
+
+    # Create the "dummy" `SimInput`
+    inp = dummy_sim(skip=skip)
+
+    # Run it, requesting in-memory `SimData` results.
+    sd_results = sim(
+        inp=inp,
+        opts=SimOptions(
+            simulator=simulator,
+            fmt=ResultFormat.SIM_DATA,
+        ),
+    )
+
+    # Check a handful of things about what comes back
+    assert isinstance(sd_results, sd.SimResult)
+    if AnalysisType.OP not in skip:
+        assert isinstance(sd_results[AnalysisType.OP], sd.OpResult)
+    if AnalysisType.DC not in skip:
+        assert isinstance(sd_results[AnalysisType.DC], sd.DcResult)
+    if AnalysisType.TRAN not in skip:
+        assert isinstance(sd_results[AnalysisType.TRAN], sd.TranResult)
+    if AnalysisType.AC not in skip:
+        assert isinstance(sd_results[AnalysisType.AC], sd.AcResult)
+    converted_results = sd_results.to_proto()
+    assert isinstance(converted_results, vsp.SimResult)
+
+    # Run it again, but requesting VLSIR ProtoBuf output.
+    proto_results = sim(
+        inp=inp,
+        opts=SimOptions(
+            simulator=simulator,
+            fmt=ResultFormat.VLSIR_PROTO,
+        ),
+    )
+    assert isinstance(proto_results, vsp.SimResult)
+
+    # And return the `sim_data` version for any further inspection.
+    return sd_results
 
 
 @pytest.mark.skipif(
@@ -354,16 +456,7 @@ def test_netlist_empty_testbench():
 )
 def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
-    from vlsir.spice_pb2 import SimInput, SimResult
-    from vlsirtools.spectre import sim  # FIXME: this does not specify simulator!
-
-    results = sim(
-        SimInput(
-            top="empty_testbench",
-            pkg=empty_testbench_package(),
-        )
-    )
-    assert isinstance(results, SimResult)
+    dummy_sim_tests(SupportedSimulators.SPECTRE)
 
 
 @pytest.mark.skipif(
@@ -372,16 +465,7 @@ def test_spectre1():
 )
 def test_xyce1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
-    from vlsir.spice_pb2 import SimInput, SimResult
-    from vlsirtools.xyce import sim  # FIXME: this does not specify simulator!
-
-    results = sim(
-        SimInput(
-            top="empty_testbench",
-            pkg=empty_testbench_package(),
-        )
-    )
-    assert isinstance(results, SimResult)
+    dummy_sim_tests(SupportedSimulators.XYCE)
 
 
 @pytest.mark.skipif(
@@ -389,26 +473,19 @@ def test_xyce1():
     reason="No ngspice installation on path",
 )
 def test_ngspice1():
-    """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
-    from vlsir.spice_pb2 import SimInput, SimResult
-    from vlsirtools.spice.ngspice import sim  # FIXME: this does not specify simulator!
-
-    results = sim(
-        SimInput(
-            top="empty_testbench",
-            pkg=empty_testbench_package(),
-        )
-    )
-    assert isinstance(results, SimResult)
+    """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
+    dummy_sim_tests(SupportedSimulators.NGSPICE, skip=[AnalysisType.DC])
 
 
 def test_xyce_import():
     # Just test importing from the `vlsirtools.xyce` path
+    # FIXME: probably deprecate this
     from vlsirtools.xyce import sim
 
 
 def test_spectre_import():
     # Just test importing from the `vlsirtools.spectre` path
+    # FIXME: probably deprecate this
     from vlsirtools.spectre import sim
 
 
@@ -500,3 +577,11 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
+
+
+@pytest.mark.xfail(reason="#41 https://github.com/Vlsir/Vlsir/issues/41")
+def test_theres_a_simulator_available():
+    """Test that there is at least one simulator available for testing.
+    This is... debatable whether we wanna do it? A good idea, but tough to set up e.g. on CI servers.
+    And basically impossible for anything with a paid license."""
+    assert vlsirtools.spice.default() is not None

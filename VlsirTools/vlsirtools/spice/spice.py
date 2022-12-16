@@ -42,11 +42,14 @@ def default() -> Optional[SupportedSimulators]:
 
     from .spectre import available as spectre_available
     from .xyce import available as xyce_available
+    from .ngspice import available as ngspice_available
 
     if spectre_available():
         return SupportedSimulators.SPECTRE
     if xyce_available():
         return SupportedSimulators.XYCE
+    if ngspice_available():
+        return SupportedSimulators.NGSPICE
     return None  # Nothing found
 
 
