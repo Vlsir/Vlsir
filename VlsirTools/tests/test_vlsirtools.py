@@ -456,7 +456,7 @@ def dummy_sim_tests(
 )
 def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
-    dummy_sim_tests(SupportedSimulators.XYCE)
+    dummy_sim_tests(SupportedSimulators.SPECTRE)
 
 
 @pytest.mark.skipif(
@@ -473,7 +473,7 @@ def test_xyce1():
     reason="No ngspice installation on path",
 )
 def test_ngspice1():
-    """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
+    """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
     dummy_sim_tests(SupportedSimulators.NGSPICE, skip=[AnalysisType.DC])
 
 
