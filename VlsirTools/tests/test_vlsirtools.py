@@ -449,7 +449,6 @@ def dummy_sim_tests(
     # And return the `sim_data` version for any further inspection.
     return sd_results
 
-
 @pytest.mark.skipif(
     not vlsirtools.spectre.available(),
     reason="No spectre installation on path",
@@ -459,19 +458,11 @@ def test_spectre1():
     dummy_sim_tests(SupportedSimulators.SPECTRE)
 
 
-@pytest.mark.skipif(
-    not vlsirtools.xyce.available(),
-    reason="No Xyce installation on path",
-)
 def test_xyce1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     dummy_sim_tests(SupportedSimulators.XYCE)
 
 
-@pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(),
-    reason="No ngspice installation on path",
-)
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
     dummy_sim_tests(SupportedSimulators.NGSPICE, skip=[AnalysisType.DC])
@@ -489,10 +480,6 @@ def test_spectre_import():
     from vlsirtools.spectre import sim
 
 
-@pytest.mark.skipif(
-    not vlsirtools.spice.ngspice.available(),
-    reason="No ngspice installation on path",
-)
 def test_noise1():
     """Test the Noise analysis"""
 
@@ -579,7 +566,6 @@ def test_noise1():
     )
 
 
-@pytest.mark.xfail(reason="#41 https://github.com/Vlsir/Vlsir/issues/41")
 def test_theres_a_simulator_available():
     """Test that there is at least one simulator available for testing.
     This is... debatable whether we wanna do it? A good idea, but tough to set up e.g. on CI servers.

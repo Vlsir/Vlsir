@@ -10,33 +10,40 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: tpluck95/vlsir-test-container
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout VLSIR Repo
+        uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+        run: |
+          apt-get install -y python${{ matrix.python-version }}
+          apt-get install -y python${{ matrix.python-version }}-dev
+          apt-get install -y python${{ matrix.python-version }}-venv
+          apt-get install -y python${{ matrix.python-version }}-distutils
 
-      - name: Install Icarus Verilog
-        run: sudo apt install iverilog
-      
+      #! The bizarre insanity of ". ./venv/..." is an Ubuntu sh translation of
+      #! "source venv/..." seen in most Python documentation
       - name: pytest `bindings/python`
         run: |
+          python${{ matrix.python-version }} -m venv ./venv
+          . ./venv/bin/activate
           cd bindings/python
-          pip install -e ".[dev]"
-          pytest -sv --cov=./ --cov-report=xml
-      
+          python${{ matrix.python-version }} -m pip install -e ".[dev]"
+          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml
+
       - name: pytest `VlsirTools`
         run: |
+          python${{ matrix.python-version }} -m venv ./venv
+          . ./venv/bin/activate
           cd VlsirTools
-          pip install -e ".[dev]"
-          pytest -sv --cov=./ --cov-report=xml
+          python${{ matrix.python-version }} -m pip install -e ".[dev]"
+          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml
 
   build-bindings:
     name: Build bindings
