@@ -43,7 +43,7 @@ jobs:
           . ./venv/bin/activate
           cd VlsirTools
           python${{ matrix.python-version }} -m pip install -e ".[dev]"
-          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml
+          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml --simulator_test_mode required --spectre disabled
 
   build-bindings:
     name: Build bindings
