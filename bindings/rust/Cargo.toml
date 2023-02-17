@@ -5,7 +5,12 @@ authors = ["Dan Fritchman <dan@fritch.mn>"]
 edition = "2018"
 license = "BSD-3-Clause"
 repository = "https://github.com/Vlsir/Vlsir"
-version = "3.0.0-pre.3" # _VLSIR_VERSION FIXME: Rust / Cargo do not support "dev versions" such as the "X.Y.dev0" used elsewhere
+
+# _VLSIR_VERSION 
+# FIXME: Rust/ Cargo/ crates.io have a different pre/dev release format from some other package managers. 
+# Particularly there is no "dev" distinction, only "pre"-releases e.g. "3.0.0-pre.3". 
+# And the "pre" comes with a dash instead of a dot. 
+version = "3.0.0" 
 
 [dependencies]
 prost = "0.8.0"
