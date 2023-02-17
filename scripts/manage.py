@@ -22,7 +22,7 @@ import os
 from enum import Enum
 from pathlib import Path
 
-VLSIR_VERSION = "3.0"
+VLSIR_VERSION = "4.0.dev0"
 
 
 class Actions(Enum):
