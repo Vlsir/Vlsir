@@ -262,7 +262,7 @@ class SpectreSim(Sim):
     def parse_op(self, an: vsp.OpInput, nutbin: "NutBinAnalysis") -> OpResult:
         return OpResult(
             analysis_name=an.analysis_name,
-            data={k: v[0] for k, v in nutbin.data.items()},
+            data={k: v for k, v in nutbin.data.items()},
         )
 
     def parse_tran(self, an: vsp.TranInput, nutbin: "NutBinAnalysis") -> TranResult:
