@@ -30,6 +30,7 @@ class Actions(Enum):
     # Could this be a more elaborate CLI library thing? Sure.
     BUILD = "build"
     INSTALL = "install"
+    UNINSTALL = "uninstall"
     PUBLISH = "publish"
 
 
@@ -59,8 +60,14 @@ def build():
     os.system("./scripts/build.sh")
 
 
+def uninstall():
+    """# Uninstall everything in `packages`."""
+    pkgs = " ".join([pkgname for pkgname, path in packages])
+    os.system(f"pip uninstall -y {pkgs}")
+
+
 def install():
-    """Create dev installs of everything in `packages`, in order."""
+    """# Create dev installs of everything in `packages`, in order."""
 
     os.chdir(workspace_path)
     for pkgname, path in packages:
@@ -109,6 +116,8 @@ def main():
         return build()
     if args.action == Actions.INSTALL.value:
         return install()
+    if args.action == Actions.UNINSTALL.value:
+        return uninstall()
     if args.action == Actions.PUBLISH.value:
         return publish()
 
