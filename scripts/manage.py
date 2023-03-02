@@ -72,22 +72,15 @@ def install():
 def publish():
     """Publish all Python packages to PyPi"""
 
-    USER = os.environ["PYPI_USERNAME"]
-    PASS = os.environ["PYPI_PASSWORD"]
-
     os.chdir(workspace_path)
-
-    def publish_pkg(pkgname: str, path: Path):
-        os.chdir(path)
-        os.system("python setup.py sdist")
-        os.system(
-            f"twine upload -u {USER} -p {PASS} dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
-        )
-        os.chdir(workspace_path)
 
     for pkgname, path in packages:
         # Publish the package
-        publish_pkg(pkgname, path)
+        os.chdir(path)
+        os.system("python setup.py sdist")
+        cmd = f"twine upload dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
+        os.system(cmd)
+        os.chdir(workspace_path)
         # And sit here a minute to let it really sink into that server
         os.system("sleep 10")
 
