@@ -24,6 +24,7 @@ from .spice import (
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
+SPECTRE_ARGS = ""##"++aps"  # Additional arguments to pass to the simulator executable.
 
 
 def available() -> bool:
@@ -275,7 +276,7 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = f"{SPECTRE_EXECUTABLE} -E -format nutbin netlist.scs"
+        cmd = f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs"
         return self.run_subprocess(cmd)
 
 
