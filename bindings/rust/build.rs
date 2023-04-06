@@ -4,30 +4,49 @@
 //! Primarily expands protobuf definitions, adding a number of annotations.
 //!
 
-use prost_build;
+use std::{env, path::PathBuf};
+use prost_wkt_build::*;
 
 fn main() {
-    // Create the Prost config
-    let mut config = prost_build::Config::new();
 
-    // Add serde traits
-    config.type_attribute(
-        ".",
-        "#[derive(serde_derive::Serialize, serde_derive::Deserialize)]",
-    );
+    // Add serde traits, excluding the Struct
+    let out = PathBuf::from(env::var("OUT_DIR").unwrap());
+    let descriptor_file = out.join("descriptors.bin");
+    let mut prost_build = prost_build::Config::new();
+    prost_build
+        .type_attribute(
+            ".",
+            "#[derive(serde::Serialize,serde::Deserialize)]"
+        )
+        .extern_path(
+            ".google.protobuf.Struct",
+            "::prost_wkt_types::Struct"
+        )
+        .file_descriptor_set_path(&descriptor_file)
+        .compile_protos(
+            &[
+                "protos/utils.proto",
+                "protos/layout/raw.proto",
+                "protos/circuit.proto",
+                "protos/layout/tetris.proto",
+                "protos/spice.proto",
+                "protos/tech.proto",
+            ],
+            &["protos/"],
+        ).unwrap();
 
     // Add our custom annotations
     // config.type_attribute("example", "#[serde(tag = \"type\")]");
     // config.field_attribute("example", "#[serde(flatten)]");
 
     // And build!
-    let src = [
-        "protos/utils.proto",
-        "protos/layout/raw.proto",
-        "protos/circuit.proto",
-        "protos/layout/tetris.proto",
-        "protos/spice.proto",
-        "protos/tech.proto",
-    ];
-    config.compile_protos(&src, &["protos/"]).unwrap();
+    let descriptor_bytes =
+    std::fs::read(descriptor_file)
+    .unwrap();
+
+    let descriptor =
+        FileDescriptorSet::decode(&descriptor_bytes[..])
+        .unwrap();
+
+    prost_wkt_build::add_serde(out, descriptor);
 }

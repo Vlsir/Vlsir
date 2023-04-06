@@ -19,6 +19,11 @@ cd bindings/rust
 cargo build 
 cd -
 
+# Julia Bindings
+cd bindings/julia
+julia build.jl
+cd -
+
 # Sadly `protoc` doesn't seem to know how Python3 imports work. Correct them. 
 2to3 -wn -f import bindings/python/vlsir/*.py
 

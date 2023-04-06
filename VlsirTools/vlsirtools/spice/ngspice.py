@@ -69,8 +69,9 @@ class NGSpiceSim(Sim):
         top_name = NgspiceNetlister.get_module_name(self.top)
         netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
 
-        if self.inp.opts:
-            raise NotImplementedError(f"SimInput Options")
+        for opt in self.inp.opts:
+            for o in opt.opts.items():
+                netlist_file.write(f".option {o[0]} = {o[1]}\n")
 
         # Write each control element
         self.write_control_elements(netlist_file)

@@ -2,14 +2,11 @@
 /**
  * @fileoverview
  * @enhanceable
- * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
-/* eslint-disable */
-// @ts-nocheck
 
 goog.provide('proto.vlsir.spice.AcResult');
 
@@ -126,10 +123,8 @@ proto.vlsir.spice.AcResult.deserializeBinaryFromReader = function(msg, reader) {
       msg.setAnalysisName(value);
       break;
     case 2:
-      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedDouble() : [reader.readDouble()]);
-      for (var i = 0; i < values.length; i++) {
-        msg.addFreq(values[i]);
-      }
+      var value = /** @type {!Array<number>} */ (reader.readPackedDouble());
+      msg.setFreqList(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());

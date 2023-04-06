@@ -32,7 +32,7 @@ package vlsir.spice;
 // Local Imports
 import "utils.proto";
 import "circuit.proto";
-
+import "google/protobuf/struct.proto";
 
 // ############################################################################
 // # `Spice` Simulator API
@@ -63,7 +63,7 @@ message SimInput {
   string top = 2;
 
   // # Simulation Configuration Input 
-  // Global simulator options 
+  // List of simulator options
   repeated SimOptions opts = 10;
   // List of circuit analyses
   repeated Analysis an = 11;
@@ -78,13 +78,8 @@ message SimResult {
 }
 // # Simulator Options 
 // Global, cross-analysis settings. 
-// FIXME: all of these should probably be "explicitly optional" as `google.protobuf.DoubleValue`s or similar. 
 message SimOptions {
-  double temp = 1;
-  double tnom = 2;
-  double gmin = 3;
-  double iabstol = 4;
-  double reltol = 5;
+  google.protobuf.Struct opts = 1;
 }
 
 // ############################################################################
