@@ -1,8 +1,5 @@
 module circuit
 
-import ..vlsir
-
+import ..Vlsir
 include("circuit_pb.jl")
-include("circuit_pb.jl")
-
 end # module circuit
