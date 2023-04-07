@@ -15,3 +15,5 @@ sed -i 's|include("../google/google.jl")|include("google/google.jl")|' ./src/vls
 find ./src -type f -name '*.jl' -exec sed -i 's|vlsir|Vlsir|' {} +
 # Rename to appropriate package name
 mv ./src/vlsir.jl ./src/Vlsir.jl
+
+# TODO: Add a way to programmatically precompile the package

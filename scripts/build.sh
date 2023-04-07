@@ -21,7 +21,7 @@ cd -
 
 # Julia Bindings
 cd bindings/julia
-julia build.jl
+sh build.sh
 cd -
 
 # Sadly `protoc` doesn't seem to know how Python3 imports work. Correct them. 

@@ -2,7 +2,6 @@ import Pkg
 Pkg.add("ProtoBuf")
 Pkg.add("Glob")
 
-using FilePathsBase
 using ProtoBuf
 using Glob
 # Define path variables
