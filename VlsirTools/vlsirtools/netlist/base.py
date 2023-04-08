@@ -312,7 +312,7 @@ class Netlister:
                 name = name.replace(ch, "_")
         return name
 
-    def resolve_reference(self, ref: vlsir.utils.Reference, devicetype : Optional[str] = "x") -> ResolvedModule:
+    def resolve_reference(self, ref: vlsir.utils.Reference, devicetype : Optional[Enum] = SpicePrefix.SUBCKT) -> ResolvedModule:
         """Resolve the `ModuleLike` referent of `ref`."""
 
         if ref.WhichOneof("to") == "local":  # Internally-defined Module
@@ -386,7 +386,7 @@ class Netlister:
                 return ResolvedModule(
                     module=module,
                     module_name=module_name,
-                    spice_prefix=SpicePrefix(devicetype),
+                    spice_prefix=devicetype,
                 )
 
         # Not a Module, not an ExternalModule, not sure what it is

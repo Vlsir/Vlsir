@@ -130,10 +130,10 @@ class SpiceNetlister(SpectreSpiceShared):
         """Create and return a netlist-string for Instance `pinst`"""
 
         # Get its Module or ExternalModule definition,
-        devicetype = "x"
+        devicetype = SpicePrefix.SUBCKT
         for p in pinst.parameters:
             if p.name == "devicetype":
-                devicetype = p.value.literal
+                devicetype = SpicePrefix(p.value.literal)
 
         resolved = self.resolve_reference(pinst.module, devicetype)
 
