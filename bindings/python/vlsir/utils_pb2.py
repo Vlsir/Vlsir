@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     syntax="proto3",
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-    serialized_pb=b'\n\x0butils.proto\x12\x0bvlsir.utils"r\n\x08Prefixed\x12%\n\x06prefix\x18\x01 \x01(\x0e\x32\x15.vlsir.utils.SIPrefix\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x42\x08\n\x06number"\x8a\x01\n\nParamValue\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x12\x11\n\x07literal\x18\x05 \x01(\tH\x00\x12)\n\x08prefixed\x18\x06 \x01(\x0b\x32\x15.vlsir.utils.PrefixedH\x00\x42\x07\n\x05value"K\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t"-\n\rQualifiedName\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t"R\n\tReference\x12\x0f\n\x05local\x18\x01 \x01(\tH\x00\x12.\n\x08\x65xternal\x18\x02 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedNameH\x00\x42\x04\n\x02to"b\n\x0fLibraryMetadata\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x12\n\ncell_names\x18\n \x03(\t\x12+\n\x06\x61uthor\x18\x14 \x01(\x0b\x32\x1b.vlsir.utils.AuthorMetadata"D\n\x0e\x41uthorMetadata\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\x11\n\tcopyright\x18\n \x01(\t\x12\x0f\n\x07license\x18\x0b \x01(\t*\xe4\x01\n\x08SIPrefix\x12\t\n\x05YOCTO\x10\x00\x12\t\n\x05ZEPTO\x10\x01\x12\x08\n\x04\x41TTO\x10\x02\x12\t\n\x05\x46\x45MTO\x10\x03\x12\x08\n\x04PICO\x10\x04\x12\x08\n\x04NANO\x10\x05\x12\t\n\x05MICRO\x10\x06\x12\t\n\x05MILLI\x10\x07\x12\t\n\x05\x43\x45NTI\x10\x08\x12\x08\n\x04\x44\x45\x43I\x10\t\x12\x08\n\x04\x44\x45\x43\x41\x10\n\x12\t\n\x05HECTO\x10\x0b\x12\x08\n\x04KILO\x10\x0c\x12\x08\n\x04MEGA\x10\r\x12\x08\n\x04GIGA\x10\x0e\x12\x08\n\x04TERA\x10\x0f\x12\x08\n\x04PETA\x10\x10\x12\x07\n\x03\x45XA\x10\x11\x12\t\n\x05ZETTA\x10\x12\x12\t\n\x05YOTTA\x10\x13\x12\x08\n\x04UNIT\x10\x14\x62\x06proto3',
+    serialized_pb=b'\n\x0butils.proto\x12\x0bvlsir.utils"r\n\x08Prefixed\x12%\n\x06prefix\x18\x01 \x01(\x0e\x32\x15.vlsir.utils.SIPrefix\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x42\x08\n\x06number"\x9d\x01\n\nParamValue\x12\x11\n\x07\x62oolean\x18\x01 \x01(\x08H\x00\x12\x11\n\x07integer\x18\x02 \x01(\x03H\x00\x12\x10\n\x06\x64ouble\x18\x03 \x01(\x01H\x00\x12\x10\n\x06string\x18\x04 \x01(\tH\x00\x12\x11\n\x07literal\x18\x05 \x01(\tH\x00\x12)\n\x08prefixed\x18\x06 \x01(\x0b\x32\x15.vlsir.utils.PrefixedH\x00\x42\x07\n\x05value"K\n\x05Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t"-\n\rQualifiedName\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t"R\n\tReference\x12\x0f\n\x05local\x18\x01 \x01(\tH\x00\x12.\n\x08\x65xternal\x18\x02 \x01(\x0b\x32\x1a.vlsir.utils.QualifiedNameH\x00\x42\x04\n\x02to"b\n\x0fLibraryMetadata\x12\x0e\n\x06\x64omain\x18\x01 \x01(\t\x12\x12\n\ncell_names\x18\n \x03(\t\x12+\n\x06\x61uthor\x18\x14 \x01(\x0b\x32\x1b.vlsir.utils.AuthorMetadata"D\n\x0e\x41uthorMetadata\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\x11\n\tcopyright\x18\n \x01(\t\x12\x0f\n\x07license\x18\x0b \x01(\t*\xe4\x01\n\x08SIPrefix\x12\t\n\x05YOCTO\x10\x00\x12\t\n\x05ZEPTO\x10\x01\x12\x08\n\x04\x41TTO\x10\x02\x12\t\n\x05\x46\x45MTO\x10\x03\x12\x08\n\x04PICO\x10\x04\x12\x08\n\x04NANO\x10\x05\x12\t\n\x05MICRO\x10\x06\x12\t\n\x05MILLI\x10\x07\x12\t\n\x05\x43\x45NTI\x10\x08\x12\x08\n\x04\x44\x45\x43I\x10\t\x12\x08\n\x04\x44\x45\x43\x41\x10\n\x12\t\n\x05HECTO\x10\x0b\x12\x08\n\x04KILO\x10\x0c\x12\x08\n\x04MEGA\x10\r\x12\x08\n\x04GIGA\x10\x0e\x12\x08\n\x04TERA\x10\x0f\x12\x08\n\x04PETA\x10\x10\x12\x07\n\x03\x45XA\x10\x11\x12\t\n\x05ZETTA\x10\x12\x12\t\n\x05YOTTA\x10\x13\x12\x08\n\x04UNIT\x10\x14\x62\x06proto3',
 )
 
 _SIPREFIX = _descriptor.EnumDescriptor(
@@ -200,8 +200,8 @@ _SIPREFIX = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     serialized_options=None,
-    serialized_start=664,
-    serialized_end=892,
+    serialized_start=683,
+    serialized_end=911,
 )
 _sym_db.RegisterEnumDescriptor(_SIPREFIX)
 
@@ -345,9 +345,28 @@ _PARAMVALUE = _descriptor.Descriptor(
     create_key=_descriptor._internal_create_key,
     fields=[
         _descriptor.FieldDescriptor(
+            name="boolean",
+            full_name="vlsir.utils.ParamValue.boolean",
+            index=0,
+            number=1,
+            type=8,
+            cpp_type=7,
+            label=1,
+            has_default_value=False,
+            default_value=False,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
             name="integer",
             full_name="vlsir.utils.ParamValue.integer",
-            index=0,
+            index=1,
             number=2,
             type=3,
             cpp_type=2,
@@ -366,7 +385,7 @@ _PARAMVALUE = _descriptor.Descriptor(
         _descriptor.FieldDescriptor(
             name="double",
             full_name="vlsir.utils.ParamValue.double",
-            index=1,
+            index=2,
             number=3,
             type=1,
             cpp_type=5,
@@ -385,7 +404,7 @@ _PARAMVALUE = _descriptor.Descriptor(
         _descriptor.FieldDescriptor(
             name="string",
             full_name="vlsir.utils.ParamValue.string",
-            index=2,
+            index=3,
             number=4,
             type=9,
             cpp_type=9,
@@ -404,7 +423,7 @@ _PARAMVALUE = _descriptor.Descriptor(
         _descriptor.FieldDescriptor(
             name="literal",
             full_name="vlsir.utils.ParamValue.literal",
-            index=3,
+            index=4,
             number=5,
             type=9,
             cpp_type=9,
@@ -423,7 +442,7 @@ _PARAMVALUE = _descriptor.Descriptor(
         _descriptor.FieldDescriptor(
             name="prefixed",
             full_name="vlsir.utils.ParamValue.prefixed",
-            index=4,
+            index=5,
             number=6,
             type=11,
             cpp_type=10,
@@ -458,7 +477,7 @@ _PARAMVALUE = _descriptor.Descriptor(
         ),
     ],
     serialized_start=145,
-    serialized_end=283,
+    serialized_end=302,
 )
 
 
@@ -536,8 +555,8 @@ _PARAM = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=285,
-    serialized_end=360,
+    serialized_start=304,
+    serialized_end=379,
 )
 
 
@@ -596,8 +615,8 @@ _QUALIFIEDNAME = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=362,
-    serialized_end=407,
+    serialized_start=381,
+    serialized_end=426,
 )
 
 
@@ -665,8 +684,8 @@ _REFERENCE = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=409,
-    serialized_end=491,
+    serialized_start=428,
+    serialized_end=510,
 )
 
 
@@ -744,8 +763,8 @@ _LIBRARYMETADATA = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=493,
-    serialized_end=591,
+    serialized_start=512,
+    serialized_end=610,
 )
 
 
@@ -823,8 +842,8 @@ _AUTHORMETADATA = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=593,
-    serialized_end=661,
+    serialized_start=612,
+    serialized_end=680,
 )
 
 _PREFIXED.fields_by_name["prefix"].enum_type = _SIPREFIX
@@ -837,6 +856,10 @@ _PREFIXED.fields_by_name["double"].containing_oneof = _PREFIXED.oneofs_by_name["
 _PREFIXED.oneofs_by_name["number"].fields.append(_PREFIXED.fields_by_name["string"])
 _PREFIXED.fields_by_name["string"].containing_oneof = _PREFIXED.oneofs_by_name["number"]
 _PARAMVALUE.fields_by_name["prefixed"].message_type = _PREFIXED
+_PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["boolean"])
+_PARAMVALUE.fields_by_name["boolean"].containing_oneof = _PARAMVALUE.oneofs_by_name[
+    "value"
+]
 _PARAMVALUE.oneofs_by_name["value"].fields.append(_PARAMVALUE.fields_by_name["integer"])
 _PARAMVALUE.fields_by_name["integer"].containing_oneof = _PARAMVALUE.oneofs_by_name[
     "value"

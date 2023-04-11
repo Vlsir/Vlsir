@@ -32,7 +32,6 @@ package vlsir.spice;
 // Local Imports
 import "utils.proto";
 import "circuit.proto";
-import "google/protobuf/struct.proto";
 
 // ############################################################################
 // # `Spice` Simulator API
@@ -79,7 +78,10 @@ message SimResult {
 // # Simulator Options 
 // Global, cross-analysis settings. 
 message SimOptions {
-  google.protobuf.Struct opts = 1;
+  // Option name
+  string name = 1;
+  // Option argument
+  vlsir.utils.ParamValue value = 2;
 }
 
 // ############################################################################

@@ -14,7 +14,6 @@ _sym_db = _symbol_database.Default()
 
 from . import utils_pb2 as utils__pb2
 from . import circuit_pb2 as circuit__pb2
-from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -23,11 +22,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     syntax="proto3",
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-    serialized_pb=b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x0butils.proto\x1a\rcircuit.proto\x1a\x1cgoogle/protobuf/struct.proto"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"3\n\nSimOptions\x12%\n\x04opts\x18\x01 \x01(\x0b\x32\x17.google.protobuf.Struct"\xd6\x02\n\x08\x41nalysis\x12"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05noise\x18\x05 \x01(\x0b\x32\x17.vlsir.spice.NoiseInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n"\xe4\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05noise\x18\x05 \x01(\x0b\x32\x18.vlsir.spice.NoiseResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xaf\x01\n\nNoiseInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08output_p\x18\x02 \x01(\t\x12\x10\n\x08output_n\x18\x03 \x01(\t\x12\x14\n\x0cinput_source\x18\x04 \x01(\t\x12\x0e\n\x06\x66start\x18\n \x01(\x01\x12\r\n\x05\x66stop\x18\x0b \x01(\x01\x12\x0c\n\x04npts\x18\x0c \x01(\x04\x12#\n\x05\x63trls\x18\x14 \x03(\x0b\x32\x14.vlsir.spice.Control"\xc7\x02\n\x0bNoiseResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12G\n\x10integrated_noise\x18\n \x03(\x0b\x32-.vlsir.spice.NoiseResult.IntegratedNoiseEntry\x12@\n\x0cmeasurements\x18\x0b \x03(\x0b\x32*.vlsir.spice.NoiseResult.MeasurementsEntry\x1a\x36\n\x14IntegratedNoiseEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x16\n\x14\x43ustomAnalysisResult"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3',
+    serialized_pb=b'\n\x0bspice.proto\x12\x0bvlsir.spice\x1a\x0butils.proto\x1a\rcircuit.proto"\xab\x01\n\x08SimInput\x12#\n\x03pkg\x18\x01 \x01(\x0b\x32\x16.vlsir.circuit.Package\x12\x0b\n\x03top\x18\x02 \x01(\t\x12%\n\x04opts\x18\n \x03(\x0b\x32\x17.vlsir.spice.SimOptions\x12!\n\x02\x61n\x18\x0b \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x0c \x03(\x0b\x32\x14.vlsir.spice.Control"4\n\tSimResult\x12\'\n\x02\x61n\x18\x01 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"B\n\nSimOptions\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.vlsir.utils.ParamValue"\xd6\x02\n\x08\x41nalysis\x12"\n\x02op\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.OpInputH\x00\x12"\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x14.vlsir.spice.DcInputH\x00\x12&\n\x04tran\x18\x03 \x01(\x0b\x32\x16.vlsir.spice.TranInputH\x00\x12"\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x14.vlsir.spice.AcInputH\x00\x12(\n\x05noise\x18\x05 \x01(\x0b\x32\x17.vlsir.spice.NoiseInputH\x00\x12(\n\x05sweep\x18\n \x01(\x0b\x32\x17.vlsir.spice.SweepInputH\x00\x12(\n\x05monte\x18\x0b \x01(\x0b\x32\x17.vlsir.spice.MonteInputH\x00\x12\x32\n\x06\x63ustom\x18\x14 \x01(\x0b\x32 .vlsir.spice.CustomAnalysisInputH\x00\x42\x04\n\x02\x61n"\xe4\x02\n\x0e\x41nalysisResult\x12#\n\x02op\x18\x01 \x01(\x0b\x32\x15.vlsir.spice.OpResultH\x00\x12#\n\x02\x64\x63\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.DcResultH\x00\x12\'\n\x04tran\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.TranResultH\x00\x12#\n\x02\x61\x63\x18\x04 \x01(\x0b\x32\x15.vlsir.spice.AcResultH\x00\x12)\n\x05noise\x18\x05 \x01(\x0b\x32\x18.vlsir.spice.NoiseResultH\x00\x12)\n\x05sweep\x18\n \x01(\x0b\x32\x18.vlsir.spice.SweepResultH\x00\x12)\n\x05monte\x18\x0b \x01(\x0b\x32\x18.vlsir.spice.MonteResultH\x00\x12\x33\n\x06\x63ustom\x18\x14 \x01(\x0b\x32!.vlsir.spice.CustomAnalysisResultH\x00\x42\x04\n\x02\x61n"E\n\x07OpInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"L\n\x08OpResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"|\n\x07\x44\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xce\x01\n\x08\x44\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x12\n\nindep_name\x18\x02 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.DcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xbc\x01\n\tTranInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\r\n\x05tstop\x18\x02 \x01(\x01\x12\r\n\x05tstep\x18\x03 \x01(\x01\x12*\n\x02ic\x18\x04 \x03(\x0b\x32\x1e.vlsir.spice.TranInput.IcEntry\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control\x1a)\n\x07IcEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01"\xc4\x01\n\nTranResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12?\n\x0cmeasurements\x18\n \x03(\x0b\x32).vlsir.spice.TranResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"$\n\nComplexNum\x12\n\n\x02re\x18\x01 \x01(\x01\x12\n\n\x02im\x18\x02 \x01(\x01"r\n\x07\x41\x63Input\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0e\n\x06\x66start\x18\x02 \x01(\x01\x12\r\n\x05\x66stop\x18\x03 \x01(\x01\x12\x0c\n\x04npts\x18\x04 \x01(\x04\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\xe1\x01\n\x08\x41\x63Result\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04\x66req\x18\x02 \x03(\x01\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12%\n\x04\x64\x61ta\x18\x05 \x03(\x0b\x32\x17.vlsir.spice.ComplexNum\x12=\n\x0cmeasurements\x18\n \x03(\x0b\x32\'.vlsir.spice.AcResult.MeasurementsEntry\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x04\x10\x05"\xaf\x01\n\nNoiseInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08output_p\x18\x02 \x01(\t\x12\x10\n\x08output_n\x18\x03 \x01(\t\x12\x14\n\x0cinput_source\x18\x04 \x01(\t\x12\x0e\n\x06\x66start\x18\n \x01(\x01\x12\r\n\x05\x66stop\x18\x0b \x01(\x01\x12\x0c\n\x04npts\x18\x0c \x01(\x04\x12#\n\x05\x63trls\x18\x14 \x03(\x0b\x32\x14.vlsir.spice.Control"\xc7\x02\n\x0bNoiseResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0f\n\x07signals\x18\x03 \x03(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x03(\x01\x12G\n\x10integrated_noise\x18\n \x03(\x0b\x32-.vlsir.spice.NoiseResult.IntegratedNoiseEntry\x12@\n\x0cmeasurements\x18\x0b \x03(\x0b\x32*.vlsir.spice.NoiseResult.MeasurementsEntry\x1a\x36\n\x14IntegratedNoiseEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x1a\x33\n\x11MeasurementsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05"\xa0\x01\n\nSweepInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bSweepResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"\x87\x01\n\nMonteInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0c\n\x04npts\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\x12!\n\x02\x61n\x18\x04 \x03(\x0b\x32\x15.vlsir.spice.Analysis\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x82\x01\n\x0bMonteResult\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x10\n\x08variable\x18\x02 \x01(\t\x12!\n\x05sweep\x18\x03 \x01(\x0b\x32\x12.vlsir.spice.Sweep\x12\'\n\x02\x61n\x18\x04 \x03(\x0b\x32\x1b.vlsir.spice.AnalysisResult"^\n\x13\x43ustomAnalysisInput\x12\x15\n\ranalysis_name\x18\x01 \x01(\t\x12\x0b\n\x03\x63md\x18\x02 \x01(\t\x12#\n\x05\x63trls\x18\x05 \x03(\x0b\x32\x14.vlsir.spice.Control"\x16\n\x14\x43ustomAnalysisResult"\x8a\x01\n\x05Sweep\x12*\n\x06linear\x18\x01 \x01(\x0b\x32\x18.vlsir.spice.LinearSweepH\x00\x12$\n\x03log\x18\x02 \x01(\x0b\x32\x15.vlsir.spice.LogSweepH\x00\x12)\n\x06points\x18\x03 \x01(\x0b\x32\x17.vlsir.spice.PointSweepH\x00\x42\x04\n\x02tp"8\n\x0bLinearSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04step\x18\x03 \x01(\x01"5\n\x08LogSweep\x12\r\n\x05start\x18\x01 \x01(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"8\n\nPointSweep\x12\x0e\n\x06points\x18\x01 \x03(\x01\x12\x0c\n\x04stop\x18\x02 \x01(\x01\x12\x0c\n\x04npts\x18\x03 \x01(\x01"\xe0\x01\n\x07\x43ontrol\x12\'\n\x07include\x18\x01 \x01(\x0b\x32\x14.vlsir.spice.IncludeH\x00\x12&\n\x03lib\x18\x02 \x01(\x0b\x32\x17.vlsir.spice.LibIncludeH\x00\x12!\n\x04save\x18\x05 \x01(\x0b\x32\x11.vlsir.spice.SaveH\x00\x12!\n\x04meas\x18\x06 \x01(\x0b\x32\x11.vlsir.spice.MeasH\x00\x12#\n\x05param\x18\x07 \x01(\x0b\x32\x12.vlsir.utils.ParamH\x00\x12\x11\n\x07literal\x18\n \x01(\tH\x00\x42\x06\n\x04\x63trl"k\n\x04Save\x12*\n\x04mode\x18\x01 \x01(\x0e\x32\x1a.vlsir.spice.Save.SaveModeH\x00\x12\x10\n\x06signal\x18\x02 \x01(\tH\x00"\x1d\n\x08SaveMode\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41LL\x10\x01\x42\x06\n\x04save"\x17\n\x07Include\x12\x0c\n\x04path\x18\x01 \x01(\t"+\n\nLibInclude\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07section\x18\x02 \x01(\t"9\n\x04Meas\x12\x15\n\ranalysis_type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x65xpr\x18\x03 \x01(\t"v\n\x06Signal\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x08quantity\x18\x02 \x01(\x0e\x32\x1c.vlsir.spice.Signal.Quantity".\n\x08Quantity\x12\x0b\n\x07VOLTAGE\x10\x00\x12\x0b\n\x07\x43URRENT\x10\x01\x12\x08\n\x04NONE\x10\x03\x32=\n\x05Spice\x12\x34\n\x03Sim\x12\x15.vlsir.spice.SimInput\x1a\x16.vlsir.spice.SimResultb\x06proto3',
     dependencies=[
         utils__pb2.DESCRIPTOR,
         circuit__pb2.DESCRIPTOR,
-        google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,
     ],
 )
 
@@ -58,8 +56,8 @@ _SAVE_SAVEMODE = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     serialized_options=None,
-    serialized_start=4131,
-    serialized_end=4160,
+    serialized_start=4116,
+    serialized_end=4145,
 )
 _sym_db.RegisterEnumDescriptor(_SAVE_SAVEMODE)
 
@@ -97,8 +95,8 @@ _SIGNAL_QUANTITY = _descriptor.EnumDescriptor(
     ],
     containing_type=None,
     serialized_options=None,
-    serialized_start=4371,
-    serialized_end=4417,
+    serialized_start=4356,
+    serialized_end=4402,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_QUANTITY)
 
@@ -215,8 +213,8 @@ _SIMINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=87,
-    serialized_end=258,
+    serialized_start=57,
+    serialized_end=228,
 )
 
 
@@ -256,8 +254,8 @@ _SIMRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=260,
-    serialized_end=312,
+    serialized_start=230,
+    serialized_end=282,
 )
 
 
@@ -270,10 +268,29 @@ _SIMOPTIONS = _descriptor.Descriptor(
     create_key=_descriptor._internal_create_key,
     fields=[
         _descriptor.FieldDescriptor(
-            name="opts",
-            full_name="vlsir.spice.SimOptions.opts",
+            name="name",
+            full_name="vlsir.spice.SimOptions.name",
             index=0,
             number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="value",
+            full_name="vlsir.spice.SimOptions.value",
+            index=1,
+            number=2,
             type=11,
             cpp_type=10,
             label=1,
@@ -297,8 +314,8 @@ _SIMOPTIONS = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=314,
-    serialized_end=365,
+    serialized_start=284,
+    serialized_end=350,
 )
 
 
@@ -480,8 +497,8 @@ _ANALYSIS = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=368,
-    serialized_end=710,
+    serialized_start=353,
+    serialized_end=695,
 )
 
 
@@ -663,8 +680,8 @@ _ANALYSISRESULT = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=713,
-    serialized_end=1069,
+    serialized_start=698,
+    serialized_end=1054,
 )
 
 
@@ -723,8 +740,8 @@ _OPINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1071,
-    serialized_end=1140,
+    serialized_start=1056,
+    serialized_end=1125,
 )
 
 
@@ -802,8 +819,8 @@ _OPRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1142,
-    serialized_end=1218,
+    serialized_start=1127,
+    serialized_end=1203,
 )
 
 
@@ -900,8 +917,8 @@ _DCINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1220,
-    serialized_end=1344,
+    serialized_start=1205,
+    serialized_end=1329,
 )
 
 
@@ -960,8 +977,8 @@ _DCRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1496,
-    serialized_end=1547,
+    serialized_start=1481,
+    serialized_end=1532,
 )
 
 _DCRESULT = _descriptor.Descriptor(
@@ -1078,8 +1095,8 @@ _DCRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1347,
-    serialized_end=1553,
+    serialized_start=1332,
+    serialized_end=1538,
 )
 
 
@@ -1138,8 +1155,8 @@ _TRANINPUT_ICENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1703,
-    serialized_end=1744,
+    serialized_start=1688,
+    serialized_end=1729,
 )
 
 _TRANINPUT = _descriptor.Descriptor(
@@ -1256,8 +1273,8 @@ _TRANINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1556,
-    serialized_end=1744,
+    serialized_start=1541,
+    serialized_end=1729,
 )
 
 
@@ -1316,8 +1333,8 @@ _TRANRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1496,
-    serialized_end=1547,
+    serialized_start=1481,
+    serialized_end=1532,
 )
 
 _TRANRESULT = _descriptor.Descriptor(
@@ -1415,8 +1432,8 @@ _TRANRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1747,
-    serialized_end=1943,
+    serialized_start=1732,
+    serialized_end=1928,
 )
 
 
@@ -1475,8 +1492,8 @@ _COMPLEXNUM = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1945,
-    serialized_end=1981,
+    serialized_start=1930,
+    serialized_end=1966,
 )
 
 
@@ -1592,8 +1609,8 @@ _ACINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1983,
-    serialized_end=2097,
+    serialized_start=1968,
+    serialized_end=2082,
 )
 
 
@@ -1652,8 +1669,8 @@ _ACRESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1496,
-    serialized_end=1547,
+    serialized_start=1481,
+    serialized_end=1532,
 )
 
 _ACRESULT = _descriptor.Descriptor(
@@ -1770,8 +1787,8 @@ _ACRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2100,
-    serialized_end=2325,
+    serialized_start=2085,
+    serialized_end=2310,
 )
 
 
@@ -1944,8 +1961,8 @@ _NOISEINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2328,
-    serialized_end=2503,
+    serialized_start=2313,
+    serialized_end=2488,
 )
 
 
@@ -2004,8 +2021,8 @@ _NOISERESULT_INTEGRATEDNOISEENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2714,
-    serialized_end=2768,
+    serialized_start=2699,
+    serialized_end=2753,
 )
 
 _NOISERESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
@@ -2063,8 +2080,8 @@ _NOISERESULT_MEASUREMENTSENTRY = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=1496,
-    serialized_end=1547,
+    serialized_start=1481,
+    serialized_end=1532,
 )
 
 _NOISERESULT = _descriptor.Descriptor(
@@ -2182,8 +2199,8 @@ _NOISERESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2506,
-    serialized_end=2833,
+    serialized_start=2491,
+    serialized_end=2818,
 )
 
 
@@ -2299,8 +2316,8 @@ _SWEEPINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2836,
-    serialized_end=2996,
+    serialized_start=2821,
+    serialized_end=2981,
 )
 
 
@@ -2397,8 +2414,8 @@ _SWEEPRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=2999,
-    serialized_end=3129,
+    serialized_start=2984,
+    serialized_end=3114,
 )
 
 
@@ -2514,8 +2531,8 @@ _MONTEINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3132,
-    serialized_end=3267,
+    serialized_start=3117,
+    serialized_end=3252,
 )
 
 
@@ -2612,8 +2629,8 @@ _MONTERESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3270,
-    serialized_end=3400,
+    serialized_start=3255,
+    serialized_end=3385,
 )
 
 
@@ -2691,8 +2708,8 @@ _CUSTOMANALYSISINPUT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3402,
-    serialized_end=3496,
+    serialized_start=3387,
+    serialized_end=3481,
 )
 
 
@@ -2712,8 +2729,8 @@ _CUSTOMANALYSISRESULT = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3498,
-    serialized_end=3520,
+    serialized_start=3483,
+    serialized_end=3505,
 )
 
 
@@ -2800,8 +2817,8 @@ _SWEEP = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=3523,
-    serialized_end=3661,
+    serialized_start=3508,
+    serialized_end=3646,
 )
 
 
@@ -2879,8 +2896,8 @@ _LINEARSWEEP = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3663,
-    serialized_end=3719,
+    serialized_start=3648,
+    serialized_end=3704,
 )
 
 
@@ -2958,8 +2975,8 @@ _LOGSWEEP = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3721,
-    serialized_end=3774,
+    serialized_start=3706,
+    serialized_end=3759,
 )
 
 
@@ -3037,8 +3054,8 @@ _POINTSWEEP = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=3776,
-    serialized_end=3832,
+    serialized_start=3761,
+    serialized_end=3817,
 )
 
 
@@ -3182,8 +3199,8 @@ _CONTROL = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=3835,
-    serialized_end=4059,
+    serialized_start=3820,
+    serialized_end=4044,
 )
 
 
@@ -3253,8 +3270,8 @@ _SAVE = _descriptor.Descriptor(
             fields=[],
         ),
     ],
-    serialized_start=4061,
-    serialized_end=4168,
+    serialized_start=4046,
+    serialized_end=4153,
 )
 
 
@@ -3294,8 +3311,8 @@ _INCLUDE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=4170,
-    serialized_end=4193,
+    serialized_start=4155,
+    serialized_end=4178,
 )
 
 
@@ -3354,8 +3371,8 @@ _LIBINCLUDE = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=4195,
-    serialized_end=4238,
+    serialized_start=4180,
+    serialized_end=4223,
 )
 
 
@@ -3433,8 +3450,8 @@ _MEAS = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=4240,
-    serialized_end=4297,
+    serialized_start=4225,
+    serialized_end=4282,
 )
 
 
@@ -3495,8 +3512,8 @@ _SIGNAL = _descriptor.Descriptor(
     syntax="proto3",
     extension_ranges=[],
     oneofs=[],
-    serialized_start=4299,
-    serialized_end=4417,
+    serialized_start=4284,
+    serialized_end=4402,
 )
 
 _SIMINPUT.fields_by_name["pkg"].message_type = circuit__pb2._PACKAGE
@@ -3504,9 +3521,7 @@ _SIMINPUT.fields_by_name["opts"].message_type = _SIMOPTIONS
 _SIMINPUT.fields_by_name["an"].message_type = _ANALYSIS
 _SIMINPUT.fields_by_name["ctrls"].message_type = _CONTROL
 _SIMRESULT.fields_by_name["an"].message_type = _ANALYSISRESULT
-_SIMOPTIONS.fields_by_name[
-    "opts"
-].message_type = google_dot_protobuf_dot_struct__pb2._STRUCT
+_SIMOPTIONS.fields_by_name["value"].message_type = utils__pb2._PARAMVALUE
 _ANALYSIS.fields_by_name["op"].message_type = _OPINPUT
 _ANALYSIS.fields_by_name["dc"].message_type = _DCINPUT
 _ANALYSIS.fields_by_name["tran"].message_type = _TRANINPUT
@@ -4109,8 +4124,8 @@ _SPICE = _descriptor.ServiceDescriptor(
     index=0,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-    serialized_start=4419,
-    serialized_end=4480,
+    serialized_start=4404,
+    serialized_end=4465,
     methods=[
         _descriptor.MethodDescriptor(
             name="Sim",

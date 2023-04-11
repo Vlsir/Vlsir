@@ -70,8 +70,7 @@ class NGSpiceSim(Sim):
         netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
 
         for opt in self.inp.opts:
-            for o in opt.opts.items():
-                netlist_file.write(f".option {o[0]} = {o[1]}\n")
+            netlist_file.write(f".option {opt.name} = {NgspiceNetlister.get_param_value(opt.value)}\n")
 
         # Write each control element
         self.write_control_elements(netlist_file)
