@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 
 # Local Imports
 import vlsir
-
+import vlsir.circuit_pb2 as vckt
 
 # Internal type shorthand
 ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
@@ -312,7 +312,7 @@ class Netlister:
                 name = name.replace(ch, "_")
         return name
 
-    def resolve_reference(self, ref: vlsir.utils.Reference, devicetype : Optional[Enum] = SpicePrefix.SUBCKT) -> ResolvedModule:
+    def resolve_reference(self, ref: vlsir.utils.Reference) -> ResolvedModule:
         """Resolve the `ModuleLike` referent of `ref`."""
 
         if ref.WhichOneof("to") == "local":  # Internally-defined Module
@@ -382,11 +382,17 @@ class Netlister:
                 ):
                     msg = f"Conflicting ExternalModule definitions {module} and {self.ext_module_names[module_name]}"
                     raise RuntimeError(msg)
+
+                devicetype = vckt.SpiceType.Name(module.spicetype)
+                if devicetype is None:
+                    msg = f"ExternalModule {module} must specify a `vckt.SpiceType`"
+                    raise RuntimeError(msg)
+
                 self.ext_module_names[module_name] = module
                 return ResolvedModule(
                     module=module,
                     module_name=module_name,
-                    spice_prefix=devicetype,
+                    spice_prefix=SpicePrefix[devicetype],
                 )
 
         # Not a Module, not an ExternalModule, not sure what it is

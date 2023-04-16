@@ -129,13 +129,7 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
-        # Get its Module or ExternalModule definition,
-        devicetype = SpicePrefix.SUBCKT
-        for p in pinst.parameters:
-            if p.name == "devicetype":
-                devicetype = SpicePrefix(p.value.literal)
-
-        resolved = self.resolve_reference(pinst.module, devicetype)
+        resolved = self.resolve_reference(pinst.module)
 
         # And dispatch to `subckt` or `primitive` writers
         if resolved.spice_prefix == SpicePrefix.SUBCKT:
