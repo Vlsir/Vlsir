@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 
 # Local Imports
 import vlsir
-
+import vlsir.circuit_pb2 as vckt
 
 # Internal type shorthand
 ModuleLike = Union[vlsir.circuit.Module, vlsir.circuit.ExternalModule]
@@ -296,6 +296,8 @@ class Netlister:
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
+        values.pop("devicetype", None)
+
         return ResolvedParams(values)
 
     @classmethod
@@ -380,11 +382,17 @@ class Netlister:
                 ):
                     msg = f"Conflicting ExternalModule definitions {module} and {self.ext_module_names[module_name]}"
                     raise RuntimeError(msg)
+
+                devicetype = vckt.SpiceType.Name(module.spicetype)
+                if devicetype is None:
+                    msg = f"ExternalModule {module} must specify a `vckt.SpiceType`"
+                    raise RuntimeError(msg)
+
                 self.ext_module_names[module_name] = module
                 return ResolvedModule(
                     module=module,
                     module_name=module_name,
-                    spice_prefix=SpicePrefix.SUBCKT,
+                    spice_prefix=SpicePrefix[devicetype],
                 )
 
         # Not a Module, not an ExternalModule, not sure what it is

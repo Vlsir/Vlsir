@@ -1,0 +1,73 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: tpluck95/vlsir-test-container
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+      - name: Checkout VLSIR Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: |
+          apt-get install -y python${{ matrix.python-version }}
+          apt-get install -y python${{ matrix.python-version }}-dev
+          apt-get install -y python${{ matrix.python-version }}-venv
+          apt-get install -y python${{ matrix.python-version }}-distutils
+
+      #! The bizarre insanity of ". ./venv/..." is an Ubuntu sh translation of
+      #! "source venv/..." seen in most Python documentation
+      - name: pytest `bindings/python`
+        run: |
+          python${{ matrix.python-version }} -m venv ./venv
+          . ./venv/bin/activate
+          cd bindings/python
+          python${{ matrix.python-version }} -m pip install -e ".[dev]"
+          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml
+
+      - name: pytest `VlsirTools`
+        run: |
+          python${{ matrix.python-version }} -m venv ./venv
+          . ./venv/bin/activate
+          cd VlsirTools
+          python${{ matrix.python-version }} -m pip install -e ".[dev]"
+          python${{ matrix.python-version }} -m pytest -sv --cov=./ --cov-report=xml --simulator_test_mode required --spectre disabled
+
+  build-bindings:
+    name: Build bindings
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          version: '3.x'
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install 2to3, protobuf and black
+        run: pip3 install 2to3 protobuf black
+
+      - name: Run build script
+        run: scripts/build_all_recipes.sh

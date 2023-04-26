@@ -129,7 +129,6 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
-        # Get its Module or ExternalModule definition,
         resolved = self.resolve_reference(pinst.module)
 
         # And dispatch to `subckt` or `primitive` writers
@@ -177,6 +176,9 @@ class SpiceNetlister(SpectreSpiceShared):
         # Write its port-connections
         self.write_instance_conns(pinst, rmodule.module)
 
+        # Write the component name
+        self.write("+ " + rmodule.module_name + " \n")
+
         # Resolve its parameter-values to spice-strings
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
 
@@ -206,11 +208,16 @@ class SpiceNetlister(SpectreSpiceShared):
         else:
             positional_keys = []
 
-        # Pop all positional parameters ("pp") from `resolved_param_values`
-        pp = resolved_param_values.pop_many(positional_keys)
+        try:
+            # Pop all positional parameters ("pp") from `resolved_param_values`
+            pp = resolved_param_values.pop_many(positional_keys)
 
-        # Write the positional parameters, in the order specified by `positional_keys`
-        self.write("+ " + " ".join([pp[pkey] for pkey in positional_keys]) + " \n")
+            # Write the positional parameters, in the order specified by `positional_keys`
+            self.write("+ " + " ".join([pp[pkey] for pkey in positional_keys]) + " \n")
+        except:
+            #* This is a hack to avoid positional keys if they don't exist.
+            #* There is probably a better way to do this, but I don't know it.
+            pass
 
         # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)

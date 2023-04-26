@@ -33,7 +33,6 @@ package vlsir.spice;
 import "utils.proto";
 import "circuit.proto";
 
-
 // ############################################################################
 // # `Spice` Simulator API
 // ############################################################################
@@ -63,7 +62,7 @@ message SimInput {
   string top = 2;
 
   // # Simulation Configuration Input 
-  // Global simulator options 
+  // List of simulator options
   repeated SimOptions opts = 10;
   // List of circuit analyses
   repeated Analysis an = 11;
@@ -78,13 +77,11 @@ message SimResult {
 }
 // # Simulator Options 
 // Global, cross-analysis settings. 
-// FIXME: all of these should probably be "explicitly optional" as `google.protobuf.DoubleValue`s or similar. 
 message SimOptions {
-  double temp = 1;
-  double tnom = 2;
-  double gmin = 3;
-  double iabstol = 4;
-  double reltol = 5;
+  // Option name
+  string name = 1;
+  // Option argument
+  vlsir.utils.ParamValue value = 2;
 }
 
 // ############################################################################
