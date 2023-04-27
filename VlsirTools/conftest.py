@@ -44,9 +44,12 @@ class Simulator:
     available: bool
     # Boolean indicator of availability in the current environment
 
-    def getoption(self, config: "Config") -> Optional[str]:
+    def getoption(self, config: "Config") -> Optional["SimulatorTestMode"]:
         """Get this simulator's pytest option"""
-        return config.getoption(f"--{self.marker}")
+        option = config.getoption(f"--{self.marker}")
+        if option is None:
+            return None
+        return SimulatorTestMode(option)
 
 
 # The "registry" of supported simulators and their availability in the current process environment
