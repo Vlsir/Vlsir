@@ -176,9 +176,6 @@ class SpiceNetlister(SpectreSpiceShared):
         # Write its port-connections
         self.write_instance_conns(pinst, rmodule.module)
 
-        # Write the component name
-        self.write("+ " + rmodule.module_name + " \n")
-
         # Resolve its parameter-values to spice-strings
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
 
