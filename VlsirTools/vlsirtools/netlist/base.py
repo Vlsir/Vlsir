@@ -666,10 +666,6 @@ class Netlister:
         """Write Instance parameters `pvals`"""
         raise NotImplementedError
 
-    def write_control_element(self, ctrl: vsp.Control) -> None:
-        """# Write a `Control` element"""
-        raise NotImplementedError
-
     def write_include(self, inc: vsp.Include) -> None:
         raise NotImplementedError
 
