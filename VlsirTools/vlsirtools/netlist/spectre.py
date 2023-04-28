@@ -3,14 +3,16 @@
 """
 
 # Std-Lib Imports
-from typing import Union, List
+from typing import Union
 
 # Local Imports
 import vlsir
+import vlsir.circuit_pb2 as vckt
+import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix
+from .base import ResolvedModule, ResolvedParams, SpicePrefix
 
 
 def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
@@ -88,7 +90,7 @@ class SpectreNetlister(SpectreSpiceShared):
 
         return NetlistFormat.SPECTRE
 
-    def write_module_definition(self, module: vlsir.circuit.Module) -> None:
+    def write_module_definition(self, module: vckt.Module) -> None:
         """Create a Spectre-format definition for proto-Module `module`"""
 
         # Create the module name
@@ -100,7 +102,7 @@ class SpectreNetlister(SpectreSpiceShared):
         self.module_names.add(module_name)
         self.pmodules[module.name] = module
 
-        # Collect and index vlsir.circuit.Signals in this Module by name.
+        # Collect and index vckt.Signals in this Module by name.
         self.collect_signals_by_name(module)
 
         # Create the sub-circuit definition header
@@ -137,7 +139,7 @@ class SpectreNetlister(SpectreSpiceShared):
         self.indent -= 1
         self.writeln("ends \n")
 
-    def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
+    def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
         # Initial resolution phase.
@@ -196,24 +198,24 @@ class SpectreNetlister(SpectreSpiceShared):
         formatted = " ".join([f"{pname}={pval}" for pname, pval in pvals.items()])
         self.writeln("+  " + formatted + " ")
 
-    def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
+    def format_concat(self, pconc: vckt.Concat) -> str:
         """Format the Concatenation of several other Connections"""
         out = ""
         for part in pconc.parts:
             out += self.format_connection_target(part) + " "
         return out
 
-    def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
+    def format_port_decl(self, pport: vckt.Port) -> str:
         """Get a netlist `Port` definition"""
         # In Spectre, as well as most spice, this syntax is the same as referring to the Port.
         return self.format_port_ref(pport)
 
-    def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
+    def format_port_ref(self, pport: vckt.Port) -> str:
         """Get a netlist `Port` reference"""
         return self.format_signal_ref(self.get_signal(pport.signal))
 
     @classmethod
-    def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
+    def format_signal_ref(cls, psig: vckt.Signal) -> str:
         """Get a netlist definition for Signal `psig`"""
         if psig.width < 1:
             raise RuntimeError
@@ -225,7 +227,7 @@ class SpectreNetlister(SpectreSpiceShared):
         )
 
     @classmethod
-    def format_signal_slice(cls, pslice: vlsir.circuit.Slice) -> str:
+    def format_signal_slice(cls, pslice: vckt.Slice) -> str:
         """Get a netlist definition for Signal-Slice `pslice`"""
         base = pslice.signal
         indices = list(reversed(range(pslice.bot, pslice.top + 1)))
@@ -248,3 +250,124 @@ class SpectreNetlister(SpectreSpiceShared):
     def format_sim_dut(cls, module_name: str) -> str:
         """# Format the top-level DUT instance for module name `module_name`."""
         return f"xtop 0 {module_name} // Top-Level DUT \n"
+
+    def write_sim_header(self, inp: vsp.SimInput) -> None:
+        """# Write header commentary for a `SimInput`"""
+
+        # Note on this line here:
+        self.writeln("simulator lang=spectre \n")
+        # There's no need to write `simulator lang=spectre` in a file who's extension is `.scs`.
+        # But I guess this doesn't hurt? And continues to work if the file gets copied to another extension?
+
+        # Write the base-class version, it includes some nice commentary
+        super().write_sim_header(inp)
+
+        # FIXME: do we *really* want this global-zero?
+        self.writeln("global 0")
+        self.writeln("")
+
+    def write_include(self, inc: vsp.Include) -> None:
+        """# Write an `Include` statement"""
+        self.writeln(f'include "{inc.path}"')
+
+    def write_lib_include(self, lib: vsp.LibInclude) -> None:
+        """# Write a `LibInclude` statement"""
+        txt = f'include "{lib.path}" section={lib.section}'
+        self.writeln(txt)
+
+    def write_save(self, save: vsp.Save) -> None:
+        """# Write a `Save` statement"""
+        # FIXME!
+        raise NotImplementedError(f"Unimplemented control card {save} for {self}")
+
+    def write_meas(self, meas: vsp.Meas) -> None:
+        """# Write a `Meas` statement"""
+        # Measurements are written in Spice syntax; wrap them in "simulator lang".
+        self.writeln(f"simulator lang=spice")
+        txt = f".meas {meas.analysis_type} {meas.name} {meas.expr}"
+        self.writeln(txt)
+        self.writeln(f"simulator lang=spectre")
+
+    def write_sim_param(self, param: vlsir.Param) -> None:
+        """# Write a simulation-level parameter"""
+        txt = f"parameters  {param.name}={self.get_param_value(param.value)}"
+        self.writeln(txt)
+
+    def write_sim_option(self, opt: vsp.SimOptions) -> None:
+        """# Write a simulation option"""
+        # FIXME: make this just `Param` instead
+        raise NotImplementedError
+
+    def write_ac(self, an: vsp.AcInput) -> None:
+        """# Write an AC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Unpack the analysis / sweep content
+        fstart = an.fstart
+        if fstart <= 0:
+            raise ValueError(f"Invalid `fstart` {fstart}")
+        fstop = an.fstop
+        if fstop <= 0:
+            raise ValueError(f"Invalid `fstop` {fstop}")
+        npts = an.npts
+        if npts <= 0:
+            raise ValueError(f"Invalid `npts` {npts}")
+
+        # Write the analysis command
+        line = f"{an.analysis_name} ac start={fstart} stop={fstop} dec={npts}"
+        self.writeln(line)
+
+    def write_dc(self, an: vsp.DcInput) -> None:
+        """# Write a DC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            line = f"{an.analysis_name} dc param={param} start={sweep.start} stop={sweep.stop} step={sweep.step}"
+            self.writeln(line)
+        elif sweep_type == "points":
+            sweep = an.sweep.points
+            line = f"{an.analysis_name} dc values=[{sweep.points}]"
+            self.writeln(line)
+        elif sweep_type == "log":
+            raise NotImplementedError
+        else:
+            raise ValueError("Invalid sweep type")
+
+    def write_op(self, an: vsp.OpInput) -> None:
+        """# Write an operating point analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        self.writeln(f"{an.analysis_name} dc oppoint=rawfile")
+
+    def write_tran(self, an: vsp.TranInput) -> None:
+        """# Write a transient analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+        if len(an.ic):
+            raise NotImplementedError
+
+        self.writeln(f"{an.analysis_name} tran stop={an.tstop} ")
+
+    def write_noise(self, an: vsp.NoiseInput) -> None:
+        """# Write a noise analysis."""
+        raise NotImplementedError

@@ -6,14 +6,14 @@ Xyce Implementation of `vsp.Sim`
 import subprocess, random, shutil, asyncio
 from glob import glob
 from os import PathLike
-from typing import List, Tuple, IO, Dict, Awaitable, Union
+from typing import IO, Dict, Awaitable, Union
 
 import numpy as np
 import pandas as pd
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
-from ..netlist import netlist, XyceNetlister
+from ..netlist import XyceNetlister
 from .base import Sim
 from .sim_data import (
     TranResult,
@@ -24,7 +24,6 @@ from .sim_data import (
     AnalysisResult,
 )
 from .spice import (
-    ResultFormat,
     SupportedSimulators,
     sim,
     sim_async,  # Not directly used here, but "re-exported"
@@ -54,7 +53,7 @@ class XyceSim(Sim):
     @staticmethod
     def available() -> bool:
         """Boolean indication of whether the current running environment includes the simulator executable on its path."""
-        # FIXME: add an attempt to execute it, get the version string etc, like Spectre and NgSpice do.
+
         if shutil.which(XYCE_EXECUTABLE) is None:
             return False
         try:

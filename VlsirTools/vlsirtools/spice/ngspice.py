@@ -84,7 +84,8 @@ class NGSpiceSim(Sim):
         netlist_file.close()
 
     def parse_results(self) -> SimResult:
-        # Parse output data
+        """# Parse output data"""
+
         data = parse_nutbin(self.open("netlist.raw", "rb"))
         an_type_dispatch = dict(
             ac=self.parse_ac,
