@@ -463,7 +463,7 @@ def test_xyce1():
 
 
 # FIXME: This test mysteriously fails on Python 3.7/3.8 put passes on 3.9/3.10.
-@pytest.mark.xfail
+# @pytest.mark.xfail
 @pytest.mark.ngspice
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
