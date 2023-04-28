@@ -278,6 +278,10 @@ class Netlister:
         """Write `s` as a line, at our current `indent` level."""
         self.write(f"{self.indent.state}{s}\n")
 
+    def flush(self) -> None:
+        """Flush `self.dest`."""
+        self.dest.flush()
+
     def get_external_module(self, emod: vckt.ExternalModule) -> None:
         """Visit an ExternalModule definition.
         "Netlisting" these doesn't actually write anything,

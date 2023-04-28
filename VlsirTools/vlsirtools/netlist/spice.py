@@ -460,6 +460,52 @@ class XyceNetlister(SpiceNetlister):
         """# Format the top-level DUT instance for module name `module_name`."""
         return f"xtop 0 {module_name} ; Top-Level DUT \n"
 
+    def write_include(self, inc: vsp.Include) -> None:
+        """# Write an `Include`"""
+        self.writeln(f".include '{inc.path}'")
+
+    def write_lib_include(self, lib: vsp.LibInclude) -> None:
+        """# Write a `LibInclude`"""
+        self.writeln(f".lib {lib.path} {lib.section}")
+
+    def write_save(self, save: vsp.Save) -> None:
+        # FIXME!
+        raise NotImplementedError(f"Unimplemented control card {save} for {self}")
+
+    def write_meas(self, meas: vsp.Meas) -> None:
+        """# Write a measurement."""
+        line = f".meas {meas.analysis_type} {meas.name} {meas.expr} \n"
+        self.writeln(line)
+
+    def write_sim_param(self, param: vlsir.Param) -> None:
+        """# Write a simulation parameter."""
+        line = f".param {param.name}={self.get_param_value(param.value)} \n"
+        self.writeln(line)
+
+    def write_sim_option(self, opt: vsp.SimOptions) -> None:
+        # FIXME: make this just `Param` instead
+        raise NotImplementedError
+
+    def write_ac(self, an: vsp.AcInput) -> None:
+        """# Write an AC analysis."""
+        raise NotImplementedError
+
+    def write_dc(self, an: vsp.DcInput) -> None:
+        """# Write a DC analysis."""
+        raise NotImplementedError
+
+    def write_op(self, an: vsp.OpInput) -> None:
+        """# Write an operating point analysis."""
+        raise NotImplementedError
+
+    def write_tran(self, an: vsp.TranInput) -> None:
+        """# Write a transient analysis."""
+        raise NotImplementedError
+
+    def write_noise(self, an: vsp.NoiseInput) -> None:
+        """# Write a noise analysis."""
+        raise NotImplementedError
+
 
 class NgspiceNetlister(SpiceNetlister):
     """
