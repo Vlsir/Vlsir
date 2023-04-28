@@ -23,8 +23,11 @@ from .spice import (
 )
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
-SPECTRE_EXECUTABLE = "spectre"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
-SPECTRE_ARGS = ""##"++aps"  # Additional arguments to pass to the simulator executable.
+
+# The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
+SPECTRE_EXECUTABLE = "spectre"
+# Additional arguments to pass to the simulator executable.
+SPECTRE_ARGS = ""  ##"++aps"
 
 
 def available() -> bool:

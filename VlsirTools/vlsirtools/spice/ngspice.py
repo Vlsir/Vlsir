@@ -3,12 +3,14 @@ NGSpice Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, glob
-import numpy as np
-from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
-from dataclasses import dataclass
-from warnings import warn
+import subprocess, re, shutil
 from enum import Enum
+from warnings import warn
+from dataclasses import dataclass
+from typing import Mapping, IO, Dict, Awaitable
+
+# External Imports
+import numpy as np
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -70,7 +72,9 @@ class NGSpiceSim(Sim):
         netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
 
         for opt in self.inp.opts:
-            netlist_file.write(f".option {opt.name} = {NgspiceNetlister.get_param_value(opt.value)}\n")
+            netlist_file.write(
+                f".option {opt.name} = {NgspiceNetlister.get_param_value(opt.value)}\n"
+            )
 
         # Write each control element
         self.write_control_elements(netlist_file)

@@ -212,8 +212,10 @@ class SpiceNetlister(SpectreSpiceShared):
             # Write the positional parameters, in the order specified by `positional_keys`
             self.write("+ " + " ".join([pp[pkey] for pkey in positional_keys]) + " \n")
         except:
-            #* This is a hack to avoid positional keys if they don't exist.
-            #* There is probably a better way to do this, but I don't know it.
+            # FIXME
+            # * This is a hack to avoid positional keys if they don't exist.
+            # * There is probably a better way to do this, but I don't know it.
+            # FIXME: why would they ever not exist?
             pass
 
         # Now! Write its subckt-style by-name parameter values

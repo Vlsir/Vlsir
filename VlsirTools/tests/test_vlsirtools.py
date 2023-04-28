@@ -565,6 +565,7 @@ def test_noise1():
     vlsirtools.spice.sim(
         sim_input,
         opts=SimOptions(
-            simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
+            simulator=SupportedSimulators.NGSPICE,
+            fmt=ResultFormat.SIM_DATA,
         ),
     )
