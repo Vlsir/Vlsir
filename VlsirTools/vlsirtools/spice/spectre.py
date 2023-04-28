@@ -68,14 +68,19 @@ class SpectreSim(Sim):
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         netlist_file = self.open("netlist.scs", "w")
-        netlist_file.write("// Test Netlist \n\n")
-        netlist_file.write("simulator lang=spectre \n\n")
-        netlist_file.write("global 0\n\n")
-        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="spectre")
+        netlister = SpectreNetlister(dest=netlist_file)
+
+        netlister.write_sim_header(self.inp)
+        netlister.writeln("")
+        netlister.writeln("simulator lang=spectre")
+        netlister.writeln("global 0")
+        netlister.writeln("")
+
+        # Write the primary circuit-definitions package
+        netlister.write_package(pkg=self.inp.pkg)
 
         # Write the top-level instance
-        top_name = SpectreNetlister.get_module_name(self.top)
-        netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
+        netlister.write_sim_dut(self.inp)
 
         if self.inp.opts:
             raise NotImplementedError(f"SimInput Options")

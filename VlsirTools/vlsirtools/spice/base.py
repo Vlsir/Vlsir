@@ -75,7 +75,6 @@ class Sim:
         self.opts = opts
         self.rundir = opts.rundir
         self.tmpdir: Optional[tempfile.TemporaryDirectory] = None
-        self.top: Optional[vckt.Module] = None
         self.subprocesses: List[asyncio.Process] = []
 
     def setup(self):
@@ -91,36 +90,10 @@ class Sim:
             self.tmpdir = tempfile.TemporaryDirectory()
             self.rundir = Path(self.tmpdir.name).absolute()
 
-        # Ensure that we have a valid top-level module
-        self.validate_top()
-
     def cleanup(self):
         """On completion, clean up after ourselves."""
         if self.tmpdir is not None:
             self.tmpdir.cleanup()
-
-    def validate_top(self) -> None:
-        """Ensure that the `top` module exists,
-        and adheres to the "Spice top-level" port-interface: a single port for ground / VSS / node-zero.
-        Sets the `self.top` attribute when successful, or raises a `RuntimeError` when not."""
-
-        if not self.inp.top:
-            raise RuntimeError(f"No top-level module specified")
-
-        found = False
-        for module in self.inp.pkg.modules:
-            if module.name == self.inp.top:
-                found = True
-                self.top = module
-                if len(module.ports) != 1:
-                    msg = f"`vlsir.SimInput` top-level module {self.inp.top} must have *one* (VSS) port - has {len(module.ports)} ports [{module.ports}]"
-                    raise RuntimeError(msg)
-                break
-
-        if not found:
-            names = [m.name for m in self.inp.pkg.modules]
-            msg = f"Top-level module `{self.inp.top}` not found among Modules {names}"
-            raise RuntimeError(msg)
 
     async def run_subprocess(self, cmd: str) -> Awaitable[None]:
         """Asynchronously run a shell subprocess invoking command `cmd`.

@@ -419,6 +419,7 @@ def dummy_sim_tests(
         opts=SimOptions(
             simulator=simulator,
             fmt=ResultFormat.SIM_DATA,
+            rundir="./scratch",
         ),
     )
 
@@ -565,7 +566,6 @@ def test_noise1():
     vlsirtools.spice.sim(
         sim_input,
         opts=SimOptions(
-            simulator=SupportedSimulators.NGSPICE,
-            fmt=ResultFormat.SIM_DATA,
+            simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )

@@ -243,3 +243,8 @@ class SpectreNetlister(SpectreSpiceShared):
         """While Spectre *can* do a bunch of other comment-styles,
         the canonical one is generally the C-style line comment beginning with `//`."""
         self.writeln(f"// {comment}")
+
+    @classmethod
+    def format_sim_dut(cls, module_name: str) -> str:
+        """# Format the top-level DUT instance for module name `module_name`."""
+        return f"xtop 0 {module_name} // Top-Level DUT \n"

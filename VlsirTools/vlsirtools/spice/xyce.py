@@ -77,16 +77,15 @@ class XyceSim(Sim):
         return SupportedSimulators.XYCE
 
     async def run(self) -> Awaitable[SimResult]:
-        """Run the specified `SimInput` in directory `self.rundir`,
-        returning its results."""
+        """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         netlist_file = self.open("dut", "w")
-        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
+        netlister = XyceNetlister(dest=netlist_file)
+        netlister.write_sim_header(self.inp)
+        netlister.write_package(pkg=self.inp.pkg)
 
         # Write the top-level instance
-        netlist_file.write(
-            f"xtop 0 {XyceNetlister.get_module_name(self.top)} ; Top-Level DUT \n\n"
-        )
+        netlister.write_sim_dut(self.inp)
 
         if self.inp.opts:
             raise NotImplementedError(f"SimInput Options")
@@ -98,6 +97,7 @@ class XyceSim(Sim):
         netlist_file.flush()
 
         # Run each analysis in the input
+        # FIXME: these could be another `asyncio.gather` call, but for now, just run them sequentially.
         results = SimResult()
         for an in self.inp.an:
             an_results = await self.analysis(an)
