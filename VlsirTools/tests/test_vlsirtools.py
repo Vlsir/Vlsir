@@ -586,7 +586,6 @@ def test_sim_async():
 
         return sim_async(
             inp=dummy_sim(
-                SupportedSimulators.NGSPICE,
                 skip=[
                     AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
                     AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
