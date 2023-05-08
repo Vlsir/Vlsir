@@ -7,3 +7,4 @@
 
 settings.json
 .pytest_cache 
+*.code-workspace

@@ -1,0 +1,9 @@
+name = "Vlsir"
+uuid = "860b6971-17a7-4d1f-97dc-e63ad61ec7da"
+authors = ["Thomas Pluck <thomaspluck95@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+ProtoBuf = "3349acd9-ac6a-5e09-bcdb-63829b23a429"
+[build]
+julia = "1.8.5"

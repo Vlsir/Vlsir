@@ -3,17 +3,17 @@ Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, random, shutil, csv
+import subprocess, random, shutil, asyncio
 from glob import glob
 from os import PathLike
-from typing import List, Tuple, IO, Dict, Awaitable, Union
+from typing import IO, Dict, Awaitable, Union
 
 import numpy as np
 import pandas as pd
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
-from ..netlist import netlist, XyceNetlister
+from ..netlist import XyceNetlister
 from .base import Sim
 from .sim_data import (
     TranResult,
@@ -24,7 +24,6 @@ from .sim_data import (
     AnalysisResult,
 )
 from .spice import (
-    ResultFormat,
     SupportedSimulators,
     sim,
     sim_async,  # Not directly used here, but "re-exported"
@@ -54,7 +53,7 @@ class XyceSim(Sim):
     @staticmethod
     def available() -> bool:
         """Boolean indication of whether the current running environment includes the simulator executable on its path."""
-        # FIXME: add an attempt to execute it, get the version string etc, like Spectre and NgSpice do.
+
         if shutil.which(XYCE_EXECUTABLE) is None:
             return False
         try:
@@ -77,55 +76,52 @@ class XyceSim(Sim):
         return SupportedSimulators.XYCE
 
     async def run(self) -> Awaitable[SimResult]:
-        """Run the specified `SimInput` in directory `self.rundir`,
-        returning its results."""
+        """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
+
+        # Write the DUT netlist
+        self.write_dut_netlist()
+
+        # Run each analysis as an async subprocess
+        futures = [self.analysis(an) for an in self.inp.an]
+        an_results = await asyncio.gather(*futures)
+        return SimResult(an_results)
+
+    def write_dut_netlist(self) -> None:
+        """# Write the DUT part (really, everything but Analyses) of the netlist.
+
+        Xyce is weird in that we can't reliably get multi-analysis sims to work,
+        so we write the DUT, copy it to a new file for each analysis, and then carry on modifying that.
+
+        This function largely parallels `Netlister.write_sim_input()`,
+        but skips the analysis-specific parts."""
 
         netlist_file = self.open("dut", "w")
-        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="xyce")
+        netlister = XyceNetlister(dest=netlist_file)
+
+        # Do our fake version of `write_sim_input`
+
+        # Write the header
+        netlister.write_sim_header(self.inp)
+
+        # Write the circuit-definitions package
+        netlister.write_package(pkg=self.inp.pkg)
 
         # Write the top-level instance
-        netlist_file.write(
-            f"xtop 0 {XyceNetlister.get_module_name(self.top)} ; Top-Level DUT \n\n"
-        )
+        netlister.write_sim_dut(self.inp)
 
-        if self.inp.opts:
-            raise NotImplementedError(f"SimInput Options")
+        # Write sim options
+        netlister.write_sim_options(self.inp.opts)
 
         # Write each control element
-        self.write_control_elements(netlist_file)
+        netlister.write_control_elements(self.inp.ctrls)
 
-        # Flush the netlist to disk before handing off to analyses
-        netlist_file.flush()
+        # Skip this part!
+        # # Write each analysis
+        # for an in self.inp.an:
+        #     netlister.write_analysis(an)
 
-        # Run each analysis in the input
-        results = SimResult()
-        for an in self.inp.an:
-            an_results = await self.analysis(an)
-            results.an.append(an_results)
-
-        return results
-
-    def write_control_elements(self, netlist_file: IO) -> None:
-        for ctrl in self.inp.ctrls:
-            inner = ctrl.WhichOneof("ctrl")
-            if inner == "include":
-                netlist_file.write(f".include '{ctrl.include.path}' \n")
-            elif inner == "lib":
-                netlist_file.write(f".lib {ctrl.lib.path} {ctrl.lib.section} \n")
-            elif inner == "param":
-                line = f".param {ctrl.param.name}={XyceNetlister.get_param_value(ctrl.param.value)} \n"
-                netlist_file.write(line)
-            elif inner == "meas":
-                line = f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
-                netlist_file.write(line)
-            elif inner == "literal":
-                netlist_file.write(ctrl.literal + "\n")
-            elif inner in ("save"):
-                raise NotImplementedError(
-                    f"Unimplemented control card {ctrl} for {self}"
-                )  # FIXME!
-            else:
-                raise RuntimeError(f"Unknown control type: {inner}")
+        # And ensure all output makes it to `self.dest`
+        netlister.flush()
 
     def analysis(self, an: vsp.Analysis) -> Awaitable[AnalysisResult]:
         """Execute a `vsp.Analysis`, returning its `AnalysisResult`.

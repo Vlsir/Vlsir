@@ -1,4 +1,5 @@
+# Vlsir Javascript Bindings
 
-# Vlsir 
+Vlsir Javascript bindings can be built using the `build_js.sh` script found in `scripts` of the Vlsir root directory.
 
-Bindings to the [Vlsir](https://github.com/Vlsir/Vlsir) data-schemas for chip design. 
+NOTE: This script must be run from the Vlsir root directory

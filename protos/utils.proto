@@ -50,6 +50,7 @@ message Prefixed {
 // such as Verilog and SPICE.
 message ParamValue {
   oneof value {
+    bool boolean = 1;   // Boolean
     int64 integer = 2;  // Int
     double double = 3;  // Float
     string string = 4;  // String-valued Param

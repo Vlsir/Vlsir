@@ -33,14 +33,16 @@ heavily re-using a central `SpiceNetlister` class, but requiring simulator-speci
 """
 
 # Std-Lib Imports
-from typing import Dict, Union
+from typing import Union
 
 # Local Imports
 import vlsir
+import vlsir.circuit_pb2 as vckt
+import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import Netlister, ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
+from .base import ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
 
 
 class SpiceNetlister(SpectreSpiceShared):
@@ -64,7 +66,7 @@ class SpiceNetlister(SpectreSpiceShared):
 
         return NetlistFormat.SPICE
 
-    def write_module_definition(self, module: vlsir.circuit.Module) -> None:
+    def write_module_definition(self, module: vckt.Module) -> None:
         """Write the `SUBCKT` definition for `Module` `module`."""
 
         # Create the module name
@@ -73,7 +75,7 @@ class SpiceNetlister(SpectreSpiceShared):
         if module_name in self.module_names:
             raise RuntimeError(f"Module {module_name} doubly defined")
 
-        # Collect and index vlsir.circuit.Signals in this Module by name.
+        # Collect and index vckt.Signals in this Module by name.
         self.collect_signals_by_name(module)
 
         # Add to our visited lists
@@ -81,7 +83,7 @@ class SpiceNetlister(SpectreSpiceShared):
         self.pmodules[module.name] = module
 
         # Create the sub-circuit definition header
-        self.write(f".SUBCKT {module_name} \n")
+        self.writeln(f".SUBCKT {module_name}")
 
         # Create its ports, if any are defined
         if module.ports:
@@ -105,31 +107,30 @@ class SpiceNetlister(SpectreSpiceShared):
         # And close up the sub-circuit
         self.write(".ENDS\n\n")
 
-    def write_port_declarations(self, module: vlsir.circuit.Module) -> None:
+    def write_port_declarations(self, module: vckt.Module) -> None:
         """Write the port declarations for Module `module`."""
         self.write("+ ")
         for pport in module.ports:
             self.write(self.format_port_decl(pport) + " ")
         self.write("\n")
 
-    def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
+    def write_param_declarations(self, module: vckt.Module) -> None:
         """Write the parameter declarations for Module `module`.
-        Parameter declaration format: `name1=val1 name2=val2 name3=val3 \n`"""
+        Parameter declaration format: `name1=val1 name2=val2 name3=val3`"""
         self.write("+ ")
         for pparam in module.parameters:
             self.write(self.format_param_decl(pparam))
         self.write("\n")
 
     def write_instance_name(
-        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
+        self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
         """Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix."""
-        self.write(f"{rmodule.spice_prefix.value}{pinst.name} \n")
+        self.writeln(f"{rmodule.spice_prefix.value}{pinst.name}")
 
-    def write_instance(self, pinst: vlsir.circuit.Instance) -> None:
+    def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
-        # Get its Module or ExternalModule definition,
         resolved = self.resolve_reference(pinst.module)
 
         # And dispatch to `subckt` or `primitive` writers
@@ -144,7 +145,7 @@ class SpiceNetlister(SpectreSpiceShared):
         return self.write_primitive_instance(pinst, resolved)
 
     def write_subckt_instance(
-        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
+        self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
         """Write sub-circuit-instance `pinst` of `rmodule`."""
 
@@ -155,7 +156,7 @@ class SpiceNetlister(SpectreSpiceShared):
         self.write_instance_conns(pinst, rmodule.module)
 
         # Write the sub-circuit name
-        self.write("+ " + rmodule.module_name + " \n")
+        self.writeln("+ " + rmodule.module_name)
 
         # Write its parameter values
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
@@ -165,7 +166,7 @@ class SpiceNetlister(SpectreSpiceShared):
         self.write("\n")
 
     def write_primitive_instance(
-        self, pinst: vlsir.circuit.Instance, rmodule: ResolvedModule
+        self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
         """Write primitive-instance `pinst` of `rmodule`.
         Note spice's primitive instances often differn syntactically from sub-circuit instances,
@@ -206,11 +207,18 @@ class SpiceNetlister(SpectreSpiceShared):
         else:
             positional_keys = []
 
-        # Pop all positional parameters ("pp") from `resolved_param_values`
-        pp = resolved_param_values.pop_many(positional_keys)
+        try:
+            # Pop all positional parameters ("pp") from `resolved_param_values`
+            pp = resolved_param_values.pop_many(positional_keys)
 
-        # Write the positional parameters, in the order specified by `positional_keys`
-        self.write("+ " + " ".join([pp[pkey] for pkey in positional_keys]) + " \n")
+            # Write the positional parameters, in the order specified by `positional_keys`
+            self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
+        except:
+            # FIXME
+            # * This is a hack to avoid positional keys if they don't exist.
+            # * There is probably a better way to do this, but I don't know it.
+            # FIXME: why would they ever not exist?
+            pass
 
         # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)
@@ -220,7 +228,7 @@ class SpiceNetlister(SpectreSpiceShared):
 
     def write_voltage_source_instance(
         self,
-        pinst: vlsir.circuit.Instance,
+        pinst: vckt.Instance,
         rmodule: ResolvedModule,
     ) -> None:
         """Write a voltage-source instance `pinst`.
@@ -270,9 +278,7 @@ class SpiceNetlister(SpectreSpiceShared):
         # Add a blank after each instance
         self.write("\n")
 
-    def write_instance_conns(
-        self, pinst: vlsir.circuit.Instance, module: ModuleLike
-    ) -> None:
+    def write_instance_conns(self, pinst: vckt.Instance, module: ModuleLike) -> None:
         """Write the port-connections for Instance `pinst`"""
 
         # Write a quick comment for port-less modules
@@ -316,25 +322,25 @@ class SpiceNetlister(SpectreSpiceShared):
 
         self.write("\n")
 
-    def format_concat(self, pconc: vlsir.circuit.Concat) -> str:
+    def format_concat(self, pconc: vckt.Concat) -> str:
         """Format the Concatenation of several other Connections"""
         out = ""
         for part in pconc.parts:
             out += self.format_connection_target(part) + " "
         return out
 
-    def format_port_decl(self, pport: vlsir.circuit.Port) -> str:
+    def format_port_decl(self, pport: vckt.Port) -> str:
         """Get a netlist `Port` definition"""
         signal = self.get_signal(pport.signal)
         return self.format_signal_ref(signal)
 
-    def format_port_ref(self, pport: vlsir.circuit.Port) -> str:
+    def format_port_ref(self, pport: vckt.Port) -> str:
         """Get a netlist `Port` reference"""
         signal = self.get_signal(pport.signal)
         return self.format_signal_ref(signal)
 
     @classmethod
-    def format_signal_ref(cls, psig: vlsir.circuit.Signal) -> str:
+    def format_signal_ref(cls, psig: vckt.Signal) -> str:
         """Get a netlist definition for Signal `psig`"""
         if psig.width < 1:
             raise RuntimeError
@@ -346,7 +352,7 @@ class SpiceNetlister(SpectreSpiceShared):
         )
 
     @classmethod
-    def format_signal_slice(cls, pslice: vlsir.circuit.Slice) -> str:
+    def format_signal_slice(cls, pslice: vckt.Slice) -> str:
         """Get a netlist definition for Signal-Slice `pslice`"""
         base = pslice.signal
         indices = list(reversed(range(pslice.bot, pslice.top + 1)))
@@ -406,7 +412,7 @@ class XyceNetlister(SpiceNetlister):
 
         return NetlistFormat.XYCE
 
-    def write_param_declarations(self, module: vlsir.circuit.Module) -> None:
+    def write_param_declarations(self, module: vckt.Module) -> None:
         """Write the parameter declarations for Module `module`.
         Parameter declaration format:
         .SUBCKT <name> <ports>
@@ -449,6 +455,57 @@ class XyceNetlister(SpiceNetlister):
         # Xyce expressions are wrapped in curly braces.
         return f"{{{expr}}}"
 
+    @classmethod
+    def format_sim_dut(cls, module_name: str) -> str:
+        """# Format the top-level DUT instance for module name `module_name`."""
+        return f"xtop 0 {module_name} ; Top-Level DUT \n"
+
+    def write_include(self, inc: vsp.Include) -> None:
+        """# Write an `Include`"""
+        self.writeln(f".include '{inc.path}'")
+
+    def write_lib_include(self, lib: vsp.LibInclude) -> None:
+        """# Write a `LibInclude`"""
+        self.writeln(f".lib {lib.path} {lib.section}")
+
+    def write_save(self, save: vsp.Save) -> None:
+        # FIXME!
+        raise NotImplementedError(f"Unimplemented control card {save} for {self}")
+
+    def write_meas(self, meas: vsp.Meas) -> None:
+        """# Write a measurement."""
+        line = f".meas {meas.analysis_type} {meas.name} {meas.expr} \n"
+        self.writeln(line)
+
+    def write_sim_param(self, param: vlsir.Param) -> None:
+        """# Write a simulation parameter."""
+        line = f".param {param.name}={self.get_param_value(param.value)} \n"
+        self.writeln(line)
+
+    def write_sim_option(self, opt: vsp.SimOptions) -> None:
+        # FIXME: make this just `Param` instead
+        raise NotImplementedError
+
+    def write_ac(self, an: vsp.AcInput) -> None:
+        """# Write an AC analysis."""
+        raise NotImplementedError
+
+    def write_dc(self, an: vsp.DcInput) -> None:
+        """# Write a DC analysis."""
+        raise NotImplementedError
+
+    def write_op(self, an: vsp.OpInput) -> None:
+        """# Write an operating point analysis."""
+        raise NotImplementedError
+
+    def write_tran(self, an: vsp.TranInput) -> None:
+        """# Write a transient analysis."""
+        raise NotImplementedError
+
+    def write_noise(self, an: vsp.NoiseInput) -> None:
+        """# Write a noise analysis."""
+        raise NotImplementedError
+
 
 class NgspiceNetlister(SpiceNetlister):
     """
@@ -462,6 +519,134 @@ class NgspiceNetlister(SpiceNetlister):
         from . import NetlistFormat
 
         return NetlistFormat.NGSPICE
+
+    @classmethod
+    def format_sim_dut(cls, module_name: str) -> str:
+        """# Format the top-level DUT instance for module name `module_name`."""
+        return f"xtop 0 {module_name} // Top-Level DUT \n\n"
+
+    def write_include(self, inc: vsp.Include) -> None:
+        return self.writeln(f'.include "{inc.path}"')
+
+    def write_lib_include(self, lib: vsp.LibInclude) -> None:
+        txt = f'.lib "{lib.path}" {lib.section}'
+        return self.writeln(txt)
+
+    def write_save(self, save: vsp.Save) -> None:
+        # FIXME!
+        raise NotImplementedError(f"Unimplemented Save {save} for {self}")
+
+    def write_meas(self, meas: vsp.Meas) -> None:
+        txt = f".meas {meas.analysis_type} {meas.name} {meas.expr}"
+        return self.writeln(txt)
+
+    def write_sim_param(self, param: vlsir.Param) -> None:
+        txt = f".param {param.name}={self.get_param_value(param.value)}"
+        return self.writeln(txt)
+
+    def write_sim_option(self, opt: vsp.SimOptions) -> None:
+        # FIXME: make this just `Param` instead
+        return self.writeln(f".option {opt.name} = {self.get_param_value(opt.value)}\n")
+
+    def write_ac(self, an: vsp.AcInput) -> None:
+        """# Write an AC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Unpack the analysis / sweep content
+        fstart = an.fstart
+        if fstart <= 0:
+            raise ValueError(f"Invalid `fstart` {fstart}")
+        fstop = an.fstop
+        if fstop <= 0:
+            raise ValueError(f"Invalid `fstop` {fstop}")
+        npts = an.npts
+        if npts <= 0:
+            raise ValueError(f"Invalid `npts` {npts}")
+
+        # Write the analysis command
+        line = f".ac dec {npts} {fstart} {fstop}\n\n"
+        self.writeln(line)
+
+    def write_dc(self, an: vsp.DcInput) -> None:
+        """# Write a DC analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            line = (
+                f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+            )
+            self.writeln(line)
+        elif sweep_type == "points":
+            raise ValueError("NG Spice does not support a DC point sweep")
+            sweep = an.sweep.points
+            line = f".dc values=[{sweep.points}]\n\n"
+            self.writeln(line)
+        elif sweep_type == "log":
+            raise NotImplementedError
+        else:
+            raise ValueError("Invalid sweep type")
+
+    def write_op(self, an: vsp.OpInput) -> None:
+        """# Write an operating point analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        self.writeln(f".op\n")
+
+    def write_tran(self, an: vsp.TranInput) -> None:
+        """# Write a transient analysis."""
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+        if len(an.ic):
+            raise NotImplementedError
+
+        self.writeln(f".tran {an.tstep} {an.tstop}\n")
+
+    def write_noise(self, an: vsp.NoiseInput) -> None:
+        """# Write a noise analysis."""
+
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+
+        self.writeln(f".save all")
+
+        # NgSpice's syntax for a hierarchical reference to a net is (apparently) `v(v.<dot-separated-path>)`
+        # and similarly a source is `v.<dot-separated-path>`.
+        #
+        # In response to "where on earth did you find this?" @avi wrote:
+        # "this isn't really documented anywhere. I figured this out on a hunch from the syntax for saving transistor parameters, which is something like @m.path_to_transistor[param_name]"
+        #
+        if an.output_n:  # Differential output spec
+            noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
+        else:
+            noise_output = f"v(v.xtop.{an.output_p})"
+
+        # NOTE: the `noise_input_source` being a *voltage* source is functionally encoded here,
+        # particularly by the "v" prepended to its name.
+        # Should we ever support current source noise inputs, we'll need to change this.
+        noise_input_source = f"v.xtop.v{an.input_source}"
+        noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
+        self.writeln(f".noise {noise_output} {noise_input_source} {noise_sweep}\n")
 
 
 class CdlNetlister(SpiceNetlister):

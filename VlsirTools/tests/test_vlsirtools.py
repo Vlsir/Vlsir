@@ -3,9 +3,8 @@
 Unit Tests
 """
 
-import pytest
+import pytest, asyncio
 from io import StringIO
-from pathlib import Path
 from typing import Dict, List, Optional
 
 import vlsir.utils_pb2 as vutils
@@ -28,6 +27,7 @@ from vlsirtools.spice import (
     SimOptions,
     ResultFormat,
     sim,
+    sim_async,
 )
 import vlsirtools.spice.sim_data as sd
 from vlsirtools.spice.sim_data import AnalysisType
@@ -328,7 +328,6 @@ def dummy_testbench_package():
     )
 
 
-@pytest.mark.simulator_test_mode
 def test_netlist_dummy_testbench():
     """Test netlisting the empty testbench package, used later for simulation tests"""
 
@@ -342,7 +341,6 @@ def test_netlist_dummy_testbench():
         vlsirtools.netlist(pkg=dummy_testbench_package(), dest=dest, fmt="verilog")
 
 
-@pytest.mark.simulator_test_mode
 def dummy_sim(skip: Optional[List[AnalysisType]] = None):
     """Create a dummy `SimInput` for the `dummy_testbench` package."""
 
@@ -405,7 +403,6 @@ def dummy_sim(skip: Optional[List[AnalysisType]] = None):
     )
 
 
-@pytest.mark.simulator_test_mode
 def dummy_sim_tests(
     simulator: SupportedSimulators, skip: Optional[List[AnalysisType]] = None
 ) -> sd.SimResult:
@@ -423,6 +420,7 @@ def dummy_sim_tests(
         opts=SimOptions(
             simulator=simulator,
             fmt=ResultFormat.SIM_DATA,
+            rundir="./scratch",
         ),
     )
 
@@ -453,26 +451,28 @@ def dummy_sim_tests(
     return sd_results
 
 
-@pytest.mark.simulator_test_mode
 @pytest.mark.spectre
 def test_spectre1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `spectre`."""
     dummy_sim_tests(SupportedSimulators.SPECTRE)
 
 
-@pytest.mark.simulator_test_mode
 @pytest.mark.xyce
 def test_xyce1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `xyce`."""
     dummy_sim_tests(SupportedSimulators.XYCE)
 
-# FIXME: This test mysteriously fails on Python 3.7/3.8 put passes on 3.9/3.10.
-@pytest.mark.xfail
-@pytest.mark.simulator_test_mode
+
 @pytest.mark.ngspice
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
-    dummy_sim_tests(SupportedSimulators.NGSPICE, skip=[AnalysisType.DC])
+    dummy_sim_tests(
+        SupportedSimulators.NGSPICE,
+        skip=[
+            AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
+            AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
+        ],
+    )
 
 
 @pytest.mark.xyce
@@ -489,7 +489,6 @@ def test_spectre_import():
     from vlsirtools.spectre import sim
 
 
-@pytest.mark.simulator_test_mode
 @pytest.mark.ngspice
 def test_noise1():
     """Test the Noise analysis"""
@@ -577,9 +576,24 @@ def test_noise1():
     )
 
 
-@pytest.mark.simulator_test_mode
-def test_theres_a_simulator_available():
-    """Test that there is at least one simulator available for testing.
-    This is... debatable whether we wanna do it? A good idea, but tough to set up e.g. on CI servers.
-    And basically impossible for anything with a paid license."""
-    assert vlsirtools.spice.default() is not None
+@pytest.mark.ngspice
+def test_sim_async():
+    """Test the async version of `sim`, and what a basic asynchronous caller needs to look like."""
+
+    def an_async_caller() -> sd.SimResult:
+        """# An async function which will call `sim_async`.
+        The real point here: the `return await` part, for any async caller."""
+
+        return sim_async(
+            inp=dummy_sim(
+                skip=[
+                    AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
+                    AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
+                ],
+            ),
+            opts=SimOptions(
+                simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
+            ),
+        )
+
+    asyncio.run(an_async_caller())

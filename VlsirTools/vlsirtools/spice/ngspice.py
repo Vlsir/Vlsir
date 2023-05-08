@@ -3,12 +3,14 @@ NGSpice Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, glob
-import numpy as np
-from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
-from dataclasses import dataclass
-from warnings import warn
+import subprocess, re, shutil
 from enum import Enum
+from warnings import warn
+from dataclasses import dataclass
+from typing import Mapping, IO, Dict, Awaitable
+
+# External Imports
+import numpy as np
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -23,7 +25,9 @@ from .spice import (
 )
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
-NGSPICE_EXECUTABLE = "ngspice"  # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
+
+# The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
+NGSPICE_EXECUTABLE = "ngspice"
 
 
 def available() -> bool:
@@ -61,31 +65,27 @@ class NGSpiceSim(Sim):
     async def run(self) -> Awaitable[SimResult]:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
-        netlist_file = self.open("netlist.sp", "w")
-        netlist_file.write("* Test Netlist \n\n")
-        netlist(pkg=self.inp.pkg, dest=netlist_file, fmt="spice")
-
-        # Write the top-level instance
-        top_name = NgspiceNetlister.get_module_name(self.top)
-        netlist_file.write(f"xtop 0 {top_name} // Top-Level DUT \n\n")
-
-        if self.inp.opts:
-            raise NotImplementedError(f"SimInput Options")
-
-        # Write each control element
-        self.write_control_elements(netlist_file)
-
-        # Write each analysis
-        for an in self.inp.an:
-            self.netlist_analysis(an, netlist_file)
-
-        netlist_file.flush()
-        netlist_file.close()
+        # Write the netlist
+        self.write_netlist()
 
         # Run the simulation
         await self.run_sim_process()
 
-        # Parse output data
+        # Parse up the results
+        return self.parse_results()
+
+    def write_netlist(self) -> None:
+        """# Write our netlist to file"""
+
+        netlist_file = self.open("netlist.sp", "w")
+        netlister = NgspiceNetlister(dest=netlist_file)
+        netlister.write_sim_input(self.inp)
+        netlist_file.flush()
+        netlist_file.close()
+
+    def parse_results(self) -> SimResult:
+        """# Parse output data"""
+
         data = parse_nutbin(self.open("netlist.raw", "rb"))
         an_type_dispatch = dict(
             ac=self.parse_ac,
@@ -124,145 +124,6 @@ class NGSpiceSim(Sim):
             results.append(an_results)
 
         return SimResult(an=results)
-
-    def write_control_elements(self, netlist_file: IO) -> None:
-        """Write control elements to the netlist"""
-        for ctrl in self.inp.ctrls:
-            inner = ctrl.WhichOneof("ctrl")
-            if inner == "include":
-                netlist_file.write(f'.include "{ctrl.include.path}" \n')
-            elif inner == "lib":
-                txt = f'.lib "{ctrl.lib.path}" {ctrl.lib.section} \n'
-                netlist_file.write(txt)
-            elif inner == "literal":
-                netlist_file.write(ctrl.literal + "\n")
-            elif inner == "param":
-                # txt = f"parameters {ctrl.param.name}={str(ctrl.param.value)} \n"
-                txt = f".param {ctrl.param.name}={NgspiceNetlister.get_param_value(ctrl.param.value)} \n"
-                netlist_file.write(txt)
-            elif inner == "meas":
-                # Measurements are written in Spice syntax; wrap them in "simulator lang".
-                txt = f".meas {ctrl.meas.analysis_type} {ctrl.meas.name} {ctrl.meas.expr} \n"
-                netlist_file.write(txt)
-            elif inner in ("save"):
-                raise NotImplementedError(
-                    f"Unimplemented control card {ctrl} for {self}"
-                )  # FIXME!
-            else:
-                raise RuntimeError(f"Unknown control type: {inner}")
-
-    def netlist_analysis(self, an: vsp.Analysis, netlist_file: IO) -> None:
-        """Netlist an `Analysis`, largely dispatching its content to a type-specific method."""
-
-        inner = an.WhichOneof("an")
-        inner_dispatch = dict(
-            ac=self.netlist_ac,
-            dc=self.netlist_dc,
-            op=self.netlist_op,
-            tran=self.netlist_tran,
-            noise=self.netlist_noise,
-        )
-        inner_dispatch[inner](getattr(an, inner), netlist_file)
-
-    def netlist_ac(self, an: vsp.AcInput, netlist_file: IO) -> None:
-        """Run an AC analysis."""
-
-        if not an.analysis_name:
-            raise RuntimeError(f"Analysis name required for {an}")
-        if len(an.ctrls):
-            raise NotImplementedError  # FIXME!
-
-        # Unpack the analysis / sweep content
-        fstart = an.fstart
-        if fstart <= 0:
-            raise ValueError(f"Invalid `fstart` {fstart}")
-        fstop = an.fstop
-        if fstop <= 0:
-            raise ValueError(f"Invalid `fstop` {fstop}")
-        npts = an.npts
-        if npts <= 0:
-            raise ValueError(f"Invalid `npts` {npts}")
-
-        # Write the analysis command
-        line = f".ac dec {npts} {fstart} {fstop}\n\n"
-        netlist_file.write(line)
-
-    def netlist_dc(self, an: vsp.DcInput, netlist_file: IO) -> None:
-        """Netlist a DC analysis."""
-
-        if not an.analysis_name:
-            raise RuntimeError(f"Analysis name required for {an}")
-        if len(an.ctrls):
-            raise NotImplementedError  # FIXME!
-
-        # Write the analysis command
-        param = an.indep_name
-        ## Interpret the sweep
-        sweep_type = an.sweep.WhichOneof("tp")
-        if sweep_type == "linear":
-            sweep = an.sweep.linear
-            line = (
-                f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
-            )
-            netlist_file.write(line)
-        elif sweep_type == "points":
-            raise ValueError("NG Spice does not support a DC point sweep")
-            sweep = an.sweep.points
-            line = f".dc values=[{sweep.points}]\n\n"
-            netlist_file.write(line)
-        elif sweep_type == "log":
-            raise NotImplementedError
-        else:
-            raise ValueError("Invalid sweep type")
-
-    def netlist_op(self, an: vsp.OpInput, netlist_file: IO) -> None:
-        """Netlist a single point DC analysis"""
-
-        if not an.analysis_name:
-            raise RuntimeError(f"Analysis name required for {an}")
-        if len(an.ctrls):
-            raise NotImplementedError  # FIXME!
-
-        netlist_file.write(f".op\n\n")
-
-    def netlist_tran(self, an: vsp.TranInput, netlist_file: IO) -> None:
-        if not an.analysis_name:
-            raise RuntimeError(f"Analysis name required for {an}")
-        if len(an.ctrls):
-            raise NotImplementedError
-        if len(an.ic):
-            raise NotImplementedError
-
-        netlist_file.write(f".tran {an.tstep} {an.tstop} \n\n")
-
-    def netlist_noise(self, an: vsp.NoiseInput, netlist_file: IO) -> None:
-        """Netlist a noise analysis."""
-        if not an.analysis_name:
-            raise RuntimeError(f"Analysis name required for {an}")
-        if len(an.ctrls):
-            raise NotImplementedError
-
-        netlist_file.write(f".save all \n")
-
-        # NgSpice's syntax for a hierarchical reference to a net is (apparently) `v(v.<dot-separated-path>)`
-        # and similarly a source is `v.<dot-separated-path>`.
-        #
-        # In response to "where on earth did you find this?" @avi wrote:
-        # "this isn't really documented anywhere. I figured this out on a hunch from the syntax for saving transistor parameters, which is something like @m.path_to_transistor[param_name]"
-        #
-        if an.output_n:  # Differential output spec
-            noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
-        else:
-            noise_output = f"v(v.xtop.{an.output_p})"
-
-        # NOTE: the `noise_input_source` being a *voltage* source is functionally encoded here,
-        # particularly by the "v" prepended to its name.
-        # Should we ever support current source noise inputs, we'll need to change this.
-        noise_input_source = f"v.xtop.v{an.input_source}"
-        noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
-        netlist_file.write(
-            f".noise {noise_output} {noise_input_source} {noise_sweep} \n\n"
-        )
 
     def parse_ac(self, an: vsp.AcInput, nutbin: "NutBinAnalysis") -> AcResult:
         # FIXME: the `mt0` and friends file names collide with tran, if they are used in the same Sim!

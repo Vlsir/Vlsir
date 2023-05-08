@@ -76,9 +76,13 @@ class NetlistOptions:
 # Type-alias for specifying format, either in enum or string terms
 NetlistFormatSpec = Union[NetlistFormat, str]
 
+## FIXME: add more `Netlistable`s
+##Netlistable = Union[vlsir.circuit.Package]
+Netlistable = vlsir.circuit.Package
+
 
 def netlist(
-    pkg: vlsir.circuit.Package,
+    pkg: Netlistable,  ## FIXME: rename
     dest: IO,
     fmt: NetlistFormatSpec = "spectre",
     opts: Optional[NetlistOptions] = None,
@@ -109,10 +113,15 @@ def netlist(
     if opts is not None:
         raise NotImplementedError("NetlistOptions not yet implemented.")  # FIXME!
 
+    # If `fmt` is a string, turn it into an enum
     fmt_enum = NetlistFormat.get(fmt)
+
+    # Get the corresponding `Netlister` class and instantiate it
     netlister_cls = fmt_enum.netlister()
-    netlister = netlister_cls(pkg, dest)
-    netlister.netlist()
+    netlister = netlister_cls(dest=dest)
+
+    # Write the netlist
+    return netlister.write_package(pkg)
 
 
 # Set our exported content for star-imports

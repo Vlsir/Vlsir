@@ -105,10 +105,30 @@ message Module {
   repeated vlsir.utils.Param parameters = 5;
 }
 
+// Spice Type, used to identify what a component is in spice
+enum SpiceType {
+  // The default value is implicitly SUBCKT
+  SUBCKT = 0;
+  RESISTOR = 1;
+  CAPACITOR = 2;
+  INDUCTOR = 3;
+  MOS = 4;
+  DIODE = 5;
+  BIPOLAR = 6;
+  VSOURCE = 7;
+  ISOURCE = 8;
+  VCVS = 9;
+  VCCS = 10;
+  CCCS = 11;
+  CCVS = 12;
+  TLINE = 13;
+}
+
 // # Externally Defined Module
 // Primarily for sake of port-ordering, for translation with connect-by-position
 // formats.
 message ExternalModule {
+
   // Qualified External Module Name
   vlsir.utils.QualifiedName name = 1;
   // Description
@@ -120,6 +140,8 @@ message ExternalModule {
   repeated Signal signals = 4;
   // Params
   repeated vlsir.utils.Param parameters = 5;
+  // Spice Type, SUBCKT by default
+  SpiceType spicetype = 6;
 }
 
 // # Interface
