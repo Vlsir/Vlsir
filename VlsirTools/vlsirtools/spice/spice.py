@@ -8,6 +8,7 @@ from typing import Union, Optional, Sequence, Awaitable, TypeVar
 from enum import Enum
 from textwrap import dedent
 from dataclasses import dataclass, field
+import threading
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -82,7 +83,22 @@ def sim(
     Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
-    return asyncio.run(sim_async(inp, opts))
+    try:
+        # to support async environments like inside Jupyter notebooks
+        asyncio.get_running_loop()
+    except RuntimeError:
+        # not in asyncio environment, run with asyncio directly
+        return asyncio.run(sim_async(inp, opts))
+    else:
+        # otherwise we using threading to get around the asyncio nesting restriction
+        result = []
+        def target():
+            result.append(asyncio.run(sim_async(inp, opts)))
+        thread = threading.Thread(target=target)
+        thread.start()
+        thread.join()
+        return result[0]
+        
 
 
 async def sim_async(
