@@ -8,7 +8,6 @@ from typing import Union, Optional, Sequence, Awaitable, TypeVar
 from enum import Enum
 from textwrap import dedent
 from dataclasses import dataclass, field
-import threading
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -87,10 +86,11 @@ def sim(
         loop = asyncio.get_running_loop()
     except RuntimeError:
         loop = None
-        
+
     if loop is not None:
         # patch asyncio to allow nested event loops
         import nest_asyncio
+
         nest_asyncio.apply(loop)
 
     return asyncio.run(sim_async(inp, opts))
