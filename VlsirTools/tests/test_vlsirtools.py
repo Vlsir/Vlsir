@@ -598,7 +598,6 @@ def test_sim_async():
 
     asyncio.run(an_async_caller())
 
-
 @pytest.mark.ngspice
 def test_sim_async_in_existing_loop():
     async def _main_async():
@@ -609,6 +608,7 @@ def test_sim_async_in_existing_loop():
                 AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
             ],
         )
-
+        
     # simulating a top-level asyncio loop (e.g. in a Jupyter notebook)
     assert asyncio.run(_main_async()) is not None
+    

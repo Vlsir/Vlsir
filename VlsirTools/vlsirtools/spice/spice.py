@@ -84,22 +84,16 @@ def sim(
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
     try:
-        # to support async environments like inside Jupyter notebooks
-        asyncio.get_running_loop()
+        loop = asyncio.get_running_loop()
     except RuntimeError:
-        # not in asyncio environment, run with asyncio directly
-        return asyncio.run(sim_async(inp, opts))
-    else:
-        # otherwise we using threading to get around the asyncio nesting restriction
-        result = []
+        loop = None
+        
+    if loop is not None:
+        # patch asyncio to allow nested event loops
+        import nest_asyncio
+        nest_asyncio.apply(loop)
 
-        def target():
-            result.append(asyncio.run(sim_async(inp, opts)))
-
-        thread = threading.Thread(target=target)
-        thread.start()
-        thread.join()
-        return result[0]
+    return asyncio.run(sim_async(inp, opts))
 
 
 async def sim_async(
