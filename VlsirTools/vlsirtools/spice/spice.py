@@ -92,13 +92,14 @@ def sim(
     else:
         # otherwise we using threading to get around the asyncio nesting restriction
         result = []
+
         def target():
             result.append(asyncio.run(sim_async(inp, opts)))
+
         thread = threading.Thread(target=target)
         thread.start()
         thread.join()
         return result[0]
-        
 
 
 async def sim_async(
