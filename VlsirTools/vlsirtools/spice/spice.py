@@ -82,6 +82,17 @@ def sim(
     Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop is not None:
+        # patch asyncio to allow nested event loops
+        import nest_asyncio
+
+        nest_asyncio.apply(loop)
+
     return asyncio.run(sim_async(inp, opts))
 
 

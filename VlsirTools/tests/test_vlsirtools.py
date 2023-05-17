@@ -597,3 +597,18 @@ def test_sim_async():
         )
 
     asyncio.run(an_async_caller())
+
+
+@pytest.mark.ngspice
+def test_sim_async_in_existing_loop():
+    async def _main_async():
+        return dummy_sim_tests(
+            SupportedSimulators.NGSPICE,
+            skip=[
+                AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
+                AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
+            ],
+        )
+
+    # simulating a top-level asyncio loop (e.g. in a Jupyter notebook)
+    assert asyncio.run(_main_async()) is not None
