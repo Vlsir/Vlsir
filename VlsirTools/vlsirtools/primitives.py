@@ -1,37 +1,12 @@
 """ 
-# Vlsir Primitive-Literals Generation Script 
+# Vlsir(Tools) Primitives
 
-* Creates a `vlsir.circuit.Package`-worth of primitive elements, and 
-* Writes it in protobuf-text format to file, 
-
-Additional code in each language-binding package generally loads the protobuf-text file, 
-and potentially adds niceties such as by-name lookup. 
+Defines the `vlsir.circuit.Package`-worth of the primitive elements
 """
 
-import sys, pathlib
 from typing import List, Sequence
 from textwrap import dedent
 
-
-"""
-Bootstrapping Section 
-Load up the python bindings from nearby in this repository.  
-
-Since this all runs in a bootstrappy/ compile-script context,
-tuck your tail between your legs and add via `sys.path`.
-"""
-
-here = pathlib.Path(__file__).parent.parent.absolute()
-pybindings = here / "bindings" / "python"
-sys.path.append(str(pybindings))
-
-# Now importing `vlsir` should work
-# TODO: There is a circular dependency on
-# bindings/python/vlsir/vlsir.primitives.pb.txt when importing the following
-# modules. If the schema changes and the old .pb.txt files does not load this
-# import will break, and we will not be able to generate a new .pb.txt file.
-# A temporary fix is to comment out the code in
-# bindings/python/vlsir/primitives.py.
 from vlsir.utils_pb2 import QualifiedName, Param, ParamValue
 from vlsir.circuit_pb2 import (
     Package,
@@ -74,9 +49,9 @@ The Main Event
 Definition of the `vlsir.primitives` Package
 """
 
-
-primitives = Package(
-    domain="vlsir.primitives",
+domain = "vlsir.primitives"
+package = Package(
+    domain=domain,
     desc=dedent(
         """\
         # Vlsir Primitive Modules 
@@ -482,18 +457,21 @@ primitives = Package(
     ],
 )
 
-# Note this dependency is not stated anywhere either. Just be sure to have it.
-from google.protobuf import text_format
 
-# Serialize the primitives-package to text
-proto_text = text_format.MessageToString(primitives)
+# Also make each `ExternalModule` available in
+# (a) A {name: ExternalModule} dictionary, and
+# (b) This namespace, under its module-name.
+dct = dict()
+for emod in package.ext_modules:
+    # First make sure the module-name is valid, and not already defined.
+    modname = emod.name.name
+    if "." in modname:
+        raise RuntimeError(f"Invalid module-name: {emod.name}")
 
-# Round-trip it to make sure we get a matching Package
-p2 = Package()
-text_format.Parse(proto_text, p2)
-assert p2 == primitives
+    # Check for duplicates/ conflicts
+    if globals().get(modname, None) is not None:
+        raise RuntimeError(f"Module-name conflict: {modname}")
 
-# And write to file
-txtpath = here / "primitives" / "vlsir.primitives.pb.txt"
-with open(str(txtpath), "w") as txtfile:
-    txtfile.write(proto_text)
+    # Checks out: add it
+    globals()[modname] = emod
+    dct[modname] = emod

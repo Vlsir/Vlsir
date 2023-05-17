@@ -19,6 +19,3 @@ from .utils_pb2 import *
 # from .circuit_pb2 import *
 # from .raw_pb2 import *
 # from .tetris_pb2 import *
-
-# Primitives
-from . import primitives

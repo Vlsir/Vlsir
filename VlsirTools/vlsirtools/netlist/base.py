@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 import vlsir
 import vlsir.circuit_pb2 as vckt
 import vlsir.spice_pb2 as vsp
+from .. import primitives
 
 # Internal type shorthand
 ModuleLike = Union[vckt.Module, vckt.ExternalModule]
@@ -305,7 +306,7 @@ class Netlister:
             if ref.external.domain == "vlsir.primitives":
                 # Built-in primitive. Load its definition from the `vlsir.primitives` (python) module.
                 name = ref.external.name
-                module = vlsir.primitives.dct.get(ref.external.name, None)
+                module = primitives.dct.get(ref.external.name, None)
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
