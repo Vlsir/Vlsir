@@ -8,3 +8,6 @@ from .netlist import netlist
 from . import spice
 from .spice import xyce
 from .spice import spectre
+
+# Primitive Definitions
+from . import primitives  # The python module
