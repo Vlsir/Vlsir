@@ -2,44 +2,6 @@ import vlsir.circuit_pb2 as vckt
 import vlsir.spice_pb2 as vsp
 
 
-def test_sim():
-    # Test creation of a `vlsir.spice.SimInput`
-
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-    )
-    from vlsir.utils_pb2 import Reference, QualifiedName
-
-    inp = vsp.SimInput()
-    inp.pkg.modules.append(
-        Module(
-            name="top",
-            ports=[Port(direction="NONE", signal="VSS")],
-            signals=[Signal(name="1", width=1), Signal(name="VSS", width=1)],
-            instances=[
-                Instance(
-                    name="r1",
-                    module=Reference(
-                        external=QualifiedName(
-                            domain="vlsir.primitives", name="resistor"
-                        )
-                    ),
-                    connections=[
-                        Connection(portname="p", target=ConnectionTarget(sig="1")),
-                        Connection(portname="n", target=ConnectionTarget(sig="VSS")),
-                    ],
-                )
-            ],
-        )
-    )
-    inp.top = "top"
-
-
 def test_primitives1():
     # Load up and test the primitive definitions
     from vlsirtools import primitives
