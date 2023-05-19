@@ -54,10 +54,10 @@ packages = [
 
 
 def build():
-    """Build the bindings."""
-    # Just invokes `scripts/build.sh`
+    """Build the internally-supported bindings."""
+    # Just invokes `scripts/build_supported.sh`
     os.chdir(vlsir_path)
-    os.system("./scripts/build.sh")
+    os.system("./scripts/build_supported.sh")
 
 
 def uninstall():

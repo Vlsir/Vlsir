@@ -27,12 +27,8 @@ setup(
     author="Dan Fritchman",
     author_email="dan@fritch.mn",
     packages=find_packages(),
-    package_data={
-        # Include the primitive protobuf-text literals, which are loaded at runtime
-        "vlsir": ["*.pb.txt"]
-    },
     python_requires=">=3.7, <4",
-    install_requires=["protobuf==3.19.1"],
+    install_requires=["protobuf==4.23.1"],
     extras_require={
         "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
     },
