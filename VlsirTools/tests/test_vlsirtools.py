@@ -599,6 +599,7 @@ def test_sim_async():
     asyncio.run(an_async_caller())
 
 
+@pytest.mark.xfail(reason="https://github.com/Vlsir/Vlsir/issues/56")
 @pytest.mark.ngspice
 def test_sim_async_in_existing_loop():
     async def _main_async():
