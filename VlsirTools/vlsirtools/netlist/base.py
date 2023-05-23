@@ -12,34 +12,10 @@ import vlsir
 import vlsir.circuit_pb2 as vckt
 import vlsir.spice_pb2 as vsp
 from .. import primitives
+from ..spicetype import SpiceType
 
 # Internal type shorthand
 ModuleLike = Union[vckt.Module, vckt.ExternalModule]
-
-
-class SpicePrefix(Enum):
-    """Enumerated Spice Primitives and their Instance-Name Prefixes"""
-
-    # Sub-circits, either from `Module`s or `ExternalModule`s
-    SUBCKT = "x"
-    # Ideal Passives
-    RESISTOR = "r"
-    CAPACITOR = "c"
-    INDUCTOR = "l"
-    # Semiconductor Devices
-    MOS = "m"
-    DIODE = "d"
-    BIPOLAR = "q"
-    # Independent Sources
-    VSOURCE = "v"
-    ISOURCE = "i"
-    # Dependent Sources
-    VCVS = "e"
-    VCCS = "g"
-    CCCS = "f"
-    CCVS = "h"
-    # Transmission Lines
-    TLINE = "o"
 
 
 @dataclass
@@ -49,7 +25,7 @@ class ResolvedModule:
 
     module: ModuleLike
     module_name: str
-    spice_prefix: SpicePrefix
+    spice_type: SpiceType
 
 
 @dataclass
@@ -297,7 +273,7 @@ class Netlister:
             return ResolvedModule(
                 module=module,
                 module_name=self.get_module_name(module),
-                spice_prefix=SpicePrefix.SUBCKT,
+                spice_type=SpiceType.SUBCKT,
             )
 
         if ref.WhichOneof("to") == "external":  # Defined outside package
@@ -312,21 +288,21 @@ class Netlister:
 
                 # Mapping from primitive-name to spice-prefix
                 prefixes = dict(
-                    resistor=SpicePrefix.RESISTOR,
-                    capacitor=SpicePrefix.CAPACITOR,
-                    inductor=SpicePrefix.INDUCTOR,
-                    vdc=SpicePrefix.VSOURCE,
-                    vpulse=SpicePrefix.VSOURCE,
-                    vpwl=SpicePrefix.VSOURCE,
-                    vsin=SpicePrefix.VSOURCE,
-                    isource=SpicePrefix.ISOURCE,
-                    vcvs=SpicePrefix.VCVS,
-                    vccs=SpicePrefix.VCCS,
-                    cccs=SpicePrefix.CCCS,
-                    ccvs=SpicePrefix.CCVS,
-                    mos=SpicePrefix.MOS,
-                    bipolar=SpicePrefix.BIPOLAR,
-                    diode=SpicePrefix.DIODE,
+                    resistor=SpiceType.RESISTOR,
+                    capacitor=SpiceType.CAPACITOR,
+                    inductor=SpiceType.INDUCTOR,
+                    vdc=SpiceType.VSOURCE,
+                    vpulse=SpiceType.VSOURCE,
+                    vpwl=SpiceType.VSOURCE,
+                    vsin=SpiceType.VSOURCE,
+                    isource=SpiceType.ISOURCE,
+                    vcvs=SpiceType.VCVS,
+                    vccs=SpiceType.VCCS,
+                    cccs=SpiceType.CCCS,
+                    ccvs=SpiceType.CCVS,
+                    mos=SpiceType.MOS,
+                    bipolar=SpiceType.BIPOLAR,
+                    diode=SpiceType.DIODE,
                 )
 
                 if name not in prefixes:
@@ -335,7 +311,7 @@ class Netlister:
                 return ResolvedModule(
                     module=module,
                     module_name=module.name.name,
-                    spice_prefix=prefixes[name],
+                    spice_type=prefixes[name],
                 )
 
             if ref.external.domain == "hdl21.primitives":
@@ -367,7 +343,7 @@ class Netlister:
                 return ResolvedModule(
                     module=module,
                     module_name=module_name,
-                    spice_prefix=SpicePrefix[devicetype],
+                    spice_type=SpiceType[devicetype],
                 )
 
         # Not a Module, not an ExternalModule, not sure what it is

@@ -42,7 +42,7 @@ import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import ResolvedModule, ResolvedParams, SpicePrefix, ModuleLike
+from .base import ResolvedModule, ResolvedParams, SpiceType, ModuleLike
 
 
 class SpiceNetlister(SpectreSpiceShared):
@@ -126,7 +126,7 @@ class SpiceNetlister(SpectreSpiceShared):
         self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
         """Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix."""
-        self.writeln(f"{rmodule.spice_prefix.value}{pinst.name}")
+        self.writeln(f"{rmodule.spice_type.value}{pinst.name}")
 
     def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
@@ -134,10 +134,10 @@ class SpiceNetlister(SpectreSpiceShared):
         resolved = self.resolve_reference(pinst.module)
 
         # And dispatch to `subckt` or `primitive` writers
-        if resolved.spice_prefix == SpicePrefix.SUBCKT:
+        if resolved.spice_type == SpiceType.SUBCKT:
             return self.write_subckt_instance(pinst, resolved)
 
-        if resolved.spice_prefix == SpicePrefix.VSOURCE:
+        if resolved.spice_type == SpiceType.VSOURCE:
             # Voltage sources get weird, and vary between dialiects. Farm them out to a dedicated method.
             return self.write_voltage_source_instance(pinst, resolved)
 
@@ -182,26 +182,26 @@ class SpiceNetlister(SpectreSpiceShared):
         resolved_param_values = self.get_instance_params(pinst, rmodule.module)
 
         # Write special and/or positional parameters
-        if rmodule.spice_prefix == SpicePrefix.RESISTOR:
+        if rmodule.spice_type == SpiceType.RESISTOR:
             positional_keys = ["r"]
-        elif rmodule.spice_prefix == SpicePrefix.CAPACITOR:
+        elif rmodule.spice_type == SpiceType.CAPACITOR:
             positional_keys = ["c"]
-        elif rmodule.spice_prefix == SpicePrefix.INDUCTOR:
+        elif rmodule.spice_type == SpiceType.INDUCTOR:
             positional_keys = ["l"]
-        elif rmodule.spice_prefix == SpicePrefix.ISOURCE:
+        elif rmodule.spice_type == SpiceType.ISOURCE:
             positional_keys = ["dc"]
-        elif rmodule.spice_prefix in (
-            SpicePrefix.VCVS,
-            SpicePrefix.VCCS,
-            SpicePrefix.CCCS,
-            SpicePrefix.CCVS,
+        elif rmodule.spice_type in (
+            SpiceType.VCVS,
+            SpiceType.VCCS,
+            SpiceType.CCCS,
+            SpiceType.CCVS,
         ):
             positional_keys = ["gain"]
-        elif rmodule.spice_prefix in (
-            SpicePrefix.MOS,
-            SpicePrefix.BIPOLAR,
-            SpicePrefix.DIODE,
-            SpicePrefix.TLINE,
+        elif rmodule.spice_type in (
+            SpiceType.MOS,
+            SpiceType.BIPOLAR,
+            SpiceType.DIODE,
+            SpiceType.TLINE,
         ):
             positional_keys = ["modelname"]
         else:

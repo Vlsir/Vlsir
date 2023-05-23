@@ -82,16 +82,19 @@ def sim(
     Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = None
 
-    if loop is not None:
-        # patch asyncio to allow nested event loops
-        import nest_asyncio
-
-        nest_asyncio.apply(loop)
+    # FIXME NOTE: a reversion of https://www.google.com/url?q=https://github.com/Vlsir/Vlsir/issues/56%23issuecomment-1550373717&source=gmail&ust=1684358730385000&usg=AOvVaw3ZKEQOHHiQ8sOAH5E2EHv8
+    #
+    # try:
+    #     loop = asyncio.get_running_loop()
+    # except RuntimeError:
+    #     loop = None
+    #
+    # if loop is not None:
+    #     # patch asyncio to allow nested event loops
+    #     import nest_asyncio
+    #
+    #     nest_asyncio.apply(loop)
 
     return asyncio.run(sim_async(inp, opts))
 

@@ -32,7 +32,7 @@ setup(
         f"vlsir=={_VLSIR_VERSION}",  # VLSIR Core Python Bindings
         "numpy==1.21.5",  # For `sim_data` simulation results
         "pandas",  # For CSV reading
-        "nest_asyncio",  # To make life with asyncio easier (e.g. in Jupyter)
+        # FIXME: "nest_asyncio",  # To make life with asyncio easier (e.g. in Jupyter)
     ],
     extras_require={
         "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
