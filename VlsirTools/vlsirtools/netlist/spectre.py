@@ -12,7 +12,7 @@ import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import ResolvedModule, ResolvedParams, SpicePrefix
+from .base import ResolvedModule, ResolvedParams, SpiceType
 
 
 def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
@@ -25,7 +25,7 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
     (b) the *model* name for model-based devices, (mos, bjt, diode, etc)"""
 
     # For voltage sources, add spectre's "type" parameter, and potentially rename several parameters
-    if rmodule.spice_prefix == SpicePrefix.VSOURCE:
+    if rmodule.spice_type == SpiceType.VSOURCE:
         vname = rmodule.module_name
         vtypes = dict(
             vdc="dc",
@@ -52,27 +52,27 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
 
     # Mapping from spice-prefix to spectre-name for fixed-name types
     basics = {
-        SpicePrefix.RESISTOR: "resistor",
-        SpicePrefix.CAPACITOR: "capacitor",
-        SpicePrefix.INDUCTOR: "inductor",
-        SpicePrefix.VSOURCE: "vsource",
-        SpicePrefix.ISOURCE: "isource",
-        SpicePrefix.VCVS: "vcvs",
-        SpicePrefix.VCCS: "vccs",
-        SpicePrefix.CCCS: "cccs",
-        SpicePrefix.CCVS: "ccvs",
+        SpiceType.RESISTOR: "resistor",
+        SpiceType.CAPACITOR: "capacitor",
+        SpiceType.INDUCTOR: "inductor",
+        SpiceType.VSOURCE: "vsource",
+        SpiceType.ISOURCE: "isource",
+        SpiceType.VCVS: "vcvs",
+        SpiceType.VCCS: "vccs",
+        SpiceType.CCCS: "cccs",
+        SpiceType.CCVS: "ccvs",
     }
-    if rmodule.spice_prefix in basics:
-        return basics[rmodule.spice_prefix]
+    if rmodule.spice_type in basics:
+        return basics[rmodule.spice_type]
 
     # Other primitive-types get an "apparent module name" equal to their *model* name.
     model_based = {
-        SpicePrefix.MOS,
-        SpicePrefix.BIPOLAR,
-        SpicePrefix.DIODE,
-        SpicePrefix.TLINE,
+        SpiceType.MOS,
+        SpiceType.BIPOLAR,
+        SpiceType.DIODE,
+        SpiceType.TLINE,
     }
-    if rmodule.spice_prefix in model_based:
+    if rmodule.spice_type in model_based:
         # Get the model-name from its instance parameters
         return paramvals.pop("modelname")
 
@@ -150,7 +150,7 @@ class SpectreNetlister(SpectreSpiceShared):
         resolved_instance_parameters = self.get_instance_params(pinst, rmodule.module)
 
         module, module_name = rmodule.module, rmodule.module_name
-        if rmodule.spice_prefix == SpicePrefix.SUBCKT:
+        if rmodule.spice_type == SpiceType.SUBCKT:
             module_name = rmodule.module_name
         else:  # Primitive element. Look up spectre-format module-name
             module_name = map_primitive(rmodule, resolved_instance_parameters)
