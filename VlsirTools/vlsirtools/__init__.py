@@ -12,7 +12,7 @@ from .spicetype import SpiceType
 # Primitive Definitions
 from . import primitives  # The python module
 
-# Note `vlsirtools.netlist` becomes a *function* here, where there is also a *module* by that name. Maybe not ideal. 
+# Note `vlsirtools.netlist` becomes a *function* here, where there is also a *module* by that name. Maybe not ideal.
 from .netlist import netlist
 
 # Pull the `spice/{simulator}` namespaces into the `vlsirtools` namespace as well
@@ -20,4 +20,3 @@ from .netlist import netlist
 from .spice import xyce
 from .spice import spectre
 from .spice import ngspice
-

@@ -18,8 +18,6 @@ from ..spicetype import SpiceType
 ModuleLike = Union[vckt.Module, vckt.ExternalModule]
 
 
-
-
 @dataclass
 class ResolvedModule:
     """Resolved reference to a `Module` or `ExternalModule`.

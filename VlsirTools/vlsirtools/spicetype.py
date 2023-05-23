@@ -7,15 +7,15 @@ in which each value is the prefix character.
 Includes methods for conversion to and from the VLSIR schema `enum`. 
 """
 
-# Std-Lib Imports 
-from enum import Enum 
+# Std-Lib Imports
+from enum import Enum
 
-# VLSIR Imports 
+# VLSIR Imports
 from vlsir.circuit_pb2 import SpiceType as SchemaSpiceType
 
 
 class SpiceType(Enum):
-    """# Spice Type 
+    """# Spice Type
     Enumerated Spice Types and their Instance-Name Prefixes"""
 
     # Sub-circits, either from `Module`s or `ExternalModule`s
@@ -40,7 +40,7 @@ class SpiceType(Enum):
     TLINE = "o"
 
     def to_schema(self) -> SchemaSpiceType:
-        """ Convert to VLSIR protobuf schema """
+        """Convert to VLSIR protobuf schema"""
 
         if self == SpiceType.SUBCKT:
             return SchemaSpiceType.SUBCKT
@@ -73,8 +73,8 @@ class SpiceType(Enum):
         raise ValueError(f"Invalid SpiceType: {self}")
 
     @staticmethod
-    def from_schema(schema: SchemaSpiceType)-> "SpiceType":
-        """ Create from VLSIR schema """
+    def from_schema(schema: SchemaSpiceType) -> "SpiceType":
+        """Create from VLSIR schema"""
 
         if schema == SchemaSpiceType.SUBCKT:
             return SpiceType.SUBCKT
