@@ -104,6 +104,9 @@ class SpiceNetlister(SpectreSpiceShared):
         for pinst in module.instances:
             self.write_instance(pinst)
 
+        # Write any netlist-literal content
+        self.write_literals(module.literals)
+
         # And close up the sub-circuit
         self.write(".ENDS\n\n")
 

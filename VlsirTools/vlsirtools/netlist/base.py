@@ -21,7 +21,8 @@ ModuleLike = Union[vckt.Module, vckt.ExternalModule]
 @dataclass
 class ResolvedModule:
     """Resolved reference to a `Module` or `ExternalModule`.
-    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name."""
+    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name.
+    """
 
     module: ModuleLike
     module_name: str
@@ -32,7 +33,8 @@ class ResolvedModule:
 class ResolvedParams:
     """Resolved Instance-Parameter Values
     Factoring in defaults, and converted to strings.
-    Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing."""
+    Largely a wrapper for `Dict[str, str]`, with accessors `get` and `pop` that raise `RuntimeError` if a key is missing.
+    """
 
     inner: Dict[str, str]
 
@@ -243,7 +245,7 @@ class Netlister:
                 values[mparam.name] = pdefault
 
         # Convert the remaining instance-provided parameters to strings
-        for (pname, pval) in instance_parameters.items():
+        for pname, pval in instance_parameters.items():
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
@@ -277,7 +279,6 @@ class Netlister:
             )
 
         if ref.WhichOneof("to") == "external":  # Defined outside package
-
             # First check the priviledged/ internally-defined domains
             if ref.external.domain == "vlsir.primitives":
                 # Built-in primitive. Load its definition from the `vlsir.primitives` (python) module.
@@ -361,7 +362,8 @@ class Netlister:
 
     def collect_signals_by_name(self, module: vckt.Module):
         """Collect a `Module`'s worth of signals into a dictionary keyed by name.
-        This often proves important for references to internal Signals, e.g. in Ports and Slices."""
+        This often proves important for references to internal Signals, e.g. in Ports and Slices.
+        """
 
         # Reset the state of our mappings
         self.signals_by_name = {}
@@ -547,7 +549,8 @@ class Netlister:
 
     def format_connection_target(self, ptarget: vckt.ConnectionTarget) -> str:
         """Format a `ConnectionTarget` reference.
-        Does not *declare* any new connection objects, but generates references to existing ones."""
+        Does not *declare* any new connection objects, but generates references to existing ones.
+        """
         # `ConnectionTarget`s are a proto `oneof` union
         # which includes signals, slices, and concatenations.
         # Figure out which to import
@@ -579,6 +582,11 @@ class Netlister:
         # e.g. "5u", "11K".
         # (Calling it a *pre*-fix refers to *units*, not to numeric values)
         return f"{num}{prefix}"
+
+    def write_literals(self, literals: List[str]) -> None:
+        """# Write a list of literal strings, one per line."""
+        for literal in literals:
+            self.writeln(literal)
 
     """ 
     Virtual `write` Methods 
