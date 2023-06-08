@@ -73,8 +73,9 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
         SpiceType.TLINE,
     }
     if rmodule.spice_type in model_based:
-        # Get the model-name from its instance parameters
-        return paramvals.pop("modelname")
+        # The "apparent module name", syntactically, is really the *model* name for these types.
+        # Which we nonetheless store in the `ResolvedModule.module_name` field.
+        return rmodule.module_name
 
     # Otherwise, unclear what this is or how we got here.
     raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")

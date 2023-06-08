@@ -134,7 +134,18 @@ class SpiceNetlister(SpectreSpiceShared):
         resolved = self.resolve_reference(pinst.module)
 
         # And dispatch to `subckt` or `primitive` writers
-        if resolved.spice_type == SpiceType.SUBCKT:
+        # Note the "model-based" primitive elements "look like" sub-circuits - they just refer to a `model` rather than a `subckt` definition.
+        # Given the right instance prefixing, they can be handled by the sub-circuit-instance writer.
+        model_based = {
+            SpiceType.MOS,
+            SpiceType.BIPOLAR,
+            SpiceType.DIODE,
+            SpiceType.TLINE,
+        }
+        if (
+            resolved.spice_type == SpiceType.SUBCKT
+            or resolved.spice_type in model_based
+        ):
             return self.write_subckt_instance(pinst, resolved)
 
         if resolved.spice_type == SpiceType.VSOURCE:
@@ -190,35 +201,30 @@ class SpiceNetlister(SpectreSpiceShared):
             positional_keys = ["l"]
         elif rmodule.spice_type == SpiceType.ISOURCE:
             positional_keys = ["dc"]
-        elif rmodule.spice_type in (
+        elif rmodule.spice_type in {
             SpiceType.VCVS,
             SpiceType.VCCS,
             SpiceType.CCCS,
             SpiceType.CCVS,
-        ):
+        }:
             positional_keys = ["gain"]
-        elif rmodule.spice_type in (
+        elif rmodule.spice_type in {
             SpiceType.MOS,
             SpiceType.BIPOLAR,
             SpiceType.DIODE,
             SpiceType.TLINE,
-        ):
-            positional_keys = ["modelname"]
+        }:
+            msg = f"Internal Error: {rmodule.spice_type} should have been dispatched to a sub-circuit instance writer"
+            raise RuntimeError(msg)
         else:
-            positional_keys = []
+            msg = f"Internal Error: {rmodule.spice_type} is not a primitive type"
+            raise RuntimeError(msg)
 
-        try:
-            # Pop all positional parameters ("pp") from `resolved_param_values`
-            pp = resolved_param_values.pop_many(positional_keys)
+        # Pop all positional parameters ("pp") from `resolved_param_values`
+        pp = resolved_param_values.pop_many(positional_keys)
 
-            # Write the positional parameters, in the order specified by `positional_keys`
-            self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
-        except:
-            # FIXME
-            # * This is a hack to avoid positional keys if they don't exist.
-            # * There is probably a better way to do this, but I don't know it.
-            # FIXME: why would they ever not exist?
-            pass
+        # Write the positional parameters, in the order specified by `positional_keys`
+        self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
 
         # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)

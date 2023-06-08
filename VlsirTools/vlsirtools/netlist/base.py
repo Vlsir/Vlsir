@@ -286,6 +286,8 @@ class Netlister:
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
+                # FIXME: store these on the vlsir.primitives themselves
+                # FIXME: add validation that any user-defined `ExternalModule` is compatible with the primitive
                 # Mapping from primitive-name to spice-prefix
                 prefixes = dict(
                     resistor=SpiceType.RESISTOR,
@@ -308,6 +310,12 @@ class Netlister:
                 if name not in prefixes:
                     raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
 
+                # FIXME https://github.com/Vlsir/Vlsir/issues/63
+                banned_for_now = {"mos", "bipolar", "diode", "tline"}
+                if name in banned_for_now:
+                    msg = f"Unsupported Primitive {ref} - see https://github.com/Vlsir/Vlsir/issues/63"
+                    raise RuntimeError(msg)
+
                 return ResolvedModule(
                     module=module,
                     module_name=module.name.name,
@@ -326,6 +334,7 @@ class Netlister:
                     msg = f"Invalid Instance of undefined External Module {key}"
                     raise RuntimeError(msg)
                 # Check for duplicate names which would conflict from other namespaces
+                # FIXME: don't think this does anything any more?
                 module_name = ref.external.name
                 if (
                     module_name in self.ext_module_names
@@ -333,6 +342,7 @@ class Netlister:
                 ):
                     msg = f"Conflicting ExternalModule definitions {module} and {self.ext_module_names[module_name]}"
                     raise RuntimeError(msg)
+                self.ext_module_names[module_name] = module
 
                 devicetype = vckt.SpiceType.Name(module.spicetype)
                 if devicetype is None:
