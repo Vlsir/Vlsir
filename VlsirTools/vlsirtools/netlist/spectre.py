@@ -26,7 +26,7 @@ def map_primitive(rmodule: SpiceBuiltin, paramvals: ResolvedParams) -> str:
 
     # For voltage sources, add spectre's "type" parameter, and potentially rename several parameters
     if rmodule.spice_type == SpiceType.VSOURCE:
-        vname = rmodule.module.name
+        vname: str = rmodule.module.name.name
         vtypes = dict(
             vdc="dc",
             vpulse="pulse",

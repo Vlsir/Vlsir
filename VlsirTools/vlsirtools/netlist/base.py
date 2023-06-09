@@ -386,18 +386,16 @@ class Netlister:
                     raise RuntimeError(msg)
                 spice_type = SpiceType[schema_spice_type]
 
-                if spice_type == vckt.SpiceType.SUBCKT:  # External sub-circuit
+                if spice_type == SpiceType.SUBCKT:  # External sub-circuit
 
                     # Check for duplicates on a name-only basis
                     # Most netlist formats have a single global namespace, so same-names conflict in netlist-language.
                     module_name = ref.external.name
-                    if (
-                        module_name in self.ext_module_names
-                        and self.ext_module_names[module_name] is not module
-                    ):
-                        msg = f"Conflicting ExternalModule definitions {module} and {self.ext_module_names[module_name]}"
+                    cached = self.ext_modules_by_name.get(module_name, None)
+                    if cached is not None and cached is not module:
+                        msg = f"Conflicting ExternalModule definitions {module} and {cached}"
                         raise RuntimeError(msg)
-                    self.ext_modules_by_name[name] = module
+                    self.ext_modules_by_name[module_name] = module
 
                     return ResolvedModule(
                         module=module,
@@ -408,11 +406,9 @@ class Netlister:
 
                     # Again check for duplicates on a name-only basis
                     modelname = ref.external.name
-                    if (
-                        modelname in self.spice_models_by_name
-                        and self.spice_models_by_name[modelname] is not module
-                    ):
-                        msg = f"Conflicting ExternalModule definitions {module} and {self.spice_models_by_name[modelname]}"
+                    cached = self.spice_models_by_name.get(modelname, None)
+                    if cached is not None and cached is not module:
+                        msg = f"Conflicting ExternalModule definitions {module} and {cached}"
                         raise RuntimeError(msg)
                     self.spice_models_by_name[modelname] = module
 
