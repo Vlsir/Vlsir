@@ -287,7 +287,7 @@ class Netlister:
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
-        values.pop("devicetype", None)
+        values.pop("devicetype", None)  # FIXME wut is this
 
         return ResolvedParams(values)
 
@@ -325,39 +325,49 @@ class Netlister:
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
-                # FIXME: store these on the vlsir.primitives themselves
-                # FIXME: add validation that any user-defined `ExternalModule` is compatible with the primitive
-                # Mapping from primitive-name to spice-prefix
-                prefixes = dict(
-                    resistor=SpiceType.RESISTOR,
-                    capacitor=SpiceType.CAPACITOR,
-                    inductor=SpiceType.INDUCTOR,
-                    vdc=SpiceType.VSOURCE,
-                    vpulse=SpiceType.VSOURCE,
-                    vpwl=SpiceType.VSOURCE,
-                    vsin=SpiceType.VSOURCE,
-                    isource=SpiceType.ISOURCE,
-                    vcvs=SpiceType.VCVS,
-                    vccs=SpiceType.VCCS,
-                    cccs=SpiceType.CCCS,
-                    ccvs=SpiceType.CCVS,
-                    mos=SpiceType.MOS,
-                    bipolar=SpiceType.BIPOLAR,
-                    diode=SpiceType.DIODE,
-                )
-
-                if name not in prefixes:
-                    raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
-
-                # FIXME https://github.com/Vlsir/Vlsir/issues/63
-                banned_for_now = {"mos", "bipolar", "diode", "tline"}
-                if name in banned_for_now:
-                    msg = f"Unsupported Primitive {ref} - see https://github.com/Vlsir/Vlsir/issues/63"
+                schema_spice_type = vckt.SpiceType.Name(module.spicetype)
+                if schema_spice_type is None:
+                    msg = f"Invalid SpiceType for {module}"
                     raise RuntimeError(msg)
+                spice_type = SpiceType[schema_spice_type]
+
+                # Double-check it has a valid SpiceType
+                # Note the `vlsir.primitives` module *itself* should be well-behaved, only defining types in the `valid_types` list below.
+                # But it's Python! Nothing stops *users* from modifying them, or trying to define their own!
+
+                if spice_type == SpiceType.SUBCKT:
+                    msg = f"Invalid SUBCKT in the `vlsir.primitives` namespace: {ref}\n"
+                    msg += "(Did you try to define this yourself?)\n"
+                    msg += "`vlsir.primitives` is a priviledged namespace, and cannot be modified."
+                    raise RuntimeError(msg)
+
+                model_based = {
+                    SpiceType.MOS,
+                    SpiceType.BIPOLAR,
+                    SpiceType.DIODE,
+                    SpiceType.TLINE,
+                }
+                if spice_type in model_based:
+                    msg = f"Invalid/ deprecated model-based `vlsir.primitive` {ref}"
+                    raise RuntimeError(msg)
+
+                valid_types = {
+                    SpiceType.RESISTOR,
+                    SpiceType.CAPACITOR,
+                    SpiceType.INDUCTOR,
+                    SpiceType.VSOURCE,
+                    SpiceType.ISOURCE,
+                    SpiceType.VCVS,
+                    SpiceType.VCCS,
+                    SpiceType.CCCS,
+                    SpiceType.CCVS,
+                }
+                if spice_type not in valid_types:
+                    raise ValueError(f"Unsupported or Invalid Primitive {ref}")
 
                 return SpiceBuiltin(
                     module=module,
-                    spice_type=prefixes[name],
+                    spice_type=spice_type,
                 )
 
             if ref.external.domain == "hdl21.primitives":
@@ -372,11 +382,11 @@ class Netlister:
                     msg = f"Invalid Instance of undefined External Module {key}"
                     raise RuntimeError(msg)
 
-                devicetype = vckt.SpiceType.Name(module.spicetype)
-                if devicetype is None:
-                    msg = f"Invalide SpiceType for {module}"
+                schema_spice_type = vckt.SpiceType.Name(module.spicetype)
+                if schema_spice_type is None:
+                    msg = f"Invalid SpiceType for {module}"
                     raise RuntimeError(msg)
-                spice_type = SpiceType[devicetype]
+                spice_type = SpiceType[schema_spice_type]
 
                 if spice_type == vckt.SpiceType.SUBCKT:  # External sub-circuit
 

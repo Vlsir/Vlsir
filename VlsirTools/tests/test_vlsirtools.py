@@ -142,8 +142,18 @@ def test_spice_netlist1():
             n=ConnectionTarget(sig="VSS"),
         )
 
+    # Create ExternalModules for a few model-based device-types
+    mos1 = vlsirtools.primitives.mos(name="mos1", domain="mymodels")
+    d1 = vlsirtools.primitives.diode(name="d1", domain="mymodels")
+    bjt1 = vlsirtools.primitives.bipolar(name="bjt1", domain="mymodels")
+    t1 = vlsirtools.primitives.tline(name="t1", domain="mymodels")
+
+    def _eref(emod: vckt.ExternalModule) -> Reference:
+        return Reference(external=emod.name)
+
     pkg = Package(
         domain="vlsir.tests.test_netlist1",
+        ext_modules=[mos1, d1, bjt1, t1],
         modules=[
             Module(
                 name="mid",
@@ -190,42 +200,45 @@ def test_spice_netlist1():
                         connections=default_conns(),
                         parameters=_params(dc=ParamValue(double=1e-6)),
                     ),
-                    #
-                    # ## FIXME: see `test_spice_netlist2` for why these are commented out
-                    #
-                    # Instance(
-                    #     name="m",
-                    #     module=_prim("mos"),
-                    #     connections=_connections(
-                    #         d=ConnectionTarget(sig="VSS"),
-                    #         g=ConnectionTarget(sig="VSS"),
-                    #         s=ConnectionTarget(sig="VSS"),
-                    #         b=ConnectionTarget(sig="VSS"),
-                    #     ),
-                    #     parameters=_params(
-                    #         modelname=ParamValue(string="some_model_name")
-                    #     ),
-                    # ),
-                    # Instance(
-                    #     name="q",
-                    #     module=_prim("bipolar"),
-                    #     connections=_connections(
-                    #         c=ConnectionTarget(sig="VSS"),
-                    #         b=ConnectionTarget(sig="VSS"),
-                    #         e=ConnectionTarget(sig="VSS"),
-                    #     ),
-                    #     parameters=_params(
-                    #         modelname=ParamValue(string="some_model_name")
-                    #     ),
-                    # ),
-                    # Instance(
-                    #     name="d",
-                    #     module=_prim("diode"),
-                    #     connections=default_conns(),
-                    #     parameters=_params(
-                    #         modelname=ParamValue(string="some_model_name")
-                    #     ),
-                    # ),
+                    # Model-based instances
+                    Instance(
+                        name="m",
+                        module=_eref(mos1),
+                        connections=_connections(
+                            d=ConnectionTarget(sig="VSS"),
+                            g=ConnectionTarget(sig="VSS"),
+                            s=ConnectionTarget(sig="VSS"),
+                            b=ConnectionTarget(sig="VSS"),
+                        ),
+                        parameters=[],
+                    ),
+                    Instance(
+                        name="q",
+                        module=_eref(bjt1),
+                        connections=_connections(
+                            c=ConnectionTarget(sig="VSS"),
+                            b=ConnectionTarget(sig="VSS"),
+                            e=ConnectionTarget(sig="VSS"),
+                        ),
+                        parameters=[],
+                    ),
+                    Instance(
+                        name="d",
+                        module=_eref(d1),
+                        connections=default_conns(),
+                        parameters=[],
+                    ),
+                    Instance(
+                        name="t",
+                        module=_eref(t1),
+                        connections=_connections(
+                            p1p=ConnectionTarget(sig="VSS"),
+                            p1n=ConnectionTarget(sig="VSS"),
+                            p2p=ConnectionTarget(sig="VSS"),
+                            p2n=ConnectionTarget(sig="VSS"),
+                        ),
+                        parameters=[],
+                    ),
                 ],
             ),
             Module(

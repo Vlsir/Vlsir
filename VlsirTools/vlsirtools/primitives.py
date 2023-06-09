@@ -4,7 +4,7 @@
 Defines the `vlsir.circuit.Package`-worth of the primitive elements
 """
 
-from typing import List, Sequence
+from typing import List, Sequence, Optional, Dict
 from textwrap import dedent
 
 from vlsir.utils_pb2 import QualifiedName, Param, ParamValue
@@ -13,6 +13,7 @@ from vlsir.circuit_pb2 import (
     ExternalModule,
     Port,
     Signal,
+    SpiceType,
 )
 
 
@@ -50,24 +51,23 @@ Definition of the `vlsir.primitives` Package
 """
 
 domain = "vlsir.primitives"
+desc = """
+# Vlsir Primitive Modules 
+
+Defines `ExternalModule`s for irreducible primitive elements, placing them in the namespace `vlsir.primitives`. 
+The content of `vlsir.primitives` largely parallels the "elementary devices" or "primitive devices" 
+implemented by Spice-class simulators. (Example: http://bwrcs.eecs.berkeley.edu/Classes/IcBook/SPICE/UserGuide/elements_fr.html)  
+
+Many `vlsir.primitives` accept absolute-value parameters, such as the resistance of `resistor` and the inductance of `inductor`. 
+Unless otherwise noted, these parameters are specified in SI units. 
+
+Each `vlsir.primitive` also accepts arbitrary "pass-through" parameters, which are passed unmodifed when generating netlist-level formats. 
+These parameters will generally be used, for instance, to specify `mos` devices across the wide variety of SPICE-supported models. 
+"""
+
 package = Package(
     domain=domain,
-    desc=dedent(
-        """\
-        # Vlsir Primitive Modules 
-
-        Defines `ExternalModule`s for irreducible primitive elements, placing them in the namespace `vlsir.primitives`. 
-        The content of `vlsir.primitives` largely parallels the "elementary devices" or "primitive devices" 
-        implemented by Spice-class simulators. (Example: http://bwrcs.eecs.berkeley.edu/Classes/IcBook/SPICE/UserGuide/elements_fr.html)  
-
-        Many `vlsir.primitives` accept absolute-value parameters, such as the resistance of `resistor` and the inductance of `inductor`. 
-        Unless otherwise noted, these parameters are specified in SI units. 
-        
-        Each `vlsir.primitive` also accepts arbitrary "pass-through" parameters, which are passed unmodifed when generating netlist-level formats. 
-        These parameters will generally be used, for instance, to specify `mos` devices across the wide variety of SPICE-supported models. 
-
-    """
-    ),
+    desc=desc,
     modules=[],  # Empty: no hierarchical/ internally-defined modules
     ext_modules=[  # Primitives are all `ExternalModule`s
         ExternalModule(
@@ -90,6 +90,7 @@ package = Package(
             parameters=[
                 Param(name="r", desc="Resistance (Ohms)"),
             ],
+            spicetype=SpiceType.RESISTOR,
         ),
         ExternalModule(
             name=_qname("capacitor"),
@@ -111,6 +112,7 @@ package = Package(
             parameters=[
                 Param(name="c", desc="Capacitance (Farads)"),
             ],
+            spicetype=SpiceType.CAPACITOR,
         ),
         ExternalModule(
             name=_qname("inductor"),
@@ -132,6 +134,7 @@ package = Package(
             parameters=[
                 Param(name="l", desc="Inductance (Henries)"),
             ],
+            spicetype=SpiceType.INDUCTOR,
         ),
         ExternalModule(
             name=_qname("vcvs"),
@@ -150,6 +153,7 @@ package = Package(
             parameters=[
                 Param(name="gain", desc="Voltage Gain (Volts/Volt)"),
             ],
+            spicetype=SpiceType.VCVS,
         ),
         ExternalModule(
             name=_qname("vccs"),
@@ -168,6 +172,7 @@ package = Package(
             parameters=[
                 Param(name="gain", desc="Transconductance Gain (Amps/Volt)"),
             ],
+            spicetype=SpiceType.VCCS,
         ),
         ExternalModule(
             name=_qname("cccs"),
@@ -186,6 +191,7 @@ package = Package(
             parameters=[
                 Param(name="gain", desc="Current Gain (Amps/Amp)"),
             ],
+            spicetype=SpiceType.CCCS,
         ),
         ExternalModule(
             name=_qname("ccvs"),
@@ -204,6 +210,7 @@ package = Package(
             parameters=[
                 Param(name="gain", desc="Transresistance Gain (Volts/Amp)"),
             ],
+            spicetype=SpiceType.CCVS,
         ),
         ExternalModule(
             name=_qname("isource"),
@@ -224,6 +231,7 @@ package = Package(
             parameters=[
                 Param(name="dc", desc="DC Current (Amps)"),
             ],
+            spicetype=SpiceType.ISOURCE,
         ),
         ExternalModule(
             name=_qname("vdc"),
@@ -247,6 +255,7 @@ package = Package(
                     value=ParamValue(integer=0),
                 ),
             ],
+            spicetype=SpiceType.VSOURCE,
         ),
         ExternalModule(
             name=_qname("vpulse"),
@@ -272,6 +281,7 @@ package = Package(
                 Param(name="tpw", desc="Pulse Width (s)"),
                 Param(name="tper", desc="Period (s)"),
             ],
+            spicetype=SpiceType.VSOURCE,
         ),
         ExternalModule(
             name=_qname("vsin"),
@@ -294,6 +304,7 @@ package = Package(
                 Param(name="td", desc="Delay Time (s)"),
                 Param(name="phase", desc="Phase when t=td (degrees)"),
             ],
+            spicetype=SpiceType.VSOURCE,
         ),
         # FIXME: there's no straightforward way to implement "pwl", without list-valued parameters
         # ExternalModule(
@@ -312,148 +323,8 @@ package = Package(
         #     ports=_ports(("p", "n")),
         #     signals=_signals(("p", "n")),
         #     parameters=[],
+        #     spicetype = SpiceType.VSOURCE,
         # ),
-        ExternalModule(
-            name=_qname("mos"),
-            desc=dedent(
-                """
-                # Mosfet Transistor
-
-                Ports: (d, g, s, b), in identical order to SPICE convention 
-                Params: string modelname
-
-                `vlsir.primitives.mos` Largely corresponds to the "M-prefix" element of Spice-class simulators. 
-                Each instance maps to a *spice model* instance ("`m1`"), *not* to sub-circuit instance ("`x1`"). 
-                In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
-
-                The *sole* required parameter to each `vlsir.primitives.mos` is its string-valued `modelname`. 
-                Additional parameters such as physical dimensions are typically model-specific and vary widely between models. 
-                Conversion from `vlsir.primitives.mos` to spice-netlist formats is to pass all such additional parameters unmodified. 
-
-                Example instantiation:
-
-                ```python
-                Instance(
-                    name="mos1",
-                    module=Reference(domain="vlsir.primitives", name="mos"),
-                    connections=dict(d=d, g=g, s=s, b=b),
-                    parameters=dict(
-                        modelname="my_favorite_nmos", 
-                        w=1e-6, 
-                        geomod=2, # An example highly model-specific parameter
-                    ),
-                )
-                ```
-
-                Corresponds to netlist-level content along the lines of: 
-
-                ```spice
-                .model my_favorite_nmos     * Model statement provided externally 
-                + nmos level=53             * Model parameters
-
-                * Instance compiled from `vlsir.primitives.mos`:
-                mmos1                       * Note the `m` prefix
-                + d g s b                   * Connections 
-                + my_favorite_nmos          * Model name
-                + w=1e-6 geomod=2           * Instance parameters, unmodified
-                ```
-                """
-            ),
-            ports=_ports(["d", "g", "s", "b"]),
-            signals=_signals(["d", "g", "s", "b"]),
-            parameters=[
-                Param(name="modelname", desc="Model Name (string)"),
-            ],
-        ),
-        ExternalModule(
-            name=_qname("bipolar"),
-            desc=dedent(
-                """
-                # Bipolar Junction Transistor (BJT)
-
-                Ports: (c, b, e), in identical order to SPICE convention 
-                Params: string modelname
-
-                `vlsir.primitives.bipolar` Largely corresponds to the "Q-prefix" element of Spice-class simulators. 
-                Each instance maps to a *spice model* instance ("`q1`"), *not* to sub-circuit instance ("`x1`"). 
-                In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
-
-                Unlike the SPICE BJT, `vlsir.primitives.bipolar` *does not* include an optional fourth substrate terminal. 
-
-                The *sole* required parameter to each `vlsir.primitives.bipolar` is its string-valued `modelname`. 
-                While the level-one BJT model has much more prevalence than any MOS model, 
-                there remains a diversity of instance parameters not first-class enumerated here. 
-
-                """
-            ),
-            ports=_ports(("c", "b", "e")),
-            signals=_signals(("c", "b", "e")),
-            parameters=[
-                Param(name="modelname", desc="Model Name (string)"),
-            ],
-        ),
-        ExternalModule(
-            name=_qname("diode"),
-            desc=dedent(
-                """
-                # Diode
-
-                Ports: (p (anode), n (cathode)), in identical order to SPICE convention 
-                Params: string modelname
-
-                `vlsir.primitives.diode` largely corresponds to the "D-prefix" element of Spice-class simulators. 
-                Each instance maps to a *spice model* instance ("`d1`"), *not* to sub-circuit instance ("`x1`"). 
-                In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
-
-                The *sole* required parameter to each `vlsir.primitives.diode` is its string-valued `modelname`. 
-                While the level-one diode model has much more prevalence than any MOS model, 
-                there remains a diversity of instance parameters not first-class enumerated here. 
-
-                """
-            ),
-            ports=_ports(("p", "n")),
-            signals=_signals(("p", "n")),
-            parameters=[
-                Param(name="modelname", desc="Model Name (string)"),
-            ],
-        ),
-        ExternalModule(
-            name=_qname("tline"),
-            desc=dedent(
-                """
-                # Transmission Line
-
-                Ports: (p1p, p1n, (port 1), p2p, p2n (port 2)), in identical order to SPICE convention 
-                Params: string modelname
-
-                The *sole* required parameter is the string-valued `modelname`. 
-                All other parameters are passed unmodified to netlist-level formats. 
-                
-                The "model-based" tline specification supports lossy lines in all known SPICE-class simulators, 
-                and lossless lines in many or most. 
-
-                """
-            ),
-            ports=_ports(
-                (
-                    "p1p",
-                    "p1n",
-                    "p2p",
-                    "p2n",
-                )
-            ),
-            signals=_signals(
-                (
-                    "p1p",
-                    "p1n",
-                    "p2p",
-                    "p2n",
-                )
-            ),
-            parameters=[
-                Param(name="modelname", desc="Model Name (string)"),
-            ],
-        ),
     ],
 )
 
@@ -461,7 +332,8 @@ package = Package(
 # Also make each `ExternalModule` available in
 # (a) A {name: ExternalModule} dictionary, and
 # (b) This namespace, under its module-name.
-dct = dict()
+dct: Dict[str, ExternalModule] = dict()
+
 for emod in package.ext_modules:
     # First make sure the module-name is valid, and not already defined.
     modname = emod.name.name
@@ -469,9 +341,151 @@ for emod in package.ext_modules:
         raise RuntimeError(f"Invalid module-name: {emod.name}")
 
     # Check for duplicates/ conflicts
+    if dct.get(modname, None) is not None:
+        raise RuntimeError(f"Module-name conflict: {modname}")
     if globals().get(modname, None) is not None:
         raise RuntimeError(f"Module-name conflict: {modname}")
 
     # Checks out: add it
     globals()[modname] = emod
     dct[modname] = emod
+
+
+"""
+# Primitive "Generators" 
+
+Functions which, provided principally a string `name`, produce a primitive-like `ExternalModule`.
+These are most useful for SPICE `.model` references, i.e. those commonly used to describe MOS devices. 
+"""
+
+
+def mos(
+    name: str, domain: Optional[str] = None, desc: Optional[str] = None
+) -> ExternalModule:
+    """# Mos Primitive"""
+
+    # Apply defaults to `domain` and `desc`
+    domain = domain or "vlsir.primitives.mos"
+    desc = desc or dedent(
+        """
+            # Mosfet Transistor
+
+            Ports: (d, g, s, b), in identical order to SPICE convention 
+            Parameters are unconstrainted, and passed along as-is during netlisting.
+
+            `vlsir.primitives.mos` Largely corresponds to the "M-prefix" element of Spice-class simulators. 
+            Each instance maps to a *spice model* instance ("`m1`"), *not* to sub-circuit instance ("`x1`"). 
+            In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
+            """
+    )
+    return ExternalModule(
+        name=QualifiedName(domain=domain, name=name),
+        desc=desc,
+        ports=_ports(["d", "g", "s", "b"]),
+        signals=_signals(["d", "g", "s", "b"]),
+        parameters=[],  # Empty (required) parameters list
+        spicetype=SpiceType.MOS,
+    )
+
+
+def bipolar(
+    name: str, domain: Optional[str] = None, desc: Optional[str] = None
+) -> ExternalModule:
+    """# Bipolar Primitive"""
+
+    # Apply defaults
+    domain = domain or "vlsir.primitives.bipolar"
+    desc = desc or dedent(
+        """
+        # Bipolar Junction Transistor (BJT)
+
+        Ports: (c, b, e), in identical order to SPICE convention 
+        Parameters are unconstrainted, and passed along as-is during netlisting.
+
+        `vlsir.primitives.bipolar` Largely corresponds to the "Q-prefix" element of Spice-class simulators. 
+        Each instance maps to a *spice model* instance ("`q1`"), *not* to sub-circuit instance ("`x1`"). 
+        In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
+        Unlike the SPICE BJT, `vlsir.primitives.bipolar` *does not* include an optional fourth substrate terminal. 
+        """
+    )
+
+    return ExternalModule(
+        name=QualifiedName(domain=domain, name=name),
+        desc=desc,
+        ports=_ports(("c", "b", "e")),
+        signals=_signals(("c", "b", "e")),
+        parameters=[],  # Empty (required) parameters list
+        spicetype=SpiceType.BIPOLAR,
+    )
+
+
+def diode(
+    name: str, domain: Optional[str] = None, desc: Optional[str] = None
+) -> ExternalModule:
+    """# Diode Primitive"""
+
+    # Apply defaults
+    domain = domain or "vlsir.primitives.diode"
+    desc = desc or dedent(
+        """
+        # Diode
+
+        Ports: (p (anode), n (cathode)), in identical order to SPICE convention 
+        Parameters are unconstrainted, and passed along as-is during netlisting.
+
+        `vlsir.primitives.diode` largely corresponds to the "D-prefix" element of Spice-class simulators. 
+        Each instance maps to a *spice model* instance ("`d1`"), *not* to sub-circuit instance ("`x1`"). 
+        In many cases, particularly for technology-provided devices, using a foundry-provided sub-circuit will be appropriate instead. 
+        """
+    )
+    return ExternalModule(
+        name=QualifiedName(domain=domain, name=name),
+        desc=desc,
+        ports=_ports(("p", "n")),
+        signals=_signals(("p", "n")),
+        parameters=[],  # Empty (required) parameters list
+        spicetype=SpiceType.DIODE,
+    )
+
+
+def tline(
+    name: str, domain: Optional[str] = None, desc: Optional[str] = None
+) -> ExternalModule:
+    """# Transmission Line Primitive"""
+
+    # Apply defaults
+    domain = domain or "vlsir.primitives.tline"
+    desc = desc or dedent(
+        """
+        # Transmission Line
+
+        Ports: (p1p, p1n, (port 1), p2p, p2n (port 2)), in identical order to SPICE convention 
+        Parameters are unconstrainted, and passed along as-is during netlisting.
+
+        The "model-based" tline specification supports lossy lines in all known SPICE-class simulators, 
+        and lossless lines in many or most. 
+        """
+    )
+
+    return ExternalModule(
+        name=QualifiedName(domain=domain, name=name),
+        desc=desc,
+        ports=_ports(
+            (
+                "p1p",
+                "p1n",
+                "p2p",
+                "p2n",
+            )
+        ),
+        signals=_signals(
+            (
+                "p1p",
+                "p1n",
+                "p2p",
+                "p2n",
+            )
+        ),
+        parameters=[],  # Empty (required) parameters list
+        spicetype=SpiceType.TLINE,
+    )
