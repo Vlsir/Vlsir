@@ -6,7 +6,7 @@ import vlsir
 import vlsir.circuit_pb2 as vckt
 
 # Import the base-class
-from .base import Netlister, SpiceType, ResolvedParams
+from .base import Netlister, ResolvedModule, ResolvedParams
 
 
 class VerilogNetlister(Netlister):
@@ -105,8 +105,8 @@ class VerilogNetlister(Netlister):
 
         # Get its Module or ExternalModule definition
         rmodule = self.resolve_reference(pinst.module)
-        if rmodule.spice_type != SpiceType.SUBCKT:
-            # Spice-level primitives are generally not available in Verilog runtimes,
+        if not isinstance(rmodule, ResolvedModule):
+            # Spice-level primitives and models are generally not available in Verilog runtimes,
             # and hence generate errors here if attempted in netlisting.
             raise RuntimeError(f"Invalid module for Verilog: {rmodule}")
         module, module_name = rmodule.module, rmodule.module_name

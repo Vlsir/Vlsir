@@ -33,9 +33,9 @@ class NetlistFormat(Enum):
 
     # Spice Dialects
     SPICE = "spice"
-    HSPICE = "hspice"
     NGSPICE = "ngspice"
     XYCE = "xyce"
+    HSPICE = "hspice"
     CDL = "cdl"
 
     @staticmethod

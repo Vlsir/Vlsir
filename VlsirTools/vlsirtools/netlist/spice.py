@@ -249,21 +249,16 @@ class SpiceNetlister(SpectreSpiceShared):
             SpiceType.TLINE,
         }:
             raise RuntimeError(f"Internal error: {ref} should be netlisted as a model")
+        elif ref.spice_type == SpiceType.SUBCKT:
+            raise RuntimeError(f"Internal error: {ref} should be netlisted as a subckt")
         else:
             raise RuntimeError(f"Unrecognized primitive type {ref.spice_type}")
 
-        try:
-            # Pop all positional parameters ("pp") from `resolved_param_values`
-            pp = resolved_param_values.pop_many(positional_keys)
+        # Pop all positional parameters ("pp") from `resolved_param_values`
+        pp = resolved_param_values.pop_many(positional_keys)
 
-            # Write the positional parameters, in the order specified by `positional_keys`
-            self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
-        except:
-            # FIXME
-            # * This is a hack to avoid positional keys if they don't exist.
-            # * There is probably a better way to do this, but I don't know it.
-            # FIXME: why would they ever not exist?
-            pass
+        # Write the positional parameters, in the order specified by `positional_keys`
+        self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
 
         # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)
