@@ -287,8 +287,6 @@ class Netlister:
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
-        values.pop("devicetype", None)  # FIXME wut is this
-
         return ResolvedParams(values)
 
     @classmethod
