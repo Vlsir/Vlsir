@@ -3,8 +3,7 @@
 """
 
 # Std-Lib Imports
-from typing import Optional, Union, IO, Dict, Iterable, List
-from enum import Enum
+from typing import Optional, Union, IO, Dict, Iterable, List, Tuple
 from dataclasses import dataclass, field
 
 # Local Imports
@@ -21,11 +20,33 @@ ModuleLike = Union[vckt.Module, vckt.ExternalModule]
 @dataclass
 class ResolvedModule:
     """Resolved reference to a `Module` or `ExternalModule`.
-    Includes its spice-language prefix, and if user-defined its netlist-sanitized module-name."""
+    Includes its netlist-sanitized module-name."""
 
     module: ModuleLike
     module_name: str
-    spice_type: SpiceType
+
+
+@dataclass
+class SpiceBuiltin:
+    """# Reference to a SPICE built-in element, e.g. the ideal resistor, capacitor, or voltage source.
+    Many formats include special syntax for defining these, e.g. parameter specifications that work for no other instance."""
+
+    module: vckt.ExternalModule
+    # External module definition, generally from `vlsir.primitives`. Largely used for ports and parameters.
+    spice_type: SpiceType  # Spice type. One of the "non-model" variants.
+
+
+@dataclass
+class SpiceModelRef:
+    """# Reference to a SPICE Model, e.g. a MOSFET model, defined with some variant of the `.model` statement."""
+
+    module: vckt.ExternalModule  # External module definition
+    model_name: str  # Model name
+    spice_type: SpiceType  # Spice type. Can be any variant but SUBCKT.
+
+
+# Union type of the targets for netlist instances
+ResolvedRef = Union[ResolvedModule, SpiceBuiltin, SpiceModelRef]
 
 
 @dataclass
@@ -144,10 +165,19 @@ class Netlister:
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
 
-        # FIXME: are we really using both of these?
-        self.ext_modules = dict()  # Visited ExternalModules
-        # Visited ExternalModule names, checked for duplicates
-        self.ext_module_names = dict()
+        # Keep two dictionaries tracking `ExternalModule`s:
+        # * The VLSIR schema identifies them to two-string (domain, name) tuples. This is their "primary key".
+        # * Most netlist formats use a single global namespace, and require a unique name for each `ExternalModule`.
+        # So it's possible for two distinct VLSIR ExternalModules to conflict in netlist-language.
+        # If and when this happens netlisting will raise an exception.
+        # FIXME: that could maybe be configurable?
+        self.ext_modules_by_key: Dict[Tuple[str, str], vckt.ExternalModule] = dict()
+        self.ext_modules_by_name: Dict[str, vckt.ExternalModule] = dict()
+
+        # Similar tracking of ExternalModules which resolve to SPICE `.model` definitions
+        # Note in many formats, sub-circuits and models have different namespaces -
+        # i.e. it is possible to have a sub-circuit and a model with the same name.
+        self.spice_models_by_name: Dict[str, vckt.ExternalModule] = dict()
 
         # Attributes of the currently-netlisted Module
 
@@ -180,14 +210,24 @@ class Netlister:
     """
 
     def get_external_module(self, emod: vckt.ExternalModule) -> None:
-        """Visit an ExternalModule definition.
-        "Netlisting" these doesn't actually write anything,
-        but just stores a reference  in internal dictionary `ext_modules`
-        for future references to them."""
+        """# Visit an `ExternalModule`
+        "Netlisting" these doesn't actually write anything, but just stores a reference in internal dictionaries for future references to them.
+
+        Note each netlister keeps two dictionaries tracking `ExternalModule`s:
+        * The VLSIR schema identifies them to two-string (domain, name) tuples. This is their "primary key".
+        * Most netlist formats use a single global namespace, and require a unique name for each `ExternalModule`.
+        So it's possible for two distinct VLSIR ExternalModules to conflict in netlist-language.
+        If and when this happens netlisting will raise an exception.
+        FIXME: that could maybe be configurable?
+        """
+
+        # Check for duplicate definitions by "primary key" (domain, name)
+        # Note we *do not* check on a name-only basis here; this is left to instantiation-time,
+        # largely so that we can determine which ExternalModules resolve to subcircuits vs SPICE models.
         key = (emod.name.domain, emod.name.name)
-        if key in self.ext_modules:
+        if key in self.ext_modules_by_key:
             raise RuntimeError(f"Invalid doubly-defined external module {emod}")
-        self.ext_modules[key] = emod
+        self.ext_modules_by_key[key] = emod
 
     @classmethod
     def get_param_default(cls, pparam: vlsir.Param) -> Optional[str]:
@@ -247,8 +287,6 @@ class Netlister:
             values[pname] = cls.get_param_value(pval)
 
         # And wrap the resolved values in a `ResolvedParams` object
-        values.pop("devicetype", None)
-
         return ResolvedParams(values)
 
     @classmethod
@@ -263,7 +301,7 @@ class Netlister:
                 name = name.replace(ch, "_")
         return name
 
-    def resolve_reference(self, ref: vlsir.utils.Reference) -> ResolvedModule:
+    def resolve_reference(self, ref: vlsir.utils.Reference) -> ResolvedRef:
         """Resolve the `ModuleLike` referent of `ref`."""
 
         if ref.WhichOneof("to") == "local":  # Internally-defined Module
@@ -273,7 +311,6 @@ class Netlister:
             return ResolvedModule(
                 module=module,
                 module_name=self.get_module_name(module),
-                spice_type=SpiceType.SUBCKT,
             )
 
         if ref.WhichOneof("to") == "external":  # Defined outside package
@@ -286,32 +323,49 @@ class Netlister:
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
-                # Mapping from primitive-name to spice-prefix
-                prefixes = dict(
-                    resistor=SpiceType.RESISTOR,
-                    capacitor=SpiceType.CAPACITOR,
-                    inductor=SpiceType.INDUCTOR,
-                    vdc=SpiceType.VSOURCE,
-                    vpulse=SpiceType.VSOURCE,
-                    vpwl=SpiceType.VSOURCE,
-                    vsin=SpiceType.VSOURCE,
-                    isource=SpiceType.ISOURCE,
-                    vcvs=SpiceType.VCVS,
-                    vccs=SpiceType.VCCS,
-                    cccs=SpiceType.CCCS,
-                    ccvs=SpiceType.CCVS,
-                    mos=SpiceType.MOS,
-                    bipolar=SpiceType.BIPOLAR,
-                    diode=SpiceType.DIODE,
-                )
+                schema_spice_type = vckt.SpiceType.Name(module.spicetype)
+                if schema_spice_type is None:
+                    msg = f"Invalid SpiceType for {module}"
+                    raise RuntimeError(msg)
+                spice_type = SpiceType[schema_spice_type]
 
-                if name not in prefixes:
-                    raise ValueError(f"Unsupported or Invalid Ideal Primitive {ref}")
+                # Double-check it has a valid SpiceType
+                # Note the `vlsir.primitives` module *itself* should be well-behaved, only defining types in the `valid_types` list below.
+                # But it's Python! Nothing stops *users* from modifying them, or trying to define their own!
 
-                return ResolvedModule(
+                if spice_type == SpiceType.SUBCKT:
+                    msg = f"Invalid SUBCKT in the `vlsir.primitives` namespace: {ref}\n"
+                    msg += "(Did you try to define this yourself?)\n"
+                    msg += "`vlsir.primitives` is a priviledged namespace, and cannot be modified."
+                    raise RuntimeError(msg)
+
+                model_based = {
+                    SpiceType.MOS,
+                    SpiceType.BIPOLAR,
+                    SpiceType.DIODE,
+                    SpiceType.TLINE,
+                }
+                if spice_type in model_based:
+                    msg = f"Invalid/ deprecated model-based `vlsir.primitive` {ref}"
+                    raise RuntimeError(msg)
+
+                valid_types = {
+                    SpiceType.RESISTOR,
+                    SpiceType.CAPACITOR,
+                    SpiceType.INDUCTOR,
+                    SpiceType.VSOURCE,
+                    SpiceType.ISOURCE,
+                    SpiceType.VCVS,
+                    SpiceType.VCCS,
+                    SpiceType.CCCS,
+                    SpiceType.CCVS,
+                }
+                if spice_type not in valid_types:
+                    raise ValueError(f"Unsupported or Invalid Primitive {ref}")
+
+                return SpiceBuiltin(
                     module=module,
-                    module_name=module.name.name,
-                    spice_type=prefixes[name],
+                    spice_type=spice_type,
                 )
 
             if ref.external.domain == "hdl21.primitives":
@@ -321,30 +375,48 @@ class Netlister:
 
             else:  # Externally-Defined, External-Domain `ExternalModule`
                 key = (ref.external.domain, ref.external.name)
-                module = self.ext_modules.get(key, None)
+                module = self.ext_modules_by_key.get(key, None)
                 if module is None:
                     msg = f"Invalid Instance of undefined External Module {key}"
                     raise RuntimeError(msg)
-                # Check for duplicate names which would conflict from other namespaces
-                module_name = ref.external.name
-                if (
-                    module_name in self.ext_module_names
-                    and self.ext_module_names[module_name] is not module
-                ):
-                    msg = f"Conflicting ExternalModule definitions {module} and {self.ext_module_names[module_name]}"
-                    raise RuntimeError(msg)
 
-                devicetype = vckt.SpiceType.Name(module.spicetype)
-                if devicetype is None:
-                    msg = f"ExternalModule {module} must specify a `vckt.SpiceType`"
+                schema_spice_type = vckt.SpiceType.Name(module.spicetype)
+                if schema_spice_type is None:
+                    msg = f"Invalid SpiceType for {module}"
                     raise RuntimeError(msg)
+                spice_type = SpiceType[schema_spice_type]
 
-                self.ext_module_names[module_name] = module
-                return ResolvedModule(
-                    module=module,
-                    module_name=module_name,
-                    spice_type=SpiceType[devicetype],
-                )
+                if spice_type == SpiceType.SUBCKT:  # External sub-circuit
+
+                    # Check for duplicates on a name-only basis
+                    # Most netlist formats have a single global namespace, so same-names conflict in netlist-language.
+                    module_name = ref.external.name
+                    cached = self.ext_modules_by_name.get(module_name, None)
+                    if cached is not None and cached is not module:
+                        msg = f"Conflicting ExternalModule definitions {module} and {cached}"
+                        raise RuntimeError(msg)
+                    self.ext_modules_by_name[module_name] = module
+
+                    return ResolvedModule(
+                        module=module,
+                        module_name=module_name,
+                    )
+
+                else:  # SPICE Model Reference
+
+                    # Again check for duplicates on a name-only basis
+                    modelname = ref.external.name
+                    cached = self.spice_models_by_name.get(modelname, None)
+                    if cached is not None and cached is not module:
+                        msg = f"Conflicting ExternalModule definitions {module} and {cached}"
+                        raise RuntimeError(msg)
+                    self.spice_models_by_name[modelname] = module
+
+                    return SpiceModelRef(
+                        module=module,
+                        model_name=modelname,
+                        spice_type=spice_type,
+                    )
 
         # Not a Module, not an ExternalModule, not sure what it is
         raise ValueError(f"Invalid Module reference {ref}")

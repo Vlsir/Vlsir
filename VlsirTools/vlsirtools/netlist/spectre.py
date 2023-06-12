@@ -12,10 +12,10 @@ import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import ResolvedModule, ResolvedParams, SpiceType
+from .base import ResolvedModule, ResolvedParams, SpiceModelRef, SpiceBuiltin, SpiceType
 
 
-def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
+def map_primitive(rmodule: SpiceBuiltin, paramvals: ResolvedParams) -> str:
     """Map a primitive into Spectre's supported names and parameters.
     Returns the "apparent module name" for instances of the primitive.
     Argument `paramvals` is often modified along the way.
@@ -26,7 +26,7 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
 
     # For voltage sources, add spectre's "type" parameter, and potentially rename several parameters
     if rmodule.spice_type == SpiceType.VSOURCE:
-        vname = rmodule.module_name
+        vname: str = rmodule.module.name.name
         vtypes = dict(
             vdc="dc",
             vpulse="pulse",
@@ -72,9 +72,9 @@ def map_primitive(rmodule: ResolvedModule, paramvals: ResolvedParams) -> str:
         SpiceType.DIODE,
         SpiceType.TLINE,
     }
-    if rmodule.spice_type in model_based:
-        # Get the model-name from its instance parameters
-        return paramvals.pop("modelname")
+    if rmodule.spice_type in model_based:  # Invalid
+        msg = f"Internal Error: Invalid model-based primitive {rmodule} should have been resolved to a model"
+        raise RuntimeError(msg)
 
     # Otherwise, unclear what this is or how we got here.
     raise RuntimeError(f"Unsupported or Invalid Primitive {rmodule}")
@@ -143,19 +143,28 @@ class SpectreNetlister(SpectreSpiceShared):
         """Create and return a netlist-string for Instance `pinst`"""
 
         # Initial resolution phase.
-        # Start by getting the Module or ExternalModule definition
-        rmodule = self.resolve_reference(pinst.module)
+        # Start by getting the Module or ExternalModule definition.
+        ref = self.resolve_reference(pinst.module)
+        module = ref.module
 
-        # Resolve its parameter values
-        resolved_instance_parameters = self.get_instance_params(pinst, rmodule.module)
+        # Resolve its parameter values, including applying module-level defaults
+        resolved_instance_parameters = self.get_instance_params(pinst, module)
 
-        module, module_name = rmodule.module, rmodule.module_name
-        if rmodule.spice_type == SpiceType.SUBCKT:
-            module_name = rmodule.module_name
-        else:  # Primitive element. Look up spectre-format module-name
-            module_name = map_primitive(rmodule, resolved_instance_parameters)
+        # And sort out its "apparent module name" for netlisting
+        if isinstance(ref, ResolvedModule):
+            module_name = ref.module_name
+        elif isinstance(ref, SpiceModelRef):
+            # Spectre format makes "model_name" and "module_name" look identical
+            module_name = ref.model_name
+        elif isinstance(ref, SpiceBuiltin):
+            # Map the primitive into Spectre's built-in element names and parameters
+            module_name = map_primitive(ref, resolved_instance_parameters)
+        else:
+            raise RuntimeError(f"Invalid reference {ref}")
 
+        # OK now we have everything we need to *write* the instance.
         # Create the instance name
+        # Note spectre format does not include any `SpiceType` based prefixing
         self.writeln(pinst.name + "")
 
         if module.ports:

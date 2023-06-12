@@ -42,7 +42,14 @@ import vlsir.spice_pb2 as vsp
 
 # Import the base-class
 from .spectre_spice_shared import SpectreSpiceShared
-from .base import ResolvedModule, ResolvedParams, SpiceType, ModuleLike
+from .base import (
+    ResolvedModule,
+    ResolvedParams,
+    SpiceType,
+    ModuleLike,
+    SpiceBuiltin,
+    SpiceModelRef,
+)
 
 
 class SpiceNetlister(SpectreSpiceShared):
@@ -123,102 +130,135 @@ class SpiceNetlister(SpectreSpiceShared):
         self.write("\n")
 
     def write_instance_name(
-        self, pinst: vckt.Instance, rmodule: ResolvedModule
+        self,
+        pinst: vckt.Instance,
+        spice_type: SpiceType = SpiceType.SUBCKT,
     ) -> None:
         """Write the instance-name line for `pinst`, including the SPICE-dictated primitive-prefix."""
-        self.writeln(f"{rmodule.spice_type.value}{pinst.name}")
+        self.writeln(f"{spice_type.value}{pinst.name}")
 
     def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
-        resolved = self.resolve_reference(pinst.module)
+        # Resolve what kinda thing we are to instantiate
+        ref = self.resolve_reference(pinst.module)
 
-        # And dispatch to `subckt` or `primitive` writers
-        if resolved.spice_type == SpiceType.SUBCKT:
-            return self.write_subckt_instance(pinst, resolved)
+        # And dispatch to our writers
+        if isinstance(ref, ResolvedModule):
+            return self.write_subckt_instance(pinst, ref)
 
-        if resolved.spice_type == SpiceType.VSOURCE:
-            # Voltage sources get weird, and vary between dialiects. Farm them out to a dedicated method.
-            return self.write_voltage_source_instance(pinst, resolved)
+        if isinstance(ref, SpiceModelRef):
+            return self.write_model_instance(pinst, ref)
 
-        # Everything else falls into the `primitive` category
-        return self.write_primitive_instance(pinst, resolved)
+        if isinstance(ref, SpiceBuiltin):
+            if ref.spice_type == SpiceType.VSOURCE:
+                # Voltage sources get weird, and vary between dialiects. Farm them out to a dedicated method.
+                return self.write_voltage_source_instance(pinst, ref)
+
+            # Everything else falls into the `primitive` category
+            return self.write_primitive_instance(pinst, ref)
+
+        raise RuntimeError(f"Unrecognized reference type {ref}")
+
+    def write_model_instance(self, pinst: vckt.Instance, ref: SpiceModelRef) -> None:
+        """# Write a `.model` instance.
+        While sub-classes may modify this behavior, the default is to produce netlist-content
+        very similar to that of `write_subckt_instance`, hence the sharing via `write_instance_inner`."""
+
+        return self.write_instance_inner(
+            pinst=pinst,
+            module=ref.module,
+            module_name=ref.model_name,
+            spice_type=ref.spice_type,
+        )
 
     def write_subckt_instance(
         self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
-        """Write sub-circuit-instance `pinst` of `rmodule`."""
+        """# Write a subcircuit instance.
+        While sub-classes may modify this behavior, the default is to produce netlist-content
+        very similar to that of `write_model_instance`, hence the sharing via `write_instance_inner`."""
+
+        return self.write_instance_inner(
+            pinst=pinst,
+            module=rmodule.module,
+            module_name=rmodule.module_name,
+            spice_type=SpiceType.SUBCKT,
+        )
+
+    def write_instance_inner(
+        self,
+        pinst: vckt.Instance,
+        module: ModuleLike,
+        module_name: str,
+        spice_type: SpiceType,
+    ) -> None:
+        """Inner implementation of `write_subckt_instance` and `write_model_instance`"""
 
         # Write the instance name
-        self.write_instance_name(pinst, rmodule)
+        self.write_instance_name(pinst, spice_type=spice_type)
 
         # Write its port-connections
-        self.write_instance_conns(pinst, rmodule.module)
+        self.write_instance_conns(pinst, module)
 
         # Write the sub-circuit name
-        self.writeln("+ " + rmodule.module_name)
+        self.writeln("+ " + module_name)
 
         # Write its parameter values
-        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+        resolved_param_values = self.get_instance_params(pinst, module)
         self.write_instance_params(resolved_param_values)
 
         # Add a blank after each instance
         self.write("\n")
+        ...
 
-    def write_primitive_instance(
-        self, pinst: vckt.Instance, rmodule: ResolvedModule
-    ) -> None:
+    def write_primitive_instance(self, pinst: vckt.Instance, ref: SpiceBuiltin) -> None:
         """Write primitive-instance `pinst` of `rmodule`.
         Note spice's primitive instances often differn syntactically from sub-circuit instances,
         in that they can have positional (only) parameters."""
 
         # Write the instance name
-        self.write_instance_name(pinst, rmodule)
+        self.write_instance_name(pinst, ref.spice_type)
 
         # Write its port-connections
-        self.write_instance_conns(pinst, rmodule.module)
+        self.write_instance_conns(pinst, ref.module)
 
         # Resolve its parameter-values to spice-strings
-        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+        resolved_param_values = self.get_instance_params(pinst, ref.module)
 
         # Write special and/or positional parameters
-        if rmodule.spice_type == SpiceType.RESISTOR:
+        if ref.spice_type == SpiceType.RESISTOR:
             positional_keys = ["r"]
-        elif rmodule.spice_type == SpiceType.CAPACITOR:
+        elif ref.spice_type == SpiceType.CAPACITOR:
             positional_keys = ["c"]
-        elif rmodule.spice_type == SpiceType.INDUCTOR:
+        elif ref.spice_type == SpiceType.INDUCTOR:
             positional_keys = ["l"]
-        elif rmodule.spice_type == SpiceType.ISOURCE:
+        elif ref.spice_type == SpiceType.ISOURCE:
             positional_keys = ["dc"]
-        elif rmodule.spice_type in (
+        elif ref.spice_type in {
             SpiceType.VCVS,
             SpiceType.VCCS,
             SpiceType.CCCS,
             SpiceType.CCVS,
-        ):
+        }:
             positional_keys = ["gain"]
-        elif rmodule.spice_type in (
+        elif ref.spice_type in {
             SpiceType.MOS,
             SpiceType.BIPOLAR,
             SpiceType.DIODE,
             SpiceType.TLINE,
-        ):
-            positional_keys = ["modelname"]
+        }:
+            raise RuntimeError(f"Internal error: {ref} should be netlisted as a model")
+        elif ref.spice_type == SpiceType.SUBCKT:
+            raise RuntimeError(f"Internal error: {ref} should be netlisted as a subckt")
         else:
-            positional_keys = []
+            raise RuntimeError(f"Unrecognized primitive type {ref.spice_type}")
 
-        try:
-            # Pop all positional parameters ("pp") from `resolved_param_values`
-            pp = resolved_param_values.pop_many(positional_keys)
+        # Pop all positional parameters ("pp") from `resolved_param_values`
+        pp = resolved_param_values.pop_many(positional_keys)
 
-            # Write the positional parameters, in the order specified by `positional_keys`
-            self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
-        except:
-            # FIXME
-            # * This is a hack to avoid positional keys if they don't exist.
-            # * There is probably a better way to do this, but I don't know it.
-            # FIXME: why would they ever not exist?
-            pass
+        # Write the positional parameters, in the order specified by `positional_keys`
+        self.writeln("+ " + " ".join([pp[pkey] for pkey in positional_keys]))
 
         # Now! Write its subckt-style by-name parameter values
         self.write_instance_params(resolved_param_values)
@@ -229,22 +269,22 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_voltage_source_instance(
         self,
         pinst: vckt.Instance,
-        rmodule: ResolvedModule,
+        ref: SpiceBuiltin,
     ) -> None:
         """Write a voltage-source instance `pinst`.
         Throws an Exception if `rmodule` is not a known voltage-source type."""
 
         # Resolve its parameter values
-        resolved_param_values = self.get_instance_params(pinst, rmodule.module)
+        resolved_param_values = self.get_instance_params(pinst, ref.module)
 
         # Write the instance name
-        self.write_instance_name(pinst, rmodule)
+        self.write_instance_name(pinst, ref.spice_type)
 
         # Write its port-connections
-        self.write_instance_conns(pinst, rmodule.module)
+        self.write_instance_conns(pinst, ref.module)
 
         # Handle each of the voltage-source cases
-        name = rmodule.module.name.name
+        name = ref.module.name.name
         if name == "vdc":
             dc = resolved_param_values.pop("dc")
             self.write(f"+ dc {self.format_expression(dc)} \n")
