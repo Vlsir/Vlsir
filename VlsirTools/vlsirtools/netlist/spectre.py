@@ -135,6 +135,9 @@ class SpectreNetlister(SpectreSpiceShared):
             self.write_instance(pinst)
         self.writeln("")
 
+        # Write any netlist-literal content
+        self.write_literals(module.literals)
+
         # Close up the sub-circuit
         self.indent -= 1
         self.writeln("ends \n")
