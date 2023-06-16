@@ -131,10 +131,12 @@ class NGSpiceSim(Sim):
 
         # Pop the frequence vector out of the data
         freq = nutbin.data.pop("frequency")
+
         # Nutbin format stores the frequency vector as complex numbers, along with all the complex-valued signal data.
-        # Grab the real parts of the frequencies, and ensure that they don't (somehow) have nonzero imaginary parts.
-        if not np.allclose(freq.imag, 0):
-            raise RuntimeError(f"Imaginary parts of frequencies in {freq}")
+        # NOTE: once upon a time, we checked that the imaginary part of all frequencies was zero.
+        # And that used to work! Now it doesn't; ngspice just seemingly leaves it uninitialized, or set to some random value.
+        # See https://github.com/Vlsir/Vlsir/issues/66
+        # Now, just grab the real part.
         freq = freq.real
 
         return AcResult(
