@@ -3,6 +3,7 @@
 Unit Tests
 """
 
+import numpy as np
 import pytest, asyncio
 from io import StringIO
 from typing import Dict, List, Optional
@@ -482,13 +483,53 @@ def test_xyce1():
 @pytest.mark.ngspice
 def test_ngspice1():
     """Test an empty-input call to the `vlsir.spice.Sim` interface to `ngspice`."""
-    dummy_sim_tests(
+
+    res = dummy_sim_tests(
         SupportedSimulators.NGSPICE,
         skip=[
-            AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
-            AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
-        ],
+            AnalysisType.DC
+        ],  ## Skip the DC sweep; ngspice doesn't support this kinda sweep
     )
+
+    # Check that the AC frequency vector came back as expected
+    # A follow-on from https://github.com/Vlsir/Vlsir/issues/66
+    freqs = np.array(
+        [
+            1.00000000e03,
+            1.25892541e03,
+            1.58489319e03,
+            1.99526231e03,
+            2.51188643e03,
+            3.16227766e03,
+            3.98107171e03,
+            5.01187234e03,
+            6.30957344e03,
+            7.94328235e03,
+            1.00000000e04,
+            1.25892541e04,
+            1.58489319e04,
+            1.99526231e04,
+            2.51188643e04,
+            3.16227766e04,
+            3.98107171e04,
+            5.01187234e04,
+            6.30957344e04,
+            7.94328235e04,
+            1.00000000e05,
+            1.25892541e05,
+            1.58489319e05,
+            1.99526231e05,
+            2.51188643e05,
+            3.16227766e05,
+            3.98107171e05,
+            5.01187234e05,
+            6.30957344e05,
+            7.94328235e05,
+            1.00000000e06,
+        ]
+    )
+    ac_result = res[AnalysisType.AC]
+    assert np.allclose(ac_result.freq, freqs)
 
 
 @pytest.mark.xyce
