@@ -3,6 +3,7 @@ NGSpice Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
+from concurrent.futures import ProcessPoolExecutor
 import subprocess, re, shutil
 from enum import Enum
 from warnings import warn
@@ -18,11 +19,7 @@ from ..netlist import netlist
 from ..netlist.spice import NgspiceNetlister
 from .base import Sim
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, NoiseResult
-from .spice import (
-    SupportedSimulators,
-    sim,
-    sim_async,  # Not directly used here, but "re-exported"
-)
+from .spice import SupportedSimulators, sim
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 
@@ -62,15 +59,15 @@ class NGSpiceSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.NGSPICE
 
-    async def run(self) -> Awaitable[SimResult]:
+    def run(self) -> SimResult:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         # Write the netlist
         self.write_netlist()
 
-        # Run the simulation
-        await self.run_sim_process()
+        self.run_sim_process()
 
+        # Handle stdout and stderr as needed
         # Parse up the results
         return self.parse_results()
 
@@ -202,7 +199,7 @@ class NGSpiceSim(Sim):
     def run_sim_process(self) -> Awaitable[None]:
         """Run a NGSpice sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw"
+        cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw".split(" ")
         return self.run_subprocess(cmd)
 
 

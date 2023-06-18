@@ -3,7 +3,8 @@ Xyce Implementation of `vsp.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, random, shutil, asyncio
+import subprocess, random, shutil
+import concurrent.futures
 from glob import glob
 from os import PathLike
 from typing import IO, Dict, Awaitable, Union
@@ -23,11 +24,7 @@ from .sim_data import (
     DcResult,
     AnalysisResult,
 )
-from .spice import (
-    SupportedSimulators,
-    sim,
-    sim_async,  # Not directly used here, but "re-exported"
-)
+from .spice import SupportedSimulators, sim
 
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -75,15 +72,15 @@ class XyceSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.XYCE
 
-    async def run(self) -> Awaitable[SimResult]:
+    def run(self) -> Awaitable[SimResult]:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         # Write the DUT netlist
         self.write_dut_netlist()
 
         # Run each analysis as an async subprocess
-        futures = [self.analysis(an) for an in self.inp.an]
-        an_results = await asyncio.gather(*futures)
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            an_results = list(executor.map(self.analysis, self.inp.an))
         return SimResult(an_results)
 
     def write_dut_netlist(self) -> None:
@@ -145,7 +142,7 @@ class XyceSim(Sim):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
 
-    async def ac(self, an: vsp.AcInput) -> Awaitable[vsp.AcResult]:
+    def ac(self, an: vsp.AcInput) -> Awaitable[vsp.AcResult]:
         """Run an AC analysis."""
 
         # Unpack the `AcInput`
@@ -173,7 +170,7 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        await self.run_xyce_process(analysis_name)
+        self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.FD.csv", "r") as csv_handle:
@@ -206,7 +203,7 @@ class XyceSim(Sim):
             measurements=measurements,
         )
 
-    async def dc(self, an: vsp.DcInput) -> Awaitable[DcResult]:
+    def dc(self, an: vsp.DcInput) -> Awaitable[DcResult]:
         """Run a DC analysis."""
 
         # Unpack the `DcInput`
@@ -250,7 +247,7 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        await self.run_xyce_process(analysis_name)
+        self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
@@ -267,7 +264,7 @@ class XyceSim(Sim):
             measurements=measurements,
         )
 
-    async def op(self, an: vsp.OpInput) -> Awaitable[OpResult]:
+    def op(self, an: vsp.OpInput) -> Awaitable[OpResult]:
         """Run an operating-point analysis.
         Xyce describes the `.op` analysis as "partially supported".
         Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
@@ -298,7 +295,7 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        await self.run_xyce_process(analysis_name)
+        self.run_xyce_process(analysis_name)
 
         # Read the results from CSV
         with self.open(f"{analysis_name}.sp.csv", "r") as csv_handle:
@@ -314,7 +311,7 @@ class XyceSim(Sim):
             data=data,
         )
 
-    async def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
+    def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
         """Run a transient analysis."""
 
         # Extract fields from our `TranInput`
@@ -347,7 +344,7 @@ class XyceSim(Sim):
         netlist.flush()
 
         # Do the real work, running the simulation
-        await self.run_xyce_process(analysis_name)
+        self.run_xyce_process(analysis_name)
 
         # Parse and organize our results
         # First pull them in from CSV
@@ -364,7 +361,7 @@ class XyceSim(Sim):
 
     def run_xyce_process(self, name: str) -> Awaitable[None]:
         """Run a `Xyce` sub-process executing the simulation."""
-        return self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp ")
+        return self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp".split(" "))
 
     def parse_measurements(self, analysis_name: str) -> Dict[str, float]:
         # FIXME: the *input* should really be dictating whether we have measurements.

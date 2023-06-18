@@ -3,7 +3,8 @@
 """
 
 # Std-Lib Imports
-import asyncio, os, subprocess
+import os, subprocess
+import concurrent.futures
 from typing import Union, Optional, Sequence, Awaitable, TypeVar
 from enum import Enum
 from textwrap import dedent
@@ -76,31 +77,6 @@ OneOrMore = Union[T, Sequence[T]]
 
 def sim(
     inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
-) -> OneOrMore[SimResultUnion]:
-    """
-    Execute one or more `vlir.spice.Sim`.
-    Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
-    Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
-    """
-
-    # FIXME NOTE: a reversion of https://www.google.com/url?q=https://github.com/Vlsir/Vlsir/issues/56%23issuecomment-1550373717&source=gmail&ust=1684358730385000&usg=AOvVaw3ZKEQOHHiQ8sOAH5E2EHv8
-    #
-    # try:
-    #     loop = asyncio.get_running_loop()
-    # except RuntimeError:
-    #     loop = None
-    #
-    # if loop is not None:
-    #     # patch asyncio to allow nested event loops
-    #     import nest_asyncio
-    #
-    #     nest_asyncio.apply(loop)
-
-    return asyncio.run(sim_async(inp, opts))
-
-
-async def sim_async(
-    inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
 ) -> Awaitable[OneOrMore[SimResultUnion]]:
     """
     Asynchronously execute one or more `vlir.spice.Sim`.
@@ -143,8 +119,11 @@ async def sim_async(
         raise RuntimeError("Cannot specify a run-directory for multiple simulations")
 
     # And do the real work, invoking the target simulator
-    futures = [cls.sim(i, opts) for i in inp]
-    results = await asyncio.gather(*futures)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(cls.sim, i, opts) for i in inp]
+        results = [
+            future.result() for future in concurrent.futures.as_completed(futures)
+        ]
 
     # For the sequence of inputs case, return the sequence of results that came back
     if not inp_is_a_single_sim:

@@ -4,7 +4,7 @@ Unit Tests
 """
 
 import numpy as np
-import pytest, asyncio
+import pytest
 from io import StringIO
 from typing import Dict, List, Optional
 
@@ -28,7 +28,6 @@ from vlsirtools.spice import (
     SimOptions,
     ResultFormat,
     sim,
-    sim_async,
 )
 import vlsirtools.spice.sim_data as sd
 from vlsirtools.spice.sim_data import AnalysisType
@@ -631,42 +630,3 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
-
-
-@pytest.mark.ngspice
-def test_sim_async():
-    """Test the async version of `sim`, and what a basic asynchronous caller needs to look like."""
-
-    def an_async_caller() -> sd.SimResult:
-        """# An async function which will call `sim_async`.
-        The real point here: the `return await` part, for any async caller."""
-
-        return sim_async(
-            inp=dummy_sim(
-                skip=[
-                    AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
-                    AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
-                ],
-            ),
-            opts=SimOptions(
-                simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
-            ),
-        )
-
-    asyncio.run(an_async_caller())
-
-
-@pytest.mark.xfail(reason="https://github.com/Vlsir/Vlsir/issues/56")
-@pytest.mark.ngspice
-def test_sim_async_in_existing_loop():
-    async def _main_async():
-        return dummy_sim_tests(
-            SupportedSimulators.NGSPICE,
-            skip=[
-                AnalysisType.DC,  ## DC is skipped on purpose; ngspice doesn't support this kinda sweep
-                AnalysisType.AC,  ## FIXME: ac, we don't wanna skip, but parses crazy 10**271 imaginary numbers(?)
-            ],
-        )
-
-    # simulating a top-level asyncio loop (e.g. in a Jupyter notebook)
-    assert asyncio.run(_main_async()) is not None

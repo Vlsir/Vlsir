@@ -15,11 +15,7 @@ import vlsir.spice_pb2 as vsp
 from ..netlist.spectre import SpectreNetlister
 from .base import Sim
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
-from .spice import (
-    SupportedSimulators,
-    sim,
-    sim_async,  # Not directly used here, but "re-exported"
-)
+from .spice import SupportedSimulators, sim
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 
@@ -63,14 +59,14 @@ class SpectreSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.SPECTRE
 
-    async def run(self) -> Awaitable[SimResult]:
+    def run(self) -> Awaitable[SimResult]:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         # Write our netlist to file
         self.write_netlist()
 
         # Run the simulation
-        await self.run_spectre_process()
+        self.run_spectre_process()
 
         # Parse the results
         return self.parse_results()
@@ -164,7 +160,7 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs"
+        cmd = f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs".split(" ")
         return self.run_subprocess(cmd)
 
 

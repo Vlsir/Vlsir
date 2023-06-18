@@ -3,7 +3,7 @@
 """
 
 # Std-Lib Imports
-import asyncio, os, tempfile
+import subprocess, os, tempfile
 from typing import Optional, Awaitable, List, IO
 from pathlib import Path
 
@@ -42,7 +42,7 @@ class Sim:
         raise NotImplementedError
 
     @classmethod
-    async def sim(
+    def sim(
         cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
     ) -> Awaitable[SimResultUnion]:
         """Sim-invoking class method.
@@ -56,7 +56,7 @@ class Sim:
         sim = cls(inp=inp, opts=opts)
         try:
             sim.setup()
-            results = await sim.run()
+            results = sim.run()
         finally:
             sim.cleanup()
 
@@ -75,7 +75,7 @@ class Sim:
         self.opts = opts
         self.rundir = opts.rundir
         self.tmpdir: Optional[tempfile.TemporaryDirectory] = None
-        self.subprocesses: List[asyncio.Process] = []
+        self.subprocesses: List[subprocess.Process] = []
 
     def setup(self):
         """Perform simulation setup, including the simulation directory and top-level Module validation."""
@@ -95,18 +95,18 @@ class Sim:
         if self.tmpdir is not None:
             self.tmpdir.cleanup()
 
-    async def run_subprocess(self, cmd: str) -> Awaitable[None]:
+    def run_subprocess(self, cmd: str) -> Awaitable[None]:
         """Asynchronously run a shell subprocess invoking command `cmd`.
         All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`."""
 
-        proc = await asyncio.create_subprocess_shell(
+        proc = subprocess.Popen(
             cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             cwd=str(self.rundir),
         )
         self.subprocesses.append(proc)
-        stdout, stderr = await proc.communicate()
+        stdout, stderr = proc.communicate()
 
         # The async subprocess module does not raise Python exceptions: check the return code instead.
         if proc.returncode != 0:
