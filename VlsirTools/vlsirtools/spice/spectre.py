@@ -160,7 +160,11 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> Awaitable[None]:
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs".split(" ")
+        cmd = (
+            f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs".split(
+                " "
+            )
+        )
         return self.run_subprocess(cmd)
 
 
