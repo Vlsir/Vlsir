@@ -5,7 +5,7 @@
 # Std-Lib Imports
 import os, subprocess
 import concurrent.futures
-from typing import Union, Optional, Sequence, Awaitable, TypeVar
+from typing import Union, Optional, Sequence, TypeVar
 from enum import Enum
 from textwrap import dedent
 from dataclasses import dataclass, field
@@ -77,9 +77,9 @@ OneOrMore = Union[T, Sequence[T]]
 
 def sim(
     inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
-) -> Awaitable[OneOrMore[SimResultUnion]]:
+) -> OneOrMore[SimResultUnion]:
     """
-    Asynchronously execute one or more `vlir.spice.Sim`.
+    Concurrently execute one or more `vlir.spice.Sim`.
     Dispatches across `SupportedSimulators` specified in `SimOptions` `opts`.
     Uses the default `Simulator` as detected by the `default` method if no `simulator` is specified.
     """

@@ -8,7 +8,8 @@ import subprocess, re, shutil
 from enum import Enum
 from warnings import warn
 from dataclasses import dataclass
-from typing import Mapping, IO, Dict, Awaitable
+from typing import Mapping, IO, Dict
+import shlex
 
 # External Imports
 import numpy as np
@@ -196,10 +197,10 @@ class NGSpiceSim(Sim):
             warn(msg)
         return parse_mt0(self.open(meas_files[0], "r"))
 
-    def run_sim_process(self) -> Awaitable[None]:
+    def run_sim_process(self) -> None:
         """Run a NGSpice sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw".split(" ")
+        cmd = shlex.split(f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw")
         return self.run_subprocess(cmd)
 
 

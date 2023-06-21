@@ -5,7 +5,7 @@ Spectre Implementation of `vlsir.spice.Sim`
 # Std-Lib Imports
 import subprocess, re, shutil, glob
 import numpy as np
-from typing import Tuple, Any, Mapping, Optional, IO, Dict, Awaitable
+from typing import Tuple, Any, Mapping, Optional, IO, Dict
 from dataclasses import dataclass
 from warnings import warn
 from enum import Enum
@@ -59,7 +59,7 @@ class SpectreSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.SPECTRE
 
-    def run(self) -> Awaitable[SimResult]:
+    def run(self) -> SimResult:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         # Write our netlist to file
@@ -157,7 +157,7 @@ class SpectreSim(Sim):
             warn(msg)
         return parse_mt0(self.open(meas_files[0], "r"))
 
-    def run_spectre_process(self) -> Awaitable[None]:
+    def run_spectre_process(self) -> None:
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
         cmd = (

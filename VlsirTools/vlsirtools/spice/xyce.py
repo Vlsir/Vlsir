@@ -7,7 +7,8 @@ import subprocess, random, shutil
 import concurrent.futures
 from glob import glob
 from os import PathLike
-from typing import IO, Dict, Awaitable, Union
+from typing import IO, Dict, Union
+import shlex
 
 import numpy as np
 import pandas as pd
@@ -72,13 +73,13 @@ class XyceSim(Sim):
     def enum(cls) -> SupportedSimulators:
         return SupportedSimulators.XYCE
 
-    def run(self) -> Awaitable[SimResult]:
+    def run(self) -> SimResult:
         """Run the specified `SimInput` in directory `self.rundir`, returning its results."""
 
         # Write the DUT netlist
         self.write_dut_netlist()
 
-        # Run each analysis as an async subprocess
+        # Run each analysis as a concurrent subprocess
         with concurrent.futures.ThreadPoolExecutor() as executor:
             an_results = list(executor.map(self.analysis, self.inp.an))
         return SimResult(an_results)
@@ -120,11 +121,8 @@ class XyceSim(Sim):
         # And ensure all output makes it to `self.dest`
         netlister.flush()
 
-    def analysis(self, an: vsp.Analysis) -> Awaitable[AnalysisResult]:
-        """Execute a `vsp.Analysis`, returning its `AnalysisResult`.
-        Note that while this method is not explicitly `async`,
-        its inner methods `dc`, `ac`, `tran`, etc, all are,
-        and hence return an `Awaitable` future."""
+    def analysis(self, an: vsp.Analysis) -> AnalysisResult:
+        """Execute a `vsp.Analysis`, returning its `AnalysisResult`"""
 
         # `Analysis` is a Union (protobuf `oneof`) of the analysis-types.
         # Unwrap it, and dispatch based on the type.
@@ -142,7 +140,7 @@ class XyceSim(Sim):
             raise NotImplementedError(f"{inner} not implemented")
         raise RuntimeError(f"Unknown analysis type: {inner}")
 
-    def ac(self, an: vsp.AcInput) -> Awaitable[vsp.AcResult]:
+    def ac(self, an: vsp.AcInput) -> vsp.AcResult:
         """Run an AC analysis."""
 
         # Unpack the `AcInput`
@@ -203,7 +201,7 @@ class XyceSim(Sim):
             measurements=measurements,
         )
 
-    def dc(self, an: vsp.DcInput) -> Awaitable[DcResult]:
+    def dc(self, an: vsp.DcInput) -> DcResult:
         """Run a DC analysis."""
 
         # Unpack the `DcInput`
@@ -264,7 +262,7 @@ class XyceSim(Sim):
             measurements=measurements,
         )
 
-    def op(self, an: vsp.OpInput) -> Awaitable[OpResult]:
+    def op(self, an: vsp.OpInput) -> OpResult:
         """Run an operating-point analysis.
         Xyce describes the `.op` analysis as "partially supported".
         Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
@@ -311,7 +309,7 @@ class XyceSim(Sim):
             data=data,
         )
 
-    def tran(self, an: vsp.TranInput) -> Awaitable[vsp.TranResult]:
+    def tran(self, an: vsp.TranInput) -> vsp.TranResult:
         """Run a transient analysis."""
 
         # Extract fields from our `TranInput`
@@ -359,9 +357,9 @@ class XyceSim(Sim):
             analysis_name=an.analysis_name, data=csv_data, measurements=measurements
         )
 
-    def run_xyce_process(self, name: str) -> Awaitable[None]:
+    def run_xyce_process(self, name: str) -> None:
         """Run a `Xyce` sub-process executing the simulation."""
-        return self.run_subprocess(cmd=f"{XYCE_EXECUTABLE} {name}.sp".split(" "))
+        return self.run_subprocess(cmd=shlex.split(f"{XYCE_EXECUTABLE} {name}.sp"))
 
     def parse_measurements(self, analysis_name: str) -> Dict[str, float]:
         # FIXME: the *input* should really be dictating whether we have measurements.

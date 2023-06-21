@@ -4,7 +4,7 @@
 
 # Std-Lib Imports
 import subprocess, os, tempfile
-from typing import Optional, Awaitable, List, IO
+from typing import Optional, List, IO
 from pathlib import Path
 
 # Local/ Project Dependencies
@@ -44,7 +44,7 @@ class Sim:
     @classmethod
     def sim(
         cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
-    ) -> Awaitable[SimResultUnion]:
+    ) -> SimResultUnion:
         """Sim-invoking class method.
         Creates an instance of `cls` as a context manager, run in its simulation directory.
         This should be invoked by typical implementations of a free-standing `sim` function."""
@@ -67,7 +67,7 @@ class Sim:
             return results.to_proto()
         return results
 
-    def run(self) -> Awaitable[SimResultUnion]:
+    def run(self) -> SimResultUnion:
         raise NotImplementedError("`Sim` subclasses must implement `run`")
 
     def __init__(self, inp: vsp.SimInput, opts: SimOptions) -> None:
@@ -95,8 +95,8 @@ class Sim:
         if self.tmpdir is not None:
             self.tmpdir.cleanup()
 
-    def run_subprocess(self, cmd: str) -> Awaitable[None]:
-        """Asynchronously run a shell subprocess invoking command `cmd`.
+    def run_subprocess(self, cmd: str) -> None:
+        """Run a shell subprocess invoking command `cmd`.
         All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`."""
 
         proc = subprocess.Popen(
@@ -108,7 +108,7 @@ class Sim:
         self.subprocesses.append(proc)
         stdout, stderr = proc.communicate()
 
-        # The async subprocess module does not raise Python exceptions: check the return code instead.
+        # The subprocess module does not raise Python exceptions: check the return code instead.
         if proc.returncode != 0:
             from . import SimError
 
