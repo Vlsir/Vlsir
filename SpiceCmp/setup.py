@@ -29,7 +29,7 @@ setup(
     packages=find_packages(),
     python_requires=">=3.7, <3.12",
     install_requires=[
-        "pandas~=1.4",
+        "pandas~=1.3",
         f"hdl21=={_VLSIR_VERSION}",
         f"vlsir=={_VLSIR_VERSION}",
         f"vlsirtools=={_VLSIR_VERSION}",

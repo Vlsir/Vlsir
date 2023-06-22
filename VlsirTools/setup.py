@@ -31,7 +31,7 @@ setup(
     install_requires=[
         f"vlsir=={_VLSIR_VERSION}",  # VLSIR Core Python Bindings
         "numpy~=1.21",  # For `sim_data` simulation results
-        "pandas~=1.4",  # For CSV reading
+        "pandas~=1.3",  # For CSV reading
     ],
     extras_require={
         "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
