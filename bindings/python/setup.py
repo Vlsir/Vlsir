@@ -27,7 +27,11 @@ setup(
     author="Dan Fritchman",
     author_email="dan@fritch.mn",
     packages=find_packages(),
-    python_requires=">=3.8, <3.12",
+    # There's really no code in this package that isn't generated from the schema,
+    # So in principle we don't *need* to specify a python version.
+    # But, it'll show it on the PyPi page and stuff, so we might as well.
+    # As of this writing and protobuf version, that means 3.7+.
+    python_requires=">=3.7",
     install_requires=[
         # Note:
         # This version of protobuf differs pretty substantially from the ones before it;

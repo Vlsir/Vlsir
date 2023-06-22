@@ -27,7 +27,7 @@ setup(
     author="Dan Fritchman",
     author_email="dan@fritch.mn",
     packages=find_packages(),
-    python_requires=">=3.8, <3.12",
+    python_requires=">=3.7, <3.12",
     install_requires=[
         "pandas~=1.4",
         f"hdl21=={_VLSIR_VERSION}",
