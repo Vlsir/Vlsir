@@ -62,18 +62,23 @@ def build():
 
 def uninstall():
     """# Uninstall everything in `packages`."""
-    pkgs = " ".join([pkgname for pkgname, path in packages])
+    pkgs = " ".join([pkgname for (pkgname, path) in packages])
     os.system(f"pip uninstall -y {pkgs}")
 
 
 def install():
-    """# Create dev installs of everything in `packages`, in order."""
+    """# Create dev installs of everything in `packages`.
+    Installs everything in one `pip install` command,
+    which is both faster and better for reporting any dependency incompatibilities."""
 
+    # Get a string like "-e ./Vlsir/bindings/python[dev]" for each
+    pathstr = lambda p: f"-e ./{str(p)}[dev]"
+    args = " ".join([pathstr(p) for (_, p) in packages])
+    cmd = "pip install " + args
+
+    # And run it
     os.chdir(workspace_path)
-    for pkgname, path in packages:
-        os.chdir(path)
-        os.system('pip install -e ".[dev]" ')
-        os.chdir(workspace_path)
+    os.system(cmd)
 
 
 def publish():
@@ -102,8 +107,6 @@ def publish():
     # cd ../bindings/rust
     # cargo publish
 
-    # FIXME/ Coming Soon: JS. And C++, maybe, to some package-manager to be named.
-
 
 def main():
     import argparse
@@ -124,5 +127,7 @@ def main():
     raise ValueError(f"Invalid manage.py action {args.action}")
 
 
-if __name__ == "__main__":
-    main()
+if __name__ != "__main__":
+    raise RuntimeError("It says SCRIPTS right there doesnt it?")
+
+main()
