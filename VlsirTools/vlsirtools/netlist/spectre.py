@@ -375,8 +375,15 @@ class SpectreNetlister(SpectreSpiceShared):
         if len(an.ic):
             raise NotImplementedError
 
-        self.writeln(f"{an.analysis_name} tran stop={an.tstop} ")
+        self.writeln(f"{an.analysis_name} tran stop={an.tstop} {an.raw}")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
         """# Write a noise analysis."""
         raise NotImplementedError
+
+    def write_custom(self, an: vsp.CustomAnalysisInput) -> None:
+        """# Write a Custom analysis."""
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        self.writeln(f"{an.analysis_name} {an.cmd}")
+

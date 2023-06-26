@@ -14,24 +14,15 @@ from enum import Enum
 import vlsir.spice_pb2 as vsp
 from ..netlist.spectre import SpectreNetlister
 from .base import Sim
-<<<<<<< HEAD
-from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult
-from .spice import SupportedSimulators, sim
-=======
 from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, CustomAnalysisResult
-from .spice import (
-    SupportedSimulators,
-    sim,
-    sim_async,  # Not directly used here, but "re-exported"
-)
->>>>>>> fixing issues in sim_data and spectre
+from .spice import SupportedSimulators, sim
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
 
 # The simulator executable invoked. If over-ridden, likely for sake of a specific path or version.
 SPECTRE_EXECUTABLE = "spectre"
 # Additional arguments to pass to the simulator executable.
-SPECTRE_ARGS = ""  ##"++aps"
+SPECTRE_ARGS = "-E -format nutbin"  ##"++aps"
 
 
 def available() -> bool:
@@ -292,7 +283,7 @@ class SpectreSim(Sim):
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
         cmd = (
-            f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs".split(
+            f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} netlist.scs".split(
                 " "
             )
         )
