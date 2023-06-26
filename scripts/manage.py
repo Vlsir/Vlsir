@@ -18,7 +18,7 @@ While this script can be *run* anywhere, it expects that `Hdl21` is located alon
 i.e. that the two have a shared parent directory. 
 """
 
-import os
+import os, argparse
 from enum import Enum
 from pathlib import Path
 
@@ -89,17 +89,22 @@ def publish():
 
     os.chdir(workspace_path)
 
-    def publish_pkg(pkgname: str, path: Path):
-        os.chdir(path)
-        os.system("python setup.py sdist")
-        os.system(
-            f"twine upload -u {USER} -p {PASS} dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
-        )
-        os.chdir(workspace_path)
-
     for pkgname, path in packages:
-        # Publish the package
-        publish_pkg(pkgname, path)
+        # Build a source distribution
+        # No more `setup.py sdist`; that is bad now!
+        # Use these guys: https://pypa-build.readthedocs.io/en/latest/
+        build = f"python -m build --sdist --no-isolation {str(path)}"
+        os.system(build)
+
+        # Check it exists
+        tarball = path / f"dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
+        if not tarball.exists():
+            raise RuntimeError(f"Package build tarball {tarball} not found")
+
+        # Upload it to PyPi
+        upload = f"twine upload -u {USER} -p {PASS} {str(tarball)}"
+        os.system(upload)
+
         # And sit here a minute to let it really sink into that server
         os.system("sleep 10")
 
@@ -109,7 +114,7 @@ def publish():
 
 
 def main():
-    import argparse
+    """# Our fancy command-line interface."""
 
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=[a.value for a in Actions])
