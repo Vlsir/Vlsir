@@ -9,10 +9,9 @@ from io import StringIO
 from typing import Dict, List, Optional
 
 import vlsir.utils_pb2 as vutils
-from vlsir.utils_pb2 import Reference, QualifiedName, ParamValue, Param
+from vlsir.utils_pb2 import Reference, ParamValue, Param
 import vlsir.circuit_pb2 as vckt
 from vlsir.circuit_pb2 import (
-    Module,
     Signal,
     Connection,
     ConnectionTarget,
@@ -48,9 +47,13 @@ def _params(**kwargs):
     return [Param(name=key, value=value) for key, value in kwargs.items()]
 
 
-def _prim(name: str) -> Reference:
+def _prim(name: str) -> vutils.Reference:
     """Create a `Reference` to primitive `name`"""
-    return Reference(external=QualifiedName(domain="vlsir.primitives", name=name))
+    return vutils.Reference(
+        external=vutils.QualifiedName(
+            domain="vlsir.primitives", path=vutils.Path(parts=[name])
+        )
+    )
 
 
 def test_version():
@@ -85,8 +88,8 @@ def test_verilog_netlist1():
         domain="vlsirtools.tests.test_verilog_netlist1",
         modules=[
             # Inner, content-less Module, with a port of each direction
-            Module(
-                name="inner",
+            vckt.Module(
+                path=vutils.Path(parts=["inner"]),
                 parameters=_params(
                     a=ParamValue(integer=3),
                     b=ParamValue(double=1e-9),
@@ -99,14 +102,14 @@ def test_verilog_netlist1():
                 signals=_signals(),
             ),
             # Outer top Module which instantiates `inner`
-            Module(
-                name="top",
+            vckt.Module(
+                path=vutils.Path(parts=["top"]),
                 ports=[],
                 signals=_signals(),
                 instances=[
                     Instance(
                         name="inner",
-                        module=Reference(local="inner"),
+                        module=vutils.Reference(local=vutils.Path(parts=["inner"])),
                         parameters=_params(
                             a=ParamValue(integer=4),
                             b=ParamValue(double=2e-9),
@@ -148,15 +151,15 @@ def test_spice_netlist1():
     bjt1 = vlsirtools.primitives.bipolar(name="bjt1", domain="mymodels")
     t1 = vlsirtools.primitives.tline(name="t1", domain="mymodels")
 
-    def _eref(emod: vckt.ExternalModule) -> Reference:
-        return Reference(external=emod.name)
+    def _eref(emod: vckt.ExternalModule) -> vutils.Reference:
+        return vutils.Reference(external=emod.ident)
 
     pkg = Package(
         domain="vlsir.tests.test_netlist1",
         ext_modules=[mos1, d1, bjt1, t1],
         modules=[
-            Module(
-                name="mid",
+            vckt.Module(
+                path=vutils.Path(parts=["mid"]),
                 parameters=_params(
                     r=ParamValue(double=1e3),
                     l=ParamValue(double=1e-9),
@@ -241,8 +244,8 @@ def test_spice_netlist1():
                     ),
                 ],
             ),
-            Module(
-                name="top",
+            vckt.Module(
+                path=vutils.Path(parts=["top"]),
                 ports=[
                     Port(direction="NONE", signal="VSS"),
                 ],
@@ -250,7 +253,7 @@ def test_spice_netlist1():
                 instances=[
                     Instance(
                         name="imid",
-                        module=Reference(local="mid"),
+                        module=Reference(local=vutils.Path(parts=["mid"])),
                         connections=_connections(
                             vvv=ConnectionTarget(sig="vvv"),
                             VSS=ConnectionTarget(sig="VSS"),
@@ -264,46 +267,6 @@ def test_spice_netlist1():
     vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
 
 
-def test_netlist_hdl21_ideal1():
-    """Test that netlisting a (deprecated) `hdl21.ideal` element fails with a `RuntimeError`."""
-
-    pkg = Package(
-        domain="vlsir.tests.test_netlist_hdl21_ideal1",
-        modules=[
-            Module(
-                name="mid",
-                ports=[
-                    Port(direction="NONE", signal="vvv"),
-                    Port(direction="NONE", signal="VSS"),
-                ],
-                signals=[Signal(name="vvv", width=1), Signal(name="VSS", width=1)],
-                instances=[
-                    Instance(
-                        name="r1",
-                        module=Reference(
-                            external=QualifiedName(
-                                domain="hdl21.ideal",
-                                name="IdealResistor",  # FIXME: being deprecated
-                            )
-                        ),
-                        connections=[
-                            Connection(
-                                portname="p", target=ConnectionTarget(sig="vvv")
-                            ),
-                            Connection(
-                                portname="n", target=ConnectionTarget(sig="VSS")
-                            ),
-                        ],
-                    ),
-                ],
-            )
-        ],
-    )
-    dest = StringIO()
-    with pytest.raises(RuntimeError):
-        vlsirtools.netlist(pkg=pkg, dest=dest, fmt="spice")
-
-
 def dummy_testbench_package():
     """Create and return a `circuit.Package` with a single, (near) empty testbench module.
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes.
@@ -313,9 +276,7 @@ def dummy_testbench_package():
         # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
         return Instance(
             name=name,  # <= Instance name argument here
-            module=Reference(
-                external=QualifiedName(domain="vlsir.primitives", name="resistor")
-            ),
+            module=_prim("resistor"),
             connections=[
                 Connection(portname="p", target=ConnectionTarget(sig="the_other_node")),
                 Connection(portname="n", target=ConnectionTarget(sig="VSS")),
@@ -326,8 +287,8 @@ def dummy_testbench_package():
     return Package(
         domain="vlsirtools.tests.dummy_testbench_package",
         modules=[
-            Module(
-                name="dummy_testbench",
+            vckt.Module(
+                path=vutils.Path(parts=["dummy_testbench"]),
                 ports=[
                     Port(direction="NONE", signal="VSS"),
                 ],
@@ -554,7 +515,7 @@ def test_noise1():
         domain="vlsirtools.tests.test_noise1",
         modules=[
             vckt.Module(
-                name="noisetb",
+                path=vutils.Path(parts=["noisetb"]),
                 ports=[
                     vckt.Port(direction="NONE", signal="VSS"),
                 ],
@@ -566,8 +527,9 @@ def test_noise1():
                     Instance(
                         name="r1",
                         module=Reference(
-                            external=QualifiedName(
-                                domain="vlsir.primitives", name="resistor"
+                            external=vutils.QualifiedName(
+                                domain="vlsir.primitives",
+                                path=vutils.Path(parts=["resistor"]),
                             )
                         ),
                         connections=[
@@ -584,8 +546,9 @@ def test_noise1():
                     Instance(
                         name="v1",
                         module=Reference(
-                            external=QualifiedName(
-                                domain="vlsir.primitives", name="vdc"
+                            external=vutils.QualifiedName(
+                                domain="vlsir.primitives",
+                                path=vutils.Path(parts=["vdc"]),
                             )
                         ),
                         connections=[

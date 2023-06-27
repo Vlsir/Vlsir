@@ -31,7 +31,8 @@ class VerilogNetlister(Netlister):
             raise RuntimeError(f"Module {module_name} doubly defined")
         # Add to our visited lists
         self.module_names.add(module_name)
-        self.pmodules[module.name] = module
+        key = self.get_module_key(module.path)
+        self.pmodules[key] = module
 
         # Collect and index vckt.Signals in this Module by name.
         self.collect_signals_by_name(module)

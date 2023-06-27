@@ -58,8 +58,8 @@ message SimInput {
   // # Circuit Input 
   // The DUT circuit-package under test 
   vlsir.circuit.Package pkg = 1;
-  // Top-level module (name)
-  string top = 2;
+  // Top-level module (path)
+  vlsir.utils.Path top = 2;
 
   // # Simulation Configuration Input 
   // List of simulator options

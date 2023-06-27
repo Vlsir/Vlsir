@@ -7,7 +7,7 @@ Defines the `vlsir.circuit.Package`-worth of the primitive elements
 from typing import List, Sequence, Optional, Dict
 from textwrap import dedent
 
-from vlsir.utils_pb2 import QualifiedName, Param, ParamValue
+from vlsir.utils_pb2 import QualifiedName, Param, ParamValue, Path
 from vlsir.circuit_pb2 import (
     Package,
     ExternalModule,
@@ -22,7 +22,7 @@ Some Helper Content
 """
 
 
-def _signal(name: str, width: int = 1) -> Signal:
+def _signal(name: str) -> Signal:
     return Signal(name=name, width=1)
 
 
@@ -42,7 +42,7 @@ def _ports(names: Sequence[str]) -> List[Port]:
 
 def _qname(name: str) -> QualifiedName:
     # Shorthand to create a `QualifiedName` in the `vlsir.primitives` domain
-    return QualifiedName(domain="vlsir.primitives", name=name)
+    return QualifiedName(domain="vlsir.primitives", path=Path(parts=[name]))
 
 
 """
@@ -71,7 +71,7 @@ package = Package(
     modules=[],  # Empty: no hierarchical/ internally-defined modules
     ext_modules=[  # Primitives are all `ExternalModule`s
         ExternalModule(
-            name=_qname("resistor"),
+            ident=_qname("resistor"),
             desc=dedent(
                 """
                 # Ideal Resistor
@@ -93,7 +93,7 @@ package = Package(
             spicetype=SpiceType.RESISTOR,
         ),
         ExternalModule(
-            name=_qname("capacitor"),
+            ident=_qname("capacitor"),
             desc=dedent(
                 """
                 # Ideal Capacitor
@@ -115,7 +115,7 @@ package = Package(
             spicetype=SpiceType.CAPACITOR,
         ),
         ExternalModule(
-            name=_qname("inductor"),
+            ident=_qname("inductor"),
             desc=dedent(
                 """
                 # Ideal Inductor
@@ -137,7 +137,7 @@ package = Package(
             spicetype=SpiceType.INDUCTOR,
         ),
         ExternalModule(
-            name=_qname("vcvs"),
+            ident=_qname("vcvs"),
             desc=dedent(
                 """
                 # Voltage-Controlled Voltage Source
@@ -156,7 +156,7 @@ package = Package(
             spicetype=SpiceType.VCVS,
         ),
         ExternalModule(
-            name=_qname("vccs"),
+            ident=_qname("vccs"),
             desc=dedent(
                 """
                 # Voltage-Controlled Current Source
@@ -175,7 +175,7 @@ package = Package(
             spicetype=SpiceType.VCCS,
         ),
         ExternalModule(
-            name=_qname("cccs"),
+            ident=_qname("cccs"),
             desc=dedent(
                 """
                 # Current-Controlled Current Source
@@ -194,7 +194,7 @@ package = Package(
             spicetype=SpiceType.CCCS,
         ),
         ExternalModule(
-            name=_qname("ccvs"),
+            ident=_qname("ccvs"),
             desc=dedent(
                 """
                 # Current-Controlled Voltage Source
@@ -213,7 +213,7 @@ package = Package(
             spicetype=SpiceType.CCVS,
         ),
         ExternalModule(
-            name=_qname("isource"),
+            ident=_qname("isource"),
             desc=dedent(
                 """
                 # Independent Current Source
@@ -234,7 +234,7 @@ package = Package(
             spicetype=SpiceType.ISOURCE,
         ),
         ExternalModule(
-            name=_qname("vdc"),
+            ident=_qname("vdc"),
             desc=dedent(
                 """
                 # Independent Voltage Source
@@ -258,7 +258,7 @@ package = Package(
             spicetype=SpiceType.VSOURCE,
         ),
         ExternalModule(
-            name=_qname("vpulse"),
+            ident=_qname("vpulse"),
             desc=dedent(
                 """
                 # Pulse Voltage Source
@@ -284,7 +284,7 @@ package = Package(
             spicetype=SpiceType.VSOURCE,
         ),
         ExternalModule(
-            name=_qname("vsin"),
+            ident=_qname("vsin"),
             desc=dedent(
                 """
                 # Sinusoidal Voltage Source
@@ -308,7 +308,7 @@ package = Package(
         ),
         # FIXME: there's no straightforward way to implement "pwl", without list-valued parameters
         # ExternalModule(
-        #     name=_qname("vpwl"),
+        #     ident=_qname("vpwl"),
         #     desc=dedent(
         #         """
         #         # Piece-wise Linear Voltage Source
@@ -336,7 +336,10 @@ dct: Dict[str, ExternalModule] = dict()
 
 for emod in package.ext_modules:
     # First make sure the module-name is valid, and not already defined.
-    modname = emod.name.name
+    path_parts = emod.ident.path.parts
+    if len(path_parts) != 1:
+        raise RuntimeError(f"Invalid module-name: {emod.name}")
+    modname = path_parts[0]
     if "." in modname:
         raise RuntimeError(f"Invalid module-name: {emod.name}")
 
@@ -379,7 +382,7 @@ def mos(
             """
     )
     return ExternalModule(
-        name=QualifiedName(domain=domain, name=name),
+        ident=QualifiedName(domain=domain, path=Path(parts=[name])),
         desc=desc,
         ports=_ports(["d", "g", "s", "b"]),
         signals=_signals(["d", "g", "s", "b"]),
@@ -410,7 +413,7 @@ def bipolar(
     )
 
     return ExternalModule(
-        name=QualifiedName(domain=domain, name=name),
+        ident=QualifiedName(domain=domain, path=Path(parts=[name])),
         desc=desc,
         ports=_ports(("c", "b", "e")),
         signals=_signals(("c", "b", "e")),
@@ -439,7 +442,7 @@ def diode(
         """
     )
     return ExternalModule(
-        name=QualifiedName(domain=domain, name=name),
+        ident=QualifiedName(domain=domain, path=Path(parts=[name])),
         desc=desc,
         ports=_ports(("p", "n")),
         signals=_signals(("p", "n")),
@@ -468,7 +471,7 @@ def tline(
     )
 
     return ExternalModule(
-        name=QualifiedName(domain=domain, name=name),
+        ident=QualifiedName(domain=domain, path=Path(parts=[name])),
         desc=desc,
         ports=_ports(
             (

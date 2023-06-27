@@ -130,8 +130,8 @@ enum SpiceType {
 // formats.
 message ExternalModule {
 
-  // Qualified External Module Name
-  vlsir.utils.QualifiedName name = 1;
+  // Qualified Identifier
+  vlsir.utils.QualifiedName ident = 1;
   // Description
   string desc = 2;
   // Port Definitions

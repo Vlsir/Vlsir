@@ -4,41 +4,48 @@
 
 # Import the package under test
 import vlsir
+import vlsir.utils_pb2 as vutils
+import vlsir.circuit_pb2 as vckt
+
+
+def test_utils():
+    """Test creation of utility types"""
+    vutils.Path(parts=["top"])
+    vutils.QualifiedName(domain="xyz", path=vutils.Path(parts=["top"]))
+    vutils.Reference(local=vutils.Path(parts=["top"]))
+    vutils.Reference(
+        external=vutils.QualifiedName(domain="xyz", path=vutils.Path(parts=["top"]))
+    )
 
 
 def test_sim():
     """# Test creation of a `vlsir.spice.SimInput`"""
 
-    from vlsir.circuit_pb2 import (
-        Module,
-        Signal,
-        Connection,
-        ConnectionTarget,
-        Port,
-        Instance,
-    )
-    from vlsir.utils_pb2 import Reference, QualifiedName
-
     inp = vlsir.spice.SimInput()
     inp.pkg.modules.append(
-        Module(
-            name="top",
-            ports=[Port(direction="NONE", signal="VSS")],
-            signals=[Signal(name="1", width=1), Signal(name="VSS", width=1)],
+        vckt.Module(
+            path=vutils.Path(parts=["top"]),
+            ports=[vckt.Port(direction="NONE", signal="VSS")],
+            signals=[vckt.Signal(name="1", width=1), vckt.Signal(name="VSS", width=1)],
             instances=[
-                Instance(
+                vckt.Instance(
                     name="r1",
-                    module=Reference(
-                        external=QualifiedName(
-                            domain="vlsir.primitives", name="resistor"
+                    module=vutils.Reference(
+                        external=vutils.QualifiedName(
+                            domain="vlsir.primitives",
+                            path=vutils.Path(parts=["resistor"]),
                         )
                     ),
                     connections=[
-                        Connection(portname="p", target=ConnectionTarget(sig="1")),
-                        Connection(portname="n", target=ConnectionTarget(sig="VSS")),
+                        vckt.Connection(
+                            portname="p", target=vckt.ConnectionTarget(sig="1")
+                        ),
+                        vckt.Connection(
+                            portname="n", target=vckt.ConnectionTarget(sig="VSS")
+                        ),
                     ],
                 )
             ],
         )
     )
-    inp.top = "top"
+    inp.top.parts.extend(["top"])
