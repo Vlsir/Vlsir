@@ -137,7 +137,7 @@ message OpInput {
   // Control Elements 
   repeated Control ctrls = 5;
   // Optional raw string for netlisting
-  string raw = 6;
+  string raw_suffix = 6;
 }
 // Operating Point Results 
 message OpResult {
@@ -166,7 +166,7 @@ message DcInput {
   // Control Elements 
   repeated Control ctrls = 5;
   // Optional raw string for netlisting
-  string raw = 6;
+  string raw_suffix = 6;
 }
 // # Dc Sweep Result 
 // 
@@ -202,7 +202,7 @@ message TranInput {
   // Control Elements 
   repeated Control ctrls = 5;
   // Optional raw string for netlisting
-  string raw = 6;
+  string raw_suffix = 6;
 }
 // # Transient Analysis Results 
 message TranResult {
@@ -241,7 +241,7 @@ message AcInput {
   // Control Elements 
   repeated Control ctrls = 5; 
   // Optional raw string for netlisting
-  string raw = 6;
+  string raw_suffix = 6;
 }
 // # AC Analysis Results 
 // 
@@ -288,7 +288,7 @@ message NoiseInput {
   // Control Elements 
   repeated Control ctrls = 20; 
   // Optional raw string for netlisting
-  string raw = 6;
+  string raw_suffix = 6;
 }
 // # Noise Analysis Results 
 // 
