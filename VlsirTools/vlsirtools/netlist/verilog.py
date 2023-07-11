@@ -68,6 +68,9 @@ class VerilogNetlister(Netlister):
         else:
             self.writeln("// No Instances")
 
+        # Write any netlist-literal content
+        self.write_literals(module.literals)
+
         # Close up the module
         self.indent -= 1
         self.writeln("")  # Blank before `endmodule`

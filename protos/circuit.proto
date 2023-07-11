@@ -103,6 +103,8 @@ message Module {
   repeated Instance instances = 4;
   // Parameters
   repeated vlsir.utils.Param parameters = 5;
+  // Literal Contents, e.g. in downstream EDA formats
+  repeated string literals = 6;
 }
 
 // Spice Type, used to identify what a component is in spice
