@@ -22,7 +22,7 @@ import os, argparse
 from enum import Enum
 from pathlib import Path
 
-VLSIR_VERSION = "4.0.dev0"
+VLSIR_VERSION = "4.0.0rc0"
 
 
 class Actions(Enum):
@@ -49,6 +49,7 @@ packages = [
     ("hdl21", Path("Hdl21")),
     ("asap7-hdl21", Path("Hdl21/pdks/Asap7")),
     ("sky130-hdl21", Path("Hdl21/pdks/Sky130")),
+    ("gf180-hdl21", Path("Hdl21/pdks/Gf180")),
     ("spicecmp", Path("Vlsir/SpiceCmp")),
 ]
 
@@ -82,12 +83,11 @@ def install():
 
 
 def publish():
-    """Publish all Python packages to PyPi"""
-
-    USER = os.environ["PYPI_USERNAME"]
-    PASS = os.environ["PYPI_PASSWORD"]
+    """Publish all Python packages to PyPi
+    Credentials must be provided by a .pypirc file or similar."""
 
     os.chdir(workspace_path)
+    print(f"Publishing from {workspace_path}")
 
     for pkgname, path in packages:
         # Build a source distribution
@@ -101,8 +101,12 @@ def publish():
         if not tarball.exists():
             raise RuntimeError(f"Package build tarball {tarball} not found")
 
+        # Run twine's built-in checks
+        check = f"twine check {str(tarball)}"
+        os.system(check)
+
         # Upload it to PyPi
-        upload = f"twine upload -u {USER} -p {PASS} {str(tarball)}"
+        upload = f"twine upload {str(tarball)}"
         os.system(upload)
 
         # And sit here a minute to let it really sink into that server
