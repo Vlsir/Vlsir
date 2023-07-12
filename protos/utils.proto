@@ -72,21 +72,23 @@ message Param {
   string desc = 3;
 }
 
+message Path {
+  repeated string parts = 1;
+}
+
 // # Domain-Qualified Name
 // Refers to an object outside its own namespace, at the global domain `domain`.
 message QualifiedName {
   string domain = 1;
-  string name = 2;
+  Path path = 2;
 }
 
 // # Reference
-// Pointer to another Message, either defined in its own namespace (local) or
-// another (external).
+// Pointer to another Message, either defined in its own namespace (local) or another (external).
 message Reference {
   oneof to {
-    // Local string-valued reference.
-    // Typically the `name` or similar field of the referent.
-    string local = 1;
+    // Local reference
+    Path local = 1;
     // Domain-qualified external reference
     QualifiedName external = 2;
   }

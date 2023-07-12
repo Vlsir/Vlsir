@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 import vlsir
 import vlsir.circuit_pb2 as vckt
 import vlsir.spice_pb2 as vsp
+import vlsir.utils_pb2 as vutils
 from .. import primitives
 from ..spicetype import SpiceType
 
@@ -165,7 +166,7 @@ class Netlister:
         self.indent = Indent(chars="  ")
 
         self.module_names = set()  # Netlisted Module names
-        self.pmodules = dict()  # Visited proto-Modules
+        self.pmodules: Dict[Tuple, vckt.Module] = dict()  # Visited proto-Modules
 
         # Keep two dictionaries tracking `ExternalModule`s:
         # * The VLSIR schema identifies them to two-string (domain, name) tuples. This is their "primary key".
@@ -173,7 +174,7 @@ class Netlister:
         # So it's possible for two distinct VLSIR ExternalModules to conflict in netlist-language.
         # If and when this happens netlisting will raise an exception.
         # FIXME: that could maybe be configurable?
-        self.ext_modules_by_key: Dict[Tuple[str, str], vckt.ExternalModule] = dict()
+        self.ext_modules_by_key: Dict[Tuple, vckt.ExternalModule] = dict()
         self.ext_modules_by_name: Dict[str, vckt.ExternalModule] = dict()
 
         # Similar tracking of ExternalModules which resolve to SPICE `.model` definitions
@@ -211,6 +212,14 @@ class Netlister:
     # Data Model Helpers
     """
 
+    def get_module_key(self, path: vutils.Path) -> Tuple[str]:
+        """Get the "primary key" of `module`, i.e. the tuple of its `path` strings."""
+        return tuple(path.parts)
+
+    def get_external_module_key(self, qname: vutils.QualifiedName) -> Tuple[str]:
+        """Get the "primary key" of `emod`, i.e. the tuple `(domain, *path)`"""
+        return tuple([qname.domain] + list(qname.path.parts))
+
     def get_external_module(self, emod: vckt.ExternalModule) -> None:
         """# Visit an `ExternalModule`
         "Netlisting" these doesn't actually write anything, but just stores a reference in internal dictionaries for future references to them.
@@ -226,7 +235,7 @@ class Netlister:
         # Check for duplicate definitions by "primary key" (domain, name)
         # Note we *do not* check on a name-only basis here; this is left to instantiation-time,
         # largely so that we can determine which ExternalModules resolve to subcircuits vs SPICE models.
-        key = (emod.name.domain, emod.name.name)
+        key = self.get_external_module_key(emod.ident)
         if key in self.ext_modules_by_key:
             raise RuntimeError(f"Invalid doubly-defined external module {emod}")
         self.ext_modules_by_key[key] = emod
@@ -294,10 +303,16 @@ class Netlister:
     @classmethod
     def get_module_name(cls, module: vckt.Module) -> str:
         """Create a netlist-compatible name for proto-Module `module`"""
+        return cls.module_path_to_name(module.path)
 
-        # Create the module name
-        # Replace all format-invalid characters with underscores
-        name = module.name.split(".")[-1]
+    @classmethod
+    def module_path_to_name(cls, path: Union[vutils.Path, List[str]]) -> str:
+        """Convert a `vutils.Path` or list of strings to a netlist-compatible name."""
+        if isinstance(path, vutils.Path):
+            path = path.parts
+
+        PATHSEP = "__"
+        name = PATHSEP.join(path)
         for ch in name:
             if not (ch.isalpha() or ch.isdigit() or ch == "_"):
                 name = name.replace(ch, "_")
@@ -307,7 +322,8 @@ class Netlister:
         """Resolve the `ModuleLike` referent of `ref`."""
 
         if ref.WhichOneof("to") == "local":  # Internally-defined Module
-            module = self.pmodules.get(ref.local, None)
+            key = self.get_module_key(ref.local)
+            module = self.pmodules.get(key, None)
             if module is None:
                 raise RuntimeError(f"Invalid undefined Module {ref.local} ")
             return ResolvedModule(
@@ -319,8 +335,11 @@ class Netlister:
             # First check the priviledged/ internally-defined domains
             if ref.external.domain == "vlsir.primitives":
                 # Built-in primitive. Load its definition from the `vlsir.primitives` (python) module.
-                name = ref.external.name
-                module = primitives.dct.get(ref.external.name, None)
+                path_parts = ref.external.path.parts
+                if len(path_parts) != 1:
+                    raise RuntimeError(f"Invalid primitive path {ref.external.path}")
+                name = path_parts[0]
+                module = primitives.dct.get(name, None)
                 if module is None:
                     raise RuntimeError(f"Invalid undefined primitive {ref.external}")
 
@@ -375,7 +394,7 @@ class Netlister:
                 raise RuntimeError(msg)
 
             else:  # Externally-Defined, External-Domain `ExternalModule`
-                key = (ref.external.domain, ref.external.name)
+                key = self.get_external_module_key(ref.external)
                 module = self.ext_modules_by_key.get(key, None)
                 if module is None:
                     msg = f"Invalid Instance of undefined External Module {key}"
@@ -406,7 +425,7 @@ class Netlister:
                 else:  # SPICE Model Reference
 
                     # Again check for duplicates on a name-only basis
-                    modelname = ref.external.name
+                    modelname = ref.external.path.parts[-1]
                     cached = self.spice_models_by_name.get(modelname, None)
                     if cached is not None and cached is not module:
                         msg = f"Conflicting ExternalModule definitions {module} and {cached}"

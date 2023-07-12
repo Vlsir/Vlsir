@@ -78,6 +78,7 @@ class SpiceNetlister(SpectreSpiceShared):
 
         # Create the module name
         module_name = self.get_module_name(module)
+
         # Check for double-definition
         if module_name in self.module_names:
             raise RuntimeError(f"Module {module_name} doubly defined")
@@ -87,7 +88,8 @@ class SpiceNetlister(SpectreSpiceShared):
 
         # Add to our visited lists
         self.module_names.add(module_name)
-        self.pmodules[module.name] = module
+        key = self.get_module_key(module.path)
+        self.pmodules[key] = module
 
         # Create the sub-circuit definition header
         self.writeln(f".SUBCKT {module_name}")
@@ -287,7 +289,7 @@ class SpiceNetlister(SpectreSpiceShared):
         self.write_instance_conns(pinst, ref.module)
 
         # Handle each of the voltage-source cases
-        name = ref.module.name.name
+        name = ref.module.ident.path.parts[-1]
         if name == "vdc":
             dc = resolved_param_values.pop("dc")
             self.write(f"+ dc {self.format_expression(dc)} \n")

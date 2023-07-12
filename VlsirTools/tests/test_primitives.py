@@ -12,7 +12,10 @@ def test_primitives1():
     assert len(primitives.package.desc)
     assert len(primitives.package.modules) == 0
     assert len(primitives.package.ext_modules) == 11
-    assert [m.name.name for m in primitives.package.ext_modules] == [
+    for emod in primitives.package.ext_modules:
+        assert isinstance(emod, vckt.ExternalModule)
+        assert len(emod.ident.path.parts) == 1
+    assert [m.ident.path.parts[0] for m in primitives.package.ext_modules] == [
         "resistor",
         "capacitor",
         "inductor",
@@ -77,23 +80,23 @@ def test_primitive_functions():
     assert isinstance(primitives.mos, FunctionType)
     mos1 = primitives.mos("mos1")
     assert isinstance(mos1, vckt.ExternalModule)
-    assert mos1.name.domain == "vlsir.primitives.mos"
-    assert mos1.name.name == "mos1"
+    assert mos1.ident.domain == "vlsir.primitives.mos"
+    assert mos1.ident.path.parts == ["mos1"]
 
     assert isinstance(primitives.bipolar, FunctionType)
     bjt1 = primitives.bipolar("bjt1")
     assert isinstance(bjt1, vckt.ExternalModule)
-    assert bjt1.name.domain == "vlsir.primitives.bipolar"
-    assert bjt1.name.name == "bjt1"
+    assert bjt1.ident.domain == "vlsir.primitives.bipolar"
+    assert bjt1.ident.path.parts == ["bjt1"]
 
     assert isinstance(primitives.diode, FunctionType)
     d1 = primitives.diode("d1")
     assert isinstance(d1, vckt.ExternalModule)
-    assert d1.name.domain == "vlsir.primitives.diode"
-    assert d1.name.name == "d1"
+    assert d1.ident.domain == "vlsir.primitives.diode"
+    assert d1.ident.path.parts == ["d1"]
 
     assert isinstance(primitives.tline, FunctionType)
     t1 = primitives.tline("t1")
     assert isinstance(t1, vckt.ExternalModule)
-    assert t1.name.domain == "vlsir.primitives.tline"
-    assert t1.name.name == "t1"
+    assert t1.ident.domain == "vlsir.primitives.tline"
+    assert t1.ident.path.parts == ["t1"]

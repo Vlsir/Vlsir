@@ -28,8 +28,8 @@ message Port {
     INOUT = 2;
     NONE = 3;
   }
-  string signal = 1;        // Reference to `Signal` by name
-  Direction direction = 2;  // Port direction
+  string signal = 1;       // Reference to `Signal` by name
+  Direction direction = 2; // Port direction
 }
 
 // # Signal
@@ -55,9 +55,7 @@ message Slice {
 
 // Signal Concatenation
 // FIXME: documentation of ordering, MSB-LSB
-message Concat {
-  repeated ConnectionTarget parts = 1;
-}
+message Concat { repeated ConnectionTarget parts = 1; }
 
 // # ConnectionTarget Union
 // Enumerates all types that can be
@@ -65,13 +63,13 @@ message Concat {
 // (b) Concatenated
 message ConnectionTarget {
   oneof stype {
-    string sig = 1;     // Reference to `Signal` (name) `sig`
-    Slice slice = 2;    // Slice into signals
-    Concat concat = 3;  // Concatenation of signals
+    string sig = 1;    // Reference to `Signal` (name) `sig`
+    Slice slice = 2;   // Slice into signals
+    Concat concat = 3; // Concatenation of signals
   }
 }
 
-// # Port Connection 
+// # Port Connection
 // Pairing between an Instance port (name) and a parent-module ConnectionTarget.
 message Connection {
   string portname = 1;
@@ -92,10 +90,11 @@ message Instance {
 
 // Module - the primary unit of hardware re-use
 message Module {
-  // Module Name
-  string name = 1;
-  // Port List, referring to elements of `signals` by name 
-  // Ordered as they will be in order-sensitive formats, such as typical netlist formats. 
+  // Module Path
+  vlsir.utils.Path path = 1;
+  // Port List, referring to elements of `signals` by name
+  // Ordered as they will be in order-sensitive formats, such as typical netlist
+  // formats.
   repeated Port ports = 2;
   // Signal Definitions, including externally-facing `Port` signals
   repeated Signal signals = 3;
@@ -131,12 +130,13 @@ enum SpiceType {
 // formats.
 message ExternalModule {
 
-  // Qualified External Module Name
-  vlsir.utils.QualifiedName name = 1;
+  // Qualified Identifier
+  vlsir.utils.QualifiedName ident = 1;
   // Description
   string desc = 2;
   // Port Definitions
-  // Ordered as they will be in order-sensitive formats, such as typical netlist formats. 
+  // Ordered as they will be in order-sensitive formats, such as typical netlist
+  // formats.
   repeated Port ports = 3;
   // Signal Definitions, limited to those used by external-facing ports.
   repeated Signal signals = 4;
