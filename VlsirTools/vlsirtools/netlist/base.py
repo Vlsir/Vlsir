@@ -605,6 +605,7 @@ class Netlister:
             op=self.write_op,
             tran=self.write_tran,
             noise=self.write_noise,
+            custom=self.write_custom,
         )
         if inner not in inner_dispatch:
             self.fail(f"Invalid analysis type {inner}")
@@ -728,6 +729,10 @@ class Netlister:
         raise NotImplementedError
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
+        """# Write a noise analysis."""
+        raise NotImplementedError
+
+    def write_custom(self, an: vsp.CustomAnalysisInput) -> None:
         """# Write a noise analysis."""
         raise NotImplementedError
 

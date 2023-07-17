@@ -1,7 +1,7 @@
 """
-# Sim Data 
+# Sim Data
 
-A mirror of Spice Proto's Analysis Result objects for in-Python usage, 
+A mirror of Spice Proto's Analysis Result objects for in-Python usage,
 using python data classes and numpy arrays.
 
 Also provides round-tripping utilities between the two.
@@ -11,11 +11,12 @@ TODO: Go from proto -> sim_result
 
 from enum import Enum
 from dataclasses import dataclass, field
-from typing import List, Mapping, Union, ClassVar, Dict, Optional
+from typing import List, Mapping, Union, ClassVar, Dict, Optional, Any
 
 import numpy as np
 
 import vlsir.spice_pb2 as vsp
+import vlsir
 
 
 class AnalysisType(Enum):
@@ -142,6 +143,10 @@ class CustomAnalysisResult:
     to pair with its input analysis, keeping all others aligned."""
 
     vlsir_type: ClassVar[AnalysisType] = AnalysisType.CUSTOM
+    data: Any
+    
+    def to_proto(self) -> vlsir.spice.AcResult:
+        return {}
 
 
 # Type alias for the union of each result-type
