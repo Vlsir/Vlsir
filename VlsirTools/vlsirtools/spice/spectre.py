@@ -3,7 +3,7 @@ Spectre Implementation of `vlsir.spice.Sim`
 """
 
 # Std-Lib Imports
-import subprocess, re, shutil, glob
+import subprocess, re, shutil, glob, shlex
 import numpy as np
 from typing import Tuple, Any, Mapping, Optional, IO, Dict
 from dataclasses import dataclass
@@ -160,11 +160,7 @@ class SpectreSim(Sim):
     def run_spectre_process(self) -> None:
         """Run a Spectre sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = (
-            f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs".split(
-                " "
-            )
-        )
+        cmd = shlex.split(f"{SPECTRE_EXECUTABLE} {SPECTRE_ARGS} -E -format nutbin netlist.scs")
         return self.run_subprocess(cmd)
 
 
