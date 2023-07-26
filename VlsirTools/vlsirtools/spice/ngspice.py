@@ -93,10 +93,10 @@ class NGSpiceSim(Sim):
             noise=self.parse_noise,
         )
         an_name_dispatch = dict(
-            op="Plotname: Operating Point\n",
-            dc="Plotname: DC Analysis\n",
-            ac="Plotname: AC Analysis\n",
-            tran="Plotname: Transient Analysis\n",
+            op="Plotname: Operating Point\r\n",
+            dc="Plotname: DC Analysis\r\n",
+            ac="Plotname: AC Analysis\r\n",
+            tran="Plotname: Transient Analysis\r\n",
             noise="FIXME! do we still want this setup?",
         )
         results = []
@@ -325,7 +325,7 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     # Read the binary data, should look like the following:
     # Binary: \n[Binary data]
     binary_line = f.readline().decode("ascii")
-    assert binary_line == "Binary:\n"
+    assert binary_line == "Values:\r\n"
     # Data is big endian
     bin_data = np.fromfile(
         f, dtype=np.dtype(nptype).newbyteorder("<"), count=num_vars * num_pts
