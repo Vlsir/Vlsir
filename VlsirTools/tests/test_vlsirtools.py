@@ -113,8 +113,9 @@ def test_verilog_netlist1():
                             b=ParamValue(double_value=2e-9),
                             d=ParamValue(literal="2+2"),
                             e=ParamValue(
-                                prefixed=vutils.Prefixed(prefix="MICRO",
-                                                         string_value="22.22")
+                                prefixed=vutils.Prefixed(
+                                    prefix="MICRO", string_value="22.22"
+                                )
                             ),
                         ),
                         connections=[
@@ -194,7 +195,7 @@ def test_spice_netlist1():
                         connections=default_conns(),
                         parameters=_params(
                             dc=ParamValue(double_value=1.1),
-                            ac=ParamValue(double_value=0)
+                            ac=ParamValue(double_value=0),
                         ),
                     ),
                     Instance(
@@ -310,7 +311,8 @@ def test_netlist_hdl21_ideal1():
 def dummy_testbench_package():
     """Create and return a `circuit.Package` with a single, (near) empty testbench module.
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes.
-    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node"."""
+    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node".
+    """
 
     def _r(name: str) -> Instance:
         # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
@@ -582,8 +584,9 @@ def test_noise1():
                                 portname="n", target=ConnectionTarget(sig="VSS")
                             ),
                         ],
-                        parameters=[Param(name="r",
-                                          value=ParamValue(double_value=1e3))],
+                        parameters=[
+                            Param(name="r", value=ParamValue(double_value=1e3))
+                        ],
                     ),
                     Instance(
                         name="v1",
