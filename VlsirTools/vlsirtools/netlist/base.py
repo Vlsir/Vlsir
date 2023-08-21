@@ -242,13 +242,13 @@ class Netlister:
     def get_param_value(cls, ppval: vlsir.ParamValue) -> str:
         """Get a string representation of a parameter-value"""
         ptype = ppval.WhichOneof("value")
-        if ptype == "integer":
-            return str(int(ppval.integer))
-        if ptype == "double":
-            return str(float(ppval.double))
-        if ptype == "string":
+        if ptype == "int64_value":
+            return str(int(ppval.int64_value))
+        if ptype == "double_value":
+            return str(float(ppval.double_value))
+        if ptype == "string_value":
             # String-valued parameters get embedded in double-quotes
-            return f'"{str(ppval.string)}"'
+            return f'"{str(ppval.string_value)}"'
         if ptype == "literal":
             # Whereas *literal* strings, e.g. "22.22e6-11e-1", do not.
             return str(ppval.literal)
@@ -641,11 +641,11 @@ class Netlister:
     def format_prefixed(cls, pre: vlsir.Prefixed) -> str:
         prefix = cls.format_prefix(pre.prefix)
         numtp = pre.WhichOneof("number")
-        if numtp == "integer":
-            num = str(pre.integer)
-        elif numtp == "string":
-            num = str(pre.string)
-        elif numtp == "double":
+        if numtp == "int64_value":
+            num = str(pre.int64_value)
+        elif numtp == "string_value":
+            num = str(pre.string_value)
+        elif numtp == "double_value":
             raise ValueError(f"Deprecated double-valued Prefixed parameter {pre}")
         else:
             raise ValueError(f"Invalid `Prefixed` number type {numtp}")
