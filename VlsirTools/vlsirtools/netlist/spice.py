@@ -143,6 +143,9 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
+        if not pinst.HasField('module'):
+            raise RuntimeError(f'Instance is missing reference {pinst=}')
+
         # Resolve what kinda thing we are to instantiate
         ref = self.resolve_reference(pinst.module)
 
