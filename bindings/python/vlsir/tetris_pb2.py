@@ -312,7 +312,6 @@ Xy = _reflection.GeneratedProtocolMessageType(
 _sym_db.RegisterMessage(Xy)
 
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     _LIBRARY._serialized_start = 69
     _LIBRARY._serialized_end = 174

@@ -36,11 +36,11 @@ enum SIPrefix {
 // # Prefixed
 // A quantity annotated with an `SIPrefix`
 message Prefixed {
-  SIPrefix prefix = 1;  // The metric `SIPrefix`
-  oneof number {        // The numeric suffix, either as int, float, or string
-    int64 integer = 2;  // Int
-    double double = 3;  // Float
-    string string = 4;  // String
+  SIPrefix prefix = 1;          // The metric `SIPrefix`
+  oneof number {                // The numeric suffix, either as int, float, or string
+    int64 int64_value = 2;
+    double double_value = 3;
+    string string_value = 4;
   }
 }
 
@@ -50,10 +50,10 @@ message Prefixed {
 // such as Verilog and SPICE.
 message ParamValue {
   oneof value {
-    bool boolean = 1;   // Boolean
-    int64 integer = 2;  // Int
-    double double = 3;  // Float
-    string string = 4;  // String-valued Param
+    bool bool_value = 1;
+    int64 int64_value = 2;
+    double double_value = 3;
+    string string_value = 4;
     // Literal expressions, e.g. "my_param1 * 5 + sin(your_param3)"
     string literal = 5;
     // Metric-prefixed value, e.g. "11n", "15µ"

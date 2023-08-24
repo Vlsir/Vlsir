@@ -186,7 +186,6 @@ Library = _reflection.GeneratedProtocolMessageType(
 _sym_db.RegisterMessage(Library)
 
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     _UNITS._serialized_start = 1431
     _UNITS._serialized_end = 1473

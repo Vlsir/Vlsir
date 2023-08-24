@@ -252,7 +252,7 @@ package = Package(
                 Param(
                     name="ac",
                     desc="AC/ Small-Signal Magnitude (Volts)",
-                    value=ParamValue(integer=0),
+                    value=ParamValue(int64_value=0),
                 ),
             ],
             spicetype=SpiceType.VSOURCE,
