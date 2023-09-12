@@ -629,7 +629,7 @@ class NgspiceNetlister(SpiceNetlister):
         if sweep_type == "linear":
             sweep = an.sweep.linear
             line = (
-                f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+                f".dc {param} {sweep.start} {sweep.stop} {sweep.step}\n\n"
             )
             self.writeln(line)
         elif sweep_type == "points":
