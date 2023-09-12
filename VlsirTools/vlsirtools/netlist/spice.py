@@ -34,6 +34,8 @@ heavily re-using a central `SpiceNetlister` class, but requiring simulator-speci
 
 # Std-Lib Imports
 from typing import Union
+import random
+import string
 
 # Local Imports
 import vlsir
@@ -678,7 +680,7 @@ class NgspiceNetlister(SpiceNetlister):
         #
         # In response to "where on earth did you find this?" @avi wrote:
         # "this isn't really documented anywhere. I figured this out on a hunch from the syntax for saving transistor parameters, which is something like @m.path_to_transistor[param_name]"
-        #
+
         if an.output_n:  # Differential output spec
             noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
         else:
@@ -691,6 +693,47 @@ class NgspiceNetlister(SpiceNetlister):
         noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
         self.writeln(f".noise {noise_output} {noise_input_source} {noise_sweep}\n")
 
+    def write_sweep(self, an : vsp.SweepInput) -> None:
+        """# Write a sweep analysis."""
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+    
+        self.writeln(".control\n")
+
+        randstr = ''.join(random.choice(string.letters) for i in range(5))
+
+        self.writeln(f"set sweep_var_{randstr} = {parse_sweep(an.sweep)}\n")
+        self.writeln(f"*{randstr} loop\n")
+        self.writeln(f"foreach param_val_{randstr} $sweep_var_{randstr}\{\n")
+        self.writeln(f" set {an.variable} = $param_val_{randstr}\n")
+
+        for a in an.an:
+    
+            self.write_analysis(a)
+    
+        self.writeln("}\n")
+        self.writeln(".endc")
+
+    def write_monte_carlo(self, an : vsp.MonteCarloInput) -> None:
+        """# Write a Monte Carlo analysis."""
+        raise NotImplementedError
+    
+    def write_custom(self, an : vsp.CustomAnalysisInput) -> None:
+        """# Write a Custom analysis."""
+        raise NotImplementedError
+        
+    def parse_sweep(self, sweep : vsp.Sweep) -> str:
+        """# Parse a sweep"""
+        if an.WhichOneof("tp") == "linear":
+            return "("+(",").join([str(i) for i in range(an.start,an.stop,an.step)])+")"
+        elif an.WhichOneof("tp") == "log":
+            return "("+(",").join([str(10**(i/npts)) for i in range(an.start,an.stop*an.npts)])+")"
+        elif an.WhichOneof("tp") == "points":
+            return "("+(",").join([str(i) for i in an.points])+")"
+        else:
+            raise NotImplementedError
 
 class CdlNetlister(SpiceNetlister):
     """FIXME: CDL-Format Netlister"""
