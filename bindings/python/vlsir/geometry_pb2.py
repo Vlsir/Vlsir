@@ -127,7 +127,6 @@ Geometry = _reflection.GeneratedProtocolMessageType(
 _sym_db.RegisterMessage(Geometry)
 
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     _POINT._serialized_start = 28
     _POINT._serialized_end = 57

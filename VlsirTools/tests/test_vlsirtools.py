@@ -44,7 +44,8 @@ def _connections(**kwargs):
 
 
 def _params(**kwargs):
-    """Create a list of `Param`s from keyword args of the form `r=ParamValue(double=1e3)`"""
+    """Create a list of `Param`s from keyword args of the form
+    `r=ParamValue(double_value=1e3)`"""
     return [Param(name=key, value=value) for key, value in kwargs.items()]
 
 
@@ -88,11 +89,11 @@ def test_verilog_netlist1():
             Module(
                 name="inner",
                 parameters=_params(
-                    a=ParamValue(integer=3),
-                    b=ParamValue(double=1e-9),
+                    a=ParamValue(int64_value=3),
+                    b=ParamValue(double_value=1e-9),
                     d=ParamValue(literal="1+1"),
                     e=ParamValue(
-                        prefixed=vutils.Prefixed(prefix="MICRO", string="11.11")
+                        prefixed=vutils.Prefixed(prefix="MICRO", string_value="11.11")
                     ),
                 ),
                 ports=_ports(),
@@ -108,11 +109,13 @@ def test_verilog_netlist1():
                         name="inner",
                         module=Reference(local="inner"),
                         parameters=_params(
-                            a=ParamValue(integer=4),
-                            b=ParamValue(double=2e-9),
+                            a=ParamValue(int64_value=4),
+                            b=ParamValue(double_value=2e-9),
                             d=ParamValue(literal="2+2"),
                             e=ParamValue(
-                                prefixed=vutils.Prefixed(prefix="MICRO", string="22.22")
+                                prefixed=vutils.Prefixed(
+                                    prefix="MICRO", string_value="22.22"
+                                )
                             ),
                         ),
                         connections=[
@@ -158,9 +161,9 @@ def test_spice_netlist1():
             Module(
                 name="mid",
                 parameters=_params(
-                    r=ParamValue(double=1e3),
-                    l=ParamValue(double=1e-9),
-                    c=ParamValue(double=1e-15),
+                    r=ParamValue(double_value=1e3),
+                    l=ParamValue(double_value=1e-9),
+                    c=ParamValue(double_value=1e-15),
                 ),
                 ports=[
                     Port(direction="NONE", signal="vvv"),
@@ -172,33 +175,34 @@ def test_spice_netlist1():
                         name="r",
                         module=_prim("resistor"),
                         connections=default_conns(),
-                        parameters=_params(r=ParamValue(double=1e3)),
+                        parameters=_params(r=ParamValue(double_value=1e3)),
                     ),
                     Instance(
                         name="l",
                         module=_prim("inductor"),
                         connections=default_conns(),
-                        parameters=_params(l=ParamValue(double=1e-9)),
+                        parameters=_params(l=ParamValue(double_value=1e-9)),
                     ),
                     Instance(
                         name="c",
                         module=_prim("capacitor"),
                         connections=default_conns(),
-                        parameters=_params(c=ParamValue(double=1e-15)),
+                        parameters=_params(c=ParamValue(double_value=1e-15)),
                     ),
                     Instance(
                         name="v",
                         module=_prim("vdc"),
                         connections=default_conns(),
                         parameters=_params(
-                            dc=ParamValue(double=1.1), ac=ParamValue(double=0)
+                            dc=ParamValue(double_value=1.1),
+                            ac=ParamValue(double_value=0),
                         ),
                     ),
                     Instance(
                         name="i",
                         module=_prim("isource"),
                         connections=default_conns(),
-                        parameters=_params(dc=ParamValue(double=1e-6)),
+                        parameters=_params(dc=ParamValue(double_value=1e-6)),
                     ),
                     # Model-based instances
                     Instance(
@@ -307,7 +311,8 @@ def test_netlist_hdl21_ideal1():
 def dummy_testbench_package():
     """Create and return a `circuit.Package` with a single, (near) empty testbench module.
     Some simulators *really* don't like empty DUT content, and others don't like singly-connected nodes.
-    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node"."""
+    So the simplest test-bench is two resistors, in parallel, between ground and a single "other node".
+    """
 
     def _r(name: str) -> Instance:
         # Create a canned instance of `vlsir.primitives.resistor` with instance-name `name`
@@ -320,7 +325,7 @@ def dummy_testbench_package():
                 Connection(portname="p", target=ConnectionTarget(sig="the_other_node")),
                 Connection(portname="n", target=ConnectionTarget(sig="VSS")),
             ],
-            parameters=[Param(name="r", value=ParamValue(double=1e3))],
+            parameters=[Param(name="r", value=ParamValue(double_value=1e3))],
         )
 
     return Package(
@@ -413,7 +418,7 @@ def dummy_sim(skip: Optional[List[AnalysisType]] = None):
         pkg=dummy_testbench_package(),
         an=an,
         ctrls=[
-            vsp.Control(param=Param(name="DUMMY", value=ParamValue(integer=0))),
+            vsp.Control(param=Param(name="DUMMY", value=ParamValue(int64_value=0))),
             # This parameter "DUMMY" is the sweep-variable for the DC analysis above.
         ],
     )
@@ -579,7 +584,9 @@ def test_noise1():
                                 portname="n", target=ConnectionTarget(sig="VSS")
                             ),
                         ],
-                        parameters=[Param(name="r", value=ParamValue(double=1e3))],
+                        parameters=[
+                            Param(name="r", value=ParamValue(double_value=1e3))
+                        ],
                     ),
                     Instance(
                         name="v1",
@@ -598,8 +605,8 @@ def test_noise1():
                             ),
                         ],
                         parameters=[
-                            Param(name="dc", value=ParamValue(double=0)),
-                            Param(name="ac", value=ParamValue(double=0)),
+                            Param(name="dc", value=ParamValue(double_value=0)),
+                            Param(name="ac", value=ParamValue(double_value=0)),
                         ],
                     ),
                 ],

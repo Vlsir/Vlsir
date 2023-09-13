@@ -143,6 +143,9 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_instance(self, pinst: vckt.Instance) -> None:
         """Create and return a netlist-string for Instance `pinst`"""
 
+        if not pinst.HasField("module"):
+            raise RuntimeError(f"Instance is missing reference {pinst}")
+
         # Resolve what kinda thing we are to instantiate
         ref = self.resolve_reference(pinst.module)
 
@@ -166,7 +169,8 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_model_instance(self, pinst: vckt.Instance, ref: SpiceModelRef) -> None:
         """# Write a `.model` instance.
         While sub-classes may modify this behavior, the default is to produce netlist-content
-        very similar to that of `write_subckt_instance`, hence the sharing via `write_instance_inner`."""
+        very similar to that of `write_subckt_instance`, hence the sharing via `write_instance_inner`.
+        """
 
         return self.write_instance_inner(
             pinst=pinst,
@@ -180,7 +184,8 @@ class SpiceNetlister(SpectreSpiceShared):
     ) -> None:
         """# Write a subcircuit instance.
         While sub-classes may modify this behavior, the default is to produce netlist-content
-        very similar to that of `write_model_instance`, hence the sharing via `write_instance_inner`."""
+        very similar to that of `write_model_instance`, hence the sharing via `write_instance_inner`.
+        """
 
         return self.write_instance_inner(
             pinst=pinst,
@@ -360,7 +365,7 @@ class SpiceNetlister(SpectreSpiceShared):
             self.write("+ ")
 
         # And write them
-        for (pname, pval) in pvals.items():
+        for pname, pval in pvals.items():
             self.write(f"{pname}={self.format_expression(pval)} ")
 
         self.write("\n")
@@ -482,7 +487,7 @@ class XyceNetlister(SpiceNetlister):
             return self.write_comment("No parameters")
 
         self.write("PARAMS: ")  # <= Xyce-specific
-        for (pname, pval) in pvals.items():
+        for pname, pval in pvals.items():
             self.write(f"{pname}={self.format_expression(pval)} ")
 
         self.write("\n")
