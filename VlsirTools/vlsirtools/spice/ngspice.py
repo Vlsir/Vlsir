@@ -94,7 +94,7 @@ class NGSpiceSim(Sim):
         )
         an_name_dispatch = dict(
             op="Plotname: Operating Point\n",
-            dc="Plotname: DC Analysis\n",
+            dc="Plotname: DC transfer characteristic\n",
             ac="Plotname: AC Analysis\n",
             tran="Plotname: Transient Analysis\n",
             noise="FIXME! do we still want this setup?",
@@ -145,11 +145,11 @@ class NGSpiceSim(Sim):
         )
 
     def parse_dc(self, an: vsp.DcInput, nutbin: "NutBinAnalysis") -> DcResult:
-        measurements = self.get_measurements("*.ms*")
+        measurements = self.get_measurements("*.mt*")
         return DcResult(
             analysis_name=an.analysis_name,
             indep_name=an.indep_name,
-            data=nutbin.data,
+            data={k: v for k, v in nutbin.data.items()},
             measurements=measurements,
         )
 

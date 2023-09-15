@@ -34,8 +34,9 @@ heavily re-using a central `SpiceNetlister` class, but requiring simulator-speci
 
 # Std-Lib Imports
 from typing import Union
-import random
-import string
+
+# Numerical Lib Imports
+from numpy import arange
 
 # Local Imports
 import vlsir
@@ -702,12 +703,12 @@ class NgspiceNetlister(SpiceNetlister):
     
         self.writeln(".control\n")
 
-        randstr = ''.join(random.choice(string.letters) for i in range(5))
+        # randstr = ''.join(random.choice(string.letters) for i in range(5))
 
-        self.writeln(f"set sweep_var_{randstr} = {parse_sweep(an.sweep)}\n")
-        self.writeln(f"*{randstr} loop\n")
-        self.writeln(f"foreach param_val_{randstr} $sweep_var_{randstr}\{\n")
-        self.writeln(f" set {an.variable} = $param_val_{randstr}\n")
+        self.writeln(f"set sweep_var = {self.parse_sweep(an.sweep)}\n")
+        self.writeln(f"* loop\n")
+        self.writeln(f"foreach param_val $sweep_var"+"{\n")
+        self.writeln(f" set {an.variable} = $param_val\n")
 
         for a in an.an:
     
@@ -716,22 +717,25 @@ class NgspiceNetlister(SpiceNetlister):
         self.writeln("}\n")
         self.writeln(".endc")
 
-    def write_monte_carlo(self, an : vsp.MonteCarloInput) -> None:
+    def write_monte_carlo(self, an : vsp.MonteInput) -> None:
         """# Write a Monte Carlo analysis."""
         raise NotImplementedError
-    
+
     def write_custom(self, an : vsp.CustomAnalysisInput) -> None:
         """# Write a Custom analysis."""
-        raise NotImplementedError
-        
+        self.writeln(f"{an.cmd}\n")
+
     def parse_sweep(self, sweep : vsp.Sweep) -> str:
         """# Parse a sweep"""
-        if an.WhichOneof("tp") == "linear":
-            return "("+(",").join([str(i) for i in range(an.start,an.stop,an.step)])+")"
-        elif an.WhichOneof("tp") == "log":
-            return "("+(",").join([str(10**(i/npts)) for i in range(an.start,an.stop*an.npts)])+")"
-        elif an.WhichOneof("tp") == "points":
-            return "("+(",").join([str(i) for i in an.points])+")"
+        if sweep.WhichOneof("tp") == "linear":
+            s = sweep.linear
+            return "("+(",").join([str(i) for i in arange(s.start,s.stop,s.step)])+")"
+        elif sweep.WhichOneof("tp") == "log":
+            s = sweep.log
+            return "("+(",").join([str(10**(i/s.npts)) for i in arange(s.start,s.stop*s.npts)])+")"
+        elif sweep.WhichOneof("tp") == "points":
+            s = sweep.points
+            return "("+(",").join([str(i) for i in s.points])+")"
         else:
             raise NotImplementedError
 

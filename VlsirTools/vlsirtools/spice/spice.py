@@ -47,10 +47,10 @@ def default() -> Optional[SupportedSimulators]:
 
     if spectre_available():
         return SupportedSimulators.SPECTRE
-    if xyce_available():
-        return SupportedSimulators.XYCE
     if ngspice_available():
         return SupportedSimulators.NGSPICE
+    if xyce_available():
+        return SupportedSimulators.XYCE
     return None  # Nothing found
 
 

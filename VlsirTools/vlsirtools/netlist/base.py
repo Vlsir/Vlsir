@@ -738,7 +738,7 @@ class Netlister:
         """# Write a sweep analysis."""
         raise NotImplementedError
     
-    def write_monte_carlo(self, an : vsp.MonteCarloInput) -> None:
+    def write_monte_carlo(self, an : vsp.MonteInput) -> None:
         """# Write a Monte Carlo analysis."""
         raise NotImplementedError
     
