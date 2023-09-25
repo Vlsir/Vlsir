@@ -19,7 +19,7 @@ import vlsir.spice_pb2 as vsp
 from ..netlist import netlist
 from ..netlist.spice import NgspiceNetlister
 from .base import Sim
-from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, NoiseResult
+from .sim_data import TranResult, OpResult, SimResult, AcResult, DcResult, NoiseResult, SweepResult, CustomAnalysisResult
 from .spice import SupportedSimulators, sim
 
 # Module-level configuration. Over-writeable by sufficiently motivated users.
@@ -68,6 +68,8 @@ class NGSpiceSim(Sim):
 
         self.run_sim_process()
 
+        self.batch = True
+
         # Handle stdout and stderr as needed
         # Parse up the results
         return self.parse_results()
@@ -81,6 +83,8 @@ class NGSpiceSim(Sim):
         netlist_file.flush()
         netlist_file.close()
 
+        self.batch = netlister.batch
+
     def parse_results(self) -> SimResult:
         """# Parse output data"""
 
@@ -91,6 +95,8 @@ class NGSpiceSim(Sim):
             op=self.parse_op,
             tran=self.parse_tran,
             noise=self.parse_noise,
+            sweep=self.parse_sweep,
+            custom=self.parse_custom,
         )
         an_name_dispatch = dict(
             op="Plotname: Operating Point\n",
@@ -98,6 +104,7 @@ class NGSpiceSim(Sim):
             ac="Plotname: AC Analysis\n",
             tran="Plotname: Transient Analysis\n",
             noise="FIXME! do we still want this setup?",
+            sweep="sweep"
         )
         results = []
         for an in self.inp.an:
@@ -108,6 +115,26 @@ class NGSpiceSim(Sim):
                 # FIXME: I read somewhere that "Special cases aren't special enough to break the rules."
                 results.append(self.parse_noise(inner, data))
                 continue
+
+            if an_type == "sweep":
+                # But gee, special cases sure are much easier to write!
+                data = parse_iterated_nutbin(self.open("netlist.raw", "rb"))
+                subanalyses = an.an
+
+                for sub in subanalyses:
+
+                    an_type = sub.WhichOneof("an")
+                    inner = getattr(sub, an_type)
+                    func = an_type_dispatch[sub.WhichOneof("an")]
+                    analysis_name = an_name_dispatch[sub.WhichOneof("an")]
+
+                    for d in data.items():
+                        if analysis_name in d[0]:
+                            inner_data = d[1]
+                            an_results = func(inner, inner_data)
+                            results.append(an_results)
+
+                return SimResult(an=results)
 
             if an_type not in an_type_dispatch:
                 msg = f"Invalid or Unsupported analysis {an} with type {an_type}"
@@ -185,6 +212,11 @@ class NGSpiceSim(Sim):
             measurements={},
         )
 
+    def parse_custom(
+        self, an: vsp.CustomAnalysisInput, nutbin: Mapping[str, "NutBinAnalysis"]
+    ) -> SimResult:
+        return CustomAnalysisResult()
+
     def get_measurements(self, filepat: str) -> Dict[str, float]:
         """Get the measurements at files matching (glob) `filepat`.
         Returns only a single files-worth of measurements, and issues a warning if more than one such file exists.
@@ -200,7 +232,10 @@ class NGSpiceSim(Sim):
     def run_sim_process(self) -> None:
         """Run a NGSpice sub-process, executing the simulation"""
         # Note the `nutbin` output format is dictated here
-        cmd = shlex.split(f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw")
+        if self.batch:
+            cmd = shlex.split(f"{NGSPICE_EXECUTABLE} -b netlist.sp -r netlist.raw")
+        else:
+            cmd = shlex.split(f"{NGSPICE_EXECUTABLE} -i netlist.sp -r netlist.raw")
         return self.run_subprocess(cmd)
 
 
@@ -282,6 +317,35 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
         rv[an.analysis_name] = an
     return rv
 
+
+def parse_iterated_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
+    """Parse a `nutbin` that is really multiple nutbins concatenated together.
+    Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`.
+    Note this is paired with the simulator invocation commands, which include `format=nutbin`."""
+
+    # Parse per-file header info
+    # First 2 lines are ascii one line statements
+
+    # And parse the rest of the file per-analysis
+    rv = {}
+
+    # Add a counter and a string cache to keep track of the number of times we've seen a given analysis name
+    # and the last time we saw it
+    counter = {}
+    while f:
+        _title = f.readline()  # Title, ignored
+        _date = f.readline()
+        plotname = f.readline().decode("ascii")
+        if len(plotname) == 0:
+            break
+        if plotname not in counter:
+            counter[plotname] = 0
+        else:
+            counter[plotname] += 1
+        plotname = f"{plotname}{counter[plotname]}"
+        an = parse_nutbin_analysis(f, plotname)
+        rv[an.analysis_name] = an
+    return rv
 
 def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     """Parse a `NutBinAnalysis` from an open nutbin-format file `f`."""

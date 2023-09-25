@@ -76,6 +76,7 @@ class Sim:
         self.rundir = opts.rundir
         self.tmpdir: Optional[tempfile.TemporaryDirectory] = None
         self.subprocesses: List[subprocess.Process] = []
+        self.batch = True
 
     def setup(self):
         """Perform simulation setup, including the simulation directory and top-level Module validation."""

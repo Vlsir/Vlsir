@@ -163,6 +163,7 @@ class Netlister:
     def __init__(self, dest: IO):
         self.dest = dest
         self.indent = Indent(chars="  ")
+        self.ctrl_mode = False  # Control-mode flag
 
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
@@ -201,6 +202,8 @@ class Netlister:
 
     def writeln(self, s: str) -> None:
         """Write `s` as a line, at our current `indent` level."""
+        if self.ctrl_mode:
+            s = s[1:] if s[0] == '.' else s
         self.write(f"{self.indent.state}{s}\n")
 
     def flush(self) -> None:

@@ -702,20 +702,25 @@ class NgspiceNetlister(SpiceNetlister):
             raise NotImplementedError
     
         self.writeln(".control\n")
+        self.ctrl_mode = True
 
-        # randstr = ''.join(random.choice(string.letters) for i in range(5))
+        self.writeln(f"set sweep = {self.parse_sweep(an.sweep)}\n")
+        self.writeln(f"* loop")
+        self.writeln(f"foreach val $sweep")
 
-        self.writeln(f"set sweep_var = {self.parse_sweep(an.sweep)}\n")
-        self.writeln(f"* loop\n")
-        self.writeln(f"foreach param_val $sweep_var"+"{\n")
-        self.writeln(f" set {an.variable} = $param_val\n")
-
+        self.indent += 1
+        self.writeln(f"alter {an.variable} $val")
         for a in an.an:
-    
             self.write_analysis(a)
-    
-        self.writeln("}\n")
+        self.writeln("set appendwrite")
+        self.writeln("write")
+        self.indent -= 1
+
+        self.writeln("end\n")
+        self.ctrl_mode = False
         self.writeln(".endc")
+
+        self.batch = False
 
     def write_monte_carlo(self, an : vsp.MonteInput) -> None:
         """# Write a Monte Carlo analysis."""
@@ -729,13 +734,13 @@ class NgspiceNetlister(SpiceNetlister):
         """# Parse a sweep"""
         if sweep.WhichOneof("tp") == "linear":
             s = sweep.linear
-            return "("+(",").join([str(i) for i in arange(s.start,s.stop,s.step)])+")"
+            return "( "+(" ").join([str(i) for i in arange(s.start,s.stop,s.step)])+" )"
         elif sweep.WhichOneof("tp") == "log":
             s = sweep.log
-            return "("+(",").join([str(10**(i/s.npts)) for i in arange(s.start,s.stop*s.npts)])+")"
+            return "( "+(" ").join([str(10**(i/s.npts)) for i in arange(s.start,s.stop*s.npts)])+" )"
         elif sweep.WhichOneof("tp") == "points":
             s = sweep.points
-            return "("+(",").join([str(i) for i in s.points])+")"
+            return "( "+(" ").join([str(i) for i in s.points])+" )"
         else:
             raise NotImplementedError
 
