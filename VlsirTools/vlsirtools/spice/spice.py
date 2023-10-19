@@ -7,8 +7,9 @@ import os, subprocess
 import concurrent.futures
 from typing import Union, Optional, Sequence, TypeVar
 from enum import Enum
+from pathlib import Path
 from textwrap import dedent
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
@@ -75,6 +76,12 @@ T = TypeVar("T")
 OneOrMore = Union[T, Sequence[T]]
 
 
+@dataclass
+class SimInputAndOptions:
+    inp: vsp.SimInput
+    opts: SimOptions
+
+
 def sim(
     inp: OneOrMore[vsp.SimInput], opts: Optional[SimOptions] = None
 ) -> OneOrMore[SimResultUnion]:
@@ -86,16 +93,6 @@ def sim(
     from .xyce import XyceSim
     from .spectre import SpectreSim
     from .ngspice import NGSpiceSim
-
-    # Sort out the difference between "One" "OrMore" cases of input
-    # For a single `SimInput`, create a list, but note we only want to return a single `SimResult`
-    inp_is_a_single_sim = False
-    if not isinstance(inp, Sequence):
-        inp = [inp]
-        inp_is_a_single_sim = True
-    for x in inp:
-        if not isinstance(x, vsp.SimInput):
-            raise TypeError(f"Expected `vsp.SimInput`, got {x}")
 
     if opts is None:  # Create the default `SimOptions`
         opts = SimOptions()
@@ -114,16 +111,29 @@ def sim(
     else:
         raise ValueError(f"Unsupported simulator: {opts.simulator}")
 
-    if len(inp) > 1 and opts.rundir is not None:
-        # FIXME: how to ultimately handle this "multi-inputs plus specified directory" case
-        raise RuntimeError("Cannot specify a run-directory for multiple simulations")
+    # Sort out the difference between "One" "OrMore" cases of input
+    # For a single `SimInput`, create a list, but note we only want to return a single `SimResult`
+    inp_is_a_single_sim = False
+    if not isinstance(inp, Sequence):
+        inp = [inp]
+        inp_is_a_single_sim = True
+
+    inputs_and_options: List[SimInputAndOptions] = []
+    for idx, x in enumerate(inp):
+        if not isinstance(x, vsp.SimInput):
+            raise TypeError(f"Expected `vsp.SimInput`, got {x}")
+        if len(inp) > 1 and opts.rundir is not None:
+            # Create sub-directories of the form `/run/dir/0`, `/run/dir/1`, etc.
+            this_opts = replace(opts, rundir=Path(opts.rundir) / str(idx))
+            io = SimInputAndOptions(inp=x, opts=this_opts)
+        else:
+            io = SimInputAndOptions(inp=x, opts=opts)
+        inputs_and_options.append(io)
 
     # And do the real work, invoking the target simulator
+    # Note the list of `SimResult`s is ordered per the order of `SimInput`s.
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(cls.sim, i, opts) for i in inp]
-        results = [
-            future.result() for future in concurrent.futures.as_completed(futures)
-        ]
+        results = list(executor.map(cls.apply, inputs_and_options))
 
     # For the sequence of inputs case, return the sequence of results that came back
     if not inp_is_a_single_sim:
