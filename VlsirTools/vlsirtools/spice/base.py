@@ -9,8 +9,13 @@ from pathlib import Path
 
 # Local/ Project Dependencies
 import vlsir.spice_pb2 as vsp
-import vlsir.circuit_pb2 as vckt
-from . import SimResultUnion, SupportedSimulators, SimOptions, ResultFormat
+from . import (
+    SimResultUnion,
+    SupportedSimulators,
+    SimOptions,
+    ResultFormat,
+    SimInputAndOptions,
+)
 
 
 class Sim:
@@ -42,12 +47,26 @@ class Sim:
         raise NotImplementedError
 
     @classmethod
+    def apply(cls, i: SimInputAndOptions) -> SimResultUnion:
+        """# Apply (i.e., simulate) `SimInputAndOptions` `i`."""
+        #
+        # NOTES:
+        #
+        # - This is the entrypoint for multi-input `sim` calls
+        #   - It's particularly helpful to have *one* argument for those
+        # - Not clear what a great name for this would be?
+        #   - Probably ideally, like, an override/ dynamic-dispatch thing with `sim` below.
+        #
+        return cls.sim(i.inp, i.opts)
+
+    @classmethod
     def sim(
         cls, inp: vsp.SimInput, opts: Optional[SimOptions] = None
     ) -> SimResultUnion:
         """Sim-invoking class method.
         Creates an instance of `cls` as a context manager, run in its simulation directory.
-        This should be invoked by typical implementations of a free-standing `sim` function."""
+        This should be invoked by typical implementations of a free-standing `sim` function.
+        """
 
         if opts is None:  # Create the default `SimOptions`
             opts = SimOptions(simulator=cls.enum())
@@ -97,7 +116,8 @@ class Sim:
 
     def run_subprocess(self, cmd: str) -> None:
         """Run a shell subprocess invoking command `cmd`.
-        All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`."""
+        All subprocesses are run in `self.rundir`, and tracked in the list `self.subprocesses`.
+        """
 
         proc = subprocess.Popen(
             cmd,
