@@ -199,7 +199,20 @@ class AnalysisResultsTable:
             if len(self.types[key]) != 1:
                 raise RuntimeError(f"Multiple results of type {key}")
             return self.types[key][0]
-        raise TypeError(f"Invalid index into SimResults: {key} ({type(key)})")
+
+        msg = f"Invalid index into SimResults: {key} ({type(key)}) \n"
+        msg += f"Valid keys include: \n"
+        indices = 0
+        if len(self.order) > 1:
+            indices = f"0-{len(self.order)-1}"
+        msg += f"- (`int` indices) {indices} \n"
+        msg += f"- (`str` names) {list(self.names.keys())} \n"
+        # Get the list of `AnalysisType`s that have a single analysis,
+        # and ergo could be used as keys.
+        vts = [k for k, v in self.types.items() if len(v) == 1]
+        msg += f"- (`AnalysisType`s) {vts} \n"
+
+        raise TypeError(msg)
 
 
 @dataclass
