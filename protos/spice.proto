@@ -31,7 +31,7 @@ package vlsir.spice;
 
 // Local Imports
 import "utils.proto";
-import "circuit.proto";
+import "library.proto";
 
 // ############################################################################
 // # `Spice` Simulator API
@@ -57,7 +57,7 @@ service Spice {
 message SimInput {
   // # Circuit Input 
   // The DUT circuit-package under test 
-  vlsir.circuit.Package pkg = 1;
+  vlsir.library.Library pkg = 1;
   // Top-level module (name)
   string top = 2;
 

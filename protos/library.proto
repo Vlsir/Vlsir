@@ -1,0 +1,59 @@
+syntax = "proto3";
+package vlsir.library;
+
+import "utils.proto";
+import "circuit.proto";
+import "layout.proto";
+
+// # Cell 
+// A multi-view representation of a piece of hardware.
+message Cell {
+  // Cell Name. Serves as the default name for things in this tree, but can be
+  // overidden by the 'name' fields in child Modules and Layouts. 
+  string name = 1;
+
+  // ExternalModule describes the IO Interface to this cell's Module.
+  vlsir.circuit.ExternalModule module_abstract = 10;
+
+  // Circuit Module 
+  vlsir.circuit.Module module = 11;
+
+  // Physical Abstract
+  vlsir.layout.Abstract layout_abstract = 12;
+
+  // Physical Layout Implementation
+  vlsir.layout.Layout layout = 13;
+}
+
+message ExternalCell {
+  // Fully qualified cell name.
+  vlsir.utils.QualifiedName name = 1;
+
+  // ExternalModule describes the IO Interface to this cell's Module.
+  vlsir.circuit.ExternalModule module_abstract = 10;
+
+  // Physical Abstract
+  vlsir.layout.Abstract layout_abstract = 20;
+}
+
+// # Library
+// A Collection of Modules and ExternalModules
+message Library {
+  // Domain Name
+  string domain = 1;
+
+  // Distance Units Prefix (of Meters)
+  vlsir.utils.SIPrefix layout_units = 2; 
+
+  // Cell Definitions
+  repeated Cell cells = 10;
+
+  // `ExternalModule` interfaces used by `modules`, and available externally
+  repeated ExternalCell externals = 20;
+
+  // Description
+  string desc = 30;
+
+  // Author Information 
+  vlsir.utils.AuthorMetadata author = 40;
+}

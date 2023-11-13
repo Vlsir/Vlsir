@@ -6,11 +6,9 @@
 //! 
 
 syntax = "proto3";
-package vlsir.raw;
+package vlsir.layout;
 
 import "utils.proto";
-import "circuit.proto";
-
 
 // # Point
 // An (x,y) point in Cartesian layout space.
@@ -23,7 +21,6 @@ message Point {
 enum Units {
   MICRO = 0;
   NANO = 1;
-  ANGSTROM = 2;
 }
 
 // # Layer-Purpose Pair 
@@ -146,34 +143,4 @@ message AbstractPort {
   // Shapes, grouped by layer 
   repeated LayerShapes shapes = 2; 
 }
-
-// # Cell 
-// A multi-view representation of a piece of hardware.
-message Cell {
-  // Cell Name
-  string name = 1;
-
-  // IO Interface
-  vlsir.circuit.Interface interface = 10;
-  // Circuit Module 
-  vlsir.circuit.Module module = 11;
-  // Physical Abstract
-  Abstract abstract = 12;
-  // Physical Layout Implementation
-  Layout layout = 13;
-}
-
-// # Library 
-// A collection of cells and asssociated meta-data. 
-message Library {
-  // Library Name / Domain 
-  string domain = 1;
-  // Distance Units
-  Units units = 2; 
-  // Cell Definitions
-  repeated Cell cells = 10;
-
-  // Author Information 
-  vlsir.utils.AuthorMetadata author = 20;
-} 
 
