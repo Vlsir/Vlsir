@@ -10,7 +10,7 @@ repository = "https://github.com/Vlsir/Vlsir"
 # FIXME: Rust/ Cargo/ crates.io have a different pre/dev release format from some other package managers. 
 # Particularly there is no "dev" distinction, only "pre"-releases e.g. "3.0.0-pre.3". 
 # And the "pre" comes with a dash instead of a dot. 
-version = "4.0.0" 
+version = "5.0.0" 
 
 [dependencies]
 prost = "0.11.8"

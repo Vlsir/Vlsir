@@ -6,13 +6,13 @@ An crucial element is the dependency-ordered `packages` list,
 which enumerates a valid order for installing or publishing this set of packages 
 which tightly depend on one another. 
 
-* Build 
-    * Run the bindings build script
-* Installation 
-    * Creates "dev mode" `pip install`s for each package 
-* Publication 
-    * Uploads each set of language-bindings to its language-specific package-distributor.
-    * Generally requires the executing-user to be logged into, and have access to, each.
+- Build 
+    - Run the bindings build script
+- Installation 
+    - Creates "dev mode" `pip install`s for each package 
+- Publication 
+    - Uploads each set of language-bindings to its language-specific package-distributor.
+    - Generally requires the executing-user to be logged into, and have access to, each.
 
 While this script can be *run* anywhere, it expects that `Hdl21` is located alongside `Vlsir`, 
 i.e. that the two have a shared parent directory. 
@@ -22,16 +22,9 @@ import os, argparse
 from enum import Enum
 from pathlib import Path
 
-VLSIR_VERSION = "4.0.0"
-
-
-class Actions(Enum):
-    # The available command-line actions
-    # Could this be a more elaborate CLI library thing? Sure.
-    BUILD = "build"
-    INSTALL = "install"
-    UNINSTALL = "uninstall"
-    PUBLISH = "publish"
+# NOTE: this here really needs to match all the package `setup.py` / `pyproject.toml` versions!
+# Perhaps there is some nice monorepo-management tool for this, but we don't know it.
+VLSIR_VERSION = "5.0.0"
 
 
 # Figure out the shared parent directory of Vlsir and Hdl21
@@ -115,6 +108,15 @@ def publish():
     # Rust
     # cd ../bindings/rust
     # cargo publish
+
+
+class Actions(Enum):
+    # The available command-line actions
+    # Could this be a more elaborate CLI library thing? Sure.
+    BUILD = "build"
+    INSTALL = "install"
+    UNINSTALL = "uninstall"
+    PUBLISH = "publish"
 
 
 def main():
