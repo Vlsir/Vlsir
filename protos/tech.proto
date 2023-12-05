@@ -34,11 +34,13 @@ message LayerPurpose {
   LayerPurposeType type  = 2;
 }
 
-message Index {
+// TODO(aryap): This is the same type as vlsir.raw.Layer. This should be
+// factored out into util as LayerIndex.
+message LayerIndex {
   // An integer index identifying the major layer.
-  uint64 major = 1;
+  int64 major = 1;
   // An integer index identifying the sub layer, or purpose.
-  uint64 minor = 2;
+  int64 minor = 2;
 }
 
 // Layers in PDKs roughly correspond to physical layers in the semiconductor
@@ -54,9 +56,9 @@ message LayerInfo {
 
   LayerPurpose purpose = 11;
 
-  Index index = 22;
+  LayerIndex index = 22;
 
   // If the layer is PIN it probably denotes an access port to shapes on some
   // other layer(s), specified here:
-  repeated Index pin_access_for = 31;
+  repeated LayerIndex pin_access_for = 31;
 }
