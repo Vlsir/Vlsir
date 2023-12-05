@@ -36,7 +36,7 @@ message LayerPurpose {
 
 // TODO(aryap): This is the same type as vlsir.raw.Layer. This should be
 // factored out into util as LayerIndex.
-message LayerIndex {
+message LayerKey {
   // An integer index identifying the major layer.
   int64 major = 1;
   // An integer index identifying the sub layer, or purpose.
@@ -56,9 +56,9 @@ message LayerInfo {
 
   LayerPurpose purpose = 11;
 
-  LayerIndex index = 22;
+  LayerKey index = 22;
 
   // If the layer is PIN it probably denotes an access port to shapes on some
   // other layer(s), specified here:
-  repeated LayerIndex pin_access_for = 31;
+  repeated LayerKey pin_access_for = 31;
 }
