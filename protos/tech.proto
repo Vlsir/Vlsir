@@ -22,7 +22,7 @@ enum LayerPurposeType {
   UNKNOWN = 0;
   LABEL = 1;  // Layers identified as LABEL will be used to attach net labels.
   DRAWING = 2;
-  PIN = 3;
+  PIN = 3;    // PIN layers provide access to other layers.
   OBSTRUCTION = 4;
   OUTLINE = 5;
 }
@@ -32,6 +32,13 @@ message LayerPurpose {
   string description = 1;
   
   LayerPurposeType type  = 2;
+}
+
+message Index {
+  // An integer index identifying the major layer.
+  uint64 major = 1;
+  // An integer index identifying the sub layer, or purpose.
+  uint64 minor = 2;
 }
 
 // Layers in PDKs roughly correspond to physical layers in the semiconductor
@@ -47,9 +54,9 @@ message LayerInfo {
 
   LayerPurpose purpose = 11;
 
-  // An integer index identifying the major layer.
-  uint64 index = 21;
+  Index index = 22;
 
-  // An integer index identifying the sub layer, or purpose.
-  uint64 sub_index = 31;
+  // If the layer is PIN it probably denotes an access port to shapes on some
+  // other layer(s), specified here:
+  repeated Index pin_access_for = 31;
 }
