@@ -35,6 +35,9 @@ heavily re-using a central `SpiceNetlister` class, but requiring simulator-speci
 # Std-Lib Imports
 from typing import Union
 
+# Numerical Lib Imports
+from numpy import arange
+
 # Local Imports
 import vlsir
 import vlsir.circuit_pb2 as vckt
@@ -634,7 +637,7 @@ class NgspiceNetlister(SpiceNetlister):
         if sweep_type == "linear":
             sweep = an.sweep.linear
             line = (
-                f".dc param start={sweep.start} stop={sweep.stop} step={sweep.step}\n\n"
+                f".dc {param} {sweep.start} {sweep.stop} {sweep.step}\n\n"
             )
             self.writeln(line)
         elif sweep_type == "points":
@@ -683,7 +686,7 @@ class NgspiceNetlister(SpiceNetlister):
         #
         # In response to "where on earth did you find this?" @avi wrote:
         # "this isn't really documented anywhere. I figured this out on a hunch from the syntax for saving transistor parameters, which is something like @m.path_to_transistor[param_name]"
-        #
+
         if an.output_n:  # Differential output spec
             noise_output = f"v(v.xtop.{an.output_p}, v.xtop.{an.output_n})"
         else:
@@ -696,6 +699,55 @@ class NgspiceNetlister(SpiceNetlister):
         noise_sweep = f"dec {an.npts} {an.fstart} {an.fstop}"
         self.writeln(f".noise {noise_output} {noise_input_source} {noise_sweep}\n")
 
+    def write_sweep(self, an : vsp.SweepInput) -> None:
+        """# Write a sweep analysis."""
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        if len(an.ctrls):
+            raise NotImplementedError
+    
+        self.writeln(".control\n")
+        self.ctrl_mode = True
+
+        self.writeln(f"set sweep = {self.parse_sweep(an.sweep)}\n")
+        self.writeln(f"* loop")
+        self.writeln(f"foreach val $sweep")
+
+        self.indent += 1
+        self.writeln(f"alter {an.variable} $val")
+        for a in an.an:
+            self.write_analysis(a)
+        self.writeln("set appendwrite")
+        self.writeln("write")
+        self.indent -= 1
+
+        self.writeln("end\n")
+        self.ctrl_mode = False
+        self.writeln(".endc")
+
+        self.batch = False
+
+    def write_monte_carlo(self, an : vsp.MonteInput) -> None:
+        """# Write a Monte Carlo analysis."""
+        raise NotImplementedError
+
+    def write_custom(self, an : vsp.CustomAnalysisInput) -> None:
+        """# Write a Custom analysis."""
+        self.writeln(f"{an.cmd}\n")
+
+    def parse_sweep(self, sweep : vsp.Sweep) -> str:
+        """# Parse a sweep"""
+        if sweep.WhichOneof("tp") == "linear":
+            s = sweep.linear
+            return "( "+(" ").join([str(i) for i in arange(s.start,s.stop,s.step)])+" )"
+        elif sweep.WhichOneof("tp") == "log":
+            s = sweep.log
+            return "( "+(" ").join([str(10**(i/s.npts)) for i in arange(s.start,s.stop*s.npts)])+" )"
+        elif sweep.WhichOneof("tp") == "points":
+            s = sweep.points
+            return "( "+(" ").join([str(i) for i in s.points])+" )"
+        else:
+            raise NotImplementedError
 
 class CdlNetlister(SpiceNetlister):
     """FIXME: CDL-Format Netlister"""
