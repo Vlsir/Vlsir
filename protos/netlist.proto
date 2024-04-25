@@ -1,0 +1,39 @@
+//!
+//! # vlsir Netlist Service
+//!
+
+syntax = "proto3";
+package vlsir.netlist;
+
+// Local Imports
+import "utils.proto";
+import "circuit.proto";
+
+// ############################################################################
+// # `Netlist` Service
+// ############################################################################
+service Netlist { rpc Netlist(NetlistInput) returns (NetlistResult); }
+
+message NetlistInput {
+  vlsir.circuit.Package pkg = 1; // Circuit Package Content
+  string dest = 2;               // Destination Path
+  NetlistFormat fmt = 3;         // Netlist Format
+}
+
+enum NetlistFormat {
+  UNSPECIFIED = 0;
+  SPECTRE = 1;
+  SPICE = 2;
+  NGSPICE = 3;
+  XYCE = 4;
+  HSPICE = 5;
+  CDL = 6;
+  VERILOG = 10;
+}
+
+message NetlistResult {
+  oneof variant {
+    bool success = 1; // True indicates success
+    string fail = 2;  // Failure/ error message
+  }
+}

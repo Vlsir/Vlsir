@@ -23,6 +23,7 @@ DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "spice_pb2", globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
+
     DESCRIPTOR._options = None
     _DCRESULT_MEASUREMENTSENTRY._options = None
     _DCRESULT_MEASUREMENTSENTRY._serialized_options = b"8\001"
