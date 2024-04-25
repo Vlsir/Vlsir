@@ -47,7 +47,9 @@ def main() -> None:
 
 
 def netlist(data: Union[str, bytes]) -> None:
-    raise TabError
+    vlsir.netlist.NetlistInput.somethingFromString(data)
+    # ... run it
+    ...
 
 
 def sim(data: Union[str, bytes]) -> None:

@@ -6,7 +6,7 @@ syntax = "proto3";
 package vlsir.netlist;
 
 // Local Imports
-import "utils.proto";
+// import "utils.proto";
 import "circuit.proto";
 
 // ############################################################################
