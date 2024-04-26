@@ -8,6 +8,7 @@ __version__ = "2.0.dev0"
 from . import utils_pb2 as utils
 from . import spice_pb2 as spice
 from . import circuit_pb2 as circuit
+from . import netlist_pb2 as netlist
 from . import raw_pb2 as raw
 from . import tetris_pb2 as tetris
 
