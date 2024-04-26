@@ -41,7 +41,8 @@ class NetlistFormat(Enum):
     @staticmethod
     def get(spec: "NetlistFormatSpec") -> "NetlistFormat":
         """Get the format specified by `spec`, in either enum or string terms.
-        Only does real work in the case when `spec` is a string, otherwise returns it unchanged."""
+        Only does real work in the case when `spec` is a string, otherwise returns it unchanged.
+        """
         if isinstance(spec, (NetlistFormat, str)):
             return NetlistFormat(spec)
         raise TypeError
@@ -62,7 +63,46 @@ class NetlistFormat(Enum):
             return XyceNetlister
         if self == NetlistFormat.CDL:
             return CdlNetlister
-        raise ValueError
+        raise ValueError(f"Unknown NetlistFormat: {self}")
+
+    def to_proto(self) -> vlsir.netlist.NetlistFormat:
+        """Convert a `NetlistFormat` to a protobuf `NetlistFormat`."""
+        F = vlsir.netlist.NetlistFormat
+        if self == NetlistFormat.SPECTRE:
+            return F.SPECTRE
+        if self == NetlistFormat.SPICE:
+            return F.SPICE
+        if self == NetlistFormat.NGSPICE:
+            return F.NGSPICE
+        if self == NetlistFormat.XYCE:
+            return F.XYCE
+        if self == NetlistFormat.HSPICE:
+            return F.HSPICE
+        if self == NetlistFormat.CDL:
+            return F.CDL
+        if self == NetlistFormat.VERILOG:
+            return F.VERILOG
+        raise ValueError(f"Unknown NetlistFormat: {self}")
+
+    @staticmethod
+    def from_proto(proto: vlsir.netlist.NetlistFormat) -> "NetlistFormat":
+        """Convert a protobuf `NetlistFormat` to a `NetlistFormat` enum."""
+        F = vlsir.netlist.NetlistFormat
+        if proto == F.UNSPECIFIED or proto == F.SPECTRE:
+            return NetlistFormat.SPECTRE
+        if proto == F.SPICE:
+            return NetlistFormat.SPICE
+        if proto == F.NGSPICE:
+            return NetlistFormat.NGSPICE
+        if proto == F.XYCE:
+            return NetlistFormat.XYCE
+        if proto == F.HSPICE:
+            return NetlistFormat.HSPICE
+        if proto == F.CDL:
+            return NetlistFormat.CDL
+        if proto == F.VERILOG:
+            return NetlistFormat.VERILOG
+        raise ValueError(f"Unknown NetlistFormat: {proto}")
 
 
 @dataclass
@@ -124,5 +164,19 @@ def netlist(
     return netlister.write_package(pkg)
 
 
+def netlist_from_proto(inp: vlsir.netlist.NetlistInput) -> vlsir.netlist.NetlistResult:
+    """# Netlist a ProtoBuf-Dicatated `NetlistInput`"""
+    try:
+        netlist(
+            pkg=inp.pkg,
+            dest=open(inp.netlist_path, "w"),
+            fmt=NetlistFormat.from_proto(inp.fmt),
+            opts=None,
+        )
+    except Exception as e:
+        return vlsir.netlist.NetlistResult(success=False, fail=str(e))
+    return vlsir.netlist.NetlistResult(success=True)
+
+
 # Set our exported content for star-imports
-__all__ = ["netlist", "NetlistFormat", "NetlistFormatSpec"]
+__all__ = ["netlist", "netlist_from_proto", "NetlistFormat", "NetlistFormatSpec"]

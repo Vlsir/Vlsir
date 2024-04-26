@@ -6,10 +6,12 @@
 import argparse
 from enum import Enum
 from pathlib import Path
-from typing import Union
+from typing import Any
 
 # Local Imports
+import vlsir
 from .. import __version__
+from ..netlist import netlist_from_proto
 
 
 class Actions(Enum):
@@ -24,7 +26,7 @@ class Actions(Enum):
     SIM = "sim"
 
 
-def main() -> None:
+def main() -> Any:
     """# VlsirTools CLI
     Our very fancy command-line interface."""
 
@@ -39,21 +41,33 @@ def main() -> None:
     with open(args.target, "rb") as f:
         data = f.read()
         if args.action == Actions.NETLIST.value:
-            return netlist(data)
+            return netlist_action(data)
         if args.action == Actions.SIM.value:
-            return sim(data)
+            return sim_action(data)
 
     raise ValueError(f"Invalid CLI action {args.action}")
 
 
-def netlist(data: Union[str, bytes]) -> None:
-    vlsir.netlist.NetlistInput.somethingFromString(data)
-    # ... run it
-    ...
+def netlist_action(data: bytes) -> vlsir.netlist.NetlistResult:
+    """
+    # Netlisting CLI Action
+    Grab a `NetlistInput` from disk and run it.
+    If the input includes a non-empty `result_path`, it is written back to disk, in protobuf binary format.
+    """
+
+    inp = vlsir.netlist.NetlistInput()  #
+    inp.ParseFromString(data)  # Parse
+    result = netlist_from_proto(inp)  # Main action
+
+    if inp.result_path:  # Write back
+        result_file = open(inp.result_path, "wb")
+        result_file.write(vlsir.NetlistResult.SerializeToString(result))
+
+    return result  # And... why not return it?
 
 
-def sim(data: Union[str, bytes]) -> None:
-    raise TabError
+def sim_action(data: bytes) -> None:
+    raise NotImplementedError
 
 
 if __name__ != "__main__":
