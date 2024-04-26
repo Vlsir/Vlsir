@@ -178,14 +178,10 @@ export function sIPrefixToJSON(object: SIPrefix): string {
 export interface Prefixed {
   /** The metric `SIPrefix` */
   prefix: SIPrefix;
-  number?:
-    | { $case: "int64Value"; int64Value: number }
-    | { $case: "doubleValue"; doubleValue: number }
-    | {
-        $case: "stringValue";
-        stringValue: string;
-      }
-    | undefined;
+  number?: { $case: "int64Value"; int64Value: number } | { $case: "doubleValue"; doubleValue: number } | {
+    $case: "stringValue";
+    stringValue: string;
+  } | undefined;
 }
 
 /**
@@ -213,7 +209,9 @@ export interface Param {
   /** Param name */
   name: string;
   /** Value, or default */
-  value: ParamValue | undefined;
+  value:
+    | ParamValue
+    | undefined;
   /** Description */
   desc: string;
 }
@@ -233,10 +231,7 @@ export interface QualifiedName {
  * another (external).
  */
 export interface Reference {
-  to?:
-    | { $case: "local"; local: string }
-    | { $case: "external"; external: QualifiedName }
-    | undefined;
+  to?: { $case: "local"; local: string } | { $case: "external"; external: QualifiedName } | undefined;
 }
 
 /**
@@ -276,10 +271,7 @@ function createBasePrefixed(): Prefixed {
 }
 
 export const Prefixed = {
-  encode(
-    message: Prefixed,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Prefixed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.prefix !== 0) {
       writer.uint32(8).int32(message.prefix);
     }
@@ -298,8 +290,7 @@ export const Prefixed = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Prefixed {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePrefixed();
     while (reader.pos < end) {
@@ -317,30 +308,21 @@ export const Prefixed = {
             break;
           }
 
-          message.number = {
-            $case: "int64Value",
-            int64Value: longToNumber(reader.int64() as Long),
-          };
+          message.number = { $case: "int64Value", int64Value: longToNumber(reader.int64() as Long) };
           continue;
         case 3:
           if (tag !== 25) {
             break;
           }
 
-          message.number = {
-            $case: "doubleValue",
-            doubleValue: reader.double(),
-          };
+          message.number = { $case: "doubleValue", doubleValue: reader.double() };
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.number = {
-            $case: "stringValue",
-            stringValue: reader.string(),
-          };
+          message.number = { $case: "stringValue", stringValue: reader.string() };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -355,21 +337,12 @@ export const Prefixed = {
     return {
       prefix: isSet(object.prefix) ? sIPrefixFromJSON(object.prefix) : 0,
       number: isSet(object.int64Value)
-        ? {
-            $case: "int64Value",
-            int64Value: globalThis.Number(object.int64Value),
-          }
+        ? { $case: "int64Value", int64Value: globalThis.Number(object.int64Value) }
         : isSet(object.doubleValue)
-          ? {
-              $case: "doubleValue",
-              doubleValue: globalThis.Number(object.doubleValue),
-            }
-          : isSet(object.stringValue)
-            ? {
-                $case: "stringValue",
-                stringValue: globalThis.String(object.stringValue),
-              }
-            : undefined,
+        ? { $case: "doubleValue", doubleValue: globalThis.Number(object.doubleValue) }
+        : isSet(object.stringValue)
+        ? { $case: "stringValue", stringValue: globalThis.String(object.stringValue) }
+        : undefined,
     };
   },
 
@@ -401,30 +374,21 @@ export const Prefixed = {
       object.number?.int64Value !== undefined &&
       object.number?.int64Value !== null
     ) {
-      message.number = {
-        $case: "int64Value",
-        int64Value: object.number.int64Value,
-      };
+      message.number = { $case: "int64Value", int64Value: object.number.int64Value };
     }
     if (
       object.number?.$case === "doubleValue" &&
       object.number?.doubleValue !== undefined &&
       object.number?.doubleValue !== null
     ) {
-      message.number = {
-        $case: "doubleValue",
-        doubleValue: object.number.doubleValue,
-      };
+      message.number = { $case: "doubleValue", doubleValue: object.number.doubleValue };
     }
     if (
       object.number?.$case === "stringValue" &&
       object.number?.stringValue !== undefined &&
       object.number?.stringValue !== null
     ) {
-      message.number = {
-        $case: "stringValue",
-        stringValue: object.number.stringValue,
-      };
+      message.number = { $case: "stringValue", stringValue: object.number.stringValue };
     }
     return message;
   },
@@ -435,10 +399,7 @@ function createBaseParamValue(): ParamValue {
 }
 
 export const ParamValue = {
-  encode(
-    message: ParamValue,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ParamValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.value?.$case) {
       case "boolValue":
         writer.uint32(8).bool(message.value.boolValue);
@@ -456,18 +417,14 @@ export const ParamValue = {
         writer.uint32(42).string(message.value.literal);
         break;
       case "prefixed":
-        Prefixed.encode(
-          message.value.prefixed,
-          writer.uint32(50).fork(),
-        ).ldelim();
+        Prefixed.encode(message.value.prefixed, writer.uint32(50).fork()).ldelim();
         break;
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ParamValue {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParamValue();
     while (reader.pos < end) {
@@ -485,30 +442,21 @@ export const ParamValue = {
             break;
           }
 
-          message.value = {
-            $case: "int64Value",
-            int64Value: longToNumber(reader.int64() as Long),
-          };
+          message.value = { $case: "int64Value", int64Value: longToNumber(reader.int64() as Long) };
           continue;
         case 3:
           if (tag !== 25) {
             break;
           }
 
-          message.value = {
-            $case: "doubleValue",
-            doubleValue: reader.double(),
-          };
+          message.value = { $case: "doubleValue", doubleValue: reader.double() };
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.value = {
-            $case: "stringValue",
-            stringValue: reader.string(),
-          };
+          message.value = { $case: "stringValue", stringValue: reader.string() };
           continue;
         case 5:
           if (tag !== 42) {
@@ -522,10 +470,7 @@ export const ParamValue = {
             break;
           }
 
-          message.value = {
-            $case: "prefixed",
-            prefixed: Prefixed.decode(reader, reader.uint32()),
-          };
+          message.value = { $case: "prefixed", prefixed: Prefixed.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -539,36 +484,18 @@ export const ParamValue = {
   fromJSON(object: any): ParamValue {
     return {
       value: isSet(object.boolValue)
-        ? {
-            $case: "boolValue",
-            boolValue: globalThis.Boolean(object.boolValue),
-          }
+        ? { $case: "boolValue", boolValue: globalThis.Boolean(object.boolValue) }
         : isSet(object.int64Value)
-          ? {
-              $case: "int64Value",
-              int64Value: globalThis.Number(object.int64Value),
-            }
-          : isSet(object.doubleValue)
-            ? {
-                $case: "doubleValue",
-                doubleValue: globalThis.Number(object.doubleValue),
-              }
-            : isSet(object.stringValue)
-              ? {
-                  $case: "stringValue",
-                  stringValue: globalThis.String(object.stringValue),
-                }
-              : isSet(object.literal)
-                ? {
-                    $case: "literal",
-                    literal: globalThis.String(object.literal),
-                  }
-                : isSet(object.prefixed)
-                  ? {
-                      $case: "prefixed",
-                      prefixed: Prefixed.fromJSON(object.prefixed),
-                    }
-                  : undefined,
+        ? { $case: "int64Value", int64Value: globalThis.Number(object.int64Value) }
+        : isSet(object.doubleValue)
+        ? { $case: "doubleValue", doubleValue: globalThis.Number(object.doubleValue) }
+        : isSet(object.stringValue)
+        ? { $case: "stringValue", stringValue: globalThis.String(object.stringValue) }
+        : isSet(object.literal)
+        ? { $case: "literal", literal: globalThis.String(object.literal) }
+        : isSet(object.prefixed)
+        ? { $case: "prefixed", prefixed: Prefixed.fromJSON(object.prefixed) }
+        : undefined,
     };
   },
 
@@ -601,9 +528,7 @@ export const ParamValue = {
   fromPartial(object: DeepPartial<ParamValue>): ParamValue {
     const message = createBaseParamValue();
     if (
-      object.value?.$case === "boolValue" &&
-      object.value?.boolValue !== undefined &&
-      object.value?.boolValue !== null
+      object.value?.$case === "boolValue" && object.value?.boolValue !== undefined && object.value?.boolValue !== null
     ) {
       message.value = { $case: "boolValue", boolValue: object.value.boolValue };
     }
@@ -612,47 +537,27 @@ export const ParamValue = {
       object.value?.int64Value !== undefined &&
       object.value?.int64Value !== null
     ) {
-      message.value = {
-        $case: "int64Value",
-        int64Value: object.value.int64Value,
-      };
+      message.value = { $case: "int64Value", int64Value: object.value.int64Value };
     }
     if (
       object.value?.$case === "doubleValue" &&
       object.value?.doubleValue !== undefined &&
       object.value?.doubleValue !== null
     ) {
-      message.value = {
-        $case: "doubleValue",
-        doubleValue: object.value.doubleValue,
-      };
+      message.value = { $case: "doubleValue", doubleValue: object.value.doubleValue };
     }
     if (
       object.value?.$case === "stringValue" &&
       object.value?.stringValue !== undefined &&
       object.value?.stringValue !== null
     ) {
-      message.value = {
-        $case: "stringValue",
-        stringValue: object.value.stringValue,
-      };
+      message.value = { $case: "stringValue", stringValue: object.value.stringValue };
     }
-    if (
-      object.value?.$case === "literal" &&
-      object.value?.literal !== undefined &&
-      object.value?.literal !== null
-    ) {
+    if (object.value?.$case === "literal" && object.value?.literal !== undefined && object.value?.literal !== null) {
       message.value = { $case: "literal", literal: object.value.literal };
     }
-    if (
-      object.value?.$case === "prefixed" &&
-      object.value?.prefixed !== undefined &&
-      object.value?.prefixed !== null
-    ) {
-      message.value = {
-        $case: "prefixed",
-        prefixed: Prefixed.fromPartial(object.value.prefixed),
-      };
+    if (object.value?.$case === "prefixed" && object.value?.prefixed !== undefined && object.value?.prefixed !== null) {
+      message.value = { $case: "prefixed", prefixed: Prefixed.fromPartial(object.value.prefixed) };
     }
     return message;
   },
@@ -677,8 +582,7 @@ export const Param = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Param {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParam();
     while (reader.pos < end) {
@@ -717,9 +621,7 @@ export const Param = {
   fromJSON(object: any): Param {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      value: isSet(object.value)
-        ? ParamValue.fromJSON(object.value)
-        : undefined,
+      value: isSet(object.value) ? ParamValue.fromJSON(object.value) : undefined,
       desc: isSet(object.desc) ? globalThis.String(object.desc) : "",
     };
   },
@@ -744,10 +646,9 @@ export const Param = {
   fromPartial(object: DeepPartial<Param>): Param {
     const message = createBaseParam();
     message.name = object.name ?? "";
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? ParamValue.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? ParamValue.fromPartial(object.value)
+      : undefined;
     message.desc = object.desc ?? "";
     return message;
   },
@@ -758,10 +659,7 @@ function createBaseQualifiedName(): QualifiedName {
 }
 
 export const QualifiedName = {
-  encode(
-    message: QualifiedName,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: QualifiedName, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.domain !== "") {
       writer.uint32(10).string(message.domain);
     }
@@ -772,8 +670,7 @@ export const QualifiedName = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QualifiedName {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQualifiedName();
     while (reader.pos < end) {
@@ -836,27 +733,20 @@ function createBaseReference(): Reference {
 }
 
 export const Reference = {
-  encode(
-    message: Reference,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Reference, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.to?.$case) {
       case "local":
         writer.uint32(10).string(message.to.local);
         break;
       case "external":
-        QualifiedName.encode(
-          message.to.external,
-          writer.uint32(18).fork(),
-        ).ldelim();
+        QualifiedName.encode(message.to.external, writer.uint32(18).fork()).ldelim();
         break;
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Reference {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReference();
     while (reader.pos < end) {
@@ -874,10 +764,7 @@ export const Reference = {
             break;
           }
 
-          message.to = {
-            $case: "external",
-            external: QualifiedName.decode(reader, reader.uint32()),
-          };
+          message.to = { $case: "external", external: QualifiedName.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -893,11 +780,8 @@ export const Reference = {
       to: isSet(object.local)
         ? { $case: "local", local: globalThis.String(object.local) }
         : isSet(object.external)
-          ? {
-              $case: "external",
-              external: QualifiedName.fromJSON(object.external),
-            }
-          : undefined,
+        ? { $case: "external", external: QualifiedName.fromJSON(object.external) }
+        : undefined,
     };
   },
 
@@ -917,22 +801,11 @@ export const Reference = {
   },
   fromPartial(object: DeepPartial<Reference>): Reference {
     const message = createBaseReference();
-    if (
-      object.to?.$case === "local" &&
-      object.to?.local !== undefined &&
-      object.to?.local !== null
-    ) {
+    if (object.to?.$case === "local" && object.to?.local !== undefined && object.to?.local !== null) {
       message.to = { $case: "local", local: object.to.local };
     }
-    if (
-      object.to?.$case === "external" &&
-      object.to?.external !== undefined &&
-      object.to?.external !== null
-    ) {
-      message.to = {
-        $case: "external",
-        external: QualifiedName.fromPartial(object.to.external),
-      };
+    if (object.to?.$case === "external" && object.to?.external !== undefined && object.to?.external !== null) {
+      message.to = { $case: "external", external: QualifiedName.fromPartial(object.to.external) };
     }
     return message;
   },
@@ -943,10 +816,7 @@ function createBaseLibraryMetadata(): LibraryMetadata {
 }
 
 export const LibraryMetadata = {
-  encode(
-    message: LibraryMetadata,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LibraryMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.domain !== "") {
       writer.uint32(10).string(message.domain);
     }
@@ -960,8 +830,7 @@ export const LibraryMetadata = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LibraryMetadata {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLibraryMetadata();
     while (reader.pos < end) {
@@ -1003,9 +872,7 @@ export const LibraryMetadata = {
       cellNames: globalThis.Array.isArray(object?.cellNames)
         ? object.cellNames.map((e: any) => globalThis.String(e))
         : [],
-      author: isSet(object.author)
-        ? AuthorMetadata.fromJSON(object.author)
-        : undefined,
+      author: isSet(object.author) ? AuthorMetadata.fromJSON(object.author) : undefined,
     };
   },
 
@@ -1030,10 +897,9 @@ export const LibraryMetadata = {
     const message = createBaseLibraryMetadata();
     message.domain = object.domain ?? "";
     message.cellNames = object.cellNames?.map((e) => e) || [];
-    message.author =
-      object.author !== undefined && object.author !== null
-        ? AuthorMetadata.fromPartial(object.author)
-        : undefined;
+    message.author = (object.author !== undefined && object.author !== null)
+      ? AuthorMetadata.fromPartial(object.author)
+      : undefined;
     return message;
   },
 };
@@ -1043,10 +909,7 @@ function createBaseAuthorMetadata(): AuthorMetadata {
 }
 
 export const AuthorMetadata = {
-  encode(
-    message: AuthorMetadata,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AuthorMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.author !== "") {
       writer.uint32(10).string(message.author);
     }
@@ -1060,8 +923,7 @@ export const AuthorMetadata = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AuthorMetadata {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAuthorMetadata();
     while (reader.pos < end) {
@@ -1100,9 +962,7 @@ export const AuthorMetadata = {
   fromJSON(object: any): AuthorMetadata {
     return {
       author: isSet(object.author) ? globalThis.String(object.author) : "",
-      copyright: isSet(object.copyright)
-        ? globalThis.String(object.copyright)
-        : "",
+      copyright: isSet(object.copyright) ? globalThis.String(object.copyright) : "",
       license: isSet(object.license) ? globalThis.String(object.license) : "",
     };
   },
@@ -1133,28 +993,14 @@ export const AuthorMetadata = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends { $case: string }
-        ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & {
-            $case: T["$case"];
-          }
-        : T extends {}
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : Partial<T>;
+type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends { $case: string } ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & { $case: T["$case"] }
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 function longToNumber(long: Long): number {
   if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {

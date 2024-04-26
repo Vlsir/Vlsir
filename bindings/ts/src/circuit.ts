@@ -242,7 +242,9 @@ export interface Instance {
   /** Instance Name */
   name: string;
   /** Reference to Module instantiated */
-  module: Reference | undefined;
+  module:
+    | Reference
+    | undefined;
   /** Parameter Values */
   parameters: Param[];
   /** Port `Connection`s */
@@ -275,7 +277,9 @@ export interface Module {
  */
 export interface ExternalModule {
   /** Qualified External Module Name */
-  name: QualifiedName | undefined;
+  name:
+    | QualifiedName
+    | undefined;
   /** Description */
   desc: string;
   /**
@@ -307,10 +311,7 @@ function createBasePackage(): Package {
 }
 
 export const Package = {
-  encode(
-    message: Package,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Package, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.domain !== "") {
       writer.uint32(10).string(message.domain);
     }
@@ -327,8 +328,7 @@ export const Package = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Package {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePackage();
     while (reader.pos < end) {
@@ -353,9 +353,7 @@ export const Package = {
             break;
           }
 
-          message.extModules.push(
-            ExternalModule.decode(reader, reader.uint32()),
-          );
+          message.extModules.push(ExternalModule.decode(reader, reader.uint32()));
           continue;
         case 10:
           if (tag !== 82) {
@@ -376,9 +374,7 @@ export const Package = {
   fromJSON(object: any): Package {
     return {
       domain: isSet(object.domain) ? globalThis.String(object.domain) : "",
-      modules: globalThis.Array.isArray(object?.modules)
-        ? object.modules.map((e: any) => Module.fromJSON(e))
-        : [],
+      modules: globalThis.Array.isArray(object?.modules) ? object.modules.map((e: any) => Module.fromJSON(e)) : [],
       extModules: globalThis.Array.isArray(object?.extModules)
         ? object.extModules.map((e: any) => ExternalModule.fromJSON(e))
         : [],
@@ -410,8 +406,7 @@ export const Package = {
     const message = createBasePackage();
     message.domain = object.domain ?? "";
     message.modules = object.modules?.map((e) => Module.fromPartial(e)) || [];
-    message.extModules =
-      object.extModules?.map((e) => ExternalModule.fromPartial(e)) || [];
+    message.extModules = object.extModules?.map((e) => ExternalModule.fromPartial(e)) || [];
     message.desc = object.desc ?? "";
     return message;
   },
@@ -433,8 +428,7 @@ export const Port = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Port {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePort();
     while (reader.pos < end) {
@@ -466,9 +460,7 @@ export const Port = {
   fromJSON(object: any): Port {
     return {
       signal: isSet(object.signal) ? globalThis.String(object.signal) : "",
-      direction: isSet(object.direction)
-        ? port_DirectionFromJSON(object.direction)
-        : 0,
+      direction: isSet(object.direction) ? port_DirectionFromJSON(object.direction) : 0,
     };
   },
 
@@ -499,10 +491,7 @@ function createBaseSignal(): Signal {
 }
 
 export const Signal = {
-  encode(
-    message: Signal,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Signal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -513,8 +502,7 @@ export const Signal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Signal {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignal();
     while (reader.pos < end) {
@@ -591,8 +579,7 @@ export const Slice = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Slice {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSlice();
     while (reader.pos < end) {
@@ -667,10 +654,7 @@ function createBaseConcat(): Concat {
 }
 
 export const Concat = {
-  encode(
-    message: Concat,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Concat, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.parts) {
       ConnectionTarget.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -678,8 +662,7 @@ export const Concat = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Concat {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConcat();
     while (reader.pos < end) {
@@ -703,9 +686,7 @@ export const Concat = {
 
   fromJSON(object: any): Concat {
     return {
-      parts: globalThis.Array.isArray(object?.parts)
-        ? object.parts.map((e: any) => ConnectionTarget.fromJSON(e))
-        : [],
+      parts: globalThis.Array.isArray(object?.parts) ? object.parts.map((e: any) => ConnectionTarget.fromJSON(e)) : [],
     };
   },
 
@@ -722,8 +703,7 @@ export const Concat = {
   },
   fromPartial(object: DeepPartial<Concat>): Concat {
     const message = createBaseConcat();
-    message.parts =
-      object.parts?.map((e) => ConnectionTarget.fromPartial(e)) || [];
+    message.parts = object.parts?.map((e) => ConnectionTarget.fromPartial(e)) || [];
     return message;
   },
 };
@@ -733,10 +713,7 @@ function createBaseConnectionTarget(): ConnectionTarget {
 }
 
 export const ConnectionTarget = {
-  encode(
-    message: ConnectionTarget,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ConnectionTarget, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.stype?.$case) {
       case "sig":
         writer.uint32(10).string(message.stype.sig);
@@ -752,8 +729,7 @@ export const ConnectionTarget = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConnectionTarget {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectionTarget();
     while (reader.pos < end) {
@@ -771,20 +747,14 @@ export const ConnectionTarget = {
             break;
           }
 
-          message.stype = {
-            $case: "slice",
-            slice: Slice.decode(reader, reader.uint32()),
-          };
+          message.stype = { $case: "slice", slice: Slice.decode(reader, reader.uint32()) };
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.stype = {
-            $case: "concat",
-            concat: Concat.decode(reader, reader.uint32()),
-          };
+          message.stype = { $case: "concat", concat: Concat.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -800,10 +770,10 @@ export const ConnectionTarget = {
       stype: isSet(object.sig)
         ? { $case: "sig", sig: globalThis.String(object.sig) }
         : isSet(object.slice)
-          ? { $case: "slice", slice: Slice.fromJSON(object.slice) }
-          : isSet(object.concat)
-            ? { $case: "concat", concat: Concat.fromJSON(object.concat) }
-            : undefined,
+        ? { $case: "slice", slice: Slice.fromJSON(object.slice) }
+        : isSet(object.concat)
+        ? { $case: "concat", concat: Concat.fromJSON(object.concat) }
+        : undefined,
     };
   },
 
@@ -826,32 +796,14 @@ export const ConnectionTarget = {
   },
   fromPartial(object: DeepPartial<ConnectionTarget>): ConnectionTarget {
     const message = createBaseConnectionTarget();
-    if (
-      object.stype?.$case === "sig" &&
-      object.stype?.sig !== undefined &&
-      object.stype?.sig !== null
-    ) {
+    if (object.stype?.$case === "sig" && object.stype?.sig !== undefined && object.stype?.sig !== null) {
       message.stype = { $case: "sig", sig: object.stype.sig };
     }
-    if (
-      object.stype?.$case === "slice" &&
-      object.stype?.slice !== undefined &&
-      object.stype?.slice !== null
-    ) {
-      message.stype = {
-        $case: "slice",
-        slice: Slice.fromPartial(object.stype.slice),
-      };
+    if (object.stype?.$case === "slice" && object.stype?.slice !== undefined && object.stype?.slice !== null) {
+      message.stype = { $case: "slice", slice: Slice.fromPartial(object.stype.slice) };
     }
-    if (
-      object.stype?.$case === "concat" &&
-      object.stype?.concat !== undefined &&
-      object.stype?.concat !== null
-    ) {
-      message.stype = {
-        $case: "concat",
-        concat: Concat.fromPartial(object.stype.concat),
-      };
+    if (object.stype?.$case === "concat" && object.stype?.concat !== undefined && object.stype?.concat !== null) {
+      message.stype = { $case: "concat", concat: Concat.fromPartial(object.stype.concat) };
     }
     return message;
   },
@@ -862,25 +814,18 @@ function createBaseConnection(): Connection {
 }
 
 export const Connection = {
-  encode(
-    message: Connection,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Connection, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.portname !== "") {
       writer.uint32(10).string(message.portname);
     }
     if (message.target !== undefined) {
-      ConnectionTarget.encode(
-        message.target,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      ConnectionTarget.encode(message.target, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Connection {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnection();
     while (reader.pos < end) {
@@ -911,12 +856,8 @@ export const Connection = {
 
   fromJSON(object: any): Connection {
     return {
-      portname: isSet(object.portname)
-        ? globalThis.String(object.portname)
-        : "",
-      target: isSet(object.target)
-        ? ConnectionTarget.fromJSON(object.target)
-        : undefined,
+      portname: isSet(object.portname) ? globalThis.String(object.portname) : "",
+      target: isSet(object.target) ? ConnectionTarget.fromJSON(object.target) : undefined,
     };
   },
 
@@ -937,10 +878,9 @@ export const Connection = {
   fromPartial(object: DeepPartial<Connection>): Connection {
     const message = createBaseConnection();
     message.portname = object.portname ?? "";
-    message.target =
-      object.target !== undefined && object.target !== null
-        ? ConnectionTarget.fromPartial(object.target)
-        : undefined;
+    message.target = (object.target !== undefined && object.target !== null)
+      ? ConnectionTarget.fromPartial(object.target)
+      : undefined;
     return message;
   },
 };
@@ -950,10 +890,7 @@ function createBaseInstance(): Instance {
 }
 
 export const Instance = {
-  encode(
-    message: Instance,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Instance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -970,8 +907,7 @@ export const Instance = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Instance {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInstance();
     while (reader.pos < end) {
@@ -1017,9 +953,7 @@ export const Instance = {
   fromJSON(object: any): Instance {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      module: isSet(object.module)
-        ? Reference.fromJSON(object.module)
-        : undefined,
+      module: isSet(object.module) ? Reference.fromJSON(object.module) : undefined,
       parameters: globalThis.Array.isArray(object?.parameters)
         ? object.parameters.map((e: any) => Param.fromJSON(e))
         : [],
@@ -1052,34 +986,21 @@ export const Instance = {
   fromPartial(object: DeepPartial<Instance>): Instance {
     const message = createBaseInstance();
     message.name = object.name ?? "";
-    message.module =
-      object.module !== undefined && object.module !== null
-        ? Reference.fromPartial(object.module)
-        : undefined;
-    message.parameters =
-      object.parameters?.map((e) => Param.fromPartial(e)) || [];
-    message.connections =
-      object.connections?.map((e) => Connection.fromPartial(e)) || [];
+    message.module = (object.module !== undefined && object.module !== null)
+      ? Reference.fromPartial(object.module)
+      : undefined;
+    message.parameters = object.parameters?.map((e) => Param.fromPartial(e)) || [];
+    message.connections = object.connections?.map((e) => Connection.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseModule(): Module {
-  return {
-    name: "",
-    ports: [],
-    signals: [],
-    instances: [],
-    parameters: [],
-    literals: [],
-  };
+  return { name: "", ports: [], signals: [], instances: [], parameters: [], literals: [] };
 }
 
 export const Module = {
-  encode(
-    message: Module,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Module, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -1102,8 +1023,7 @@ export const Module = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Module {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModule();
     while (reader.pos < end) {
@@ -1163,21 +1083,15 @@ export const Module = {
   fromJSON(object: any): Module {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      ports: globalThis.Array.isArray(object?.ports)
-        ? object.ports.map((e: any) => Port.fromJSON(e))
-        : [],
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => Signal.fromJSON(e))
-        : [],
+      ports: globalThis.Array.isArray(object?.ports) ? object.ports.map((e: any) => Port.fromJSON(e)) : [],
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => Signal.fromJSON(e)) : [],
       instances: globalThis.Array.isArray(object?.instances)
         ? object.instances.map((e: any) => Instance.fromJSON(e))
         : [],
       parameters: globalThis.Array.isArray(object?.parameters)
         ? object.parameters.map((e: any) => Param.fromJSON(e))
         : [],
-      literals: globalThis.Array.isArray(object?.literals)
-        ? object.literals.map((e: any) => globalThis.String(e))
-        : [],
+      literals: globalThis.Array.isArray(object?.literals) ? object.literals.map((e: any) => globalThis.String(e)) : [],
     };
   },
 
@@ -1212,31 +1126,19 @@ export const Module = {
     message.name = object.name ?? "";
     message.ports = object.ports?.map((e) => Port.fromPartial(e)) || [];
     message.signals = object.signals?.map((e) => Signal.fromPartial(e)) || [];
-    message.instances =
-      object.instances?.map((e) => Instance.fromPartial(e)) || [];
-    message.parameters =
-      object.parameters?.map((e) => Param.fromPartial(e)) || [];
+    message.instances = object.instances?.map((e) => Instance.fromPartial(e)) || [];
+    message.parameters = object.parameters?.map((e) => Param.fromPartial(e)) || [];
     message.literals = object.literals?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseExternalModule(): ExternalModule {
-  return {
-    name: undefined,
-    desc: "",
-    ports: [],
-    signals: [],
-    parameters: [],
-    spicetype: 0,
-  };
+  return { name: undefined, desc: "", ports: [], signals: [], parameters: [], spicetype: 0 };
 }
 
 export const ExternalModule = {
-  encode(
-    message: ExternalModule,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ExternalModule, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== undefined) {
       QualifiedName.encode(message.name, writer.uint32(10).fork()).ldelim();
     }
@@ -1259,8 +1161,7 @@ export const ExternalModule = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ExternalModule {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExternalModule();
     while (reader.pos < end) {
@@ -1319,22 +1220,14 @@ export const ExternalModule = {
 
   fromJSON(object: any): ExternalModule {
     return {
-      name: isSet(object.name)
-        ? QualifiedName.fromJSON(object.name)
-        : undefined,
+      name: isSet(object.name) ? QualifiedName.fromJSON(object.name) : undefined,
       desc: isSet(object.desc) ? globalThis.String(object.desc) : "",
-      ports: globalThis.Array.isArray(object?.ports)
-        ? object.ports.map((e: any) => Port.fromJSON(e))
-        : [],
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => Signal.fromJSON(e))
-        : [],
+      ports: globalThis.Array.isArray(object?.ports) ? object.ports.map((e: any) => Port.fromJSON(e)) : [],
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => Signal.fromJSON(e)) : [],
       parameters: globalThis.Array.isArray(object?.parameters)
         ? object.parameters.map((e: any) => Param.fromJSON(e))
         : [],
-      spicetype: isSet(object.spicetype)
-        ? spiceTypeFromJSON(object.spicetype)
-        : 0,
+      spicetype: isSet(object.spicetype) ? spiceTypeFromJSON(object.spicetype) : 0,
     };
   },
 
@@ -1366,15 +1259,13 @@ export const ExternalModule = {
   },
   fromPartial(object: DeepPartial<ExternalModule>): ExternalModule {
     const message = createBaseExternalModule();
-    message.name =
-      object.name !== undefined && object.name !== null
-        ? QualifiedName.fromPartial(object.name)
-        : undefined;
+    message.name = (object.name !== undefined && object.name !== null)
+      ? QualifiedName.fromPartial(object.name)
+      : undefined;
     message.desc = object.desc ?? "";
     message.ports = object.ports?.map((e) => Port.fromPartial(e)) || [];
     message.signals = object.signals?.map((e) => Signal.fromPartial(e)) || [];
-    message.parameters =
-      object.parameters?.map((e) => Param.fromPartial(e)) || [];
+    message.parameters = object.parameters?.map((e) => Param.fromPartial(e)) || [];
     message.spicetype = object.spicetype ?? 0;
     return message;
   },
@@ -1385,10 +1276,7 @@ function createBaseInterface(): Interface {
 }
 
 export const Interface = {
-  encode(
-    message: Interface,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Interface, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -1399,8 +1287,7 @@ export const Interface = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Interface {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterface();
     while (reader.pos < end) {
@@ -1432,9 +1319,7 @@ export const Interface = {
   fromJSON(object: any): Interface {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      ports: globalThis.Array.isArray(object?.ports)
-        ? object.ports.map((e: any) => Port.fromJSON(e))
-        : [],
+      ports: globalThis.Array.isArray(object?.ports) ? object.ports.map((e: any) => Port.fromJSON(e)) : [],
     };
   },
 
@@ -1460,28 +1345,14 @@ export const Interface = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends { $case: string }
-        ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & {
-            $case: T["$case"];
-          }
-        : T extends {}
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : Partial<T>;
+type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends { $case: string } ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & { $case: T["$case"] }
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 function longToNumber(long: Long): number {
   if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {

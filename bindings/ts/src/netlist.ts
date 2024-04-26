@@ -73,44 +73,44 @@ export function netlistFormatToJSON(object: NetlistFormat): string {
 
 export interface NetlistInput {
   /** Circuit Package Content */
-  pkg: Package | undefined;
+  pkg:
+    | Package
+    | undefined;
   /** Destination Path */
-  dest: string;
+  netlistPath: string;
   /** Netlist Format */
   fmt: NetlistFormat;
+  /** Result Path */
+  resultPath: string;
 }
 
 export interface NetlistResult {
-  variant?:
-    | { $case: "success"; success: boolean }
-    | { $case: "fail"; fail: string }
-    | undefined;
+  variant?: { $case: "success"; success: boolean } | { $case: "fail"; fail: string } | undefined;
 }
 
 function createBaseNetlistInput(): NetlistInput {
-  return { pkg: undefined, dest: "", fmt: 0 };
+  return { pkg: undefined, netlistPath: "", fmt: 0, resultPath: "" };
 }
 
 export const NetlistInput = {
-  encode(
-    message: NetlistInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NetlistInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pkg !== undefined) {
       Package.encode(message.pkg, writer.uint32(10).fork()).ldelim();
     }
-    if (message.dest !== "") {
-      writer.uint32(18).string(message.dest);
+    if (message.netlistPath !== "") {
+      writer.uint32(18).string(message.netlistPath);
     }
     if (message.fmt !== 0) {
       writer.uint32(24).int32(message.fmt);
+    }
+    if (message.resultPath !== "") {
+      writer.uint32(34).string(message.resultPath);
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetlistInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetlistInput();
     while (reader.pos < end) {
@@ -128,7 +128,7 @@ export const NetlistInput = {
             break;
           }
 
-          message.dest = reader.string();
+          message.netlistPath = reader.string();
           continue;
         case 3:
           if (tag !== 24) {
@@ -136,6 +136,13 @@ export const NetlistInput = {
           }
 
           message.fmt = reader.int32() as any;
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.resultPath = reader.string();
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -149,8 +156,9 @@ export const NetlistInput = {
   fromJSON(object: any): NetlistInput {
     return {
       pkg: isSet(object.pkg) ? Package.fromJSON(object.pkg) : undefined,
-      dest: isSet(object.dest) ? globalThis.String(object.dest) : "",
+      netlistPath: isSet(object.netlistPath) ? globalThis.String(object.netlistPath) : "",
       fmt: isSet(object.fmt) ? netlistFormatFromJSON(object.fmt) : 0,
+      resultPath: isSet(object.resultPath) ? globalThis.String(object.resultPath) : "",
     };
   },
 
@@ -159,11 +167,14 @@ export const NetlistInput = {
     if (message.pkg !== undefined) {
       obj.pkg = Package.toJSON(message.pkg);
     }
-    if (message.dest !== "") {
-      obj.dest = message.dest;
+    if (message.netlistPath !== "") {
+      obj.netlistPath = message.netlistPath;
     }
     if (message.fmt !== 0) {
       obj.fmt = netlistFormatToJSON(message.fmt);
+    }
+    if (message.resultPath !== "") {
+      obj.resultPath = message.resultPath;
     }
     return obj;
   },
@@ -173,12 +184,10 @@ export const NetlistInput = {
   },
   fromPartial(object: DeepPartial<NetlistInput>): NetlistInput {
     const message = createBaseNetlistInput();
-    message.pkg =
-      object.pkg !== undefined && object.pkg !== null
-        ? Package.fromPartial(object.pkg)
-        : undefined;
-    message.dest = object.dest ?? "";
+    message.pkg = (object.pkg !== undefined && object.pkg !== null) ? Package.fromPartial(object.pkg) : undefined;
+    message.netlistPath = object.netlistPath ?? "";
     message.fmt = object.fmt ?? 0;
+    message.resultPath = object.resultPath ?? "";
     return message;
   },
 };
@@ -188,10 +197,7 @@ function createBaseNetlistResult(): NetlistResult {
 }
 
 export const NetlistResult = {
-  encode(
-    message: NetlistResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NetlistResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.variant?.$case) {
       case "success":
         writer.uint32(8).bool(message.variant.success);
@@ -204,8 +210,7 @@ export const NetlistResult = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetlistResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetlistResult();
     while (reader.pos < end) {
@@ -239,8 +244,8 @@ export const NetlistResult = {
       variant: isSet(object.success)
         ? { $case: "success", success: globalThis.Boolean(object.success) }
         : isSet(object.fail)
-          ? { $case: "fail", fail: globalThis.String(object.fail) }
-          : undefined,
+        ? { $case: "fail", fail: globalThis.String(object.fail) }
+        : undefined,
     };
   },
 
@@ -261,17 +266,11 @@ export const NetlistResult = {
   fromPartial(object: DeepPartial<NetlistResult>): NetlistResult {
     const message = createBaseNetlistResult();
     if (
-      object.variant?.$case === "success" &&
-      object.variant?.success !== undefined &&
-      object.variant?.success !== null
+      object.variant?.$case === "success" && object.variant?.success !== undefined && object.variant?.success !== null
     ) {
       message.variant = { $case: "success", success: object.variant.success };
     }
-    if (
-      object.variant?.$case === "fail" &&
-      object.variant?.fail !== undefined &&
-      object.variant?.fail !== null
-    ) {
+    if (object.variant?.$case === "fail" && object.variant?.fail !== undefined && object.variant?.fail !== null) {
       message.variant = { $case: "fail", fail: object.variant.fail };
     }
     return message;
@@ -299,42 +298,22 @@ export class NetlistClientImpl implements Netlist {
   Netlist(request: NetlistInput): Promise<NetlistResult> {
     const data = NetlistInput.encode(request).finish();
     const promise = this.rpc.request(this.service, "Netlist", data);
-    return promise.then((data) =>
-      NetlistResult.decode(_m0.Reader.create(data)),
-    );
+    return promise.then((data) => NetlistResult.decode(_m0.Reader.create(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array,
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends { $case: string }
-        ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & {
-            $case: T["$case"];
-          }
-        : T extends {}
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : Partial<T>;
+type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends { $case: string } ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & { $case: T["$case"] }
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

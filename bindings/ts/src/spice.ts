@@ -18,7 +18,9 @@ export interface SimInput {
    * # Circuit Input
    * The DUT circuit-package under test
    */
-  pkg: Package | undefined;
+  pkg:
+    | Package
+    | undefined;
   /** Top-level module (name) */
   top: string;
   /**
@@ -116,7 +118,9 @@ export interface DcInput {
   /** Sweep Variable Name */
   indepName: string;
   /** Sweep Data */
-  sweep: Sweep | undefined;
+  sweep:
+    | Sweep
+    | undefined;
   /** Control Elements */
   ctrls: Control[];
 }
@@ -293,7 +297,9 @@ export interface SweepInput {
   /** Sweep-variable name */
   variable: string;
   /** Sweep-values */
-  sweep: Sweep | undefined;
+  sweep:
+    | Sweep
+    | undefined;
   /** Child Analyses */
   an: Analysis[];
   /** Control Elements */
@@ -307,7 +313,9 @@ export interface SweepResult {
   /** Sweep-variable name */
   variable: string;
   /** Sweep-values */
-  sweep: Sweep | undefined;
+  sweep:
+    | Sweep
+    | undefined;
   /**
    * Child Analysis Results
    * FIXME: should these just be a flattened list, or organized by sweep-value
@@ -340,7 +348,9 @@ export interface MonteResult {
   /** Sweep-variable name */
   variable: string;
   /** Sweep-values */
-  sweep: Sweep | undefined;
+  sweep:
+    | Sweep
+    | undefined;
   /**
    * Child Analysis Results
    * FIXME: should these just be a flattened list, or organized by iteration
@@ -371,18 +381,15 @@ export interface CustomAnalysisInput {
  *
  * Does not return any data. Defined solely for filling slots in lists of analysis-results.
  */
-export interface CustomAnalysisResult {}
+export interface CustomAnalysisResult {
+}
 
 /** # Sweep Union */
 export interface Sweep {
-  tp?:
-    | { $case: "linear"; linear: LinearSweep }
-    | { $case: "log"; log: LogSweep }
-    | {
-        $case: "points";
-        points: PointSweep;
-      }
-    | undefined;
+  tp?: { $case: "linear"; linear: LinearSweep } | { $case: "log"; log: LogSweep } | {
+    $case: "points";
+    points: PointSweep;
+  } | undefined;
 }
 
 /** # Linear Sweep */
@@ -421,10 +428,7 @@ export interface Control {
 
 /** # Signal-Saving Controls */
 export interface Save {
-  save?:
-    | { $case: "mode"; mode: Save_SaveMode }
-    | { $case: "signal"; signal: string }
-    | undefined;
+  save?: { $case: "mode"; mode: Save_SaveMode } | { $case: "signal"; signal: string } | undefined;
 }
 
 /** Enumerated Modes */
@@ -553,10 +557,7 @@ function createBaseSimInput(): SimInput {
 }
 
 export const SimInput = {
-  encode(
-    message: SimInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SimInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pkg !== undefined) {
       Package.encode(message.pkg, writer.uint32(10).fork()).ldelim();
     }
@@ -576,8 +577,7 @@ export const SimInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SimInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSimInput();
     while (reader.pos < end) {
@@ -631,15 +631,9 @@ export const SimInput = {
     return {
       pkg: isSet(object.pkg) ? Package.fromJSON(object.pkg) : undefined,
       top: isSet(object.top) ? globalThis.String(object.top) : "",
-      opts: globalThis.Array.isArray(object?.opts)
-        ? object.opts.map((e: any) => SimOptions.fromJSON(e))
-        : [],
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => Analysis.fromJSON(e))
-        : [],
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      opts: globalThis.Array.isArray(object?.opts) ? object.opts.map((e: any) => SimOptions.fromJSON(e)) : [],
+      an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => Analysis.fromJSON(e)) : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -668,10 +662,7 @@ export const SimInput = {
   },
   fromPartial(object: DeepPartial<SimInput>): SimInput {
     const message = createBaseSimInput();
-    message.pkg =
-      object.pkg !== undefined && object.pkg !== null
-        ? Package.fromPartial(object.pkg)
-        : undefined;
+    message.pkg = (object.pkg !== undefined && object.pkg !== null) ? Package.fromPartial(object.pkg) : undefined;
     message.top = object.top ?? "";
     message.opts = object.opts?.map((e) => SimOptions.fromPartial(e)) || [];
     message.an = object.an?.map((e) => Analysis.fromPartial(e)) || [];
@@ -685,10 +676,7 @@ function createBaseSimResult(): SimResult {
 }
 
 export const SimResult = {
-  encode(
-    message: SimResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SimResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.an) {
       AnalysisResult.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -696,8 +684,7 @@ export const SimResult = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SimResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSimResult();
     while (reader.pos < end) {
@@ -720,11 +707,7 @@ export const SimResult = {
   },
 
   fromJSON(object: any): SimResult {
-    return {
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => AnalysisResult.fromJSON(e))
-        : [],
-    };
+    return { an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => AnalysisResult.fromJSON(e)) : [] };
   },
 
   toJSON(message: SimResult): unknown {
@@ -750,10 +733,7 @@ function createBaseSimOptions(): SimOptions {
 }
 
 export const SimOptions = {
-  encode(
-    message: SimOptions,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SimOptions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -764,8 +744,7 @@ export const SimOptions = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SimOptions {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSimOptions();
     while (reader.pos < end) {
@@ -797,9 +776,7 @@ export const SimOptions = {
   fromJSON(object: any): SimOptions {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      value: isSet(object.value)
-        ? ParamValue.fromJSON(object.value)
-        : undefined,
+      value: isSet(object.value) ? ParamValue.fromJSON(object.value) : undefined,
     };
   },
 
@@ -820,10 +797,9 @@ export const SimOptions = {
   fromPartial(object: DeepPartial<SimOptions>): SimOptions {
     const message = createBaseSimOptions();
     message.name = object.name ?? "";
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? ParamValue.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? ParamValue.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
@@ -833,10 +809,7 @@ function createBaseAnalysis(): Analysis {
 }
 
 export const Analysis = {
-  encode(
-    message: Analysis,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Analysis, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.an?.$case) {
       case "op":
         OpInput.encode(message.an.op, writer.uint32(10).fork()).ldelim();
@@ -860,18 +833,14 @@ export const Analysis = {
         MonteInput.encode(message.an.monte, writer.uint32(90).fork()).ldelim();
         break;
       case "custom":
-        CustomAnalysisInput.encode(
-          message.an.custom,
-          writer.uint32(162).fork(),
-        ).ldelim();
+        CustomAnalysisInput.encode(message.an.custom, writer.uint32(162).fork()).ldelim();
         break;
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Analysis {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAnalysis();
     while (reader.pos < end) {
@@ -882,80 +851,56 @@ export const Analysis = {
             break;
           }
 
-          message.an = {
-            $case: "op",
-            op: OpInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "op", op: OpInput.decode(reader, reader.uint32()) };
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.an = {
-            $case: "dc",
-            dc: DcInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "dc", dc: DcInput.decode(reader, reader.uint32()) };
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.an = {
-            $case: "tran",
-            tran: TranInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "tran", tran: TranInput.decode(reader, reader.uint32()) };
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.an = {
-            $case: "ac",
-            ac: AcInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "ac", ac: AcInput.decode(reader, reader.uint32()) };
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.an = {
-            $case: "noise",
-            noise: NoiseInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "noise", noise: NoiseInput.decode(reader, reader.uint32()) };
           continue;
         case 10:
           if (tag !== 82) {
             break;
           }
 
-          message.an = {
-            $case: "sweep",
-            sweep: SweepInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "sweep", sweep: SweepInput.decode(reader, reader.uint32()) };
           continue;
         case 11:
           if (tag !== 90) {
             break;
           }
 
-          message.an = {
-            $case: "monte",
-            monte: MonteInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "monte", monte: MonteInput.decode(reader, reader.uint32()) };
           continue;
         case 20:
           if (tag !== 162) {
             break;
           }
 
-          message.an = {
-            $case: "custom",
-            custom: CustomAnalysisInput.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "custom", custom: CustomAnalysisInput.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -971,26 +916,20 @@ export const Analysis = {
       an: isSet(object.op)
         ? { $case: "op", op: OpInput.fromJSON(object.op) }
         : isSet(object.dc)
-          ? { $case: "dc", dc: DcInput.fromJSON(object.dc) }
-          : isSet(object.tran)
-            ? { $case: "tran", tran: TranInput.fromJSON(object.tran) }
-            : isSet(object.ac)
-              ? { $case: "ac", ac: AcInput.fromJSON(object.ac) }
-              : isSet(object.noise)
-                ? { $case: "noise", noise: NoiseInput.fromJSON(object.noise) }
-                : isSet(object.sweep)
-                  ? { $case: "sweep", sweep: SweepInput.fromJSON(object.sweep) }
-                  : isSet(object.monte)
-                    ? {
-                        $case: "monte",
-                        monte: MonteInput.fromJSON(object.monte),
-                      }
-                    : isSet(object.custom)
-                      ? {
-                          $case: "custom",
-                          custom: CustomAnalysisInput.fromJSON(object.custom),
-                        }
-                      : undefined,
+        ? { $case: "dc", dc: DcInput.fromJSON(object.dc) }
+        : isSet(object.tran)
+        ? { $case: "tran", tran: TranInput.fromJSON(object.tran) }
+        : isSet(object.ac)
+        ? { $case: "ac", ac: AcInput.fromJSON(object.ac) }
+        : isSet(object.noise)
+        ? { $case: "noise", noise: NoiseInput.fromJSON(object.noise) }
+        : isSet(object.sweep)
+        ? { $case: "sweep", sweep: SweepInput.fromJSON(object.sweep) }
+        : isSet(object.monte)
+        ? { $case: "monte", monte: MonteInput.fromJSON(object.monte) }
+        : isSet(object.custom)
+        ? { $case: "custom", custom: CustomAnalysisInput.fromJSON(object.custom) }
+        : undefined,
     };
   },
 
@@ -1028,76 +967,29 @@ export const Analysis = {
   },
   fromPartial(object: DeepPartial<Analysis>): Analysis {
     const message = createBaseAnalysis();
-    if (
-      object.an?.$case === "op" &&
-      object.an?.op !== undefined &&
-      object.an?.op !== null
-    ) {
+    if (object.an?.$case === "op" && object.an?.op !== undefined && object.an?.op !== null) {
       message.an = { $case: "op", op: OpInput.fromPartial(object.an.op) };
     }
-    if (
-      object.an?.$case === "dc" &&
-      object.an?.dc !== undefined &&
-      object.an?.dc !== null
-    ) {
+    if (object.an?.$case === "dc" && object.an?.dc !== undefined && object.an?.dc !== null) {
       message.an = { $case: "dc", dc: DcInput.fromPartial(object.an.dc) };
     }
-    if (
-      object.an?.$case === "tran" &&
-      object.an?.tran !== undefined &&
-      object.an?.tran !== null
-    ) {
-      message.an = {
-        $case: "tran",
-        tran: TranInput.fromPartial(object.an.tran),
-      };
+    if (object.an?.$case === "tran" && object.an?.tran !== undefined && object.an?.tran !== null) {
+      message.an = { $case: "tran", tran: TranInput.fromPartial(object.an.tran) };
     }
-    if (
-      object.an?.$case === "ac" &&
-      object.an?.ac !== undefined &&
-      object.an?.ac !== null
-    ) {
+    if (object.an?.$case === "ac" && object.an?.ac !== undefined && object.an?.ac !== null) {
       message.an = { $case: "ac", ac: AcInput.fromPartial(object.an.ac) };
     }
-    if (
-      object.an?.$case === "noise" &&
-      object.an?.noise !== undefined &&
-      object.an?.noise !== null
-    ) {
-      message.an = {
-        $case: "noise",
-        noise: NoiseInput.fromPartial(object.an.noise),
-      };
+    if (object.an?.$case === "noise" && object.an?.noise !== undefined && object.an?.noise !== null) {
+      message.an = { $case: "noise", noise: NoiseInput.fromPartial(object.an.noise) };
     }
-    if (
-      object.an?.$case === "sweep" &&
-      object.an?.sweep !== undefined &&
-      object.an?.sweep !== null
-    ) {
-      message.an = {
-        $case: "sweep",
-        sweep: SweepInput.fromPartial(object.an.sweep),
-      };
+    if (object.an?.$case === "sweep" && object.an?.sweep !== undefined && object.an?.sweep !== null) {
+      message.an = { $case: "sweep", sweep: SweepInput.fromPartial(object.an.sweep) };
     }
-    if (
-      object.an?.$case === "monte" &&
-      object.an?.monte !== undefined &&
-      object.an?.monte !== null
-    ) {
-      message.an = {
-        $case: "monte",
-        monte: MonteInput.fromPartial(object.an.monte),
-      };
+    if (object.an?.$case === "monte" && object.an?.monte !== undefined && object.an?.monte !== null) {
+      message.an = { $case: "monte", monte: MonteInput.fromPartial(object.an.monte) };
     }
-    if (
-      object.an?.$case === "custom" &&
-      object.an?.custom !== undefined &&
-      object.an?.custom !== null
-    ) {
-      message.an = {
-        $case: "custom",
-        custom: CustomAnalysisInput.fromPartial(object.an.custom),
-      };
+    if (object.an?.$case === "custom" && object.an?.custom !== undefined && object.an?.custom !== null) {
+      message.an = { $case: "custom", custom: CustomAnalysisInput.fromPartial(object.an.custom) };
     }
     return message;
   },
@@ -1108,10 +1000,7 @@ function createBaseAnalysisResult(): AnalysisResult {
 }
 
 export const AnalysisResult = {
-  encode(
-    message: AnalysisResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AnalysisResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.an?.$case) {
       case "op":
         OpResult.encode(message.an.op, writer.uint32(10).fork()).ldelim();
@@ -1135,18 +1024,14 @@ export const AnalysisResult = {
         MonteResult.encode(message.an.monte, writer.uint32(90).fork()).ldelim();
         break;
       case "custom":
-        CustomAnalysisResult.encode(
-          message.an.custom,
-          writer.uint32(162).fork(),
-        ).ldelim();
+        CustomAnalysisResult.encode(message.an.custom, writer.uint32(162).fork()).ldelim();
         break;
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AnalysisResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAnalysisResult();
     while (reader.pos < end) {
@@ -1157,80 +1042,56 @@ export const AnalysisResult = {
             break;
           }
 
-          message.an = {
-            $case: "op",
-            op: OpResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "op", op: OpResult.decode(reader, reader.uint32()) };
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.an = {
-            $case: "dc",
-            dc: DcResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "dc", dc: DcResult.decode(reader, reader.uint32()) };
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.an = {
-            $case: "tran",
-            tran: TranResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "tran", tran: TranResult.decode(reader, reader.uint32()) };
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.an = {
-            $case: "ac",
-            ac: AcResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "ac", ac: AcResult.decode(reader, reader.uint32()) };
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.an = {
-            $case: "noise",
-            noise: NoiseResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "noise", noise: NoiseResult.decode(reader, reader.uint32()) };
           continue;
         case 10:
           if (tag !== 82) {
             break;
           }
 
-          message.an = {
-            $case: "sweep",
-            sweep: SweepResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "sweep", sweep: SweepResult.decode(reader, reader.uint32()) };
           continue;
         case 11:
           if (tag !== 90) {
             break;
           }
 
-          message.an = {
-            $case: "monte",
-            monte: MonteResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "monte", monte: MonteResult.decode(reader, reader.uint32()) };
           continue;
         case 20:
           if (tag !== 162) {
             break;
           }
 
-          message.an = {
-            $case: "custom",
-            custom: CustomAnalysisResult.decode(reader, reader.uint32()),
-          };
+          message.an = { $case: "custom", custom: CustomAnalysisResult.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1246,29 +1107,20 @@ export const AnalysisResult = {
       an: isSet(object.op)
         ? { $case: "op", op: OpResult.fromJSON(object.op) }
         : isSet(object.dc)
-          ? { $case: "dc", dc: DcResult.fromJSON(object.dc) }
-          : isSet(object.tran)
-            ? { $case: "tran", tran: TranResult.fromJSON(object.tran) }
-            : isSet(object.ac)
-              ? { $case: "ac", ac: AcResult.fromJSON(object.ac) }
-              : isSet(object.noise)
-                ? { $case: "noise", noise: NoiseResult.fromJSON(object.noise) }
-                : isSet(object.sweep)
-                  ? {
-                      $case: "sweep",
-                      sweep: SweepResult.fromJSON(object.sweep),
-                    }
-                  : isSet(object.monte)
-                    ? {
-                        $case: "monte",
-                        monte: MonteResult.fromJSON(object.monte),
-                      }
-                    : isSet(object.custom)
-                      ? {
-                          $case: "custom",
-                          custom: CustomAnalysisResult.fromJSON(object.custom),
-                        }
-                      : undefined,
+        ? { $case: "dc", dc: DcResult.fromJSON(object.dc) }
+        : isSet(object.tran)
+        ? { $case: "tran", tran: TranResult.fromJSON(object.tran) }
+        : isSet(object.ac)
+        ? { $case: "ac", ac: AcResult.fromJSON(object.ac) }
+        : isSet(object.noise)
+        ? { $case: "noise", noise: NoiseResult.fromJSON(object.noise) }
+        : isSet(object.sweep)
+        ? { $case: "sweep", sweep: SweepResult.fromJSON(object.sweep) }
+        : isSet(object.monte)
+        ? { $case: "monte", monte: MonteResult.fromJSON(object.monte) }
+        : isSet(object.custom)
+        ? { $case: "custom", custom: CustomAnalysisResult.fromJSON(object.custom) }
+        : undefined,
     };
   },
 
@@ -1306,76 +1158,29 @@ export const AnalysisResult = {
   },
   fromPartial(object: DeepPartial<AnalysisResult>): AnalysisResult {
     const message = createBaseAnalysisResult();
-    if (
-      object.an?.$case === "op" &&
-      object.an?.op !== undefined &&
-      object.an?.op !== null
-    ) {
+    if (object.an?.$case === "op" && object.an?.op !== undefined && object.an?.op !== null) {
       message.an = { $case: "op", op: OpResult.fromPartial(object.an.op) };
     }
-    if (
-      object.an?.$case === "dc" &&
-      object.an?.dc !== undefined &&
-      object.an?.dc !== null
-    ) {
+    if (object.an?.$case === "dc" && object.an?.dc !== undefined && object.an?.dc !== null) {
       message.an = { $case: "dc", dc: DcResult.fromPartial(object.an.dc) };
     }
-    if (
-      object.an?.$case === "tran" &&
-      object.an?.tran !== undefined &&
-      object.an?.tran !== null
-    ) {
-      message.an = {
-        $case: "tran",
-        tran: TranResult.fromPartial(object.an.tran),
-      };
+    if (object.an?.$case === "tran" && object.an?.tran !== undefined && object.an?.tran !== null) {
+      message.an = { $case: "tran", tran: TranResult.fromPartial(object.an.tran) };
     }
-    if (
-      object.an?.$case === "ac" &&
-      object.an?.ac !== undefined &&
-      object.an?.ac !== null
-    ) {
+    if (object.an?.$case === "ac" && object.an?.ac !== undefined && object.an?.ac !== null) {
       message.an = { $case: "ac", ac: AcResult.fromPartial(object.an.ac) };
     }
-    if (
-      object.an?.$case === "noise" &&
-      object.an?.noise !== undefined &&
-      object.an?.noise !== null
-    ) {
-      message.an = {
-        $case: "noise",
-        noise: NoiseResult.fromPartial(object.an.noise),
-      };
+    if (object.an?.$case === "noise" && object.an?.noise !== undefined && object.an?.noise !== null) {
+      message.an = { $case: "noise", noise: NoiseResult.fromPartial(object.an.noise) };
     }
-    if (
-      object.an?.$case === "sweep" &&
-      object.an?.sweep !== undefined &&
-      object.an?.sweep !== null
-    ) {
-      message.an = {
-        $case: "sweep",
-        sweep: SweepResult.fromPartial(object.an.sweep),
-      };
+    if (object.an?.$case === "sweep" && object.an?.sweep !== undefined && object.an?.sweep !== null) {
+      message.an = { $case: "sweep", sweep: SweepResult.fromPartial(object.an.sweep) };
     }
-    if (
-      object.an?.$case === "monte" &&
-      object.an?.monte !== undefined &&
-      object.an?.monte !== null
-    ) {
-      message.an = {
-        $case: "monte",
-        monte: MonteResult.fromPartial(object.an.monte),
-      };
+    if (object.an?.$case === "monte" && object.an?.monte !== undefined && object.an?.monte !== null) {
+      message.an = { $case: "monte", monte: MonteResult.fromPartial(object.an.monte) };
     }
-    if (
-      object.an?.$case === "custom" &&
-      object.an?.custom !== undefined &&
-      object.an?.custom !== null
-    ) {
-      message.an = {
-        $case: "custom",
-        custom: CustomAnalysisResult.fromPartial(object.an.custom),
-      };
+    if (object.an?.$case === "custom" && object.an?.custom !== undefined && object.an?.custom !== null) {
+      message.an = { $case: "custom", custom: CustomAnalysisResult.fromPartial(object.an.custom) };
     }
     return message;
   },
@@ -1386,10 +1191,7 @@ function createBaseOpInput(): OpInput {
 }
 
 export const OpInput = {
-  encode(
-    message: OpInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: OpInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -1400,8 +1202,7 @@ export const OpInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpInput();
     while (reader.pos < end) {
@@ -1432,12 +1233,8 @@ export const OpInput = {
 
   fromJSON(object: any): OpInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -1468,10 +1265,7 @@ function createBaseOpResult(): OpResult {
 }
 
 export const OpResult = {
-  encode(
-    message: OpResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: OpResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -1487,8 +1281,7 @@ export const OpResult = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpResult();
     while (reader.pos < end) {
@@ -1536,15 +1329,9 @@ export const OpResult = {
 
   fromJSON(object: any): OpResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => globalThis.String(e))
-        : [],
-      data: globalThis.Array.isArray(object?.data)
-        ? object.data.map((e: any) => globalThis.Number(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => globalThis.String(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => globalThis.Number(e)) : [],
     };
   },
 
@@ -1579,10 +1366,7 @@ function createBaseDcInput(): DcInput {
 }
 
 export const DcInput = {
-  encode(
-    message: DcInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DcInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -1599,8 +1383,7 @@ export const DcInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DcInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDcInput();
     while (reader.pos < end) {
@@ -1645,16 +1428,10 @@ export const DcInput = {
 
   fromJSON(object: any): DcInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      indepName: isSet(object.indepName)
-        ? globalThis.String(object.indepName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      indepName: isSet(object.indepName) ? globalThis.String(object.indepName) : "",
       sweep: isSet(object.sweep) ? Sweep.fromJSON(object.sweep) : undefined,
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -1682,30 +1459,18 @@ export const DcInput = {
     const message = createBaseDcInput();
     message.analysisName = object.analysisName ?? "";
     message.indepName = object.indepName ?? "";
-    message.sweep =
-      object.sweep !== undefined && object.sweep !== null
-        ? Sweep.fromPartial(object.sweep)
-        : undefined;
+    message.sweep = (object.sweep !== undefined && object.sweep !== null) ? Sweep.fromPartial(object.sweep) : undefined;
     message.ctrls = object.ctrls?.map((e) => Control.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseDcResult(): DcResult {
-  return {
-    analysisName: "",
-    indepName: "",
-    signals: [],
-    data: [],
-    measurements: {},
-  };
+  return { analysisName: "", indepName: "", signals: [], data: [], measurements: {} };
 }
 
 export const DcResult = {
-  encode(
-    message: DcResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DcResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -1721,17 +1486,13 @@ export const DcResult = {
     }
     writer.ldelim();
     Object.entries(message.measurements).forEach(([key, value]) => {
-      DcResult_MeasurementsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(82).fork(),
-      ).ldelim();
+      DcResult_MeasurementsEntry.encode({ key: key as any, value }, writer.uint32(82).fork()).ldelim();
     });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DcResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDcResult();
     while (reader.pos < end) {
@@ -1780,10 +1541,7 @@ export const DcResult = {
             break;
           }
 
-          const entry10 = DcResult_MeasurementsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry10 = DcResult_MeasurementsEntry.decode(reader, reader.uint32());
           if (entry10.value !== undefined) {
             message.measurements[entry10.key] = entry10.value;
           }
@@ -1799,26 +1557,15 @@ export const DcResult = {
 
   fromJSON(object: any): DcResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      indepName: isSet(object.indepName)
-        ? globalThis.String(object.indepName)
-        : "",
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => globalThis.String(e))
-        : [],
-      data: globalThis.Array.isArray(object?.data)
-        ? object.data.map((e: any) => globalThis.Number(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      indepName: isSet(object.indepName) ? globalThis.String(object.indepName) : "",
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => globalThis.String(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => globalThis.Number(e)) : [],
       measurements: isObject(object.measurements)
-        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>(
-            (acc, [key, value]) => {
-              acc[key] = Number(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -1858,14 +1605,15 @@ export const DcResult = {
     message.indepName = object.indepName ?? "";
     message.signals = object.signals?.map((e) => e) || [];
     message.data = object.data?.map((e) => e) || [];
-    message.measurements = Object.entries(object.measurements ?? {}).reduce<{
-      [key: string]: number;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
-      }
-      return acc;
-    }, {});
+    message.measurements = Object.entries(object.measurements ?? {}).reduce<{ [key: string]: number }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = globalThis.Number(value);
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
@@ -1875,10 +1623,7 @@ function createBaseDcResult_MeasurementsEntry(): DcResult_MeasurementsEntry {
 }
 
 export const DcResult_MeasurementsEntry = {
-  encode(
-    message: DcResult_MeasurementsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DcResult_MeasurementsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -1888,12 +1633,8 @@ export const DcResult_MeasurementsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DcResult_MeasurementsEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): DcResult_MeasurementsEntry {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDcResult_MeasurementsEntry();
     while (reader.pos < end) {
@@ -1940,14 +1681,10 @@ export const DcResult_MeasurementsEntry = {
     return obj;
   },
 
-  create(
-    base?: DeepPartial<DcResult_MeasurementsEntry>,
-  ): DcResult_MeasurementsEntry {
+  create(base?: DeepPartial<DcResult_MeasurementsEntry>): DcResult_MeasurementsEntry {
     return DcResult_MeasurementsEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<DcResult_MeasurementsEntry>,
-  ): DcResult_MeasurementsEntry {
+  fromPartial(object: DeepPartial<DcResult_MeasurementsEntry>): DcResult_MeasurementsEntry {
     const message = createBaseDcResult_MeasurementsEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
@@ -1960,10 +1697,7 @@ function createBaseTranInput(): TranInput {
 }
 
 export const TranInput = {
-  encode(
-    message: TranInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: TranInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -1974,10 +1708,7 @@ export const TranInput = {
       writer.uint32(25).double(message.tstep);
     }
     Object.entries(message.ic).forEach(([key, value]) => {
-      TranInput_IcEntry.encode(
-        { key: key as any, value },
-        writer.uint32(34).fork(),
-      ).ldelim();
+      TranInput_IcEntry.encode({ key: key as any, value }, writer.uint32(34).fork()).ldelim();
     });
     for (const v of message.ctrls) {
       Control.encode(v!, writer.uint32(42).fork()).ldelim();
@@ -1986,8 +1717,7 @@ export const TranInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TranInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTranInput();
     while (reader.pos < end) {
@@ -2042,23 +1772,16 @@ export const TranInput = {
 
   fromJSON(object: any): TranInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
       tstop: isSet(object.tstop) ? globalThis.Number(object.tstop) : 0,
       tstep: isSet(object.tstep) ? globalThis.Number(object.tstep) : 0,
       ic: isObject(object.ic)
-        ? Object.entries(object.ic).reduce<{ [key: string]: number }>(
-            (acc, [key, value]) => {
-              acc[key] = Number(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.ic).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -2096,9 +1819,7 @@ export const TranInput = {
     message.analysisName = object.analysisName ?? "";
     message.tstop = object.tstop ?? 0;
     message.tstep = object.tstep ?? 0;
-    message.ic = Object.entries(object.ic ?? {}).reduce<{
-      [key: string]: number;
-    }>((acc, [key, value]) => {
+    message.ic = Object.entries(object.ic ?? {}).reduce<{ [key: string]: number }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = globalThis.Number(value);
       }
@@ -2114,10 +1835,7 @@ function createBaseTranInput_IcEntry(): TranInput_IcEntry {
 }
 
 export const TranInput_IcEntry = {
-  encode(
-    message: TranInput_IcEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: TranInput_IcEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -2128,8 +1846,7 @@ export const TranInput_IcEntry = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TranInput_IcEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTranInput_IcEntry();
     while (reader.pos < end) {
@@ -2192,10 +1909,7 @@ function createBaseTranResult(): TranResult {
 }
 
 export const TranResult = {
-  encode(
-    message: TranResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: TranResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -2208,17 +1922,13 @@ export const TranResult = {
     }
     writer.ldelim();
     Object.entries(message.measurements).forEach(([key, value]) => {
-      TranResult_MeasurementsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(82).fork(),
-      ).ldelim();
+      TranResult_MeasurementsEntry.encode({ key: key as any, value }, writer.uint32(82).fork()).ldelim();
     });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TranResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTranResult();
     while (reader.pos < end) {
@@ -2260,10 +1970,7 @@ export const TranResult = {
             break;
           }
 
-          const entry10 = TranResult_MeasurementsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry10 = TranResult_MeasurementsEntry.decode(reader, reader.uint32());
           if (entry10.value !== undefined) {
             message.measurements[entry10.key] = entry10.value;
           }
@@ -2279,23 +1986,14 @@ export const TranResult = {
 
   fromJSON(object: any): TranResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => globalThis.String(e))
-        : [],
-      data: globalThis.Array.isArray(object?.data)
-        ? object.data.map((e: any) => globalThis.Number(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => globalThis.String(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => globalThis.Number(e)) : [],
       measurements: isObject(object.measurements)
-        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>(
-            (acc, [key, value]) => {
-              acc[key] = Number(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -2331,14 +2029,15 @@ export const TranResult = {
     message.analysisName = object.analysisName ?? "";
     message.signals = object.signals?.map((e) => e) || [];
     message.data = object.data?.map((e) => e) || [];
-    message.measurements = Object.entries(object.measurements ?? {}).reduce<{
-      [key: string]: number;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
-      }
-      return acc;
-    }, {});
+    message.measurements = Object.entries(object.measurements ?? {}).reduce<{ [key: string]: number }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = globalThis.Number(value);
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
@@ -2348,10 +2047,7 @@ function createBaseTranResult_MeasurementsEntry(): TranResult_MeasurementsEntry 
 }
 
 export const TranResult_MeasurementsEntry = {
-  encode(
-    message: TranResult_MeasurementsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: TranResult_MeasurementsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -2361,12 +2057,8 @@ export const TranResult_MeasurementsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): TranResult_MeasurementsEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): TranResult_MeasurementsEntry {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTranResult_MeasurementsEntry();
     while (reader.pos < end) {
@@ -2413,14 +2105,10 @@ export const TranResult_MeasurementsEntry = {
     return obj;
   },
 
-  create(
-    base?: DeepPartial<TranResult_MeasurementsEntry>,
-  ): TranResult_MeasurementsEntry {
+  create(base?: DeepPartial<TranResult_MeasurementsEntry>): TranResult_MeasurementsEntry {
     return TranResult_MeasurementsEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<TranResult_MeasurementsEntry>,
-  ): TranResult_MeasurementsEntry {
+  fromPartial(object: DeepPartial<TranResult_MeasurementsEntry>): TranResult_MeasurementsEntry {
     const message = createBaseTranResult_MeasurementsEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
@@ -2433,10 +2121,7 @@ function createBaseComplexNum(): ComplexNum {
 }
 
 export const ComplexNum = {
-  encode(
-    message: ComplexNum,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ComplexNum, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.re !== 0) {
       writer.uint32(9).double(message.re);
     }
@@ -2447,8 +2132,7 @@ export const ComplexNum = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ComplexNum {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseComplexNum();
     while (reader.pos < end) {
@@ -2511,10 +2195,7 @@ function createBaseAcInput(): AcInput {
 }
 
 export const AcInput = {
-  encode(
-    message: AcInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AcInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -2534,8 +2215,7 @@ export const AcInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AcInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcInput();
     while (reader.pos < end) {
@@ -2587,15 +2267,11 @@ export const AcInput = {
 
   fromJSON(object: any): AcInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
       fstart: isSet(object.fstart) ? globalThis.Number(object.fstart) : 0,
       fstop: isSet(object.fstop) ? globalThis.Number(object.fstop) : 0,
       npts: isSet(object.npts) ? globalThis.Number(object.npts) : 0,
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -2634,20 +2310,11 @@ export const AcInput = {
 };
 
 function createBaseAcResult(): AcResult {
-  return {
-    analysisName: "",
-    freq: [],
-    signals: [],
-    data: [],
-    measurements: {},
-  };
+  return { analysisName: "", freq: [], signals: [], data: [], measurements: {} };
 }
 
 export const AcResult = {
-  encode(
-    message: AcResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AcResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -2663,17 +2330,13 @@ export const AcResult = {
       ComplexNum.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     Object.entries(message.measurements).forEach(([key, value]) => {
-      AcResult_MeasurementsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(82).fork(),
-      ).ldelim();
+      AcResult_MeasurementsEntry.encode({ key: key as any, value }, writer.uint32(82).fork()).ldelim();
     });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AcResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcResult();
     while (reader.pos < end) {
@@ -2722,10 +2385,7 @@ export const AcResult = {
             break;
           }
 
-          const entry10 = AcResult_MeasurementsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry10 = AcResult_MeasurementsEntry.decode(reader, reader.uint32());
           if (entry10.value !== undefined) {
             message.measurements[entry10.key] = entry10.value;
           }
@@ -2741,26 +2401,15 @@ export const AcResult = {
 
   fromJSON(object: any): AcResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      freq: globalThis.Array.isArray(object?.freq)
-        ? object.freq.map((e: any) => globalThis.Number(e))
-        : [],
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => globalThis.String(e))
-        : [],
-      data: globalThis.Array.isArray(object?.data)
-        ? object.data.map((e: any) => ComplexNum.fromJSON(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      freq: globalThis.Array.isArray(object?.freq) ? object.freq.map((e: any) => globalThis.Number(e)) : [],
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => globalThis.String(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => ComplexNum.fromJSON(e)) : [],
       measurements: isObject(object.measurements)
-        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>(
-            (acc, [key, value]) => {
-              acc[key] = Number(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -2800,14 +2449,15 @@ export const AcResult = {
     message.freq = object.freq?.map((e) => e) || [];
     message.signals = object.signals?.map((e) => e) || [];
     message.data = object.data?.map((e) => ComplexNum.fromPartial(e)) || [];
-    message.measurements = Object.entries(object.measurements ?? {}).reduce<{
-      [key: string]: number;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
-      }
-      return acc;
-    }, {});
+    message.measurements = Object.entries(object.measurements ?? {}).reduce<{ [key: string]: number }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = globalThis.Number(value);
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
@@ -2817,10 +2467,7 @@ function createBaseAcResult_MeasurementsEntry(): AcResult_MeasurementsEntry {
 }
 
 export const AcResult_MeasurementsEntry = {
-  encode(
-    message: AcResult_MeasurementsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AcResult_MeasurementsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -2830,12 +2477,8 @@ export const AcResult_MeasurementsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): AcResult_MeasurementsEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): AcResult_MeasurementsEntry {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcResult_MeasurementsEntry();
     while (reader.pos < end) {
@@ -2882,14 +2525,10 @@ export const AcResult_MeasurementsEntry = {
     return obj;
   },
 
-  create(
-    base?: DeepPartial<AcResult_MeasurementsEntry>,
-  ): AcResult_MeasurementsEntry {
+  create(base?: DeepPartial<AcResult_MeasurementsEntry>): AcResult_MeasurementsEntry {
     return AcResult_MeasurementsEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<AcResult_MeasurementsEntry>,
-  ): AcResult_MeasurementsEntry {
+  fromPartial(object: DeepPartial<AcResult_MeasurementsEntry>): AcResult_MeasurementsEntry {
     const message = createBaseAcResult_MeasurementsEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
@@ -2898,23 +2537,11 @@ export const AcResult_MeasurementsEntry = {
 };
 
 function createBaseNoiseInput(): NoiseInput {
-  return {
-    analysisName: "",
-    outputP: "",
-    outputN: "",
-    inputSource: "",
-    fstart: 0,
-    fstop: 0,
-    npts: 0,
-    ctrls: [],
-  };
+  return { analysisName: "", outputP: "", outputN: "", inputSource: "", fstart: 0, fstop: 0, npts: 0, ctrls: [] };
 }
 
 export const NoiseInput = {
-  encode(
-    message: NoiseInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NoiseInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -2943,8 +2570,7 @@ export const NoiseInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NoiseInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNoiseInput();
     while (reader.pos < end) {
@@ -3017,20 +2643,14 @@ export const NoiseInput = {
 
   fromJSON(object: any): NoiseInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
       outputP: isSet(object.outputP) ? globalThis.String(object.outputP) : "",
       outputN: isSet(object.outputN) ? globalThis.String(object.outputN) : "",
-      inputSource: isSet(object.inputSource)
-        ? globalThis.String(object.inputSource)
-        : "",
+      inputSource: isSet(object.inputSource) ? globalThis.String(object.inputSource) : "",
       fstart: isSet(object.fstart) ? globalThis.Number(object.fstart) : 0,
       fstop: isSet(object.fstop) ? globalThis.Number(object.fstop) : 0,
       npts: isSet(object.npts) ? globalThis.Number(object.npts) : 0,
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -3081,20 +2701,11 @@ export const NoiseInput = {
 };
 
 function createBaseNoiseResult(): NoiseResult {
-  return {
-    analysisName: "",
-    signals: [],
-    data: [],
-    integratedNoise: {},
-    measurements: {},
-  };
+  return { analysisName: "", signals: [], data: [], integratedNoise: {}, measurements: {} };
 }
 
 export const NoiseResult = {
-  encode(
-    message: NoiseResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NoiseResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3107,23 +2718,16 @@ export const NoiseResult = {
     }
     writer.ldelim();
     Object.entries(message.integratedNoise).forEach(([key, value]) => {
-      NoiseResult_IntegratedNoiseEntry.encode(
-        { key: key as any, value },
-        writer.uint32(82).fork(),
-      ).ldelim();
+      NoiseResult_IntegratedNoiseEntry.encode({ key: key as any, value }, writer.uint32(82).fork()).ldelim();
     });
     Object.entries(message.measurements).forEach(([key, value]) => {
-      NoiseResult_MeasurementsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(90).fork(),
-      ).ldelim();
+      NoiseResult_MeasurementsEntry.encode({ key: key as any, value }, writer.uint32(90).fork()).ldelim();
     });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NoiseResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNoiseResult();
     while (reader.pos < end) {
@@ -3165,10 +2769,7 @@ export const NoiseResult = {
             break;
           }
 
-          const entry10 = NoiseResult_IntegratedNoiseEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry10 = NoiseResult_IntegratedNoiseEntry.decode(reader, reader.uint32());
           if (entry10.value !== undefined) {
             message.integratedNoise[entry10.key] = entry10.value;
           }
@@ -3178,10 +2779,7 @@ export const NoiseResult = {
             break;
           }
 
-          const entry11 = NoiseResult_MeasurementsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry11 = NoiseResult_MeasurementsEntry.decode(reader, reader.uint32());
           if (entry11.value !== undefined) {
             message.measurements[entry11.key] = entry11.value;
           }
@@ -3197,31 +2795,20 @@ export const NoiseResult = {
 
   fromJSON(object: any): NoiseResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      signals: globalThis.Array.isArray(object?.signals)
-        ? object.signals.map((e: any) => globalThis.String(e))
-        : [],
-      data: globalThis.Array.isArray(object?.data)
-        ? object.data.map((e: any) => globalThis.Number(e))
-        : [],
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      signals: globalThis.Array.isArray(object?.signals) ? object.signals.map((e: any) => globalThis.String(e)) : [],
+      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => globalThis.Number(e)) : [],
       integratedNoise: isObject(object.integratedNoise)
-        ? Object.entries(object.integratedNoise).reduce<{
-            [key: string]: number;
-          }>((acc, [key, value]) => {
-            acc[key] = Number(value);
-            return acc;
-          }, {})
+        ? Object.entries(object.integratedNoise).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
       measurements: isObject(object.measurements)
-        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>(
-            (acc, [key, value]) => {
-              acc[key] = Number(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.measurements).reduce<{ [key: string]: number }>((acc, [key, value]) => {
+          acc[key] = Number(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -3266,22 +2853,24 @@ export const NoiseResult = {
     message.analysisName = object.analysisName ?? "";
     message.signals = object.signals?.map((e) => e) || [];
     message.data = object.data?.map((e) => e) || [];
-    message.integratedNoise = Object.entries(
-      object.integratedNoise ?? {},
-    ).reduce<{ [key: string]: number }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
-      }
-      return acc;
-    }, {});
-    message.measurements = Object.entries(object.measurements ?? {}).reduce<{
-      [key: string]: number;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
-      }
-      return acc;
-    }, {});
+    message.integratedNoise = Object.entries(object.integratedNoise ?? {}).reduce<{ [key: string]: number }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = globalThis.Number(value);
+        }
+        return acc;
+      },
+      {},
+    );
+    message.measurements = Object.entries(object.measurements ?? {}).reduce<{ [key: string]: number }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = globalThis.Number(value);
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
@@ -3291,10 +2880,7 @@ function createBaseNoiseResult_IntegratedNoiseEntry(): NoiseResult_IntegratedNoi
 }
 
 export const NoiseResult_IntegratedNoiseEntry = {
-  encode(
-    message: NoiseResult_IntegratedNoiseEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NoiseResult_IntegratedNoiseEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -3304,12 +2890,8 @@ export const NoiseResult_IntegratedNoiseEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): NoiseResult_IntegratedNoiseEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): NoiseResult_IntegratedNoiseEntry {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNoiseResult_IntegratedNoiseEntry();
     while (reader.pos < end) {
@@ -3356,14 +2938,10 @@ export const NoiseResult_IntegratedNoiseEntry = {
     return obj;
   },
 
-  create(
-    base?: DeepPartial<NoiseResult_IntegratedNoiseEntry>,
-  ): NoiseResult_IntegratedNoiseEntry {
+  create(base?: DeepPartial<NoiseResult_IntegratedNoiseEntry>): NoiseResult_IntegratedNoiseEntry {
     return NoiseResult_IntegratedNoiseEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<NoiseResult_IntegratedNoiseEntry>,
-  ): NoiseResult_IntegratedNoiseEntry {
+  fromPartial(object: DeepPartial<NoiseResult_IntegratedNoiseEntry>): NoiseResult_IntegratedNoiseEntry {
     const message = createBaseNoiseResult_IntegratedNoiseEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
@@ -3376,10 +2954,7 @@ function createBaseNoiseResult_MeasurementsEntry(): NoiseResult_MeasurementsEntr
 }
 
 export const NoiseResult_MeasurementsEntry = {
-  encode(
-    message: NoiseResult_MeasurementsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NoiseResult_MeasurementsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
@@ -3389,12 +2964,8 @@ export const NoiseResult_MeasurementsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): NoiseResult_MeasurementsEntry {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): NoiseResult_MeasurementsEntry {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNoiseResult_MeasurementsEntry();
     while (reader.pos < end) {
@@ -3441,14 +3012,10 @@ export const NoiseResult_MeasurementsEntry = {
     return obj;
   },
 
-  create(
-    base?: DeepPartial<NoiseResult_MeasurementsEntry>,
-  ): NoiseResult_MeasurementsEntry {
+  create(base?: DeepPartial<NoiseResult_MeasurementsEntry>): NoiseResult_MeasurementsEntry {
     return NoiseResult_MeasurementsEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<NoiseResult_MeasurementsEntry>,
-  ): NoiseResult_MeasurementsEntry {
+  fromPartial(object: DeepPartial<NoiseResult_MeasurementsEntry>): NoiseResult_MeasurementsEntry {
     const message = createBaseNoiseResult_MeasurementsEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? 0;
@@ -3457,20 +3024,11 @@ export const NoiseResult_MeasurementsEntry = {
 };
 
 function createBaseSweepInput(): SweepInput {
-  return {
-    analysisName: "",
-    variable: "",
-    sweep: undefined,
-    an: [],
-    ctrls: [],
-  };
+  return { analysisName: "", variable: "", sweep: undefined, an: [], ctrls: [] };
 }
 
 export const SweepInput = {
-  encode(
-    message: SweepInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SweepInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3490,8 +3048,7 @@ export const SweepInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SweepInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSweepInput();
     while (reader.pos < end) {
@@ -3543,19 +3100,11 @@ export const SweepInput = {
 
   fromJSON(object: any): SweepInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      variable: isSet(object.variable)
-        ? globalThis.String(object.variable)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      variable: isSet(object.variable) ? globalThis.String(object.variable) : "",
       sweep: isSet(object.sweep) ? Sweep.fromJSON(object.sweep) : undefined,
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => Analysis.fromJSON(e))
-        : [],
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => Analysis.fromJSON(e)) : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -3586,10 +3135,7 @@ export const SweepInput = {
     const message = createBaseSweepInput();
     message.analysisName = object.analysisName ?? "";
     message.variable = object.variable ?? "";
-    message.sweep =
-      object.sweep !== undefined && object.sweep !== null
-        ? Sweep.fromPartial(object.sweep)
-        : undefined;
+    message.sweep = (object.sweep !== undefined && object.sweep !== null) ? Sweep.fromPartial(object.sweep) : undefined;
     message.an = object.an?.map((e) => Analysis.fromPartial(e)) || [];
     message.ctrls = object.ctrls?.map((e) => Control.fromPartial(e)) || [];
     return message;
@@ -3601,10 +3147,7 @@ function createBaseSweepResult(): SweepResult {
 }
 
 export const SweepResult = {
-  encode(
-    message: SweepResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SweepResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3621,8 +3164,7 @@ export const SweepResult = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SweepResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSweepResult();
     while (reader.pos < end) {
@@ -3667,16 +3209,10 @@ export const SweepResult = {
 
   fromJSON(object: any): SweepResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      variable: isSet(object.variable)
-        ? globalThis.String(object.variable)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      variable: isSet(object.variable) ? globalThis.String(object.variable) : "",
       sweep: isSet(object.sweep) ? Sweep.fromJSON(object.sweep) : undefined,
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => AnalysisResult.fromJSON(e))
-        : [],
+      an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => AnalysisResult.fromJSON(e)) : [],
     };
   },
 
@@ -3704,10 +3240,7 @@ export const SweepResult = {
     const message = createBaseSweepResult();
     message.analysisName = object.analysisName ?? "";
     message.variable = object.variable ?? "";
-    message.sweep =
-      object.sweep !== undefined && object.sweep !== null
-        ? Sweep.fromPartial(object.sweep)
-        : undefined;
+    message.sweep = (object.sweep !== undefined && object.sweep !== null) ? Sweep.fromPartial(object.sweep) : undefined;
     message.an = object.an?.map((e) => AnalysisResult.fromPartial(e)) || [];
     return message;
   },
@@ -3718,10 +3251,7 @@ function createBaseMonteInput(): MonteInput {
 }
 
 export const MonteInput = {
-  encode(
-    message: MonteInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MonteInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3741,8 +3271,7 @@ export const MonteInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MonteInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMonteInput();
     while (reader.pos < end) {
@@ -3794,17 +3323,11 @@ export const MonteInput = {
 
   fromJSON(object: any): MonteInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
       npts: isSet(object.npts) ? globalThis.Number(object.npts) : 0,
       seed: isSet(object.seed) ? globalThis.Number(object.seed) : 0,
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => Analysis.fromJSON(e))
-        : [],
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => Analysis.fromJSON(e)) : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -3847,10 +3370,7 @@ function createBaseMonteResult(): MonteResult {
 }
 
 export const MonteResult = {
-  encode(
-    message: MonteResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MonteResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3867,8 +3387,7 @@ export const MonteResult = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MonteResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMonteResult();
     while (reader.pos < end) {
@@ -3913,16 +3432,10 @@ export const MonteResult = {
 
   fromJSON(object: any): MonteResult {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
-      variable: isSet(object.variable)
-        ? globalThis.String(object.variable)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
+      variable: isSet(object.variable) ? globalThis.String(object.variable) : "",
       sweep: isSet(object.sweep) ? Sweep.fromJSON(object.sweep) : undefined,
-      an: globalThis.Array.isArray(object?.an)
-        ? object.an.map((e: any) => AnalysisResult.fromJSON(e))
-        : [],
+      an: globalThis.Array.isArray(object?.an) ? object.an.map((e: any) => AnalysisResult.fromJSON(e)) : [],
     };
   },
 
@@ -3950,10 +3463,7 @@ export const MonteResult = {
     const message = createBaseMonteResult();
     message.analysisName = object.analysisName ?? "";
     message.variable = object.variable ?? "";
-    message.sweep =
-      object.sweep !== undefined && object.sweep !== null
-        ? Sweep.fromPartial(object.sweep)
-        : undefined;
+    message.sweep = (object.sweep !== undefined && object.sweep !== null) ? Sweep.fromPartial(object.sweep) : undefined;
     message.an = object.an?.map((e) => AnalysisResult.fromPartial(e)) || [];
     return message;
   },
@@ -3964,10 +3474,7 @@ function createBaseCustomAnalysisInput(): CustomAnalysisInput {
 }
 
 export const CustomAnalysisInput = {
-  encode(
-    message: CustomAnalysisInput,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CustomAnalysisInput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.analysisName !== "") {
       writer.uint32(10).string(message.analysisName);
     }
@@ -3981,8 +3488,7 @@ export const CustomAnalysisInput = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CustomAnalysisInput {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomAnalysisInput();
     while (reader.pos < end) {
@@ -4020,13 +3526,9 @@ export const CustomAnalysisInput = {
 
   fromJSON(object: any): CustomAnalysisInput {
     return {
-      analysisName: isSet(object.analysisName)
-        ? globalThis.String(object.analysisName)
-        : "",
+      analysisName: isSet(object.analysisName) ? globalThis.String(object.analysisName) : "",
       cmd: isSet(object.cmd) ? globalThis.String(object.cmd) : "",
-      ctrls: globalThis.Array.isArray(object?.ctrls)
-        ? object.ctrls.map((e: any) => Control.fromJSON(e))
-        : [],
+      ctrls: globalThis.Array.isArray(object?.ctrls) ? object.ctrls.map((e: any) => Control.fromJSON(e)) : [],
     };
   },
 
@@ -4061,19 +3563,12 @@ function createBaseCustomAnalysisResult(): CustomAnalysisResult {
 }
 
 export const CustomAnalysisResult = {
-  encode(
-    _: CustomAnalysisResult,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: CustomAnalysisResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): CustomAnalysisResult {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): CustomAnalysisResult {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomAnalysisResult();
     while (reader.pos < end) {
@@ -4114,10 +3609,7 @@ export const Sweep = {
   encode(message: Sweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.tp?.$case) {
       case "linear":
-        LinearSweep.encode(
-          message.tp.linear,
-          writer.uint32(10).fork(),
-        ).ldelim();
+        LinearSweep.encode(message.tp.linear, writer.uint32(10).fork()).ldelim();
         break;
       case "log":
         LogSweep.encode(message.tp.log, writer.uint32(18).fork()).ldelim();
@@ -4130,8 +3622,7 @@ export const Sweep = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Sweep {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSweep();
     while (reader.pos < end) {
@@ -4142,30 +3633,21 @@ export const Sweep = {
             break;
           }
 
-          message.tp = {
-            $case: "linear",
-            linear: LinearSweep.decode(reader, reader.uint32()),
-          };
+          message.tp = { $case: "linear", linear: LinearSweep.decode(reader, reader.uint32()) };
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.tp = {
-            $case: "log",
-            log: LogSweep.decode(reader, reader.uint32()),
-          };
+          message.tp = { $case: "log", log: LogSweep.decode(reader, reader.uint32()) };
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.tp = {
-            $case: "points",
-            points: PointSweep.decode(reader, reader.uint32()),
-          };
+          message.tp = { $case: "points", points: PointSweep.decode(reader, reader.uint32()) };
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -4181,10 +3663,10 @@ export const Sweep = {
       tp: isSet(object.linear)
         ? { $case: "linear", linear: LinearSweep.fromJSON(object.linear) }
         : isSet(object.log)
-          ? { $case: "log", log: LogSweep.fromJSON(object.log) }
-          : isSet(object.points)
-            ? { $case: "points", points: PointSweep.fromJSON(object.points) }
-            : undefined,
+        ? { $case: "log", log: LogSweep.fromJSON(object.log) }
+        : isSet(object.points)
+        ? { $case: "points", points: PointSweep.fromJSON(object.points) }
+        : undefined,
     };
   },
 
@@ -4207,32 +3689,14 @@ export const Sweep = {
   },
   fromPartial(object: DeepPartial<Sweep>): Sweep {
     const message = createBaseSweep();
-    if (
-      object.tp?.$case === "linear" &&
-      object.tp?.linear !== undefined &&
-      object.tp?.linear !== null
-    ) {
-      message.tp = {
-        $case: "linear",
-        linear: LinearSweep.fromPartial(object.tp.linear),
-      };
+    if (object.tp?.$case === "linear" && object.tp?.linear !== undefined && object.tp?.linear !== null) {
+      message.tp = { $case: "linear", linear: LinearSweep.fromPartial(object.tp.linear) };
     }
-    if (
-      object.tp?.$case === "log" &&
-      object.tp?.log !== undefined &&
-      object.tp?.log !== null
-    ) {
+    if (object.tp?.$case === "log" && object.tp?.log !== undefined && object.tp?.log !== null) {
       message.tp = { $case: "log", log: LogSweep.fromPartial(object.tp.log) };
     }
-    if (
-      object.tp?.$case === "points" &&
-      object.tp?.points !== undefined &&
-      object.tp?.points !== null
-    ) {
-      message.tp = {
-        $case: "points",
-        points: PointSweep.fromPartial(object.tp.points),
-      };
+    if (object.tp?.$case === "points" && object.tp?.points !== undefined && object.tp?.points !== null) {
+      message.tp = { $case: "points", points: PointSweep.fromPartial(object.tp.points) };
     }
     return message;
   },
@@ -4243,10 +3707,7 @@ function createBaseLinearSweep(): LinearSweep {
 }
 
 export const LinearSweep = {
-  encode(
-    message: LinearSweep,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LinearSweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.start !== 0) {
       writer.uint32(9).double(message.start);
     }
@@ -4260,8 +3721,7 @@ export const LinearSweep = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LinearSweep {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLinearSweep();
     while (reader.pos < end) {
@@ -4336,10 +3796,7 @@ function createBaseLogSweep(): LogSweep {
 }
 
 export const LogSweep = {
-  encode(
-    message: LogSweep,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LogSweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.start !== 0) {
       writer.uint32(9).double(message.start);
     }
@@ -4353,8 +3810,7 @@ export const LogSweep = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LogSweep {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLogSweep();
     while (reader.pos < end) {
@@ -4429,10 +3885,7 @@ function createBasePointSweep(): PointSweep {
 }
 
 export const PointSweep = {
-  encode(
-    message: PointSweep,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PointSweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.points) {
       writer.double(v);
@@ -4448,8 +3901,7 @@ export const PointSweep = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PointSweep {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePointSweep();
     while (reader.pos < end) {
@@ -4497,9 +3949,7 @@ export const PointSweep = {
 
   fromJSON(object: any): PointSweep {
     return {
-      points: globalThis.Array.isArray(object?.points)
-        ? object.points.map((e: any) => globalThis.Number(e))
-        : [],
+      points: globalThis.Array.isArray(object?.points) ? object.points.map((e: any) => globalThis.Number(e)) : [],
       stop: isSet(object.stop) ? globalThis.Number(object.stop) : 0,
       npts: isSet(object.npts) ? globalThis.Number(object.npts) : 0,
     };
@@ -4536,10 +3986,7 @@ function createBaseControl(): Control {
 }
 
 export const Control = {
-  encode(
-    message: Control,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Control, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     switch (message.ctrl?.$case) {
       case "include":
         Include.encode(message.ctrl.include, writer.uint32(10).fork()).ldelim();
@@ -4564,8 +4011,7 @@ export const Control = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Control {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseControl();
     while (reader.pos < end) {
@@ -4576,50 +4022,35 @@ export const Control = {
             break;
           }
 
-          message.ctrl = {
-            $case: "include",
-            include: Include.decode(reader, reader.uint32()),
-          };
+          message.ctrl = { $case: "include", include: Include.decode(reader, reader.uint32()) };
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.ctrl = {
-            $case: "lib",
-            lib: LibInclude.decode(reader, reader.uint32()),
-          };
+          message.ctrl = { $case: "lib", lib: LibInclude.decode(reader, reader.uint32()) };
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.ctrl = {
-            $case: "save",
-            save: Save.decode(reader, reader.uint32()),
-          };
+          message.ctrl = { $case: "save", save: Save.decode(reader, reader.uint32()) };
           continue;
         case 6:
           if (tag !== 50) {
             break;
           }
 
-          message.ctrl = {
-            $case: "meas",
-            meas: Meas.decode(reader, reader.uint32()),
-          };
+          message.ctrl = { $case: "meas", meas: Meas.decode(reader, reader.uint32()) };
           continue;
         case 7:
           if (tag !== 58) {
             break;
           }
 
-          message.ctrl = {
-            $case: "param",
-            param: Param.decode(reader, reader.uint32()),
-          };
+          message.ctrl = { $case: "param", param: Param.decode(reader, reader.uint32()) };
           continue;
         case 10:
           if (tag !== 82) {
@@ -4642,19 +4073,16 @@ export const Control = {
       ctrl: isSet(object.include)
         ? { $case: "include", include: Include.fromJSON(object.include) }
         : isSet(object.lib)
-          ? { $case: "lib", lib: LibInclude.fromJSON(object.lib) }
-          : isSet(object.save)
-            ? { $case: "save", save: Save.fromJSON(object.save) }
-            : isSet(object.meas)
-              ? { $case: "meas", meas: Meas.fromJSON(object.meas) }
-              : isSet(object.param)
-                ? { $case: "param", param: Param.fromJSON(object.param) }
-                : isSet(object.literal)
-                  ? {
-                      $case: "literal",
-                      literal: globalThis.String(object.literal),
-                    }
-                  : undefined,
+        ? { $case: "lib", lib: LibInclude.fromJSON(object.lib) }
+        : isSet(object.save)
+        ? { $case: "save", save: Save.fromJSON(object.save) }
+        : isSet(object.meas)
+        ? { $case: "meas", meas: Meas.fromJSON(object.meas) }
+        : isSet(object.param)
+        ? { $case: "param", param: Param.fromJSON(object.param) }
+        : isSet(object.literal)
+        ? { $case: "literal", literal: globalThis.String(object.literal) }
+        : undefined,
     };
   },
 
@@ -4686,61 +4114,22 @@ export const Control = {
   },
   fromPartial(object: DeepPartial<Control>): Control {
     const message = createBaseControl();
-    if (
-      object.ctrl?.$case === "include" &&
-      object.ctrl?.include !== undefined &&
-      object.ctrl?.include !== null
-    ) {
-      message.ctrl = {
-        $case: "include",
-        include: Include.fromPartial(object.ctrl.include),
-      };
+    if (object.ctrl?.$case === "include" && object.ctrl?.include !== undefined && object.ctrl?.include !== null) {
+      message.ctrl = { $case: "include", include: Include.fromPartial(object.ctrl.include) };
     }
-    if (
-      object.ctrl?.$case === "lib" &&
-      object.ctrl?.lib !== undefined &&
-      object.ctrl?.lib !== null
-    ) {
-      message.ctrl = {
-        $case: "lib",
-        lib: LibInclude.fromPartial(object.ctrl.lib),
-      };
+    if (object.ctrl?.$case === "lib" && object.ctrl?.lib !== undefined && object.ctrl?.lib !== null) {
+      message.ctrl = { $case: "lib", lib: LibInclude.fromPartial(object.ctrl.lib) };
     }
-    if (
-      object.ctrl?.$case === "save" &&
-      object.ctrl?.save !== undefined &&
-      object.ctrl?.save !== null
-    ) {
-      message.ctrl = {
-        $case: "save",
-        save: Save.fromPartial(object.ctrl.save),
-      };
+    if (object.ctrl?.$case === "save" && object.ctrl?.save !== undefined && object.ctrl?.save !== null) {
+      message.ctrl = { $case: "save", save: Save.fromPartial(object.ctrl.save) };
     }
-    if (
-      object.ctrl?.$case === "meas" &&
-      object.ctrl?.meas !== undefined &&
-      object.ctrl?.meas !== null
-    ) {
-      message.ctrl = {
-        $case: "meas",
-        meas: Meas.fromPartial(object.ctrl.meas),
-      };
+    if (object.ctrl?.$case === "meas" && object.ctrl?.meas !== undefined && object.ctrl?.meas !== null) {
+      message.ctrl = { $case: "meas", meas: Meas.fromPartial(object.ctrl.meas) };
     }
-    if (
-      object.ctrl?.$case === "param" &&
-      object.ctrl?.param !== undefined &&
-      object.ctrl?.param !== null
-    ) {
-      message.ctrl = {
-        $case: "param",
-        param: Param.fromPartial(object.ctrl.param),
-      };
+    if (object.ctrl?.$case === "param" && object.ctrl?.param !== undefined && object.ctrl?.param !== null) {
+      message.ctrl = { $case: "param", param: Param.fromPartial(object.ctrl.param) };
     }
-    if (
-      object.ctrl?.$case === "literal" &&
-      object.ctrl?.literal !== undefined &&
-      object.ctrl?.literal !== null
-    ) {
+    if (object.ctrl?.$case === "literal" && object.ctrl?.literal !== undefined && object.ctrl?.literal !== null) {
       message.ctrl = { $case: "literal", literal: object.ctrl.literal };
     }
     return message;
@@ -4765,8 +4154,7 @@ export const Save = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Save {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSave();
     while (reader.pos < end) {
@@ -4800,8 +4188,8 @@ export const Save = {
       save: isSet(object.mode)
         ? { $case: "mode", mode: save_SaveModeFromJSON(object.mode) }
         : isSet(object.signal)
-          ? { $case: "signal", signal: globalThis.String(object.signal) }
-          : undefined,
+        ? { $case: "signal", signal: globalThis.String(object.signal) }
+        : undefined,
     };
   },
 
@@ -4821,18 +4209,10 @@ export const Save = {
   },
   fromPartial(object: DeepPartial<Save>): Save {
     const message = createBaseSave();
-    if (
-      object.save?.$case === "mode" &&
-      object.save?.mode !== undefined &&
-      object.save?.mode !== null
-    ) {
+    if (object.save?.$case === "mode" && object.save?.mode !== undefined && object.save?.mode !== null) {
       message.save = { $case: "mode", mode: object.save.mode };
     }
-    if (
-      object.save?.$case === "signal" &&
-      object.save?.signal !== undefined &&
-      object.save?.signal !== null
-    ) {
+    if (object.save?.$case === "signal" && object.save?.signal !== undefined && object.save?.signal !== null) {
       message.save = { $case: "signal", signal: object.save.signal };
     }
     return message;
@@ -4844,10 +4224,7 @@ function createBaseInclude(): Include {
 }
 
 export const Include = {
-  encode(
-    message: Include,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Include, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.path !== "") {
       writer.uint32(10).string(message.path);
     }
@@ -4855,8 +4232,7 @@ export const Include = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Include {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInclude();
     while (reader.pos < end) {
@@ -4905,10 +4281,7 @@ function createBaseLibInclude(): LibInclude {
 }
 
 export const LibInclude = {
-  encode(
-    message: LibInclude,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LibInclude, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.path !== "") {
       writer.uint32(10).string(message.path);
     }
@@ -4919,8 +4292,7 @@ export const LibInclude = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LibInclude {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLibInclude();
     while (reader.pos < end) {
@@ -4997,8 +4369,7 @@ export const Meas = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Meas {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMeas();
     while (reader.pos < end) {
@@ -5036,9 +4407,7 @@ export const Meas = {
 
   fromJSON(object: any): Meas {
     return {
-      analysisType: isSet(object.analysisType)
-        ? globalThis.String(object.analysisType)
-        : "",
+      analysisType: isSet(object.analysisType) ? globalThis.String(object.analysisType) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
       expr: isSet(object.expr) ? globalThis.String(object.expr) : "",
     };
@@ -5075,10 +4444,7 @@ function createBaseSignal(): Signal {
 }
 
 export const Signal = {
-  encode(
-    message: Signal,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Signal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -5089,8 +4455,7 @@ export const Signal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Signal {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignal();
     while (reader.pos < end) {
@@ -5122,9 +4487,7 @@ export const Signal = {
   fromJSON(object: any): Signal {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      quantity: isSet(object.quantity)
-        ? signal_QuantityFromJSON(object.quantity)
-        : 0,
+      quantity: isSet(object.quantity) ? signal_QuantityFromJSON(object.quantity) : 0,
     };
   },
 
@@ -5177,35 +4540,17 @@ export class SpiceClientImpl implements Spice {
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array,
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends { $case: string }
-        ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & {
-            $case: T["$case"];
-          }
-        : T extends {}
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : Partial<T>;
+type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends { $case: string } ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & { $case: T["$case"] }
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 function longToNumber(long: Long): number {
   if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {

@@ -6,7 +6,6 @@ syntax = "proto3";
 package vlsir.netlist;
 
 // Local Imports
-// import "utils.proto";
 import "circuit.proto";
 
 // ############################################################################
@@ -16,8 +15,9 @@ service Netlist { rpc Netlist(NetlistInput) returns (NetlistResult); }
 
 message NetlistInput {
   vlsir.circuit.Package pkg = 1; // Circuit Package Content
-  string dest = 2;               // Destination Path
+  string netlist_path = 2;       // Destination Path
   NetlistFormat fmt = 3;         // Netlist Format
+  string result_path = 4;        // Result Path
 }
 
 enum NetlistFormat {

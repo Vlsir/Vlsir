@@ -87,7 +87,9 @@ export interface LayerPurpose {
 export interface LayerInfo {
   /** A canonical shorthand name for the layer, e.g. "met1". */
   name: string;
-  purpose: LayerPurpose | undefined;
+  purpose:
+    | LayerPurpose
+    | undefined;
   /** An integer index identifying the major layer. */
   index: number;
   /** An integer index identifying the sub layer, or purpose. */
@@ -99,10 +101,7 @@ function createBaseTechnology(): Technology {
 }
 
 export const Technology = {
-  encode(
-    message: Technology,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Technology, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -116,8 +115,7 @@ export const Technology = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Technology {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTechnology();
     while (reader.pos < end) {
@@ -156,12 +154,8 @@ export const Technology = {
   fromJSON(object: any): Technology {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      packages: globalThis.Array.isArray(object?.packages)
-        ? object.packages.map((e: any) => Package.fromJSON(e))
-        : [],
-      layers: globalThis.Array.isArray(object?.layers)
-        ? object.layers.map((e: any) => LayerInfo.fromJSON(e))
-        : [],
+      packages: globalThis.Array.isArray(object?.packages) ? object.packages.map((e: any) => Package.fromJSON(e)) : [],
+      layers: globalThis.Array.isArray(object?.layers) ? object.layers.map((e: any) => LayerInfo.fromJSON(e)) : [],
     };
   },
 
@@ -185,8 +179,7 @@ export const Technology = {
   fromPartial(object: DeepPartial<Technology>): Technology {
     const message = createBaseTechnology();
     message.name = object.name ?? "";
-    message.packages =
-      object.packages?.map((e) => Package.fromPartial(e)) || [];
+    message.packages = object.packages?.map((e) => Package.fromPartial(e)) || [];
     message.layers = object.layers?.map((e) => LayerInfo.fromPartial(e)) || [];
     return message;
   },
@@ -197,10 +190,7 @@ function createBasePackage(): Package {
 }
 
 export const Package = {
-  encode(
-    message: Package,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Package, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -208,8 +198,7 @@ export const Package = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Package {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePackage();
     while (reader.pos < end) {
@@ -258,10 +247,7 @@ function createBaseLayerPurpose(): LayerPurpose {
 }
 
 export const LayerPurpose = {
-  encode(
-    message: LayerPurpose,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LayerPurpose, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.description !== "") {
       writer.uint32(10).string(message.description);
     }
@@ -272,8 +258,7 @@ export const LayerPurpose = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LayerPurpose {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLayerPurpose();
     while (reader.pos < end) {
@@ -304,9 +289,7 @@ export const LayerPurpose = {
 
   fromJSON(object: any): LayerPurpose {
     return {
-      description: isSet(object.description)
-        ? globalThis.String(object.description)
-        : "",
+      description: isSet(object.description) ? globalThis.String(object.description) : "",
       type: isSet(object.type) ? layerPurposeTypeFromJSON(object.type) : 0,
     };
   },
@@ -338,10 +321,7 @@ function createBaseLayerInfo(): LayerInfo {
 }
 
 export const LayerInfo = {
-  encode(
-    message: LayerInfo,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LayerInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
@@ -358,8 +338,7 @@ export const LayerInfo = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LayerInfo {
-    const reader =
-      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLayerInfo();
     while (reader.pos < end) {
@@ -405,9 +384,7 @@ export const LayerInfo = {
   fromJSON(object: any): LayerInfo {
     return {
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      purpose: isSet(object.purpose)
-        ? LayerPurpose.fromJSON(object.purpose)
-        : undefined,
+      purpose: isSet(object.purpose) ? LayerPurpose.fromJSON(object.purpose) : undefined,
       index: isSet(object.index) ? globalThis.Number(object.index) : 0,
       subIndex: isSet(object.subIndex) ? globalThis.Number(object.subIndex) : 0,
     };
@@ -436,38 +413,23 @@ export const LayerInfo = {
   fromPartial(object: DeepPartial<LayerInfo>): LayerInfo {
     const message = createBaseLayerInfo();
     message.name = object.name ?? "";
-    message.purpose =
-      object.purpose !== undefined && object.purpose !== null
-        ? LayerPurpose.fromPartial(object.purpose)
-        : undefined;
+    message.purpose = (object.purpose !== undefined && object.purpose !== null)
+      ? LayerPurpose.fromPartial(object.purpose)
+      : undefined;
     message.index = object.index ?? 0;
     message.subIndex = object.subIndex ?? 0;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-    ? globalThis.Array<DeepPartial<U>>
-    : T extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : T extends { $case: string }
-        ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & {
-            $case: T["$case"];
-          }
-        : T extends {}
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : Partial<T>;
+type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends { $case: string } ? { [K in keyof Omit<T, "$case">]?: DeepPartial<T[K]> } & { $case: T["$case"] }
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>;
 
 function longToNumber(long: Long): number {
   if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {
