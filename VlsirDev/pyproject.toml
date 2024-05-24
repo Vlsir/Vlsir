@@ -9,6 +9,9 @@ dependencies = [ # <= This right here is the whole point of this package!
     "pre-commit==2.20",
     "black==22.6",
     "flit",
+    # NOTE: some debate about whether `flit` replaces these two. Not in our publishing scripts, yet. 
+    "twine",
+    "build",
 ]
 requires-python = ">=3.7, <3.13"
 maintainers = [{ name = "Dan Fritchman", email = "dan@fritch.mn" }]

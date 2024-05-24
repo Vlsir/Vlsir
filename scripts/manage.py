@@ -21,6 +21,8 @@ i.e. that the two have a shared parent directory.
 import os, argparse
 from enum import Enum
 from pathlib import Path
+from typing import Optional
+from dataclasses import dataclass
 
 # NOTE: this here really needs to match all the package `setup.py` / `pyproject.toml` versions!
 # Perhaps there is some nice monorepo-management tool for this, but we don't know it.
@@ -35,17 +37,40 @@ if not (workspace_path / "Vlsir").exists():
     raise RuntimeError(f"Something wrong here with this Path")
 
 # An ordered list of packages to publish, in dependency order as *many* depend on one another.
-# Each is a two-tuple of (package name, path to package).
+# Each is a tuple of (path to package, package name, optional module name).
 packages = [
-    ("vlsirdev", Path("Vlsir/VlsirDev")),
-    ("vlsir", Path("Vlsir/bindings/python")),
-    ("vlsirtools", Path("Vlsir/VlsirTools")),
-    ("hdl21", Path("Hdl21")),
-    ("asap7-hdl21", Path("Hdl21/pdks/Asap7")),
-    ("sky130-hdl21", Path("Hdl21/pdks/Sky130")),
-    ("gf180-hdl21", Path("Hdl21/pdks/Gf180")),
-    ("spicecmp", Path("Vlsir/SpiceCmp")),
+    (Path("Vlsir/VlsirDev"), "vlsirdev", None),
+    (Path("Vlsir/bindings/python"), "vlsir", None),
+    (Path("Vlsir/VlsirTools"), "vlsirtools", None),
+    (Path("Hdl21"), "hdl21", None),
+    (Path("Vlsir/SpiceCmp"), "spicecmp", None),
+    (
+        Path("Hdl21/pdks/Asap7"),
+        "asap7-hdl21",
+        "asap7_hdl21",
+    ),
+    (
+        Path("Hdl21/pdks/Sky130"),
+        "sky130-hdl21",
+        "sky130_hdl21",
+    ),
+    (
+        Path("Hdl21/pdks/Gf180"),
+        "gf180-hdl21",
+        "gf180_hdl21",
+    ),
 ]
+
+
+@dataclass
+class Package:
+    path: Path
+    name: str
+    module_name: Optional[str] = None
+
+
+# Convert those tuples to structured `Package` objects
+packages = [Package(*p) for p in packages]
 
 
 def build():
@@ -57,7 +82,7 @@ def build():
 
 def uninstall():
     """# Uninstall everything in `packages`."""
-    pkgs = " ".join([pkgname for (pkgname, path) in packages])
+    pkgs = " ".join([pkg.name for pkg in packages])
     os.system(f"pip uninstall -y {pkgs}")
 
 
@@ -68,7 +93,7 @@ def install():
 
     # Get a string like "-e ./Vlsir/bindings/python[dev]" for each
     pathstr = lambda p: f"-e ./{str(p)}[dev]"
-    args = " ".join([pathstr(p) for (_, p) in packages])
+    args = " ".join([pathstr(pkg.path) for pkg in packages])
     cmd = "pip install " + args
 
     # And run it
@@ -83,24 +108,26 @@ def publish():
     os.chdir(workspace_path)
     print(f"Publishing from {workspace_path}")
 
-    for pkgname, path in packages:
+    for pkg in packages:
+
         # Build a source distribution
         # No more `setup.py sdist`; that is bad now!
         # Use these guys: https://pypa-build.readthedocs.io/en/latest/
-        build = f"python -m build --sdist --no-isolation {str(path)}"
+        build = f"python -m build --sdist --no-isolation {str(pkg.path)}"
         os.system(build)
 
         # Check it exists
-        tarball = path / f"dist/{pkgname}-{VLSIR_VERSION}.tar.gz"
+        module_name = pkg.module_name or pkg.name
+        tarball = pkg.path / f"dist/{module_name}-{VLSIR_VERSION}.tar.gz"
         if not tarball.exists():
             raise RuntimeError(f"Package build tarball {tarball} not found")
 
         # Run twine's built-in checks
-        # check = f"twine check {str(tarball)}"
-        # os.system(check)
+        check = f"twine check {str(tarball)}"
+        os.system(check)
 
         # Upload it to PyPi
-        upload = f"flit publish {str(tarball)}"
+        upload = f"twine upload {str(tarball)}"
         os.system(upload)
 
         # And sit here a minute to let it really sink into that server
