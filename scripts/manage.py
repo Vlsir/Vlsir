@@ -145,7 +145,7 @@ def publish_pkg(pkg: Package) -> None:
 def run(cmd: str) -> None:
     # Print and run a shell command.
     print(f"Running: {cmd}")
-    # os.system(cmd)
+    os.system(cmd)
 
 
 class Actions(Enum):
