@@ -15,7 +15,7 @@ here = pathlib.Path(__file__).parent.resolve()
 readme = here / "readme.md"
 long_description = "" if not readme.exists() else readme.read_text(encoding="utf-8")
 
-VLSIR_VERSION = "7.0.0.dev0"
+VLSIR_VERSION = "7.0.0.dev1"
 
 setup(
     name="vlsir",

@@ -26,7 +26,7 @@ from dataclasses import dataclass
 
 # NOTE: this here really needs to match all the package `setup.py` / `pyproject.toml` versions!
 # Perhaps there is some nice monorepo-management tool for this, but we don't know it.
-VLSIR_VERSION = "7.0.0.dev0"
+VLSIR_VERSION = "7.0.0.dev1"
 
 
 # Figure out the shared parent directory of Vlsir and Hdl21

@@ -1,7 +1,7 @@
 [project]
 name = "vlsirdev"
 description = "VLSIR Development Dependencies"
-version = "7.0.0.dev0" # VLSIR_VERSION
+version = "7.0.0.dev1" # VLSIR_VERSION
 dependencies = [ # <= This right here is the whole point of this package!
     "pytest==7.1",
     "coverage",
