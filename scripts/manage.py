@@ -96,11 +96,11 @@ def publish():
             raise RuntimeError(f"Package build tarball {tarball} not found")
 
         # Run twine's built-in checks
-        check = f"twine check {str(tarball)}"
-        os.system(check)
+        # check = f"twine check {str(tarball)}"
+        # os.system(check)
 
         # Upload it to PyPi
-        upload = f"twine upload {str(tarball)}"
+        upload = f"flit publish {str(tarball)}"
         os.system(upload)
 
         # And sit here a minute to let it really sink into that server

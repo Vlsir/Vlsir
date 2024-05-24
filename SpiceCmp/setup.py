@@ -34,7 +34,5 @@ setup(
         f"vlsir=={VLSIR_VERSION}",
         f"vlsirtools=={VLSIR_VERSION}",
     ],
-    extras_require={
-        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
-    },
+    extras_require={"dev": ["vlsirdev"]},
 )

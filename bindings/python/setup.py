@@ -40,7 +40,5 @@ setup(
         # So, versions before this will generally fail pretty hard.
         "protobuf~=4.23"
     ],
-    extras_require={
-        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
-    },
+    extras_require={"dev": ["vlsirdev"]},
 )

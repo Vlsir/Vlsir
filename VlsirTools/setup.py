@@ -33,7 +33,5 @@ setup(
         "numpy~=1.21",  # For `sim_data` simulation results
         "pandas~=1.3",  # For CSV reading
     ],
-    extras_require={
-        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
-    },
+    extras_require={"dev": ["vlsirdev"]},
 )
