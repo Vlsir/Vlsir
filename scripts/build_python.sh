@@ -9,7 +9,8 @@
 set -eo 
 
 # Protobuf Compilation
-protoc -I=./protos \
+protoc \
+    -I=./protos \
     --python_out=./bindings/python/vlsir \
     ./protos/*.proto
 

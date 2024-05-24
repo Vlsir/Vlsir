@@ -1,0 +1,23 @@
+{
+  "name": "vlsir",
+  "description": "TypeScript bindings to the VLSIR IC design schemas",
+  "license": "BSD-3-Clause",
+  "version": "VLSIR_VERSION",
+  "main": "src/index",
+  "dependencies": {
+    "ts-proto": "^1.172.0",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "bindings": "cd ../../ && bash ./scripts/build_ts.sh",
+    "fmt": "prettier --write \"src/**.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "test": "jest",
+    "make": "yarn bindings && yarn compile && yarn fmt",
+    "tsc": "tsc --build --pretty",
+    "compile": "yarn tsc"
+  }
+}

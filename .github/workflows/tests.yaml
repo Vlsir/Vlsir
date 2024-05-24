@@ -85,5 +85,14 @@ jobs:
       - name: Install 2to3, protobuf and black
         run: pip3 install 2to3 protobuf black
 
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install TypeScript Dependencies
+        run: yarn
+        working-directory: bindings/ts/
+
       - name: Run build script
         run: scripts/build_all_recipes.sh

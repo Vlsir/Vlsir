@@ -12,3 +12,4 @@ set -eo
 # Call all build scripts
 scripts/build_python.sh
 scripts/build_rust.sh
+scripts/build_ts.sh
