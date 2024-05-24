@@ -2,7 +2,7 @@
 # Vlsir Tools
 """
 
-__version__ = "6.0.0"  # VLSIR_VERSION
+__version__ = "7.0.0.dev0"  # VLSIR_VERSION
 
 # Python module namespaces
 from . import spice
