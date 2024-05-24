@@ -37,6 +37,7 @@ if not (workspace_path / "Vlsir").exists():
 # An ordered list of packages to publish, in dependency order as *many* depend on one another.
 # Each is a two-tuple of (package name, path to package).
 packages = [
+    ("vlsirdev", Path("Vlsir/VlsirDev")),
     ("vlsir", Path("Vlsir/bindings/python")),
     ("vlsirtools", Path("Vlsir/VlsirTools")),
     ("hdl21", Path("Hdl21")),

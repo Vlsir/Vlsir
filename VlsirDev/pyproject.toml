@@ -1,0 +1,31 @@
+[project]
+name = "vlsirdev"
+description = "VLSIR Development Dependencies"
+version = "6.0.0rc0" # VLSIR_VERSION
+dependencies = [ # <= This right here is the whole point of this package!
+    "pytest==7.1",
+    "coverage",
+    "pytest-cov",
+    "pre-commit==2.20",
+    "black==22.6",
+    "flit",
+]
+requires-python = ">=3.7, <3.13"
+maintainers = [{ name = "Dan Fritchman", email = "dan@fritch.mn" }]
+authors = [{ name = "Dan Fritchman", email = "dan@fritch.mn" }]
+
+readme = "readme.md"
+license = { file = "LICENSE" }
+keywords = ["PDK", "EDA", "analog", "circuit"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+]
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "vlsirdev"
