@@ -15,11 +15,11 @@ here = pathlib.Path(__file__).parent.resolve()
 readme = here / "readme.md"
 long_description = "" if not readme.exists() else readme.read_text(encoding="utf-8")
 
-_VLSIR_VERSION = "5.0.0"
+VLSIR_VERSION = "6.0.0rc0"
 
 setup(
     name="spicecmp",
-    version=_VLSIR_VERSION,
+    version=VLSIR_VERSION,
     description="Spice Models and Results Comparisons",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -30,9 +30,9 @@ setup(
     python_requires=">=3.7, <3.12",
     install_requires=[
         "pandas~=1.3",
-        f"hdl21=={_VLSIR_VERSION}",
-        f"vlsir=={_VLSIR_VERSION}",
-        f"vlsirtools=={_VLSIR_VERSION}",
+        f"hdl21=={VLSIR_VERSION}",
+        f"vlsir=={VLSIR_VERSION}",
+        f"vlsirtools=={VLSIR_VERSION}",
     ],
     extras_require={
         "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]

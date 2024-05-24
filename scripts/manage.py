@@ -24,7 +24,7 @@ from pathlib import Path
 
 # NOTE: this here really needs to match all the package `setup.py` / `pyproject.toml` versions!
 # Perhaps there is some nice monorepo-management tool for this, but we don't know it.
-VLSIR_VERSION = "5.0.0"
+VLSIR_VERSION = "6.0.0rc0"
 
 
 # Figure out the shared parent directory of Vlsir and Hdl21

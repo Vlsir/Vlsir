@@ -1,8 +1,11 @@
 """
-VLSIR Python Bindings 
+# VLSIR Python Bindings 
+
+Note while most modules in this package are protobuf-compiler generated, 
+*this* top-level namespace module is not! 
 """
 
-__version__ = "2.0.dev0"
+__version__ = "6.0.0rc0" # VLSIR_VERSION
 
 # Schema
 from . import utils_pb2 as utils

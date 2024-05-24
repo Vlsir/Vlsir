@@ -1,4 +1,8 @@
-__version__ = "2.0.dev0"
+"""
+# SpiceCmp 
+"""
+
+__version__ = "6.0.0rc0"  # VLSIR_VERSION
 
 # Local Imports
 from .errormode import ErrorMode
