@@ -15,11 +15,11 @@ here = pathlib.Path(__file__).parent.resolve()
 readme = here / "readme.md"
 long_description = "" if not readme.exists() else readme.read_text(encoding="utf-8")
 
-_VLSIR_VERSION = "5.0.0"
+VLSIR_VERSION = "7.0.0.dev1"
 
 setup(
     name="vlsir",
-    version=_VLSIR_VERSION,
+    version=VLSIR_VERSION,
     description="Python Bindings to the VLSIR Data Schemas for Chip Design",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -40,7 +40,5 @@ setup(
         # So, versions before this will generally fail pretty hard.
         "protobuf~=4.23"
     ],
-    extras_require={
-        "dev": ["pytest==7.1", "coverage", "pytest-cov", "black==22.6", "twine"]
-    },
+    extras_require={"dev": ["vlsirdev"]},
 )
