@@ -77,13 +77,13 @@ def build():
     """Build the internally-supported bindings."""
     # Just invokes `scripts/build_supported.sh`
     os.chdir(vlsir_path)
-    os.system("./scripts/build_supported.sh")
+    run("./scripts/build_supported.sh")
 
 
 def uninstall():
     """# Uninstall everything in `packages`."""
     pkgs = " ".join([pkg.name for pkg in packages])
-    os.system(f"pip uninstall -y {pkgs}")
+    run(f"pip uninstall -y {pkgs}")
 
 
 def install():
@@ -98,7 +98,7 @@ def install():
 
     # And run it
     os.chdir(workspace_path)
-    os.system(cmd)
+    run(cmd)
 
 
 def publish():
@@ -107,35 +107,45 @@ def publish():
 
     os.chdir(workspace_path)
     print(f"Publishing from {workspace_path}")
-
-    for pkg in packages:
-
-        # Build a source distribution
-        # No more `setup.py sdist`; that is bad now!
-        # Use these guys: https://pypa-build.readthedocs.io/en/latest/
-        build = f"python -m build --sdist --no-isolation {str(pkg.path)}"
-        os.system(build)
-
-        # Check it exists
-        module_name = pkg.module_name or pkg.name
-        tarball = pkg.path / f"dist/{module_name}-{VLSIR_VERSION}.tar.gz"
-        if not tarball.exists():
-            raise RuntimeError(f"Package build tarball {tarball} not found")
-
-        # Run twine's built-in checks
-        check = f"twine check {str(tarball)}"
-        os.system(check)
-
-        # Upload it to PyPi
-        upload = f"twine upload {str(tarball)}"
-        os.system(upload)
-
-        # And sit here a minute to let it really sink into that server
-        os.system("sleep 10")
+    [publish_pkg(pkg) for pkg in packages]
 
     # Rust
     # cd ../bindings/rust
     # cargo publish
+
+
+def publish_pkg(pkg: Package) -> None:
+    """Publish `pkg` to PyPi."""
+    # NOTE re the tools used here: https://github.com/Vlsir/Vlsir/issues/90
+
+    # Build a source distribution
+    # No more `setup.py sdist`; that is bad now!
+    # Use these guys: https://pypa-build.readthedocs.io/en/latest/
+    build = f"python -m build --sdist --no-isolation {str(pkg.path)}"
+    run(build)
+
+    # Check it exists
+    module_name = pkg.module_name or pkg.name
+    tarball = pkg.path / f"dist/{module_name}-{VLSIR_VERSION}.tar.gz"
+    if not tarball.exists():
+        raise RuntimeError(f"Package build tarball {tarball} not found")
+
+    # Run twine's built-in checks
+    check = f"twine check {str(tarball)}"
+    run(check)
+
+    # Upload it to PyPi
+    upload = f"twine upload {str(tarball)}"
+    run(upload)
+
+    # And sit here a minute to let it really sink into that server
+    run("sleep 10")
+
+
+def run(cmd: str) -> None:
+    # Print and run a shell command.
+    print(f"Running: {cmd}")
+    # os.system(cmd)
 
 
 class Actions(Enum):
