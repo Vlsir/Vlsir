@@ -2,7 +2,7 @@
   "name": "vlsir",
   "description": "TypeScript bindings to the VLSIR IC design schemas",
   "license": "BSD-3-Clause",
-  "version": "6.0.0rc0",
+  "version": "6.0.0",
   "main": "src/index",
   "dependencies": {
     "ts-proto": "^1.172.0",

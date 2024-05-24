@@ -55,7 +55,7 @@ def _prim(name: str) -> Reference:
 
 
 def test_version():
-    assert vlsirtools.__version__ == "6.0.0rc0"  # VLSIR_VERSION
+    assert vlsirtools.__version__ == "6.0.0"  # VLSIR_VERSION
 
 
 def test_verilog_netlist1():
