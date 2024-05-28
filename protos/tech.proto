@@ -1,13 +1,16 @@
 syntax = "proto3";
 
+import "library.proto";
+
 package vlsir.tech;
 
 message Technology {
   // Skywater130, S130, Sky130, etc
   string name = 1;
   
-  repeated Package packages = 11;
+  repeated vlsir.library.Library libraries = 11;
 
+  // TODO: move to LayoutConcernsTypeThing message
   repeated LayerInfo layers = 101;
 }
 
@@ -16,6 +19,12 @@ message Package {
   string name = 1;
 
   // Other package-specific stuff goes here.
+
+  // TODO:
+  //  - container message for circuit (incl. simulation) concerns
+  //  - container message for layout concerns
+  // optional vlsir.library.Library package = 10;
+
 }
 
 enum LayerPurposeType {
