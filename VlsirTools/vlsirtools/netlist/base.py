@@ -163,6 +163,7 @@ class Netlister:
     def __init__(self, dest: IO):
         self.dest = dest
         self.indent = Indent(chars="  ")
+        self.ctrl_mode = False  # Control-mode flag
 
         self.module_names = set()  # Netlisted Module names
         self.pmodules = dict()  # Visited proto-Modules
@@ -201,6 +202,8 @@ class Netlister:
 
     def writeln(self, s: str) -> None:
         """Write `s` as a line, at our current `indent` level."""
+        if self.ctrl_mode:
+            s = s[1:] if s[0] == '.' else s
         self.write(f"{self.indent.state}{s}\n")
 
     def flush(self) -> None:
@@ -605,6 +608,9 @@ class Netlister:
             op=self.write_op,
             tran=self.write_tran,
             noise=self.write_noise,
+            sweep=self.write_sweep,
+            montecarlo=self.write_monte_carlo,
+            custom=self.write_custom,
         )
         if inner not in inner_dispatch:
             self.fail(f"Invalid analysis type {inner}")
@@ -729,6 +735,18 @@ class Netlister:
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
         """# Write a noise analysis."""
+        raise NotImplementedError
+    
+    def write_sweep(self, an: vsp.SweepInput) -> None:
+        """# Write a sweep analysis."""
+        raise NotImplementedError
+    
+    def write_monte_carlo(self, an : vsp.MonteInput) -> None:
+        """# Write a Monte Carlo analysis."""
+        raise NotImplementedError
+    
+    def write_custom(self, an : vsp.CustomAnalysisInput) -> None:
+        """# Write a custom analysis."""
         raise NotImplementedError
 
     """ 
