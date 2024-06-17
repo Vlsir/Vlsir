@@ -1,5 +1,5 @@
 """
-# Spectre-Format Netlister
+Spectre-Format Netlister
 """
 
 # Std-Lib Imports
@@ -279,21 +279,21 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln("")
 
     def write_include(self, inc: vsp.Include) -> None:
-        """# Write an `Include` statement"""
+        """Write an `Include` statement"""
         self.writeln(f'include "{inc.path}"')
 
     def write_lib_include(self, lib: vsp.LibInclude) -> None:
-        """# Write a `LibInclude` statement"""
+        """Write a `LibInclude` statement"""
         txt = f'include "{lib.path}" section={lib.section}'
         self.writeln(txt)
 
     def write_save(self, save: vsp.Save) -> None:
-        """# Write a `Save` statement"""
+        """Write a `Save` statement"""
         # FIXME!
         raise NotImplementedError(f"Unimplemented control card {save} for {self}")
 
     def write_meas(self, meas: vsp.Meas) -> None:
-        """# Write a `Meas` statement"""
+        """Write a `Meas` statement"""
         # Measurements are written in Spice syntax; wrap them in "simulator lang".
         self.writeln(f"simulator lang=spice")
         txt = f".meas {meas.analysis_type} {meas.name} {meas.expr}"
@@ -301,17 +301,17 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln(f"simulator lang=spectre")
 
     def write_sim_param(self, param: vlsir.Param) -> None:
-        """# Write a simulation-level parameter"""
+        """Write a simulation-level parameter"""
         txt = f"parameters  {param.name}={self.get_param_value(param.value)}"
         self.writeln(txt)
 
     def write_sim_option(self, opt: vsp.SimOptions) -> None:
-        """# Write a simulation option"""
+        """Write a simulation option"""
         # FIXME: make this just `Param` instead
         raise NotImplementedError
 
     def write_ac(self, an: vsp.AcInput) -> None:
-        """# Write an AC analysis."""
+        """Write an AC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -334,7 +334,7 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln(line)
 
     def write_dc(self, an: vsp.DcInput) -> None:
-        """# Write a DC analysis."""
+        """Write a DC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -359,7 +359,7 @@ class SpectreNetlister(SpectreSpiceShared):
             raise ValueError("Invalid sweep type")
 
     def write_op(self, an: vsp.OpInput) -> None:
-        """# Write an operating point analysis."""
+        """Write an operating point analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -369,7 +369,7 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln(f"{an.analysis_name} dc oppoint=rawfile")
 
     def write_tran(self, an: vsp.TranInput) -> None:
-        """# Write a transient analysis."""
+        """Write a transient analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -381,5 +381,5 @@ class SpectreNetlister(SpectreSpiceShared):
         self.writeln(f"{an.analysis_name} tran stop={an.tstop} ")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
-        """# Write a noise analysis."""
+        """Write a noise analysis."""
         raise NotImplementedError

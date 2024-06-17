@@ -1,5 +1,5 @@
 """
-# VlsirTools Pytest Utilities 
+VlsirTools Pytest Utilities 
 
 Primarily adds and parses the command-line options for enabling and disabling `vlsirtools.spice` simulators. 
 To use these utilities, add the following to your `conftest.py`:
@@ -85,7 +85,7 @@ simulators: Dict[str, Simulator] = {
 
 
 class Why(Enum):
-    """# Enumerated reasons to be enabled or disabled."""
+    """Enumerated reasons to be enabled or disabled."""
 
     DISABLED = "DISABLED"
     NOT_AVAILABLE = "NOT_AVAILABLE"
@@ -93,7 +93,7 @@ class Why(Enum):
     REQUIRED = "REQUIRED"
 
     def enabled(self) -> bool:
-        """# Boolean enabledness indicator"""
+        """Boolean enabledness indicator"""
         if self in (Why.DISABLED, Why.NOT_AVAILABLE):
             return False
         if self in (Why.REQUIRED, Why.AVAILABLE):
@@ -103,7 +103,7 @@ class Why(Enum):
 
 @dataclass
 class SimulatorSettingPair:
-    """# Simulator-Setting Pair
+    """Simulator-Setting Pair
     The combination of a `Simulator` and its current test-setting."""
 
     simulator: Simulator  # The simulator
@@ -113,7 +113,7 @@ class SimulatorSettingPair:
 
     @staticmethod
     def new(simulator: Simulator, mode: SimulatorTestMode) -> "SimulatorSettingPair":
-        """# Create a SimulatorSettingPair from a Simulator and a test mode."""
+        """Create a SimulatorSettingPair from a Simulator and a test mode."""
 
         # Mostly suss out the reason "why"
         if mode == SimulatorTestMode.DISABLED:
@@ -134,7 +134,7 @@ class SimulatorSettingPair:
 
 
 def pytest_configure(config):
-    """# PyTest Configuration
+    """PyTest Configuration
     Adds a marker for each supported simulator."""
 
     for s in simulators.keys():

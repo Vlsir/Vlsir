@@ -1,5 +1,5 @@
 """
-# Verilog-Format Netlister 
+Verilog-Format Netlister 
 """
 # Local Imports
 import vlsir
@@ -11,7 +11,7 @@ from .base import Netlister, ResolvedModule, ResolvedParams
 
 class VerilogNetlister(Netlister):
     """
-    # Structural Verilog Netlister
+    Structural Verilog Netlister
     """
 
     @property
