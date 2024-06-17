@@ -18,4 +18,5 @@ protoc \
 2to3 -wn -f import bindings/python/vlsir/*.py
 
 # Run language-specific formatting
-black bindings/python
+# black bindings/python
+ruff format bindings/python
