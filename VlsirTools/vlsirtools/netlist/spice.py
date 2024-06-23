@@ -1,5 +1,5 @@
 """ 
-# Spice Format Netlisting
+Spice Format Netlisting
 
 "Spice-format" is a bit of a misnomer in netlist-world. 
 Of the countless Spice-class simulators have been designed the past half-century, 
@@ -54,7 +54,7 @@ from .base import (
 
 class SpiceNetlister(SpectreSpiceShared):
     """
-    # "Generic" Spice Netlister
+    "Generic" Spice Netlister
     and base-class for Spice dialects.
 
     Performs nearly all data-model traversal,
@@ -167,7 +167,7 @@ class SpiceNetlister(SpectreSpiceShared):
         raise RuntimeError(f"Unrecognized reference type {ref}")
 
     def write_model_instance(self, pinst: vckt.Instance, ref: SpiceModelRef) -> None:
-        """# Write a `.model` instance.
+        """Write a `.model` instance.
         While sub-classes may modify this behavior, the default is to produce netlist-content
         very similar to that of `write_subckt_instance`, hence the sharing via `write_instance_inner`.
         """
@@ -182,7 +182,7 @@ class SpiceNetlister(SpectreSpiceShared):
     def write_subckt_instance(
         self, pinst: vckt.Instance, rmodule: ResolvedModule
     ) -> None:
-        """# Write a subcircuit instance.
+        """ Write a subcircuit instance.
         While sub-classes may modify this behavior, the default is to produce netlist-content
         very similar to that of `write_model_instance`, hence the sharing via `write_instance_inner`.
         """
@@ -437,7 +437,7 @@ class SpiceNetlister(SpectreSpiceShared):
 
 class HspiceNetlister(SpiceNetlister):
     """
-    # Hspice-Format Netlister
+    Hspice-Format Netlister
 
     Other than its `NetlistFormat` enumeration, `HspiceNetlister` is identical to the base `SpiceNetlister`.
     """
@@ -505,15 +505,15 @@ class XyceNetlister(SpiceNetlister):
 
     @classmethod
     def format_sim_dut(cls, module_name: str) -> str:
-        """# Format the top-level DUT instance for module name `module_name`."""
+        """Format the top-level DUT instance for module name `module_name`."""
         return f"xtop 0 {module_name} ; Top-Level DUT \n"
 
     def write_include(self, inc: vsp.Include) -> None:
-        """# Write an `Include`"""
+        """Write an `Include`"""
         self.writeln(f".include '{inc.path}'")
 
     def write_lib_include(self, lib: vsp.LibInclude) -> None:
-        """# Write a `LibInclude`"""
+        """Write a `LibInclude`"""
         self.writeln(f".lib {lib.path} {lib.section}")
 
     def write_save(self, save: vsp.Save) -> None:
@@ -521,12 +521,12 @@ class XyceNetlister(SpiceNetlister):
         raise NotImplementedError(f"Unimplemented control card {save} for {self}")
 
     def write_meas(self, meas: vsp.Meas) -> None:
-        """# Write a measurement."""
+        """Write a measurement."""
         line = f".meas {meas.analysis_type} {meas.name} {meas.expr} \n"
         self.writeln(line)
 
     def write_sim_param(self, param: vlsir.Param) -> None:
-        """# Write a simulation parameter."""
+        """Write a simulation parameter."""
         line = f".param {param.name}={self.get_param_value(param.value)} \n"
         self.writeln(line)
 
@@ -535,23 +535,23 @@ class XyceNetlister(SpiceNetlister):
         raise NotImplementedError
 
     def write_ac(self, an: vsp.AcInput) -> None:
-        """# Write an AC analysis."""
+        """Write an AC analysis."""
         raise NotImplementedError
 
     def write_dc(self, an: vsp.DcInput) -> None:
-        """# Write a DC analysis."""
+        """Write a DC analysis."""
         raise NotImplementedError
 
     def write_op(self, an: vsp.OpInput) -> None:
-        """# Write an operating point analysis."""
+        """Write an operating point analysis."""
         raise NotImplementedError
 
     def write_tran(self, an: vsp.TranInput) -> None:
-        """# Write a transient analysis."""
+        """Write a transient analysis."""
         raise NotImplementedError
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
-        """# Write a noise analysis."""
+        """Write a noise analysis."""
         raise NotImplementedError
 
 
@@ -570,7 +570,7 @@ class NgspiceNetlister(SpiceNetlister):
 
     @classmethod
     def format_sim_dut(cls, module_name: str) -> str:
-        """# Format the top-level DUT instance for module name `module_name`."""
+        """Format the top-level DUT instance for module name `module_name`."""
         return f"xtop 0 {module_name} // Top-Level DUT \n\n"
 
     def write_include(self, inc: vsp.Include) -> None:
@@ -620,7 +620,7 @@ class NgspiceNetlister(SpiceNetlister):
         self.writeln(line)
 
     def write_dc(self, an: vsp.DcInput) -> None:
-        """# Write a DC analysis."""
+        """Write a DC analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -648,7 +648,7 @@ class NgspiceNetlister(SpiceNetlister):
             raise ValueError("Invalid sweep type")
 
     def write_op(self, an: vsp.OpInput) -> None:
-        """# Write an operating point analysis."""
+        """Write an operating point analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
@@ -658,7 +658,7 @@ class NgspiceNetlister(SpiceNetlister):
         self.writeln(f".op\n")
 
     def write_tran(self, an: vsp.TranInput) -> None:
-        """# Write a transient analysis."""
+        """Write a transient analysis."""
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")
         if len(an.ctrls):
@@ -669,7 +669,7 @@ class NgspiceNetlister(SpiceNetlister):
         self.writeln(f".tran {an.tstep} {an.tstop}\n")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
-        """# Write a noise analysis."""
+        """Write a noise analysis."""
 
         if not an.analysis_name:
             raise RuntimeError(f"Analysis name required for {an}")

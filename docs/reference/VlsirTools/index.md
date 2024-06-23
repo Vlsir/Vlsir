@@ -5,14 +5,7 @@ Python-based tools and utilites for working with the Vlsir IC design schema.
 
 ## Netlisting 
 
-Vlsir supports netlisting to a variety of standard formats including:
-
-- spectre
-- verilog
-- Hspice
-- Vgspice
-- Xyce
-- Cdl
+FIXME! Details here. 
 
 ## Spice-Class Simulation 
 

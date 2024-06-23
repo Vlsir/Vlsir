@@ -1,0 +1,22 @@
+# https://taskfile.dev/
+version: '3'
+dotenv: ['.env', '{{.ENV}}/.env.']
+tasks:
+  docs:
+    desc: Serve docs under development
+    cmds:
+      - cp readme.md docs/index.md
+      - cp VlsirTools/readme.md docs/reference/VlsirTools/index.md
+      - mkdocs serve -a localhost:8010
+  docs-proto:
+    desc: Generate proto docs (docs/protos.md)
+    cmds:
+      - |
+        docker run --rm \
+        -v $(pwd)/docs/reference:/out \
+        -v $(pwd)/protos:/protos \
+        pseudomuto/protoc-gen-doc --doc_opt=markdown,protos.md
+  default:
+    desc: List all tasks
+    cmds:
+      - task --list-all

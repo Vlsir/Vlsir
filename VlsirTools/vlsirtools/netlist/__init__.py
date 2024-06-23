@@ -1,5 +1,5 @@
 """ 
-# Vlsir Netlisting 
+Vlsir Netlisting 
 
 Exports `vlsir.circuit.Package` and `vlsir.netlist.NetlistInput` to a netlist format.
 """

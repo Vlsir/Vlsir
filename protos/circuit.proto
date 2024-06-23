@@ -1,12 +1,12 @@
 //!
-//! # vlsir Circuit Schema
+//! vlsir Circuit Schema
 //!
 
 syntax = "proto3";
 package vlsir.circuit;
 import "utils.proto";
 
-// # Package
+// Package
 // A Collection of Modules and ExternalModules
 message Package {
   // Domain Name
@@ -19,7 +19,7 @@ message Package {
   string desc = 10;
 }
 
-// # Port
+// Port
 // An externally-visible `Signal` with a `Direction`.
 message Port {
   enum Direction {
@@ -32,7 +32,7 @@ message Port {
   Direction direction = 2;  // Port direction
 }
 
-// # Signal
+// Signal
 // A named connection element, potentially with non-unit `width`.
 message Signal {
   // Signal Name
@@ -41,7 +41,7 @@ message Signal {
   int64 width = 2;
 }
 
-// # Signal Slice
+// Signal Slice
 // Reference to a subset of bits of `signal`.
 // Indices `top` and `bot` are both inclusive, similar to popular HDLs.
 message Slice {
@@ -59,7 +59,7 @@ message Concat {
   repeated ConnectionTarget parts = 1;
 }
 
-// # ConnectionTarget Union
+// ConnectionTarget Union
 // Enumerates all types that can be
 // (a) Connected to Ports, and
 // (b) Concatenated
@@ -71,7 +71,7 @@ message ConnectionTarget {
   }
 }
 
-// # Port Connection 
+// Port Connection 
 // Pairing between an Instance port (name) and a parent-module ConnectionTarget.
 message Connection {
   string portname = 1;
@@ -126,7 +126,7 @@ enum SpiceType {
   TLINE = 13;
 }
 
-// # Externally Defined Module
+// Externally Defined Module
 // Primarily for sake of port-ordering, for translation with connect-by-position
 // formats.
 message ExternalModule {
@@ -146,7 +146,7 @@ message ExternalModule {
   SpiceType spicetype = 6;
 }
 
-// # Interface
+// Interface
 // Defines the logical IO of a `Module`
 message Interface {
   // Cell Name
