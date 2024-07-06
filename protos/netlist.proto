@@ -1,5 +1,5 @@
 //!
-//! # vlsir Netlist Service
+//! vlsir Netlist Service
 //!
 
 syntax = "proto3";
@@ -9,7 +9,7 @@ package vlsir.netlist;
 import "circuit.proto";
 
 // ############################################################################
-// # `Netlist` Service
+// `Netlist` Service
 // ############################################################################
 service Netlist { rpc Netlist(NetlistInput) returns (NetlistResult); }
 

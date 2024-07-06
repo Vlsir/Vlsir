@@ -1,5 +1,5 @@
 """
-# SPICE Types
+SPICE Types
 
 The "spice type system", in the form of prefix-characters for instances. 
 Implemented as a Python-native `Enum`, 

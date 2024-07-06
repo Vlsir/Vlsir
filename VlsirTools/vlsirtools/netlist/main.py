@@ -1,6 +1,6 @@
 """ 
-# Vlsir Netlisting 
-## The main `netlist` function(s).
+Vlsir Netlisting 
+The main `netlist` function(s).
 """
 
 # Std-Lib Imports
@@ -69,7 +69,7 @@ def netlist(
 
 
 def netlist_from_proto(inp: vlsir.netlist.NetlistInput) -> vlsir.netlist.NetlistResult:
-    """# Netlist a ProtoBuf-Dicatated `NetlistInput`"""
+    """Netlist a ProtoBuf-Dicatated `NetlistInput`"""
     try:
         netlist(
             pkg=inp.pkg,

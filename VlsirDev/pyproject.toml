@@ -8,10 +8,14 @@ dependencies = [ # <= This right here is the whole point of this package!
     "pytest-cov",
     "pre-commit==2.20",
     "black==22.6",
+    "ruff==0.4.8",
     "flit",
     # NOTE: some debate about whether `flit` replaces these two. Not in our publishing scripts, yet. 
     "twine",
     "build",
+    # Docs
+    "mkdocs-material",
+    "mkdocstrings[python]"
 ]
 requires-python = ">=3.7, <3.13"
 maintainers = [{ name = "Dan Fritchman", email = "dan@fritch.mn" }]

@@ -1,0 +1,53 @@
+site_name: Vlsir
+site_url: https://Vlsir.github.io/Vlsir
+repo_url: https://github.com/Vlsir/Vlsir
+repo_name: Vlsir/Vlsir
+
+nav:
+  - Overview: index.md
+  - Reference:
+    - Proto Schema: reference/protos.md
+    - VlsirTools: 
+      - Overview: reference/VlsirTools/index.md
+      - netlist: reference/VlsirTools/netlist.md
+      - spice: reference/VlsirTools/spice.md
+      - primitives: reference/VlsirTools/primitives.md
+      - pytest: reference/VlsirTools/pytest.md
+      - spicetype: reference/VlsirTools/spicetype.md
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.instant
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cascode-labs/viper
+
+plugins:
+- mkdocstrings:
+    enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
+    default_handler: python
+    handlers:
+      python:
+        options:
+          members: true
+          show_source: false
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
