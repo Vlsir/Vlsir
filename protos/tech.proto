@@ -61,4 +61,8 @@ message LayerInfo {
   // If the layer is PIN it probably denotes an access port to shapes on some
   // other layer(s), specified here:
   repeated LayerKey pin_access_for = 31;
+
+  // If the layer is a LABEL is probably denotes annotation for some other
+  // layer(s), specified here:
+  repeated LayerKey labels = 41;
 }
