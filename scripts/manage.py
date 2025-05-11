@@ -1,21 +1,21 @@
 """
-# Package Manager(?) Script 
+# Package Manager(?) Script
 
-Does the handful of things commonly required across (mostly Python) packages defined here. 
-An crucial element is the dependency-ordered `packages` list, 
-which enumerates a valid order for installing or publishing this set of packages 
-which tightly depend on one another. 
+Does the handful of things commonly required across (mostly Python) packages defined here.
+An crucial element is the dependency-ordered `packages` list,
+which enumerates a valid order for installing or publishing this set of packages
+which tightly depend on one another.
 
-- Build 
+- Build
     - Run the bindings build script
-- Installation 
-    - Creates "dev mode" `pip install`s for each package 
-- Publication 
+- Installation
+    - Creates "dev mode" `pip install`s for each package
+- Publication
     - Uploads each set of language-bindings to its language-specific package-distributor.
     - Generally requires the executing-user to be logged into, and have access to, each.
 
-While this script can be *run* anywhere, it expects that `Hdl21` is located alongside `Vlsir`, 
-i.e. that the two have a shared parent directory. 
+While this script can be *run* anywhere, it expects that `Hdl21` is located alongside `Vlsir`,
+i.e. that the two have a shared parent directory.
 """
 
 import os, argparse
@@ -118,25 +118,28 @@ def publish_pkg(pkg: Package) -> None:
     """Publish `pkg` to PyPi."""
     # NOTE re the tools used here: https://github.com/Vlsir/Vlsir/issues/90
 
-    # Build a source distribution
+    # Build distributions
     # No more `setup.py sdist`; that is bad now!
     # Use these guys: https://pypa-build.readthedocs.io/en/latest/
-    build = f"python -m build --sdist --no-isolation {str(pkg.path)}"
+    build = f"python -m build {str(pkg.path)}"
     run(build)
 
-    # Check it exists
     module_name = pkg.module_name or pkg.name
     tarball = pkg.path / f"dist/{module_name}-{VLSIR_VERSION}.tar.gz"
-    if not tarball.exists():
-        raise RuntimeError(f"Package build tarball {tarball} not found")
+    wheel = pkg.path / f"dist/{module_name}-{VLSIR_VERSION}-py3-none-any.whl"
 
-    # Run twine's built-in checks
-    check = f"twine check {str(tarball)}"
-    run(check)
+    for dist in (tarball, wheel):
+        # Check it exists
+        if not dist.exists():
+            raise RuntimeError(f"Package distribution {dist} not found")
 
-    # Upload it to PyPi
-    upload = f"twine upload {str(tarball)}"
-    run(upload)
+        # Run twine's built-in checks
+        check = f"twine check {str(dist)}"
+        run(check)
+
+        # Upload it to PyPi
+        upload = f"twine upload {str(dist)}"
+        run(upload)
 
     # And sit here a minute to let it really sink into that server
     run("sleep 10")
