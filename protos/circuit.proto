@@ -6,19 +6,6 @@ syntax = "proto3";
 package vlsir.circuit;
 import "utils.proto";
 
-// # Package
-// A Collection of Modules and ExternalModules
-message Package {
-  // Domain Name
-  string domain = 1;
-  // `Module` Definitions
-  repeated Module modules = 2;
-  // `ExternalModule` interfaces used by `modules`, and available externally
-  repeated ExternalModule ext_modules = 3;
-  // Description
-  string desc = 10;
-}
-
 // # Port
 // An externally-visible `Signal` with a `Direction`.
 message Port {
@@ -130,7 +117,6 @@ enum SpiceType {
 // Primarily for sake of port-ordering, for translation with connect-by-position
 // formats.
 message ExternalModule {
-
   // Qualified External Module Name
   vlsir.utils.QualifiedName name = 1;
   // Description
@@ -144,13 +130,4 @@ message ExternalModule {
   repeated vlsir.utils.Param parameters = 5;
   // Spice Type, SUBCKT by default
   SpiceType spicetype = 6;
-}
-
-// # Interface
-// Defines the logical IO of a `Module`
-message Interface {
-  // Cell Name
-  string name = 1;
-  // Port List
-  repeated Port ports = 10;
 }
