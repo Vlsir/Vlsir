@@ -38,7 +38,7 @@ setup(
         # Most binding-code is *not* generated per-schema, but is in the protobuf package,
         # And schema-derived types are generated on the fly.
         # So, versions before this will generally fail pretty hard.
-        "protobuf~=4.23"
+        "protobuf>=4.23"
     ],
     extras_require={"dev": ["vlsirdev"]},
 )
