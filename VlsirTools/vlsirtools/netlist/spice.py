@@ -540,15 +540,93 @@ class XyceNetlister(SpiceNetlister):
 
     def write_dc(self, an: vsp.DcInput) -> None:
         """# Write a DC analysis."""
-        raise NotImplementedError
+        # Unpack the `DcInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            self.writeln(
+                f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n"
+            )
+        elif sweep_type == "log":
+            sweep = an.sweep.log
+            self.writeln(
+                f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n"
+            )
+        elif sweep_type == "points":
+            sweep = an.sweep.points
+            self..writeln(
+                f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n"
+            )
+        else:
+            raise ValueError("Invalid sweep type")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print dc format=csv v(*) i(*) \n\n")
+
+        self.writeln(".end \n\n")
 
     def write_op(self, an: vsp.OpInput) -> None:
-        """# Write an operating point analysis."""
-        raise NotImplementedError
+        """Write an operating-point analysis.
+        Xyce describes the `.op` analysis as "partially supported".
+        Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
+
+        # Unpack the `OpInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Create the dummy parameter, and "sweep" a single value of it
+        dummy_param = f"_dummy_{random.randint(0,65536)}_"
+        self.writeln(f".param {dummy_param}=1 \n\n")
+
+        # Write the analysis command
+        self.writeln(f".dc {dummy_param} 1 1 1 \n\n")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print dc format=csv v(*) i(*) \n")
+
+        # And don't forget - the thing SPICE can't live without - END!
+        self.writeln(".end \n")
 
     def write_tran(self, an: vsp.TranInput) -> None:
         """# Write a transient analysis."""
-        raise NotImplementedError
+        # Extract fields from our `TranInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+
+        # Why not make tstop/tstep required?
+        if not an.tstop or not an.tstep:
+            raise ValueError("tstop and tstep must be defined")
+        tstop = an.tstop
+        tstep = an.tstep
+        if len(an.ic):
+            raise NotImplementedError
+        if len(an.ctrls):
+            raise NotImplementedError
+
+        # Write the analysis command
+        self.writeln(f".tran {tstep} {tstop} \n")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print tran format=csv v(*) i(*) \n")
+
+        # And don't forget - the thing SPICE can't live without - END!
+        self.writeln(".end \n\n")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
         """# Write a noise analysis."""
