@@ -563,7 +563,7 @@ class XyceNetlister(SpiceNetlister):
             )
         elif sweep_type == "points":
             sweep = an.sweep.points
-            self..writeln(
+            self.writeln(
                 f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n"
             )
         else:
