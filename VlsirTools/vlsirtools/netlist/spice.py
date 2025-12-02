@@ -571,9 +571,9 @@ class XyceNetlister(SpiceNetlister):
 
         # FIXME: always saving everything, no matter what
         # Note `csv` output-formatting is encoded here
-        self.writeln(".print dc format=csv v(*) i(*) \n\n")
+        self.writeln(".print dc format=csv v(*) i(*) \n")
 
-        self.writeln(".end \n\n")
+        self.writeln(".end \n")
 
     def write_op(self, an: vsp.OpInput) -> None:
         """Write an operating-point analysis.
@@ -589,10 +589,10 @@ class XyceNetlister(SpiceNetlister):
 
         # Create the dummy parameter, and "sweep" a single value of it
         dummy_param = f"_dummy_{random.randint(0,65536)}_"
-        self.writeln(f".param {dummy_param}=1 \n\n")
+        self.writeln(f".param {dummy_param}=1 \n")
 
         # Write the analysis command
-        self.writeln(f".dc {dummy_param} 1 1 1 \n\n")
+        self.writeln(f".dc {dummy_param} 1 1 1 \n")
 
         # FIXME: always saving everything, no matter what
         # Note `csv` output-formatting is encoded here
@@ -626,7 +626,7 @@ class XyceNetlister(SpiceNetlister):
         self.writeln(".print tran format=csv v(*) i(*) \n")
 
         # And don't forget - the thing SPICE can't live without - END!
-        self.writeln(".end \n\n")
+        self.writeln(".end \n")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
         """# Write a noise analysis."""
