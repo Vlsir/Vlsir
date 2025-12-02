@@ -1,34 +1,34 @@
-""" 
+"""
 # Spice Format Netlisting
 
-"Spice-format" is a bit of a misnomer in netlist-world. 
-Of the countless Spice-class simulators have been designed the past half-century, 
-most have a similar general netlist format, including: 
+"Spice-format" is a bit of a misnomer in netlist-world.
+Of the countless Spice-class simulators have been designed the past half-century,
+most have a similar general netlist format, including:
 
-* Simulation input comprises a file-full of: 
+* Simulation input comprises a file-full of:
   * (a) Circuit elements, arranged in `vlsir.Module`s, and
   * (b) Simulator control "cards", such as analysis statements, global parameters, measurements, probes, and the like.
-* Circuit-specification is aided by hierarchy, generally in the form of "sub-circuits", denoted `SUBCKT`. 
-  * Sub-circuits can commonly be parameterized, and can use a limited set of "parameter programming" to maniupulate their own parameter-values into those of their child-instances. 
+* Circuit-specification is aided by hierarchy, generally in the form of "sub-circuits", denoted `SUBCKT`.
+  * Sub-circuits can commonly be parameterized, and can use a limited set of "parameter programming" to maniupulate their own parameter-values into those of their child-instances.
   * For example, an instance might be declared as: `xdiode p n area=`width*length``, where `width` and `length` are parameters or its parent.
-* `Signal`s are all scalar nets, which are created "out of thin air" whenever referenced. 
-* "Typing" performed by instance-name prefixes, e.g. instances named `r1` being interpreted as resistors. 
-* Many other subtleties, such as the typical case-insensitivity of netlist content (e.g. `V1` and `v1` are the same net). 
+* `Signal`s are all scalar nets, which are created "out of thin air" whenever referenced.
+* "Typing" performed by instance-name prefixes, e.g. instances named `r1` being interpreted as resistors.
+* Many other subtleties, such as the typical case-insensitivity of netlist content (e.g. `V1` and `v1` are the same net).
 
-However each simulator also differs in ways large and small. 
-Common differences manifest in the areas of: 
+However each simulator also differs in ways large and small.
+Common differences manifest in the areas of:
 
-* How sub-circuits parameters are declared, and correspondingly how instance-parameter values are set. 
-  * Sandia Lab's *Xyce* differs in a prominent fashion, adding a `PARAMS:` keyword where declarations and values begin. 
+* How sub-circuits parameters are declared, and correspondingly how instance-parameter values are set.
+  * Sandia Lab's *Xyce* differs in a prominent fashion, adding a `PARAMS:` keyword where declarations and values begin.
 * How arithmetic expressions are specified, and what functions and expressions are available.
   * Common methods include back-ticks (Hspice) and squiggly-brackets (NgSpice).
-  * Notably the asterisk-character (`*`) is the comment-character in many of these formats, and must be wrapped in an expression to perform multiplication. 
-* The types and locations of *comments* that are supported. 
+  * Notably the asterisk-character (`*`) is the comment-character in many of these formats, and must be wrapped in an expression to perform multiplication.
+* The types and locations of *comments* that are supported.
   * Some include the fun behavior that comments beginning mid-line require *different* comment-characters from those starting at the beginning of a line.
-* While not an HDL attribute, they often differ even more in how simulation control is specified, particularly in analysis and saving is specified. 
+* While not an HDL attribute, they often differ even more in how simulation control is specified, particularly in analysis and saving is specified.
 
-"Spice" netlisting therefore requires a small family of "Spice Dialects", 
-heavily re-using a central `SpiceNetlister` class, but requiring simulator-specific implementation details. 
+"Spice" netlisting therefore requires a small family of "Spice Dialects",
+heavily re-using a central `SpiceNetlister` class, but requiring simulator-specific implementation details.
 
 """
 
@@ -553,14 +553,10 @@ class XyceNetlister(SpiceNetlister):
         sweep_type = an.sweep.WhichOneof("tp")
         if sweep_type == "linear":
             sweep = an.sweep.linear
-            self.writeln(
-                f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n"
-            )
+            self.writeln(f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n")
         elif sweep_type == "log":
             sweep = an.sweep.log
-            self.writeln(
-                f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n"
-            )
+            self.writeln(f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n")
         elif sweep_type == "points":
             sweep = an.sweep.points
             self.writeln(
