@@ -643,7 +643,6 @@ def test_noise1():
 def test_ngspice_forward_flags():
     """# Regression test for #110
     Handle extra flags like 'forward' in nutbin output."""
-    import os
     from vlsirtools.spice.ngspice import parse_nutbin_analysis, NumType
 
     # A mock "nutbin" file content with the problematic "Flags: real forward"
