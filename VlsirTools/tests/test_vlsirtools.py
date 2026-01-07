@@ -656,8 +656,7 @@ def test_ngspice_forward_flags():
         b"No. Points: 1\n"
         b"Variables:\n"
         b"\t0\tv(1)\tvoltage\n"
-        b"Binary:\n"
-        + np.array([1.0], dtype="<f8").tobytes()
+        b"Binary:\n" + np.array([1.0], dtype="<f8").tobytes()
     )
 
     fname = "test_ngspice_forward_flags.raw"
@@ -715,4 +714,6 @@ write ./test.raw
         assert results, "No results parsed from nutbin file"
         for analysis, res in results.items():
             assert hasattr(res, "data"), "Parsed result missing data field"
-            assert any(len(arr) > 0 for arr in res.data.values()), "No data in parsed result"
+            assert any(
+                len(arr) > 0 for arr in res.data.values()
+            ), "No data in parsed result"
