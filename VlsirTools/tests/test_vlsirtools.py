@@ -3,6 +3,7 @@
 Unit Tests
 """
 
+import os
 import numpy as np
 import pytest
 from io import StringIO
@@ -678,3 +679,40 @@ def test_ngspice_forward_flags():
     finally:
         if os.path.exists(fname):
             os.remove(fname)
+
+
+@pytest.mark.ngspice
+def test_integration_ngspice_nutbin():
+    """
+    Integration test: run ngspice via vlsirtools, generate nutbin output, and parse it.
+    """
+    import tempfile
+    from vlsirtools.spice.ngspice import parse_nutbin
+
+    # Minimal netlist: voltage source and resistor
+    netlist = """
+V1 1 0 1
+R1 1 0 1k
+.control
+op
+set filetype=binary
+write ./test.raw
+.endc
+.end
+"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        netlist_path = os.path.join(tmpdir, "test.sp")
+        raw_path = os.path.join(tmpdir, "test.raw")
+        with open(netlist_path, "w") as f:
+            f.write(netlist)
+        # Run ngspice in the temp dir so output is placed there
+        os.system(f"cd {tmpdir} && ngspice -b test.sp")
+        # Parse nutbin
+        assert os.path.exists(raw_path), f"ngspice did not produce {raw_path}"
+        with open(raw_path, "rb") as f:
+            results = parse_nutbin(f)
+        # Check results
+        assert results, "No results parsed from nutbin file"
+        for analysis, res in results.items():
+            assert hasattr(res, "data"), "Parsed result missing data field"
+            assert any(len(arr) > 0 for arr in res.data.values()), "No data in parsed result"
