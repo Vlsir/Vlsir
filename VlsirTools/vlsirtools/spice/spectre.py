@@ -222,38 +222,64 @@ def parse_nutbin(f: IO) -> Mapping[str, NutBinAnalysis]:
     Returns results as a dictionary from `analysis_name` to `NutBinAnalysis`.
     Note this is paired with the simulator invocation commands, which include `format=nutbin`."""
 
-    # Parse per-file header info
-    # First 2 lines are ascii one line statements
-    _title = f.readline()  # Title, ignored
-    _date = f.readline()  # Run date, ignored
-
-    # And parse the rest of the file per-analysis
+    # And parse the file per-analysis
     rv = {}
-    while f:
-        plotname = f.readline().decode("ascii")  # Simulation name
-        if len(plotname) == 0:
+    while True:
+        line = f.readline()
+        if not line:
             break
-        an = parse_nutbin_analysis(f, plotname)
-        rv[an.analysis_name] = an
+        # Headers like Title, Date, and Command often precede the first Plotname.
+        # Some versions repeat them per-plot; some do not.
+        # We skip everything until we find a `Plotname` line.
+        line_str = line.decode("ascii")
+        if line_str.startswith("Plotname:"):
+            an = parse_nutbin_analysis(f, line_str)
+            rv[an.analysis_name] = an
     return rv
 
 
 def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
     """Parse a `NutBinAnalysis` from an open nutbin-format file `f`."""
 
-    # Next 4 lines are also ascii one line statements
     # Parse the `Flags` field, which primarily includes the numeric datatype
-    flags = f.readline().decode("ascii")
-    flags = flags.split()
-    if len(flags) != 2 or flags[0] != "Flags:":
+    # Skip any other header lines until we find it.
+    while True:
+        flags_line = f.readline().decode("ascii")
+        if not flags_line:
+            raise ValueError(f"Could not find Flags line for plot {plotname}")
+        if flags_line.startswith("Flags:"):
+            break
+
+    flags = flags_line.split()
+
+    if "real" in flags:
+        numtype = NumType.REAL
+    elif "complex" in flags:
+        numtype = NumType.COMPLEX
+    elif len(flags) > 1:
+        # Fallback for any other types we might have missed
+        numtype = NumType.from_str(flags[1])
+    else:
         raise ValueError(f"Invalid flags {flags}")
-    numtype = NumType.from_str(flags[1])
+
     nptypes = {NumType.REAL: float, NumType.COMPLEX: complex}
     nptype = nptypes[numtype]
 
     # Parse the number of variables and points
-    num_vars_line = f.readline()  # No. Variables:   [nvar]
-    num_pts_line = f.readline()  # No. Points:      [npts]
+    # Skip any other header lines until we find them.
+    while True:
+        num_vars_line = f.readline()
+        if not num_vars_line:
+            raise ValueError(f"Could not find No. Variables line for plot {plotname}")
+        if num_vars_line.decode("ascii").startswith("No. Variables:"):
+            break
+    while True:
+        num_pts_line = f.readline()
+        if not num_pts_line:
+            raise ValueError(f"Could not find No. Points line for plot {plotname}")
+        if num_pts_line.decode("ascii").startswith("No. Points:"):
+            break
+
     sim_name = plotname.split("`")[-1].split("'")[0]
 
     # Find the number of variables and number of points
@@ -272,14 +298,25 @@ def parse_nutbin_analysis(f: IO, plotname: str) -> NutBinAnalysis:
 
     # Decode the variables spec, looks like the following
     # Variables: [Variable idx] [Variable name] [units] [optional_flags]
-    var_line = f.readline().decode("ascii")
-    var_specs = [_read_var_spec(var_line[10:])]
-    for i in range(num_vars - 1):
+    while True:
+        line = f.readline().decode("ascii")
+        if not line:
+            raise ValueError(f"Could not find Variables: line for plot {plotname}")
+        if line.startswith("Variables:"):
+            break
+
+    var_specs = []
+    for i in range(num_vars):
         var_specs.append(_read_var_spec(f.readline().decode("ascii")))
 
     # Read the binary data, should look like the following:
     # Binary: \n[Binary data]
-    binary_line = f.readline().decode("ascii")
+    while True:
+        binary_line = f.readline().decode("ascii")
+        if not binary_line:
+            raise ValueError(f"Could not find Binary: line for plot {plotname}")
+        if binary_line.startswith("Binary:"):
+            break
     assert binary_line == "Binary:\n"
     # Data is big endian
     bin_data = np.fromfile(

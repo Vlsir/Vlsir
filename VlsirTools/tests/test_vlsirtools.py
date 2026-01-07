@@ -637,3 +637,44 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
+
+
+def test_ngspice_forward_flags():
+    """# Regression test for #110
+    Handle extra flags like 'forward' in nutbin output."""
+    import os
+    from vlsirtools.spice.ngspice import parse_nutbin_analysis, NumType
+
+    # A mock "nutbin" file content with the problematic "Flags: real forward"
+    dummy_raw_content = (
+        b"Title: demo\n"
+        b"Date: Wed Jan  7 2026\n"
+        b"Plotname: DC transfer characteristic\n"
+        b"Flags: real forward\n"
+        b"No. Variables: 1\n"
+        b"No. Points: 1\n"
+        b"Variables:\n"
+        b"\t0\tv(1)\tvoltage\n"
+        b"Binary:\n"
+        + np.array([1.0], dtype="<f8").tobytes()
+    )
+
+    fname = "test_ngspice_forward_flags.raw"
+    with open(fname, "wb") as tmp:
+        tmp.write(dummy_raw_content)
+
+    try:
+        with open(fname, "rb") as f:
+            # Skip title and date like the main parser
+            f.readline()
+            f.readline()
+            plotname = f.readline().decode("ascii")
+
+            res = parse_nutbin_analysis(f, plotname)
+            assert res.numtype == NumType.REAL
+            assert res.analysis_name == "Plotname: DC transfer characteristic\n"
+            assert "v(1)" in res.data
+            assert res.data["v(1)"][0] == 1.0
+    finally:
+        if os.path.exists(fname):
+            os.remove(fname)
