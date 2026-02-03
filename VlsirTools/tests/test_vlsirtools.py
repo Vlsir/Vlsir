@@ -3,6 +3,7 @@
 Unit Tests
 """
 
+import os
 import numpy as np
 import pytest
 from io import StringIO
@@ -637,3 +638,81 @@ def test_noise1():
             simulator=SupportedSimulators.NGSPICE, fmt=ResultFormat.SIM_DATA
         ),
     )
+
+
+def test_ngspice_forward_flags():
+    """# Regression test for #110
+    Handle extra flags like 'forward' in nutbin output."""
+    from vlsirtools.spice.ngspice import parse_nutbin_analysis, NumType
+
+    # A mock "nutbin" file content with the problematic "Flags: real forward"
+    dummy_raw_content = (
+        b"Title: demo\n"
+        b"Date: Wed Jan  7 2026\n"
+        b"Plotname: DC transfer characteristic\n"
+        b"Flags: real forward\n"
+        b"No. Variables: 1\n"
+        b"No. Points: 1\n"
+        b"Variables:\n"
+        b"\t0\tv(1)\tvoltage\n"
+        b"Binary:\n" + np.array([1.0], dtype="<f8").tobytes()
+    )
+
+    fname = "test_ngspice_forward_flags.raw"
+    with open(fname, "wb") as tmp:
+        tmp.write(dummy_raw_content)
+
+    try:
+        with open(fname, "rb") as f:
+            # Skip title and date like the main parser
+            f.readline()
+            f.readline()
+            plotname = f.readline().decode("ascii")
+
+            res = parse_nutbin_analysis(f, plotname)
+            assert res.numtype == NumType.REAL
+            assert res.analysis_name == "Plotname: DC transfer characteristic\n"
+            assert "v(1)" in res.data
+            assert res.data["v(1)"][0] == 1.0
+    finally:
+        if os.path.exists(fname):
+            os.remove(fname)
+
+
+@pytest.mark.ngspice
+def test_integration_ngspice_nutbin():
+    """
+    Integration test: run ngspice via vlsirtools, generate nutbin output, and parse it.
+    """
+    import tempfile
+    from vlsirtools.spice.ngspice import parse_nutbin
+
+    # Minimal netlist: voltage source and resistor
+    netlist = """
+V1 1 0 1
+R1 1 0 1k
+.control
+op
+set filetype=binary
+write ./test.raw
+.endc
+.end
+"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        netlist_path = os.path.join(tmpdir, "test.sp")
+        raw_path = os.path.join(tmpdir, "test.raw")
+        with open(netlist_path, "w") as f:
+            f.write(netlist)
+        # Run ngspice in the temp dir so output is placed there
+        os.system(f"cd {tmpdir} && ngspice -b test.sp")
+        # Parse nutbin
+        assert os.path.exists(raw_path), f"ngspice did not produce {raw_path}"
+        with open(raw_path, "rb") as f:
+            results = parse_nutbin(f)
+        # Check results
+        assert results, "No results parsed from nutbin file"
+        for analysis, res in results.items():
+            assert hasattr(res, "data"), "Parsed result missing data field"
+            assert any(
+                len(arr) > 0 for arr in res.data.values()
+            ), "No data in parsed result"
