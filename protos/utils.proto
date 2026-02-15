@@ -92,21 +92,6 @@ message Reference {
   }
 }
 
-// # Library Metadata
-//
-// Summary information about any of several categories of `Library`, including:
-// * Library domain
-// * (String) cell names
-// * Author information
-message LibraryMetadata {
-  // Library Name / Domain
-  string domain = 1;
-  // Cell Names
-  repeated string cell_names = 10;
-  // Author Information
-  AuthorMetadata author = 20;
-}
-
 // # Authorship Metadata
 //
 // Summary information regarding authorship, ownership, and licensing
