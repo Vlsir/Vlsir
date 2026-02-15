@@ -1,34 +1,34 @@
-""" 
+"""
 # Spice Format Netlisting
 
-"Spice-format" is a bit of a misnomer in netlist-world. 
-Of the countless Spice-class simulators have been designed the past half-century, 
-most have a similar general netlist format, including: 
+"Spice-format" is a bit of a misnomer in netlist-world.
+Of the countless Spice-class simulators have been designed the past half-century,
+most have a similar general netlist format, including:
 
-* Simulation input comprises a file-full of: 
+* Simulation input comprises a file-full of:
   * (a) Circuit elements, arranged in `vlsir.Module`s, and
   * (b) Simulator control "cards", such as analysis statements, global parameters, measurements, probes, and the like.
-* Circuit-specification is aided by hierarchy, generally in the form of "sub-circuits", denoted `SUBCKT`. 
-  * Sub-circuits can commonly be parameterized, and can use a limited set of "parameter programming" to maniupulate their own parameter-values into those of their child-instances. 
+* Circuit-specification is aided by hierarchy, generally in the form of "sub-circuits", denoted `SUBCKT`.
+  * Sub-circuits can commonly be parameterized, and can use a limited set of "parameter programming" to maniupulate their own parameter-values into those of their child-instances.
   * For example, an instance might be declared as: `xdiode p n area=`width*length``, where `width` and `length` are parameters or its parent.
-* `Signal`s are all scalar nets, which are created "out of thin air" whenever referenced. 
-* "Typing" performed by instance-name prefixes, e.g. instances named `r1` being interpreted as resistors. 
-* Many other subtleties, such as the typical case-insensitivity of netlist content (e.g. `V1` and `v1` are the same net). 
+* `Signal`s are all scalar nets, which are created "out of thin air" whenever referenced.
+* "Typing" performed by instance-name prefixes, e.g. instances named `r1` being interpreted as resistors.
+* Many other subtleties, such as the typical case-insensitivity of netlist content (e.g. `V1` and `v1` are the same net).
 
-However each simulator also differs in ways large and small. 
-Common differences manifest in the areas of: 
+However each simulator also differs in ways large and small.
+Common differences manifest in the areas of:
 
-* How sub-circuits parameters are declared, and correspondingly how instance-parameter values are set. 
-  * Sandia Lab's *Xyce* differs in a prominent fashion, adding a `PARAMS:` keyword where declarations and values begin. 
+* How sub-circuits parameters are declared, and correspondingly how instance-parameter values are set.
+  * Sandia Lab's *Xyce* differs in a prominent fashion, adding a `PARAMS:` keyword where declarations and values begin.
 * How arithmetic expressions are specified, and what functions and expressions are available.
   * Common methods include back-ticks (Hspice) and squiggly-brackets (NgSpice).
-  * Notably the asterisk-character (`*`) is the comment-character in many of these formats, and must be wrapped in an expression to perform multiplication. 
-* The types and locations of *comments* that are supported. 
+  * Notably the asterisk-character (`*`) is the comment-character in many of these formats, and must be wrapped in an expression to perform multiplication.
+* The types and locations of *comments* that are supported.
   * Some include the fun behavior that comments beginning mid-line require *different* comment-characters from those starting at the beginning of a line.
-* While not an HDL attribute, they often differ even more in how simulation control is specified, particularly in analysis and saving is specified. 
+* While not an HDL attribute, they often differ even more in how simulation control is specified, particularly in analysis and saving is specified.
 
-"Spice" netlisting therefore requires a small family of "Spice Dialects", 
-heavily re-using a central `SpiceNetlister` class, but requiring simulator-specific implementation details. 
+"Spice" netlisting therefore requires a small family of "Spice Dialects",
+heavily re-using a central `SpiceNetlister` class, but requiring simulator-specific implementation details.
 
 """
 
@@ -540,15 +540,89 @@ class XyceNetlister(SpiceNetlister):
 
     def write_dc(self, an: vsp.DcInput) -> None:
         """# Write a DC analysis."""
-        raise NotImplementedError
+        # Unpack the `DcInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Write the analysis command
+        param = an.indep_name
+        ## Interpret the sweep
+        sweep_type = an.sweep.WhichOneof("tp")
+        if sweep_type == "linear":
+            sweep = an.sweep.linear
+            self.writeln(f".dc LIN {param} {sweep.start} {sweep.stop} {sweep.step}\n")
+        elif sweep_type == "log":
+            sweep = an.sweep.log
+            self.writeln(f".dc DEC {param} {sweep.start} {sweep.stop} {sweep.npts}\n")
+        elif sweep_type == "points":
+            sweep = an.sweep.points
+            self.writeln(
+                f".dc {param} LIST {' '.join([str(pt) for pt in sweep.points])}\n"
+            )
+        else:
+            raise ValueError("Invalid sweep type")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print dc format=csv v(*) i(*) \n")
+
+        self.writeln(".end \n")
 
     def write_op(self, an: vsp.OpInput) -> None:
-        """# Write an operating point analysis."""
-        raise NotImplementedError
+        """Write an operating-point analysis.
+        Xyce describes the `.op` analysis as "partially supported".
+        Here the `vsp.Op` analysis is mapped to DC, with a dummy sweep."""
+
+        # Unpack the `OpInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+        if len(an.ctrls):
+            raise NotImplementedError  # FIXME!
+
+        # Create the dummy parameter, and "sweep" a single value of it
+        dummy_param = f"_dummy_{random.randint(0,65536)}_"
+        self.writeln(f".param {dummy_param}=1 \n")
+
+        # Write the analysis command
+        self.writeln(f".dc {dummy_param} 1 1 1 \n")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print dc format=csv v(*) i(*) \n")
+
+        # And don't forget - the thing SPICE can't live without - END!
+        self.writeln(".end \n")
 
     def write_tran(self, an: vsp.TranInput) -> None:
         """# Write a transient analysis."""
-        raise NotImplementedError
+        # Extract fields from our `TranInput`
+        if not an.analysis_name:
+            raise RuntimeError(f"Analysis name required for {an}")
+        analysis_name = an.analysis_name
+
+        # Why not make tstop/tstep required?
+        if not an.tstop or not an.tstep:
+            raise ValueError("tstop and tstep must be defined")
+        tstop = an.tstop
+        tstep = an.tstep
+        if len(an.ic):
+            raise NotImplementedError
+        if len(an.ctrls):
+            raise NotImplementedError
+
+        # Write the analysis command
+        self.writeln(f".tran {tstep} {tstop} \n")
+
+        # FIXME: always saving everything, no matter what
+        # Note `csv` output-formatting is encoded here
+        self.writeln(".print tran format=csv v(*) i(*) \n")
+
+        # And don't forget - the thing SPICE can't live without - END!
+        self.writeln(".end \n")
 
     def write_noise(self, an: vsp.NoiseInput) -> None:
         """# Write a noise analysis."""
